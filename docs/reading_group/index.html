@@ -4,48 +4,309 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reading Group — Kai Gu</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
   <style>
-    :root { --navy: #1a1a1a; --accent: #c96442; --accent-hover: #a8502f; --muted: #7a706b; --border: #e6ddd6; --bg: #faf7f4; }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--navy); line-height: 1.6; }
-    header { border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; align-items: center; gap: 1.5rem; }
-    header a { font-size: 0.75rem; color: var(--muted); text-decoration: none; letter-spacing: 0.05em; }
-    header a:hover { color: var(--accent); }
-    header span { font-size: 0.75rem; color: var(--border); }
-    header h1 { font-size: 0.95rem; font-weight: 600; }
-    main { max-width: 720px; margin: 0 auto; padding: 3rem 2rem; }
-    h2 { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 1.5rem; }
-    .list { list-style: none; }
-    .list li { border-bottom: 1px solid var(--border); }
-    .list li:first-child { border-top: 1px solid var(--border); }
-    .list a {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1rem 0;
-      text-decoration: none; color: var(--navy);
-      font-size: 0.92rem;
-      transition: color 0.15s;
+    :root {
+      --bg:           #f9f5ef;
+      --navy:         #1a1108;
+      --accent:       #cc5a2e;
+      --accent-hover: #a8441d;
+      --muted:        #7a6a58;
+      --border:       #e6ddd0;
+      --card-bg:      #ffffff;
+      --tag-bg:       #ede5d8;
     }
-    .list a:hover { color: var(--accent); }
-    .list a span { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
-    .list a:hover span { color: var(--accent); }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 20px; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--navy);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(249, 245, 239, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    header a {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+    }
+    header a:hover { color: var(--accent); }
+    header .sep   { font-size: 0.65rem; color: var(--border); }
+    header .crumb { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy); }
+
+    /* ── Hero ── */
+    .hero {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 5rem 3rem 2.75rem;
+    }
+    .hero-eyebrow {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3.4rem;
+      font-weight: 400;
+      line-height: 1.1;
+      color: var(--navy);
+      margin-bottom: 1.1rem;
+    }
+    .hero h1 em { font-style: italic; }
+    .hero p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.75;
+    }
+
+    /* ── Filter bar ── */
+    .filter-bar {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 3rem 2.5rem;
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.85rem;
+      border-radius: 100px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.14s, border-color 0.14s, color 0.14s;
+    }
+    .filter-btn:hover { border-color: var(--navy); color: var(--navy); }
+    .filter-btn.active { background: var(--navy); border-color: var(--navy); color: #fff; }
+
+    /* ── Article list ── */
+    .articles {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 3rem 5rem;
+      border-top: 1px solid var(--border);
+    }
+    .article-card {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 1.75rem 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      transition: opacity 0.14s;
+    }
+    .article-card:hover { opacity: 0.65; }
+
+    .article-left { flex: 1; min-width: 0; }
+
+    .article-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--navy);
+      line-height: 1.35;
+      margin-bottom: 0.55rem;
+    }
+    .article-sub {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.65rem;
+      font-style: normal;
+      font-weight: 400;
+      color: var(--muted);
+      margin-left: 0.35rem;
+    }
+
+    .article-tags { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+
+    .tag {
+      font-size: 0.52rem;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      padding: 0.18rem 0.55rem;
+      border-radius: 100px;
+    }
+    .tag-recommender { background: #e3eeea; color: #20523a; }
+    .tag-cultural    { background: #ece7f4; color: #4b3372; }
+    .tag-llm         { background: #fde9de; color: #8c3312; }
+    .tag-nlp         { background: #ddeaf8; color: #1a3f72; }
+    .tag-policy      { background: #f6ece0; color: #6b3c0a; }
+
+    .article-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.35rem;
+      flex-shrink: 0;
+      padding-top: 0.1rem;
+    }
+    .article-format {
+      font-size: 0.55rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .article-arrow {
+      font-size: 0.85rem;
+      color: var(--border);
+      transition: color 0.14s;
+    }
+    .article-card:hover .article-arrow { color: var(--accent); }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      html { font-size: 17px; }
+      header { padding: 0.9rem 1.25rem; }
+      .hero { padding: 3rem 1.25rem 2rem; }
+      .hero h1 { font-size: 2.4rem; }
+      .filter-bar { padding: 0 1.25rem 2rem; }
+      .articles { padding: 0 1.25rem 3rem; }
+      .article-meta { display: none; }
+    }
   </style>
 </head>
 <body>
+
   <header>
-    <a href="/">← Kai Gu</a>
-    <span>/</span>
-    <h1>Reading Group</h1>
+    <a href="/">Kai Gu</a>
+    <span class="sep">/</span>
+    <span class="crumb">Reading Group</span>
   </header>
-  <main>
-    <h2>Slides</h2>
-    <ul class="list">
-      <li><a href="0227_Consent_in_Crisis/">Consent in Crisis <span>PDF →</span></a></li>
-      <li><a href="1031_Reading_Orwell_on_Moscow/">Reading Orwell on Moscow <span>PDF →</span></a></li>
-      <li><a href="1201Cloze/">Cloze <span>PDF →</span></a></li>
-      <li><a href="Blank2026_HouseholdGenAI/">Household GenAI (Blank 2026) <span>HTML →</span></a></li>
-      <li><a href="BNP_for_recommending_systems/">BNP for Recommending Systems <span>PDF →</span></a></li>
-    </ul>
-  </main>
+
+  <div class="hero">
+    <p class="hero-eyebrow">Bocconi · Marketing PhD</p>
+    <h1>Reading Group<br><em>Slides</em></h1>
+    <p>Presentation slides from our weekly reading group, spanning recommender systems, cultural consumption, and language models.</p>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="recommender">Recommender Systems</button>
+    <button class="filter-btn" data-filter="cultural">Cultural Consumption</button>
+    <button class="filter-btn" data-filter="llm">LLMs &amp; GenAI</button>
+    <button class="filter-btn" data-filter="nlp">NLP</button>
+    <button class="filter-btn" data-filter="policy">Policy &amp; Governance</button>
+  </div>
+
+  <div class="articles">
+
+    <a class="article-card" href="BNP_for_recommending_systems/" data-categories="recommender">
+      <div class="article-left">
+        <p class="article-title">BNP for Recommending Systems</p>
+        <div class="article-tags">
+          <span class="tag tag-recommender">Recommender Systems</span>
+        </div>
+      </div>
+      <div class="article-meta">
+        <span class="article-format">PDF</span>
+        <span class="article-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="article-card" href="1031_Reading_Orwell_on_Moscow/" data-categories="cultural">
+      <div class="article-left">
+        <p class="article-title">Reading Orwell on Moscow</p>
+        <div class="article-tags">
+          <span class="tag tag-cultural">Cultural Consumption</span>
+        </div>
+      </div>
+      <div class="article-meta">
+        <span class="article-format">PDF</span>
+        <span class="article-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="article-card" href="0227_Consent_in_Crisis/" data-categories="policy cultural">
+      <div class="article-left">
+        <p class="article-title">Consent in Crisis</p>
+        <div class="article-tags">
+          <span class="tag tag-policy">Policy &amp; Governance</span>
+          <span class="tag tag-cultural">Cultural Consumption</span>
+        </div>
+      </div>
+      <div class="article-meta">
+        <span class="article-format">PDF</span>
+        <span class="article-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="article-card" href="Blank2026_HouseholdGenAI/" data-categories="llm">
+      <div class="article-left">
+        <p class="article-title">Household GenAI <span class="article-sub">Blank 2026</span></p>
+        <div class="article-tags">
+          <span class="tag tag-llm">LLMs &amp; GenAI</span>
+        </div>
+      </div>
+      <div class="article-meta">
+        <span class="article-format">HTML</span>
+        <span class="article-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="article-card" href="1201Cloze/" data-categories="nlp llm">
+      <div class="article-left">
+        <p class="article-title">Cloze</p>
+        <div class="article-tags">
+          <span class="tag tag-nlp">NLP</span>
+          <span class="tag tag-llm">LLMs &amp; GenAI</span>
+        </div>
+      </div>
+      <div class="article-meta">
+        <span class="article-format">PDF</span>
+        <span class="article-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+  <script>
+    const btns  = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.article-card');
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        cards.forEach(card => {
+          const show = f === 'all' || card.dataset.categories.split(' ').includes(f);
+          card.style.display = show ? 'flex' : 'none';
+        });
+      });
+    });
+  </script>
+
 </body>
 </html>
