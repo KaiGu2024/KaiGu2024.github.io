@@ -1,0 +1,726 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blank, Schubert & Zhang (2026)</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/white.css">
+  <style>
+    /* ── Typography ── */
+    :root {
+      --r-main-font: 'Georgia', 'Times New Roman', serif;
+      --r-heading-font: 'Georgia', 'Times New Roman', serif;
+      --r-main-font-size: 26px;
+      --r-main-color: #111;
+      --r-heading-color: #111;
+      --r-link-color: #1a4a8a;
+      --accent: #1a4a8a;
+      --rule: #ccc;
+    }
+
+    /* ── Slide frame ── */
+    .reveal .slides section {
+      text-align: left;
+      padding: 0 0.5em 2em;
+      overflow-y: auto;
+      height: 650px;
+    }
+    .reveal .slides section::-webkit-scrollbar { width: 4px; }
+    .reveal .slides section::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+    /* ── Slide title bar ── */
+    .reveal h2 {
+      font-size: 1.05em;
+      font-weight: bold;
+      color: var(--accent);
+      border-bottom: 1.5px solid var(--accent);
+      padding-bottom: 0.2em;
+      margin-bottom: 0.6em;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    /* ── Title slide ── */
+    .reveal h1 {
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #111;
+      line-height: 1.3;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    /* ── Body text ── */
+    .reveal p, .reveal li {
+      font-size: 0.78em;
+      line-height: 1.55;
+      color: #111;
+    }
+    .reveal ul, .reveal ol { margin-left: 1.2em; }
+    .reveal ul li { list-style: disc; margin-bottom: 0.3em; }
+    .reveal ol li { margin-bottom: 0.3em; }
+
+    /* ── Tables — booktabs style ── */
+    .reveal table {
+      font-size: 0.72em;
+      border-collapse: collapse;
+      width: 100%;
+      margin: 0.4em 0;
+    }
+    .reveal table thead tr {
+      border-top: 2px solid #111;
+      border-bottom: 1px solid #111;
+    }
+    .reveal table tbody tr:last-child {
+      border-bottom: 2px solid #111;
+    }
+    .reveal table th {
+      font-weight: bold;
+      padding: 4px 10px;
+      background: none;
+      color: #111;
+      text-align: center;
+    }
+    .reveal table td {
+      padding: 3px 10px;
+      border: none;
+      color: #111;
+      text-align: center;
+    }
+    .reveal table td:first-child { text-align: left; }
+    .reveal table th:first-child { text-align: left; }
+    .reveal table tbody tr:nth-child(even) td { background: #f7f7f7; }
+
+    /* ── Layout helpers ── */
+    .cols { display: grid; gap: 1.5em; }
+    .cols-2 { grid-template-columns: 1fr 1fr; }
+    .cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+
+    /* ── Callout / alert box ── */
+    .box {
+      border-left: 3px solid var(--accent);
+      background: #f0f4fa;
+      padding: 0.5em 0.8em;
+      margin: 0.5em 0;
+      font-size: 0.76em;
+      line-height: 1.5;
+    }
+    .box-gray {
+      border-left: 3px solid #aaa;
+      background: #f6f6f6;
+      padding: 0.4em 0.8em;
+      margin: 0.4em 0;
+      font-size: 0.72em;
+      color: #555;
+    }
+
+    /* ── Coefficient colours ── */
+    .pos { color: #1b6b1b; font-weight: bold; }
+    .neg { color: #a31515; font-weight: bold; }
+    .nul { color: #888; }
+    .hl  { color: var(--accent); font-weight: bold; }
+    .stars { font-size: 0.85em; }
+
+    /* ── Section label (small caps style) ── */
+    .section-tag {
+      font-size: 0.62em;
+      color: #888;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.15em;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      position: absolute;
+      bottom: 0.4em;
+      right: 0.8em;
+      font-size: 0.48em;
+      color: #aaa;
+      font-style: italic;
+    }
+
+    /* ── Subheading inside slide ── */
+    .sh {
+      font-weight: bold;
+      font-size: 0.78em;
+      color: #111;
+      margin: 0.5em 0 0.15em;
+      border-bottom: 1px solid #ddd;
+    }
+
+    /* ── Equation-style highlight ── */
+    .eq {
+      font-family: 'Courier New', monospace;
+      background: #f4f4f4;
+      padding: 0.3em 0.7em;
+      font-size: 0.72em;
+      display: block;
+      margin: 0.4em 0;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ── 1. TITLE ─────────────────────────────────────────── -->
+<section>
+  <div style="padding-top:1em;">
+    <p class="section-tag">Reading Group Presentation</p>
+    <h1>The Household Impact of Generative AI:<br>
+        Evidence from Internet Browsing Behavior</h1>
+    <hr style="border:none; border-top:1px solid #ccc; margin:0.8em 0;">
+    <p style="font-size:0.8em; margin:0.2em 0;">
+      Michael Blank &ensp;·&ensp; Gregor Schubert &ensp;·&ensp; Miao Ben Zhang
+    </p>
+    <p style="font-size:0.68em; color:#555; margin:0.15em 0;">
+      Stanford GSB &ensp;·&ensp; UCLA Anderson &ensp;·&ensp; USC Marshall
+    </p>
+    <p style="font-size:0.65em; color:#888; margin-top:0.6em;">
+      Working Paper &ensp;·&ensp; arXiv 2603.03144 &ensp;·&ensp; March 2026
+    </p>
+  </div>
+  <div class="footer">Blank, Schubert &amp; Zhang (2026)</div>
+</section>
+
+<!-- ── 2. AUTHOR BIOS ────────────────────────────────────── -->
+<section>
+  <h2>Authors</h2>
+  <div class="cols cols-3" style="align-items:start;">
+
+    <div style="text-align:center;">
+      <img src="../attachment/blank2026/authors/michal_blan.png"
+           style="width:110px; height:110px; object-fit:cover; object-position:center top;
+                  border-radius:50%; border:1px solid #ddd; display:block; margin:0 auto 0.5em;">
+      <div class="sh" style="text-align:left;">Michael Blank</div>
+      <p style="font-size:0.68em; color:#555; margin:0.1em 0 0.3em; text-align:left;">
+        Assistant Professor of Finance<br>Stanford Graduate School of Business
+      </p>
+      <p style="font-size:0.68em; text-align:left;">
+        PhD, Harvard University (2024)<br>
+        Research: household finance, technology adoption, digital economics
+      </p>
+    </div>
+
+    <div style="text-align:center;">
+      <img src="../attachment/blank2026/authors/Gregor_Schubert.png"
+           style="width:110px; height:110px; object-fit:cover; object-position:center top;
+                  border-radius:50%; border:1px solid #ddd; display:block; margin:0 auto 0.5em;">
+      <div class="sh" style="text-align:left;">Gregor Schubert</div>
+      <p style="font-size:0.68em; color:#555; margin:0.1em 0 0.3em; text-align:left;">
+        Assistant Professor of Finance<br>UCLA Anderson School of Management
+      </p>
+      <p style="font-size:0.68em; text-align:left;">
+        PhD, Harvard University (2021)<br>
+        Research: AI &amp; labor markets, housing finance, urban economics
+      </p>
+    </div>
+
+    <div style="text-align:center;">
+      <img src="../attachment/blank2026/authors/miaoben_zhang.png"
+           style="width:110px; height:110px; object-fit:cover; object-position:center top;
+                  border-radius:50%; border:1px solid #ddd; display:block; margin:0 auto 0.5em;">
+      <div class="sh" style="text-align:left;">Miao Ben Zhang</div>
+      <p style="font-size:0.68em; color:#555; margin:0.1em 0 0.3em; text-align:left;">
+        Assistant Professor of Finance &amp; Business Economics<br>USC Marshall School of Business
+      </p>
+      <p style="font-size:0.68em; text-align:left;">
+        PhD, University of Texas at Austin (2016)<br>
+        BS (Mathematics), Peking University<br>
+        Research: labor &amp; finance, firm dynamics, AI &amp; big data
+      </p>
+    </div>
+
+  </div>
+  <div class="box-gray" style="margin-top:0.6em; font-size:0.65em;">
+    <strong>How they met:</strong> Blank and Schubert overlapped at Harvard Business Economics (Schubert PhD 2021, Blank PhD 2024). Schubert and Zhang connected through prior collaboration on AI and firm dynamics research.
+  </div>
+  <div class="footer">Blank, Schubert &amp; Zhang (2026)</div>
+</section>
+
+<!-- ── 3. OUTLINE ───────────────────────────────────────── -->
+<section>
+  <h2>Outline</h2>
+  <p><strong>Research question:</strong> How does ChatGPT adoption reshape U.S. household time allocation between productive and leisure online activities — and how large are the implied non-market productivity gains?</p>
+  <div style="margin-top:0.7em; display:flex; flex-direction:column; gap:0.6em;">
+    <div style="border-left:3px solid var(--accent); padding-left:0.7em;">
+      <div style="font-size:0.78em; font-weight:bold;">Who adopted ChatGPT?</div>
+      <div style="font-size:0.72em; color:#444; margin-top:0.1em;">Adoption rates, timing, and the GenAI Divide — high-income and young households adopt faster with no sign of convergence.</div>
+    </div>
+    <div style="border-left:3px solid var(--accent); padding-left:0.7em;">
+      <div style="font-size:0.78em; font-weight:bold;">Causal traffic reallocation</div>
+      <div style="font-size:0.72em; color:#444; margin-top:0.1em;">IV estimates show ChatGPT adoption shifts browsing from productive to leisure sites; productive time is statistically and economically unchanged.</div>
+    </div>
+    <div style="border-left:3px solid var(--accent); padding-left:0.7em;">
+      <div style="font-size:0.78em; font-weight:bold;">ChatGPT usage context</div>
+      <div style="font-size:0.72em; color:#444; margin-top:0.1em;">ChatGPT is used overwhelmingly alongside productive tasks (80% of GPT-window browsing); the leisure increase is a downstream consequence of efficiency gains.</div>
+    </div>
+    <div style="border-left:3px solid var(--accent); padding-left:0.7em;">
+      <div style="font-size:0.78em; font-weight:bold;">Quantifying productivity gains</div>
+      <div style="font-size:0.72em; color:#444; margin-top:0.1em;">Structural model with Engel elasticities implies a 76%–176% efficiency gain on productive digital tasks — 2–4× larger than workplace experiment estimates.</div>
+    </div>
+    <div style="border-left:2px solid #ccc; padding-left:0.7em;">
+      <div style="font-size:0.76em; color:#666;">Takeaways &amp; Discussion</div>
+    </div>
+  </div>
+  <div class="footer">Blank, Schubert &amp; Zhang (2026)</div>
+</section>
+
+<!-- ── 4. DATA ───────────────────────────────────────────── -->
+<section>
+  <h2>Data &amp; Setting</h2>
+
+  <!-- ── Comscore ── -->
+  <div class="sh">Comscore Internet Browsing Panel</div>
+  <ul>
+    <li>Continuous tracking panel of U.S. <strong>desktop/laptop</strong> machines, <span class="hl">2021–2024</span>; benchmarking period Jan–Dec 2021</li>
+    <li>Every visit logged: URL, timestamp, duration, session ID</li>
+    <li>Demographics: income (8 bins), age (11 bins), <strong>MSA</strong> (Metropolitan Statistical Area — Census-defined metro regions mapped via BLS QCEW county crosswalk)</li>
+    <li>Comscore pre-processing: drops visits &lt;3 sec; 30-min inactivity timeout; multi-layer bot/fraud detection</li>
+    <li>Mobile excluded — likely underestimates total GenAI use</li>
+  </ul>
+
+  <div class="sh" style="margin-top:0.7em;">Sample Construction <span style="font-weight:normal; font-size:0.85em; color:#666;">(Table IA.I)</span></div>
+  <table>
+    <thead>
+      <tr>
+        <th rowspan="2">Exclusion Criteria</th>
+        <th colspan="2" style="text-align:center; border-bottom:1px solid #111;">Machines</th>
+        <th colspan="2" style="text-align:center; border-bottom:1px solid #111;">Machine-Quarters</th>
+      </tr>
+      <tr>
+        <th>N</th><th>%</th><th>N</th><th>%</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>None (raw panel)</td><td>303,244</td><td>100</td><td>2,439,710</td><td>100</td></tr>
+      <tr><td>− Machines for work</td><td>291,649</td><td>96</td><td>2,333,246</td><td>96</td></tr>
+      <tr><td>− Missing demographic data</td><td>243,650</td><td>80</td><td>1,953,678</td><td>80</td></tr>
+      <tr><td>− &lt;1 hr browsing, Jul 2021–Jun 2022</td><td>199,783</td><td>66</td><td>1,741,563</td><td>71</td></tr>
+    </tbody>
+  </table>
+  <div class="box-gray" style="margin-top:0.3em;">Regression sample: <strong class="hl">42,886</strong> households — further requires non-missing income &amp; age, ≥6 months activity in 2021, ≥1 month post–Nov 2022</div>
+  <div style="border-left:3px solid #b45309; background:#fef9f0; padding:0.4em 0.8em; margin:0.5em 0; font-size:0.70em; color:#333; line-height:1.5;">
+    <strong>cf. "Impact of LLM Adoption on Online User Behavior":</strong>
+    <ol style="margin:0.25em 0 0 1.2em; padding:0;">
+      <li>No panelist detection step reported — likely using an unbalanced panel, which conflates entry of new users with behavioral change among existing ones.</li>
+      <li>Background traffic (bots, ad/CDN requests) identified via LLM classification rather than direct packet-level filtering — accuracy of LLM-based bot detection is unclear.</li>
+    </ol>
+  </div>
+
+  <!-- ── LLM Classification ── -->
+  <div class="sh" style="margin-top:0.8em;">LLM Website Classification <span style="font-weight:normal; font-size:0.85em; color:#666;">(Appendix A)</span></div>
+  <div style="text-align:center; margin:0.4em 0;">
+    <img src="../attachment/blank2026/figures/datapipeline.png" style="width:90%; display:inline-block;">
+  </div>
+  <ul>
+    <li><strong>Scope:</strong> top 160,000 domains by 2023 page views (&gt;95% of internet use); duplicates removed</li>
+    <li><strong>Metadata:</strong> Beautiful Soup scrape of each domain's HTML <code>title</code>, <code>description</code>, <code>keyword</code> tags</li>
+    <li><strong>Model:</strong> GPT-4.1 Mini (OpenAI, May 2025) via Azure — prompted to produce a 2–3 sentence description + top-5 user activities per domain</li>
+    <li><strong>Classification dimensions (two-step):</strong>
+      <ul>
+        <li><em>Usage type:</em> Productive (work, education, health, civic…) / Leisure (gaming, social, streaming…) / Ad platform/CDN</li>
+        <li><em>Usage diversity:</em> Single-use (pure productive or leisure) / Mixed-use (both important)</li>
+      </ul>
+    </li>
+    <li><strong>Validation:</strong> two authors manually labeled top 70 domains; prompt iteratively refined until LLM and manual labels agreed; cross-checked via ATUS activity embeddings + cosine similarity (very similar labels)</li>
+  </ul>
+
+  <div style="border-left:3px solid #b45309; background:#fef9f0; padding:0.4em 0.8em; margin:0.5em 0; font-size:0.70em; color:#333; line-height:1.5;">
+    <strong>Concerns on Step 3 (domain-level LLM description):</strong>
+    <ol style="margin:0.25em 0 0 1.2em; padding:0;">
+      <li><strong>Scale vs. accuracy:</strong> Running GPT-4.1 Mini on 160K domains is expensive and likely error-prone at the long tail where domains are obscure or have sparse metadata — LLM may hallucinate descriptions for low-traffic sites with no usable meta tags.</li>
+      <li><strong>Domain granularity too coarse:</strong> Different URL patterns within the same domain serve very different functions. E.g., <code>reddit.com/r/MachineLearning</code> (research, productive) vs. <code>reddit.com/r/gaming</code> (leisure) would both inherit reddit.com's single domain-level label. Annotating the top ~10K URL patterns would likely cover &gt;90% of traffic with substantially more accurate labels.</li>
+      <li><strong>Step 6 redundancy:</strong> The instrument E<sub>j</sub> is the count of exposed activities out of 5, built directly from Step 5. A separate website-level exposure call (Step 6) adds no information that Step 5 aggregation cannot provide. The paper gives no justification for this step — the appendix subsection opens directly with "Here is the prompt used…" with no rationale.</li>
+    </ol>
+  </div>
+
+  <div class="sh" style="margin-top:0.6em;">Classification Examples <span style="font-weight:normal; font-size:0.85em; color:#666;">(Table 2 — Top 5 domains by category)</span></div>
+  <img src="../attachment/blank2026/figures/table2.png" style="width:100%; display:block; margin:0.3em 0;">
+  <div style="border-left:3px solid #b45309; background:#fef9f0; padding:0.4em 0.8em; margin:0.4em 0; font-size:0.70em; color:#333; line-height:1.5;">
+    <strong>Doubts on classification outcomes:</strong>
+    <ol style="margin:0.25em 0 0 1.2em; padding:0;">
+      <li><strong>Amazon.com → Productive:</strong> The paper follows <strong>Aguiar &amp; Hurst (2013, JPE)</strong>, which uses the ATUS time-use framework where shopping is classified as <em>non-market household production</em> (alongside cooking and cleaning) — not leisure. On that logic, Amazon = productive task. But much Amazon browsing is recreational (wish-list browsing, deal-hunting, entertainment products); the ATUS rationale does not obviously transfer from physical shopping trips to open-ended online browsing.</li>
+      <li><strong>Google/Bing → Productive, Yahoo → Mixed:</strong> Defensible in principle — Google and Bing are designed as task-oriented search engines, while Yahoo evolved into a portal blending news, sports, entertainment, and games. Yet the line is arbitrary: Google is also heavily used for leisure searches, and the distinction hinges on the LLM reading the automated description ("widely used search engine" vs. "comprehensive web portal") rather than actual usage.</li>
+    </ol>
+  </div>
+
+  <div class="sh" style="margin-top:0.6em;">Step 2 — Activity Extraction Prompt</div>
+  <pre style="font-size:0.58em; line-height:1.4; background:#f4f4f4; padding:0.5em 0.7em; overflow-y:auto; max-height:140px; white-space:pre-wrap; border-left:3px solid #ccc;">I need a detailed analysis of the activities one would expect on the website with domain "{domain}".
+
+Here is the available metadata about this website:
+{available_data if metadata else "No additional metadata available."}
+
+Based on this information, please:
+1. Provide a concise description (2-3 sentences) of the nature of the website and its primary function.
+2. List the top 5 meaningful activities that users would likely perform on this website.
+
+Omit auxiliary activities, such as "set up an account with the website", "provide their payment details to pay for the website" etc. that are not core to the purpose of the website.
+
+Return your response in this exact JSON format:
+{
+    "website_description": "Description of the website's nature and primary function",
+    "top_activities": ["Activity 1", "Activity 2", "Activity 3", "Activity 4", "Activity 5"]
+}
+
+If the domain name alone doesn't provide enough information for a confident assessment, make reasonable inferences based on similar websites.</pre>
+
+  <div class="sh" style="margin-top:0.6em;">Step 3a — Usage Classification Prompt (Productive / Leisure / Ad-CDN)</div>
+  <pre style="font-size:0.58em; line-height:1.4; background:#f4f4f4; padding:0.5em 0.7em; overflow-y:auto; max-height:140px; white-space:pre-wrap; border-left:3px solid #ccc;">I need to classify a website based on its domain name and description.
+
+Website Domain: {domain}
+Website Description: {website_description}
+
+Please classify this website in two ways:
+
+1. Usage Type: Determine if the website is primarily:
+"Productive" (Market Work, Other Income-Generating Work, Job Search, Childcare, Non-market work, Education, Civic Activities, Own Medical Care) or
+"Leisure" (TV, Social Activity, Sleep, Eating and Personal Care, Gaming, Other Leisure) or
+"Ad platform/CDN" (Advertising networks, ad servers, analytics platforms, tracking services, content delivery networks etc.)
+
+2. Usage Diversity: Determine if the website is
+"Single-use" (only has important Productive OR Leisure uses) or
+"Mixed-use" (has important Productive uses AND Leisure uses).
+
+Consider:
+- The website's primary purpose
+- The typical user activities and motivations
+- Whether users would engage in both leisure and productive uses on the website
+
+Return your response in this exact JSON format:
+{
+    "usage_type_reasoning": "Brief explanation",
+    "usage_type": "Productive" OR "Leisure" OR "Ad platform/CDN",
+    "usage_diversity_reasoning": "Brief explanation",
+    "usage_diversity": "Single-use" OR "Mixed-use"
+}</pre>
+
+  <div class="sh" style="margin-top:0.6em;">Step 3b — Exposure Classification Prompt (ChatGPT substitutability)</div>
+  <pre style="font-size:0.58em; line-height:1.4; background:#f4f4f4; padding:0.5em 0.7em; overflow-y:auto; max-height:140px; white-space:pre-wrap; border-left:3px solid #ccc;">I need to classify a website based on its domain name and description to determine if it's likely to be exposed to competition from ChatGPT chatbot use.
+
+Website Domain: {domain}
+Website Description: {website_description}
+
+Please classify this website based on whether it provides services or content that users might partially be able to substitute with ChatGPT adoption.
+
+Here are the website capabilities that ChatGPT might replace:
+
+### 1. Language &amp; Translation Sites
+- Translation Platforms, Grammar &amp; Writing Tools, Language Learning Resources
+
+### 2. Content Creation Websites
+- Creative Writing Platforms, Business Document Services, Email Writing Assistants
+
+### 3. Information &amp; Research Sites
+- General Knowledge Platforms, Simple Q&amp;A Forums, Educational Summaries, Product Comparison Sites
+
+### 4. Basic Programming Help
+- Code Snippet Libraries, Beginner Programming Tutorials, Debugging Platforms
+
+### 5. Data Analysis Services
+- Basic Visualization Tools, Data Interpretation Services, Simple Reporting Tools
+
+### 6. Technical Support Forums
+- Common Troubleshooting Platforms, IT Knowledge Bases, Command Reference Sites
+
+### 7. Basic Professional Assistance
+- Resume Builders, Cover Letter Templates, Simple Legal Document Services
+
+### 8. Advisory Content Sites
+- General Financial Advice, Career Guidance Platforms, Health Information Resources
+
+### 9–15. Lifestyle Support, Creative Planning, Visual Content, Audio Processing,
+         Multimedia Integration, Beginner Tutorials, Design Template Services
+
+Determine if ANY activities on the given website are exposed to ChatGPT competition.
+
+Return your response in this exact JSON format:
+{
+    "exposure_reasoning": "Brief explanation",
+    "substitution_examples": "1-2 specific examples if exposed",
+    "is_exposed": "Yes" OR "No",
+    "exposure_level": "High" OR "Medium" OR "Low" OR "None"
+}</pre>
+
+  <div class="sh" style="margin-top:0.7em;">ChatGPT Adoption</div>
+  <ul>
+    <li><em>Extensive margin:</em> ever visited chatgpt.com or openai.com <span style="color:#b45309; font-size:0.90em;">— cumulative: a user who visited once in January and never returned still counts as adopted in June</span></li>
+    <li><em>Intensive margin:</em> share of total browsing duration on ChatGPT</li>
+  </ul>
+
+  <div class="footer">Blank, Schubert &amp; Zhang (2026)</div>
+</section>
+
+<!-- ── 6. IDENTIFICATION ─────────────────────────────────── -->
+<section>
+  <h2>Identification &amp; Estimation</h2>
+
+  <!-- Endogeneity -->
+  <div class="sh">1. Endogeneity Problem</div>
+  <p style="font-size:0.80em; margin:0.2em 0 0.1em;">ChatGPT adoption is correlated with life events that independently shift browsing — OLS conflates the causal effect with selection.</p>
+  <div class="cols cols-2" style="margin-top:0.3em; gap:1em;">
+    <div class="box-gray" style="font-size:0.76em;">
+      <strong>Example 1:</strong> Job loss → household uses ChatGPT to draft cover letters <em>and</em> increases job-search / online education browsing — OLS attributes the latter to ChatGPT.
+    </div>
+    <div class="box-gray" style="font-size:0.76em;">
+      <strong>Example 2:</strong> Workers in GenAI-exposed occupations are introduced to ChatGPT at work and also differ in skills/productivity → browsing reflects occupation, not ChatGPT effect.
+    </div>
+  </div>
+
+  <!-- Instrument -->
+  <div class="sh" style="margin-top:0.7em;">2. Instrument: Household GenAI Exposure (measured in 2021)</div>
+  <div class="cols cols-2" style="gap:1.2em; align-items:start; margin-top:0.3em;">
+    <div>
+      <div style="font-size:0.90em; margin:0.3em 0;">
+        \[ \text{HHGenAIExp}_i = \sum_j \phi_{ij} \cdot \mathbf{1}\!\left[E_j \in \{4,5\}\right] \]
+      </div>
+      <ul style="font-size:0.84em; margin-top:0.2em;">
+        <li>\(\phi_{ij}\): share of household \(i\)'s browsing duration on site \(j\), measured Jan–Dec <strong>2021</strong></li>
+        <li>\(E_j \in \{0,\ldots,5\}\): count of activities on site \(j\) substitutable by ChatGPT</li>
+        <li>Threshold \(E_j \in \{4,5\}\): switching costs mean households need <em>high</em> substitutability to adopt</li>
+        <li>Intuition: a Bartik-style index — pre-existing "need" for ChatGPT based on precise 2021 task mix</li>
+      </ul>
+    </div>
+    <div>
+      <div style="font-size:0.62em; color:#888; text-align:center; margin-bottom:0.15em;">Instrument relevance: adoption rate by exposure tercile</div>
+      <img src="../attachment/blank2026/figures/november-2025/ivterc_desc_chatgpt_adoption_rate_jan26.png" style="width:82%; display:block; margin:0 auto;">
+    </div>
+  </div>
+
+  <!-- Exclusion restriction -->
+  <div class="sh" style="margin-top:0.7em;">3. Exclusion Restriction &amp; Controls</div>
+  <p style="font-size:0.80em; margin:0.2em 0 0.2em;">Conditional on demographics and controls, variation in HHGenAIExp reflects only precise <em>task-level</em> differences in 2021 browsing — these are implausibly related to 2024 life-event shocks.</p>
+  <ul style="font-size:0.78em;">
+    <li><strong>Age-bin × income-bin × MSA fixed effects</strong> — absorb all observable demographic and regional differences</li>
+    <li><strong>Bartik share control</strong> —
+      \[ \text{BartikShare}_i = \sum_j \phi_{ij} \cdot \mathbf{1}\!\left[E_j \geq 1\right] \]
+      Partialling out \(\text{BartikShare}_i\) absorbs the general tendency to browse <em>any</em> ChatGPT-exposed site; the residual identifying variation is then purely whether the household was <em>unusually concentrated</em> on the most substitutable sites (\(E_j \in \{4,5\}\)), conditional on its overall exposure footprint. Analogous to controlling for total industry employment share in a standard Bartik design.</li>
+    <li><strong>3-year gap</strong> — 2021 task mix predicts 2024 adoption, making short-run confounds implausible</li>
+  </ul>
+  <div style="border-left:3px solid #b45309; background:#fef9f0; padding:0.4em 0.8em; margin:0.5em 0; font-size:0.78em; color:#333; line-height:1.5;">
+    <strong>Discussion:</strong> Is the exclusion restriction credible? What stories could violate it, and do the controls adequately address them?
+  </div>
+
+  <!-- Long difference design -->
+  <div class="sh" style="margin-top:0.7em;">4. Long-Difference IV (2024 vs. 2022)</div>
+  <div class="cols cols-2" style="gap:1.2em; align-items:start; margin-top:0.3em;">
+    <div>
+      <p style="font-size:0.78em; margin:0 0 0.3em;"><em>Why long difference?</em> Adoption was minimal before 2024; a 2-year window smooths noise and captures sustained change.</p>
+      <div style="font-size:0.68em; color:#555; margin-bottom:0.15em;">2nd stage</div>
+      <div style="font-size:0.85em; margin:0 0 0.2em;">
+        \[ \Delta \text{Outcome}_i = \gamma \cdot \text{ChatGPTUse}_i + \lambda_{\scriptscriptstyle\text{FE}} + X_i'\xi + \varepsilon_i \]
+      </div>
+      <div style="font-size:0.68em; color:#555; margin-bottom:0.15em;">1st stage</div>
+      <div style="font-size:0.85em; margin:0 0 0.3em;">
+        \[ \text{ChatGPTUse}_i = \theta \cdot \ln(\text{HHGenAIExp}_i) + \lambda_{\scriptscriptstyle\text{FE}} + X_i'\xi + u_i \]
+      </div>
+      <div class="box" style="font-size:0.76em; margin-top:0.2em;">KP F-stat = <strong class="hl">104</strong> &nbsp;·&nbsp; N = 42,886 &nbsp;·&nbsp; SE clustered at age × income × MSA</div>
+    </div>
+    <div>
+      <div style="font-size:0.62em; color:#888; text-align:center; margin-bottom:0.15em;">First-stage dynamics: effect of ln(HHGenAIExp) on ChatGPT adoption by quarter — justifies long difference at 2024</div>
+      <img src="../attachment/blank2026/figures/november-2025/iv_rf_ever_chatgpt.png" style="width:82%; display:block; margin:0 auto;">
+      <div style="border-left:3px solid #b45309; background:#fef9f0; padding:0.3em 0.6em; margin-top:0.3em; font-size:0.64em; color:#333; line-height:1.4;">Pre-2022Q4 coefficients are <strong>mechanically zero</strong> — no one had adopted ChatGPT yet, so the DV = 0 for all households. These zeros carry no information about the exclusion restriction.</div>
+    </div>
+  </div>
+
+  <div class="footer">Blank, Schubert &amp; Zhang (2026)</div>
+</section>
+
+<!-- ── 7. RESULT: ADOPTION ───────────────────────────────── -->
+<section>
+  <h2>Result 1 — Adoption &amp; the Generative AI Divide</h2>
+  <div class="cols cols-3" style="margin-bottom:0.6em;">
+    <div>
+      <div style="font-size:0.60em; color:#888; text-align:center; margin-bottom:0.15em;">Overall adoption rate</div>
+      <img src="../attachment/blank2026/figures/november-2025/desc_chatgpt_adoption_rate.png" style="width:100%; display:block;">
+    </div>
+    <div>
+      <div style="font-size:0.60em; color:#888; text-align:center; margin-bottom:0.15em;">By income group</div>
+      <img src="../attachment/blank2026/figures/november-2025/desc_chatgpt_income_adoption_rate_jan26.png" style="width:100%; display:block;">
+    </div>
+    <div>
+      <div style="font-size:0.60em; color:#888; text-align:center; margin-bottom:0.15em;">By age group</div>
+      <img src="../attachment/blank2026/figures/november-2025/desc_chatgpt_age_adoption_rate_jan26.png" style="width:100%; display:block;">
+    </div>
+  </div>
+  <div class="cols cols-2">
+    <div>
+      <img src="../attachment/blank2026/tables/november-2025/table_iv.png" style="width:100%; display:block;">
+    </div>
+    <div>
+      <div class="sh">A widening divide</div>
+      <ul>
+        <li>High- vs. low-income gap: <strong>widening</strong>, no convergence through 2024</li>
+        <li>Young vs. old gap: similarly widening</li>
+        <li>Highest-exposure tercile: <span class="hl">20pp</span> adoption rate vs. 12pp for lowest tercile by Q4 2024</li>
+      </ul>
+      <div class="box" style="margin-top:0.5em;">
+        If non-market productivity gains compound, early inequality in adoption risks <strong>persistently widening welfare inequality</strong>
+      </div>
+    </div>
+  </div>
+  <div class="footer">Blank, Schubert &amp; Zhang (2026)</div>
+</section>
+
+<!-- ── 8. RESULT: MAIN IV ────────────────────────────────── -->
+<section>
+  <h2>Result 2 — ChatGPT Adoption Shifts Time to Leisure</h2>
+  <p style="font-size:0.68em; color:#666;">Long-difference IV, 2024 vs. 2022 &nbsp;·&nbsp; N = 42,886 &nbsp;·&nbsp; KP F-stat = 104</p>
+  <div class="cols cols-3" style="margin-bottom:0.5em;">
+    <div>
+      <div style="font-size:0.60em; color:#888; text-align:center; margin-bottom:0.15em;">Reduced form: log total duration</div>
+      <img src="../attachment/blank2026/figures/november-2025/iv_rf_log_totaldurationvar.png" style="width:100%; display:block;">
+    </div>
+    <div>
+      <div style="font-size:0.60em; color:#888; text-align:center; margin-bottom:0.15em;">Reduced form: log duration, leisure sites</div>
+      <img src="../attachment/blank2026/figures/november-2025/iv_rf_log_leisure.png" style="width:100%; display:block;">
+    </div>
+    <div>
+      <div style="font-size:0.60em; color:#888; text-align:center; margin-bottom:0.15em;">Reduced form: log duration, productive sites</div>
+      <img src="../attachment/blank2026/figures/november-2025/iv_rf_log_productive.png" style="width:100%; display:block;">
+    </div>
+  </div>
+  <div class="cols cols-2" style="margin-top:0.3em;">
+    <div>
+      <img src="../attachment/blank2026/tables/table_vi.png" style="width:100%; display:block;">
+    </div>
+    <div>
+      <div class="sh">Interpretation</div>
+      <ul>
+        <li>Leisure browsing: exp(1.512) ≈ <span class="hl">4.5× increase</span></li>
+        <li>Productive browsing: <span class="hl">statistically and economically zero</span></li>
+        <li>ChatGPT substitutes for time on productive sites → same output, less time → reallocate freed time to leisure</li>
+      </ul>
+      <div style="border-left:3px solid #b45309; background:#fef9f0; padding:0.4em 0.8em; margin-top:0.5em; font-size:0.72em; color:#333; line-height:1.5;">
+        <strong>Note:</strong> Summary statistics for browsing duration by category (leisure, productive, mixed) are absent from the paper — the pre-period mean is unreported. The 4.5× figure cannot be translated into absolute minutes gained without a baseline.
+      </div>
+    </div>
+  </div>
+  <div class="footer">Blank, Schubert &amp; Zhang (2026)</div>
+</section>
+
+<!-- ── 9. RESULT: MECHANISM ──────────────────────────────── -->
+<section>
+  <h2>Result 3 — Mechanism: ChatGPT Is a Productive-Task Tool</h2>
+
+  <!-- Part 1 -->
+  <div class="sh">Part 1 — Effects on browsing by website content category (Table VII)</div>
+  <img src="../attachment/blank2026/tables/table_vii.png" style="width:100%; display:block; margin:0.3em 0;">
+  <div class="box" style="margin-top:0.3em;">
+    <strong>Takeaway:</strong> Search (−0.177**) and News (−0.039***) — the categories most directly substitutable by ChatGPT — lose browsing share. Gaming (+0.099***) gains — the leisure payoff. <span class="nul">Education is n.s. despite heavy co-browsing with ChatGPT (see Part 2): ChatGPT likely complements rather than substitutes LMS/homework platforms.</span>
+  </div>
+
+  <!-- Part 2 -->
+  <div class="sh" style="margin-top:0.8em;">Part 2 — ChatGPT use context in high-frequency browsing data</div>
+  <div class="cols cols-2" style="align-items:start; margin-top:0.3em; gap:1.2em;">
+    <div>
+      <div style="font-size:0.60em; color:#888; text-align:center; margin-bottom:0.1em;">Figure 7 — ChatGPT-exposed activity types (duration share)</div>
+      <img src="../attachment/blank2026/figures/july25-2025/activity_type_shares_of_exposed_duration.png" style="width:100%; display:block;">
+    </div>
+    <div>
+      <div style="font-size:0.60em; color:#888; text-align:center; margin-bottom:0.1em;">Table VIII — Top 30 sites over-represented around ChatGPT use</div>
+      <img src="../attachment/blank2026/tables/table_viii.png" style="width:100%; display:block;">
+    </div>
+  </div>
+  <div class="cols cols-2" style="align-items:start; margin-top:0.5em; gap:1.2em;">
+    <div>
+      <div style="font-size:0.60em; color:#888; text-align:center; margin-bottom:0.1em;">Figure 8 — Website content types during ChatGPT sessions</div>
+      <img src="../attachment/blank2026/figures/figure_8.png" style="width:100%; display:block;">
+    </div>
+    <div>
+      <div style="font-size:0.60em; color:#888; text-align:center; margin-bottom:0.1em;">Figure 9 — Household browsing activities during ChatGPT session</div>
+      <img src="../attachment/blank2026/figures/figure_9.png" style="width:100%; display:block;">
+    </div>
+  </div>
+  <div class="box" style="margin-top:0.5em;">
+    <strong>Takeaway:</strong> During GPT-window intervals, 80.1% of browsing is productive vs. 54.9% for matched never-users (+25.2pp gap). This gap shrinks on GPT-days outside the window and nearly disappears pre-ChatGPT era — ruling out selection on habitually more productive households. ChatGPT is used <em>in the context of</em> productive tasks; the leisure increase in Table VI is a downstream reallocation of freed time.
+  </div>
+
+  <div class="footer">Blank, Schubert &amp; Zhang (2026)</div>
+</section>
+
+<!-- ── 10. MODEL ─────────────────────────────────────────── -->
+<section>
+  <h2>Model — Household Time Allocation &nbsp;<span style="font-weight:normal; font-size:0.8em; color:#666;">(Aguiar et al. 2021)</span></h2>
+  <div class="cols cols-2" style="align-items:start; gap:1.5em; margin-bottom:0.5em;">
+    <div>
+      <div style="font-size:0.60em; color:#888; text-align:center; margin-bottom:0.2em;">Impact of GenAI on Household Production</div>
+      <img src="../attachment/blank2026/figures/july25-2025/householdprod.jpeg" style="width:100%; display:block;">
+      <div class="box-gray" style="margin-top:0.4em; font-size:0.70em; line-height:1.5;">
+        <strong>Interpretation:</strong> A ChatGPT efficiency shock (ξ<sup>z</sup> ↑) shifts the household's productive time budget outward. Because productive digital tasks behave as a <em>time necessity</em> (η<sup>z</sup> &lt; 1), the household reaches the same output level with <em>less</em> time on z — freeing time that is reallocated to leisure ℓ, a <em>time luxury</em> (η<sup>ℓ</sup> &gt; 1). The diagram maps directly to the IV finding: Δ log leisure = +1.512**, Δ log productive = 0.
+      </div>
+    </div>
+    <div>
+      <div class="sh">Setup</div>
+      <ul>
+        <li>Household allocates digital time: leisure ℓ and productive tasks z, with z + ℓ ≤ 1</li>
+        <li>Isoelastic utility curvature η<sup>a</sup>:<br>
+          &emsp; η<sup>a</sup> &gt; 1: time <em>luxury</em> — more efficiency → more time<br>
+          &emsp; η<sup>a</sup> &lt; 1: time <em>necessity</em> — more efficiency → less time</li>
+        <li>ChatGPT = efficiency shock to productive tasks only (ξ<sup>z</sup> ↑)</li>
+      </ul>
+      <div class="box" style="margin-top:0.4em; margin-bottom:0.5em;">
+        <strong>Key prediction:</strong> η<sup>z</sup> &lt; 1 → efficiency gain ↓ time on z, ↑ time on ℓ &nbsp;✓&nbsp; matches Table VI
+      </div>
+      <div class="sh">Engel elasticity estimates (Table IX, IV)</div>
+      <img src="../attachment/blank2026/tables/table_ix.png" style="width:100%; display:block; margin-top:0.3em;">
+      <p style="font-size:0.65em; color:#666; margin-top:0.2em;">Instrument: local precipitation shocks (discourage outdoor activity → ↑ total browsing time)</p>
+      <div class="sh" style="margin-top:0.5em;">Implied efficiency gain (Table X)</div>
+      <p style="font-size:0.76em; margin:0.1em 0;">Preferred calibration (η̄ = 0.9, ψ ∈ [0, 0.5]):</p>
+      <p style="font-size:1em; text-align:center; margin:0.2em 0;"><strong class="hl">76% – 176%</strong> efficiency gain on productive digital tasks</p>
+      <p style="font-size:0.65em; color:#666; text-align:center;">cf. workplace studies: 25%–56% (Noy &amp; Zhang; Brynjolfsson et al.; Dell'Acqua et al.; Peng et al.)</p>
+    </div>
+  </div>
+  <div class="footer">Blank, Schubert &amp; Zhang (2026)</div>
+</section>
+
+<!-- ── 11. TAKEAWAYS & DISCUSSION ───────────────────────── -->
+<section>
+  <h2>Takeaways &amp; Discussion</h2>
+  <div>
+    <div class="sh">Three takeaways</div>
+    <ol style="font-size:0.88em; line-height:1.65;">
+      <li><strong>GenAI reshapes home life, not just work.</strong> Households use ChatGPT mainly for productive tasks; the payoff is more leisure. Non-market productivity matters for welfare accounting.</li>
+      <li><strong>Efficiency gains at home exceed the workplace.</strong> 76%–176% vs. 25%–56% in experiments. Why? Novice users + multi-site browsing collapse into a single query.</li>
+      <li><strong>A growing AI Divide.</strong> Young and high-income households adopt faster; the gap is widening with no sign of convergence through 2024.</li>
+    </ol>
+  </div>
+  <div style="margin-top:0.7em;">
+    <div class="sh">Discussion questions</div>
+    <ol style="font-size:0.88em; line-height:1.65;">
+      <li>Is the exclusion restriction credible? What stories could violate it, and do the pre-trend tests and controls adequately address them?</li>
+      <li>Is "productive vs. leisure" browsing the right welfare-relevant distinction? Could the same pattern reflect lower welfare?</li>
+      <li>Why are home efficiency gains 2–4× larger than workplace estimates?</li>
+      <li>Does a widening adoption gap necessarily imply growing welfare inequality?</li>
+      <li>How would including mobile usage change the picture — in magnitude and direction?</li>
+    </ol>
+  </div>
+  <div class="footer">Blank, Schubert &amp; Zhang (2026)</div>
+</section>
+
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/math/math.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    transition: 'none',
+    controlsLayout: 'bottom-right',
+    progress: true,
+    slideNumber: 'c/t',
+    width: 1280,
+    height: 720,
+    margin: 0.06,
+    plugins: [ RevealMath.MathJax3 ],
+    math: {
+      mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js',
+      config: 'TeX-AMS_HTML-full',
+    },
+  });
+</script>
+</body>
+</html>
