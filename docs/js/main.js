@@ -6,20 +6,6 @@ window.addEventListener('scroll', () => {
   bar.style.width = total > 0 ? (scrolled / total * 100) + '%' : '0%';
 });
 
-// Abstract toggles
-document.querySelectorAll('.abstract-toggle').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const abstract = btn.nextElementSibling;
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', String(!expanded));
-    if (expanded) {
-      abstract.hidden = true;
-    } else {
-      abstract.hidden = false;
-    }
-  });
-});
-
 // Mobile nav toggle
 const toggle = document.querySelector('.nav-toggle');
 const mobileNav = document.querySelector('.nav-mobile');
