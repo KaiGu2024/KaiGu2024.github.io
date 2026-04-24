@@ -121,3 +121,15 @@ y = llm_labels  # labels from LLM
 clf = LogisticRegression().fit(X, y)
 # Now run clf on millions of records at zero marginal cost
 ```
+
+---
+
+## Report
+
+After completing an annotation task, output a brief report:
+
+**Task:** One sentence — what was labelled and which categories were used.  
+**Volume:** N items annotated; model and temperature used.  
+**Agreement:** Cohen's kappa against human labels (if available); self-consistency rate (if run).  
+**Prompt:** Note any few-shot examples used and whether chain-of-thought was requested.  
+**Concerns:** Categories where the model showed low confidence or high inconsistency; any hallucination risk in the rationale; recommended human review sample size.

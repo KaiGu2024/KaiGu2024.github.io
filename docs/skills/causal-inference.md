@@ -111,3 +111,15 @@ plt.tight_layout(); plt.savefig("event_study.pdf")
 - **Cluster** at the unit of treatment assignment (never smaller)
 - **HC3 robust** for cross-sectional with heteroskedasticity
 - **Wild cluster bootstrap** when few clusters (< 30): use `wildboottest` (Python)
+
+---
+
+## Report
+
+After completing a causal analysis, output a brief report:
+
+**Strategy:** Identification method used (DiD, IV, RDD, …) and the source of variation exploited.  
+**Sample:** N observations; unit of observation; time period; any sample restrictions applied.  
+**Main estimate:** Point estimate with units, SE, and CI; cluster level used.  
+**Key assumption:** State the identifying assumption and whether pre-tests / diagnostics passed (pre-trend F-stat, KP F-stat, McCrary p-value).  
+**Concerns:** Any threats to identification not fully addressed; data quality issues; external validity limitations.

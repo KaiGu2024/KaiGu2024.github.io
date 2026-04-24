@@ -4,6 +4,103 @@ Toolset and patterns for collecting data from the web and social media platforms
 
 ---
 
+## Format Preference
+
+Always prefer structured endpoints over HTML parsing:
+
+```
+JSON API  >  XML feed  >  CSV download  >  HTML (BeautifulSoup / Playwright)
+```
+
+JSON and XML are stable contracts; HTML structure breaks silently when sites update. Only fall back to HTML parsing when no API or structured endpoint exists.
+
+---
+
+## Raw Web Page Fetching (`requests`)
+
+```python
+import requests, time
+
+SESSION = requests.Session()
+SESSION.headers.update({
+    "User-Agent": "Mozilla/5.0 (compatible; ResearchBot/1.0; +mailto:you@example.com)",
+    "Accept":     "application/json, text/html;q=0.9",
+    "Accept-Language": "en-US,en;q=0.5",
+})
+
+def fetch(url, params=None, auth=None, retries=3, backoff=2):
+    for attempt in range(retries):
+        try:
+            r = SESSION.get(url, params=params, auth=auth, timeout=15)
+            r.raise_for_status()
+            return r
+        except requests.HTTPError as e:
+            if r.status_code == 429:            # rate-limited
+                time.sleep(backoff ** attempt)
+            elif r.status_code in (401, 403):
+                raise PermissionError(f"Auth failed: {url}") from e
+            else:
+                raise
+    raise RuntimeError(f"Failed after {retries} retries: {url}")
+```
+
+### Authentication patterns
+
+```python
+# Bearer token (OAuth2 / API key as header)
+SESSION.headers["Authorization"] = f"Bearer {API_TOKEN}"
+
+# API key as query param
+r = SESSION.get(url, params={"api_key": KEY, "q": query})
+
+# Basic auth
+from requests.auth import HTTPBasicAuth
+r = SESSION.get(url, auth=HTTPBasicAuth("user", "pass"))
+
+# Session cookie (after login)
+SESSION.post("https://site.com/login", data={"user": U, "pass": P})
+# SESSION now carries the auth cookie automatically
+```
+
+### Rate limiting
+
+```python
+import time
+from itertools import islice
+
+def rate_limited_fetch(urls, rps=2):
+    interval = 1 / rps
+    for url in urls:
+        yield fetch(url)
+        time.sleep(interval)
+
+# Or use tenacity for exponential backoff
+from tenacity import retry, wait_exponential, stop_after_attempt
+@retry(wait=wait_exponential(multiplier=1, min=2, max=30),
+       stop=stop_after_attempt(5))
+def robust_fetch(url):
+    return SESSION.get(url, timeout=15)
+```
+
+### Parsing response formats
+
+```python
+# JSON
+data = r.json()
+
+# XML
+import xml.etree.ElementTree as ET
+root = ET.fromstring(r.text)
+items = root.findall(".//item")
+
+# HTML (last resort)
+from bs4 import BeautifulSoup
+soup = BeautifulSoup(r.text, "lxml")
+rows = soup.select("table.data-table tr")
+```
+
+---
+
 ## Social Media — ScrapeCreators
 
 Use [ScrapeCreators](https://scrapecreators.com) for social media APIs:
@@ -73,10 +170,6 @@ yt-dlp -x --audio-format mp3 URL
 yt-dlp --flat-playlist --print-json "https://www.youtube.com/@channel"
 ```
 
-**defuddle** can complement yt-dlp by extracting transcript/description text from YouTube page HTML.
-
-GitHub: [yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp)
-
 ---
 
 ## Reddit — Native JSON Endpoint
@@ -84,16 +177,9 @@ GitHub: [yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp)
 No authentication required for public content. Append `.json` to any Reddit URL:
 
 ```
-# Subreddit top posts
 https://www.reddit.com/r/{subreddit}.json?limit=100&t=all
-
-# Post + comments thread
 https://www.reddit.com/r/{subreddit}/comments/{post_id}.json
-
-# User profile posts
 https://www.reddit.com/user/{username}.json
-
-# Search within subreddit
 https://www.reddit.com/r/{subreddit}/search.json?q={query}&restrict_sr=1
 ```
 
@@ -143,4 +229,14 @@ async def main():
 asyncio.run(main())
 ```
 
-GitHub: [vladkens/twscrape](https://github.com/vladkens/twscrape)
+---
+
+## Report
+
+After completing a scraping task, output a brief report:
+
+**Task:** One sentence — what was scraped and from where.  
+**Source:** URL pattern or platform used.  
+**Volume:** N records / pages fetched; date range if applicable.  
+**Format:** How the data was saved (CSV, JSON, Parquet) and where.  
+**Notes:** Any auth errors, rate-limit hits, missing fields, or coverage gaps requiring human review.
