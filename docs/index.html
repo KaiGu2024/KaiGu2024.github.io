@@ -115,20 +115,6 @@
 
         </section>
 
-        <!-- CV -->
-        <section id="cv">
-          <h2>CV</h2>
-          <p>
-            <a href="assets/cv.pdf" target="_blank" class="cv-button">
-              <i class="fa-solid fa-download"></i> Download CV (PDF)
-            </a>
-            <span class="cv-updated">Updated April 2026</span>
-          </p>
-          <div class="cv-embed">
-            <iframe src="assets/cv.pdf" title="Kai Gu CV"></iframe>
-          </div>
-        </section>
-
         <!-- LEARNING MATERIALS -->
         <section id="materials">
           <h2>Learning Materials</h2>
@@ -154,6 +140,31 @@
             </div>
           </div>
 
+          <h3 class="subsection-title">Causal Inference</h3>
+
+          <div class="material-item">
+            <p class="material-title">Panel Data Causal Tools: fect, interflex, fdid</p>
+            <p class="material-meta">Yiqing Xu &middot; Stanford / Princeton</p>
+            <p class="material-desc">
+              <strong>fect</strong> &mdash; counterfactual estimators for panel data with interactive fixed effects, generalizing DiD and synthetic control.<br>
+              <strong>interflex</strong> &mdash; diagnostic tools for multiplicative interaction models; detects linearity violations and plots marginal effects.<br>
+              <strong>fdid</strong> &mdash; Factor-augmented DiD that removes latent common shocks without requiring parallel trends.
+            </p>
+            <div class="material-links">
+              <a href="https://yiqingxu.org/" target="_blank" class="material-link">Author site</a>
+            </div>
+          </div>
+
+          <div class="material-item">
+            <p class="material-title">Double / Debiased Machine Learning (DML)</p>
+            <p class="material-meta">Chernozhukov et al. &middot; Econometrics Journal 2018</p>
+            <p class="material-desc">Uses Neyman-orthogonal moment conditions and cross-fitting to estimate low-dimensional treatment effects while flexibly controlling for high-dimensional nuisance functions via ML.</p>
+            <div class="material-links">
+              <a href="https://arxiv.org/abs/1608.00060" target="_blank" class="material-link">arXiv</a>
+              <a href="https://github.com/microsoft/EconML" target="_blank" class="material-link">EconML (Python)</a>
+            </div>
+          </div>
+
           <h3 class="subsection-title">Machine Learning &amp; NLP</h3>
 
           <div class="material-item">
@@ -167,75 +178,90 @@
           </div>
 
           <div class="material-item">
-            <p class="material-title">Wikipedia Data Science</p>
-            <p class="material-meta">Will Koehrsen</p>
-            <p class="material-desc">Notebooks for accessing, parsing, and analyzing Wikipedia data at scale using the MediaWiki API and XML dumps.</p>
+            <p class="material-title">Agent-Based Simulation of Social Systems</p>
+            <p class="material-meta">Joon Sung Park &middot; Stanford CS222 (Fall 2024)</p>
+            <p class="material-desc">Graduate seminar on simulating social systems with large language model agents: generative agents, emergent behavior, and evaluation methods.</p>
             <div class="material-links">
-              <a href="https://github.com/WillKoehrsen/wikipedia-data-science" target="_blank" class="material-link">GitHub</a>
+              <a href="https://joonspk-research.github.io/cs222-fall24/index.html" target="_blank" class="material-link">Course site</a>
             </div>
           </div>
 
           <div class="material-item">
-            <p class="material-title">InfoGap</p>
-            <p class="material-meta">Samir Famir et al.</p>
-            <p class="material-desc">Tools for locating information gaps and narrative inconsistencies across Wikipedia language editions.</p>
+            <p class="material-title">Deep Learning for Economists</p>
+            <p class="material-meta">econdl.github.io</p>
+            <p class="material-desc">Practical introduction to neural networks, sequence models, and large language models oriented toward economists and social scientists.</p>
             <div class="material-links">
-              <a href="https://github.com/smfsamir/infogap" target="_blank" class="material-link">GitHub</a>
+              <a href="https://econdl.github.io/" target="_blank" class="material-link">Course site</a>
             </div>
           </div>
 
-          <h3 class="subsection-title">Web Scraping Tools</h3>
+          <h3 class="subsection-title">Web Scraping</h3>
 
-          <div class="material-chips">
-            <a href="https://github.com/vladkens/twscrape" target="_blank" class="material-chip">twscrape<span>Twitter / X</span></a>
-            <a href="https://github.com/JosephLai241/URS" target="_blank" class="material-chip">URS<span>Reddit</span></a>
-            <a href="https://github.com/yt-dlp/yt-dlp" target="_blank" class="material-chip">yt-dlp<span>YouTube</span></a>
-            <a href="https://github.com/omkarcloud/amazon-scraper" target="_blank" class="material-chip">amazon-scraper<span>Amazon</span></a>
-            <a href="https://github.com/kepano/defuddle" target="_blank" class="material-chip">defuddle<span>Content extraction</span></a>
+          <div class="material-item">
+            <p class="material-title">ScrapeCreators</p>
+            <p class="material-meta">scrapecreators.com &middot; Social media APIs</p>
+            <p class="material-desc">Unified APIs for scraping Twitter/X, Instagram, TikTok, and LinkedIn. Handles authentication, rate limits, and anti-bot measures — no browser automation needed.</p>
+            <div class="material-links">
+              <a href="https://scrapecreators.com" target="_blank" class="material-link">Website</a>
+            </div>
+          </div>
+
+          <div class="material-item">
+            <p class="material-title">Apify</p>
+            <p class="material-meta">apify.com &middot; App &amp; platform data</p>
+            <p class="material-desc">Cloud marketplace of pre-built scraping actors for out-of-social-media app data: Amazon products and reviews, Google Maps business listings, and more. Handles JavaScript rendering and large-scale crawls.</p>
+            <div class="material-links">
+              <a href="https://apify.com" target="_blank" class="material-link">Platform</a>
+            </div>
+          </div>
+
+          <div class="material-item">
+            <p class="material-title">Web &rarr; Markdown &rarr; JSON Pipeline</p>
+            <p class="material-meta">Firecrawl + OpenAI &middot; open-source via defuddle</p>
+            <p class="material-desc">
+              <strong>Step 1 — Crawl:</strong> <a href="https://firecrawl.dev" target="_blank">Firecrawl</a> converts any web page to clean Markdown.<br>
+              <strong>Step 2 — Extract:</strong> Pass Markdown to OpenAI with a JSON schema prompt to get structured output.<br>
+              Firecrawl can be replaced by the open-source <a href="https://github.com/kepano/defuddle" target="_blank">defuddle</a> library for the crawl step.
+            </p>
+            <div class="material-links">
+              <a href="https://firecrawl.dev" target="_blank" class="material-link">Firecrawl</a>
+              <a href="https://github.com/kepano/defuddle" target="_blank" class="material-link">defuddle</a>
+            </div>
+          </div>
+
+          <div class="material-item">
+            <p class="material-title">Platform-Specific Tools</p>
+            <p class="material-meta">YouTube &middot; Reddit &middot; Twitter/X</p>
+            <p class="material-desc">
+              <strong>yt-dlp</strong> &mdash; download YouTube video, audio, subtitles, and metadata; also works with <code>defuddle</code> for channel/page content.<br>
+              <strong>Reddit JSON</strong> &mdash; native endpoint, no authentication: <code>reddit.com/r/{sub}.json</code>, <code>/comments/{id}.json</code>, <code>/user/{u}.json</code>.<br>
+              <strong>twscrape</strong> &mdash; Twitter/X scraping via API credentials.
+            </p>
+            <div class="material-links">
+              <a href="https://github.com/yt-dlp/yt-dlp" target="_blank" class="material-link">yt-dlp</a>
+              <a href="https://github.com/vladkens/twscrape" target="_blank" class="material-link">twscrape</a>
+            </div>
           </div>
 
         </section>
 
-        <!-- SKILLS -->
+        <!-- AGENT SKILLS -->
         <section id="skills">
-          <h2>Skills</h2>
+          <h2>Agent Skills</h2>
+          <p class="about-bio" style="margin-bottom:1.75rem; font-size:0.88rem;">Skill modules for agent-assisted research workflows. Each available skill ships a Markdown file an agent can fetch and execute.</p>
 
           <div class="skills-list">
-
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name">Causal Inference</span>
-                <span class="skill-badge skill-available">Available</span>
-              </div>
-              <p class="skill-desc">DiD, IV, RDD, synthetic control, and matching for credible identification strategies.</p>
-              <a href="https://mixtape.scunning.com/" target="_blank" class="skill-source">Causal Inference: The Mixtape &mdash; Scott Cunningham</a>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name">Data Cleaning</span>
-                <span class="skill-badge skill-available">Available</span>
-              </div>
-              <p class="skill-desc">Tidy data principles, reshaping, deduplication, and type coercion for structured datasets.</p>
-              <a href="https://vita.had.co.nz/papers/tidy-data.pdf" target="_blank" class="skill-source">Tidy Data &mdash; Hadley Wickham (JSS 2014)</a>
-            </div>
 
             <div class="skill-item">
               <div class="skill-header">
                 <span class="skill-name">Web Scraping</span>
                 <span class="skill-badge skill-available">Available</span>
               </div>
-              <p class="skill-desc">Platform-specific scrapers (Twitter, Reddit, YouTube, Amazon) and generic content extraction via defuddle.</p>
-              <a href="https://realpython.com/python-web-scraping-practical-introduction/" target="_blank" class="skill-source">Python Web Scraping &mdash; Real Python</a>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name">Data Visualization</span>
-                <span class="skill-badge skill-available">Available</span>
+              <p class="skill-desc">Social media via ScrapeCreators; app data via Apify; web→markdown→JSON via Firecrawl/defuddle; YouTube via yt-dlp; Reddit via native JSON endpoint; Twitter/X via twscrape.</p>
+              <div class="skill-footer">
+                <a href="https://realpython.com/python-web-scraping-practical-introduction/" target="_blank" class="skill-source">Python Web Scraping &mdash; Real Python</a>
+                <a href="skills/web-scraping.md" class="skill-file">Skill file &rarr;</a>
               </div>
-              <p class="skill-desc">Aesthetic mapping, coordinate systems, and principles of effective figure design.</p>
-              <a href="https://clauswilke.com/dataviz/" target="_blank" class="skill-source">Fundamentals of Data Visualization &mdash; Claus O. Wilke</a>
             </div>
 
             <div class="skill-item">
@@ -244,7 +270,46 @@
                 <span class="skill-badge skill-available">Available</span>
               </div>
               <p class="skill-desc">Generating, assessing, and integrating LLM-produced labels for machine learning and content analysis workflows.</p>
-              <a href="https://arxiv.org/abs/2402.13446" target="_blank" class="skill-source">LLM4Annotation Survey &mdash; Tan et al., EMNLP 2024</a>
+              <div class="skill-footer">
+                <a href="https://arxiv.org/abs/2402.13446" target="_blank" class="skill-source">LLM4Annotation Survey &mdash; Tan et al., EMNLP 2024</a>
+                <a href="skills/llm-annotation.md" class="skill-file">Skill file &rarr;</a>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Causal Inference</span>
+                <span class="skill-badge skill-available">Available</span>
+              </div>
+              <p class="skill-desc">DiD, IV, RDD, synthetic control, and matching for credible identification strategies.</p>
+              <div class="skill-footer">
+                <a href="https://mixtape.scunning.com/" target="_blank" class="skill-source">Causal Inference: The Mixtape &mdash; Scott Cunningham</a>
+                <a href="skills/causal-inference.md" class="skill-file">Skill file &rarr;</a>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Data Cleaning</span>
+                <span class="skill-badge skill-available">Available</span>
+              </div>
+              <p class="skill-desc">Tidy data principles, reshaping, deduplication, and type coercion for structured datasets.</p>
+              <div class="skill-footer">
+                <a href="https://vita.had.co.nz/papers/tidy-data.pdf" target="_blank" class="skill-source">Tidy Data &mdash; Hadley Wickham (JSS 2014)</a>
+                <a href="skills/data-cleaning.md" class="skill-file">Skill file &rarr;</a>
+              </div>
+            </div>
+
+            <div class="skill-item">
+              <div class="skill-header">
+                <span class="skill-name">Data Visualization</span>
+                <span class="skill-badge skill-available">Available</span>
+              </div>
+              <p class="skill-desc">Aesthetic mapping, coordinate systems, and principles of effective figure design for publication-ready charts.</p>
+              <div class="skill-footer">
+                <a href="https://clauswilke.com/dataviz/" target="_blank" class="skill-source">Fundamentals of Data Visualization &mdash; Claus O. Wilke</a>
+                <a href="skills/data-visualization.md" class="skill-file">Skill file &rarr;</a>
+              </div>
             </div>
 
             <div class="skill-item">
@@ -263,6 +328,20 @@
               <p class="skill-desc">Topic modeling, sentiment analysis, and embedding-based methods for large-scale unstructured text corpora.</p>
             </div>
 
+          </div>
+        </section>
+
+        <!-- CV -->
+        <section id="cv">
+          <h2>CV</h2>
+          <p>
+            <a href="assets/cv.pdf" target="_blank" class="cv-button">
+              <i class="fa-solid fa-download"></i> Download CV (PDF)
+            </a>
+            <span class="cv-updated">Updated April 2026</span>
+          </p>
+          <div class="cv-embed">
+            <iframe src="assets/cv.pdf" title="Kai Gu CV"></iframe>
           </div>
         </section>
 
