@@ -6,7 +6,7 @@
   <title>Kai Gu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -119,7 +119,7 @@
         <section id="materials">
           <h2>Learning Materials</h2>
 
-          <h3 class="subsection-title"><i class="fa-solid fa-chart-line subsection-icon"></i> Econometrics &amp; IO</h3>
+          <h3 class="subsection-title"><i class="fa-solid fa-code-branch subsection-icon"></i> Causal Inference</h3>
 
           <div class="material-item">
             <p class="material-title">Applied Empirical Methods</p>
@@ -129,18 +129,6 @@
               <a href="https://github.com/paulgp/applied-methods-phd" target="_blank" class="material-link">GitHub</a>
             </div>
           </div>
-
-          <div class="material-item">
-            <p class="material-title">Graduate Empirical IO</p>
-            <p class="material-meta">Chris Conlon &middot; NYU Stern</p>
-            <p class="material-desc">15+ lectures on demand estimation, Bertrand competition, merger simulation, and dynamic discrete choice.</p>
-            <div class="material-links">
-              <a href="https://chrisconlon.github.io/gradio.html" target="_blank" class="material-link">Course site</a>
-              <a href="https://github.com/chrisconlon/Grad-IO" target="_blank" class="material-link">GitHub</a>
-            </div>
-          </div>
-
-          <h3 class="subsection-title"><i class="fa-solid fa-code-branch subsection-icon"></i> Causal Inference</h3>
 
           <div class="material-item">
             <p class="material-title">Panel Data Causal Tools: fect, interflex, fdid</p>
@@ -197,52 +185,64 @@
             </div>
           </div>
 
+          <h3 class="subsection-title"><i class="fa-solid fa-chart-line subsection-icon"></i> Empirical IO</h3>
+
+          <div class="material-item">
+            <p class="material-title">Graduate Empirical IO</p>
+            <p class="material-meta">Chris Conlon &middot; NYU Stern</p>
+            <p class="material-desc">15+ lectures on demand estimation, Bertrand competition, merger simulation, and dynamic discrete choice.</p>
+            <div class="material-links">
+              <a href="https://chrisconlon.github.io/gradio.html" target="_blank" class="material-link">Course site</a>
+              <a href="https://github.com/chrisconlon/Grad-IO" target="_blank" class="material-link">GitHub</a>
+            </div>
+          </div>
+
           <h3 class="subsection-title"><i class="fa-solid fa-spider subsection-icon"></i> Web Scraping</h3>
 
-          <div class="material-item">
-            <p class="material-title">ScrapeCreators</p>
-            <p class="material-meta">scrapecreators.com &middot; Social media APIs</p>
-            <p class="material-desc">Unified APIs for scraping Twitter/X, Instagram, TikTok, and LinkedIn. Handles authentication, rate limits, and anti-bot measures — no browser automation needed.</p>
-            <div class="material-links">
-              <a href="https://scrapecreators.com" target="_blank" class="material-link">Website</a>
-            </div>
-          </div>
+          <div class="scraping-grid">
 
-          <div class="material-item">
-            <p class="material-title">Apify</p>
-            <p class="material-meta">apify.com &middot; App &amp; platform data</p>
-            <p class="material-desc">Cloud marketplace of pre-built scraping actors for out-of-social-media app data: Amazon products and reviews, Google Maps business listings, and more. Handles JavaScript rendering and large-scale crawls.</p>
-            <div class="material-links">
-              <a href="https://apify.com" target="_blank" class="material-link">Platform</a>
-            </div>
-          </div>
+            <a href="https://scrapecreators.com" target="_blank" class="scraping-card">
+              <div class="scraping-card-icon"><i class="fa-solid fa-satellite-dish"></i></div>
+              <p class="scraping-card-title">Managed API <span class="scraping-card-platform">&middot; Social Media</span></p>
+              <p class="scraping-card-desc">Unified REST APIs for Twitter/X, Instagram, TikTok, LinkedIn. Handles auth, rate limits, and anti-bot — no credentials or browser automation needed.</p>
+              <span class="scraping-card-source">ScrapeCreators</span>
+            </a>
 
-          <div class="material-item">
-            <p class="material-title">Web &rarr; Markdown &rarr; JSON Pipeline</p>
-            <p class="material-meta">Firecrawl + OpenAI &middot; open-source via defuddle</p>
-            <p class="material-desc">
-              <strong>Step 1 — Crawl:</strong> <a href="https://firecrawl.dev" target="_blank">Firecrawl</a> converts any web page to clean Markdown.<br>
-              <strong>Step 2 — Extract:</strong> Pass Markdown to OpenAI with a JSON schema prompt to get structured output.<br>
-              Firecrawl can be replaced by the open-source <a href="https://github.com/kepano/defuddle" target="_blank">defuddle</a> library for the crawl step.
-            </p>
-            <div class="material-links">
-              <a href="https://firecrawl.dev" target="_blank" class="material-link">Firecrawl</a>
-              <a href="https://github.com/kepano/defuddle" target="_blank" class="material-link">defuddle</a>
-            </div>
-          </div>
+            <a href="https://apify.com" target="_blank" class="scraping-card">
+              <div class="scraping-card-icon"><i class="fa-solid fa-robot"></i></div>
+              <p class="scraping-card-title">Actor Marketplace <span class="scraping-card-platform">&middot; E-commerce &amp; Maps</span></p>
+              <p class="scraping-card-desc">Cloud-hosted actors for Amazon reviews, Google Maps listings, and more. Handles JavaScript rendering, captchas, and large-scale crawls.</p>
+              <span class="scraping-card-source">Apify</span>
+            </a>
 
-          <div class="material-item">
-            <p class="material-title">Platform-Specific Tools</p>
-            <p class="material-meta">YouTube &middot; Reddit &middot; Twitter/X</p>
-            <p class="material-desc">
-              <strong>yt-dlp</strong> &mdash; download YouTube video, audio, subtitles, and metadata; also works with <code>defuddle</code> for channel/page content.<br>
-              <strong>Reddit JSON</strong> &mdash; native endpoint, no authentication: <code>reddit.com/r/{sub}.json</code>, <code>/comments/{id}.json</code>, <code>/user/{u}.json</code>.<br>
-              <strong>twscrape</strong> &mdash; Twitter/X scraping via API credentials.
-            </p>
-            <div class="material-links">
-              <a href="https://github.com/yt-dlp/yt-dlp" target="_blank" class="material-link">yt-dlp</a>
-              <a href="https://github.com/vladkens/twscrape" target="_blank" class="material-link">twscrape</a>
-            </div>
+            <a href="https://firecrawl.dev" target="_blank" class="scraping-card">
+              <div class="scraping-card-icon"><i class="fa-solid fa-file-code"></i></div>
+              <p class="scraping-card-title">Page&rarr;Markdown&rarr;JSON <span class="scraping-card-platform">&middot; Any Webpage</span></p>
+              <p class="scraping-card-desc">Firecrawl converts pages to clean Markdown; OpenAI extracts structured JSON from it. Open-source alternative: defuddle for the crawl step.</p>
+              <span class="scraping-card-source">Firecrawl + defuddle</span>
+            </a>
+
+            <a href="https://github.com/yt-dlp/yt-dlp" target="_blank" class="scraping-card">
+              <div class="scraping-card-icon"><i class="fa-brands fa-youtube"></i></div>
+              <p class="scraping-card-title">Bulk Download <span class="scraping-card-platform">&middot; YouTube</span></p>
+              <p class="scraping-card-desc">Downloads video, audio, subtitles, and metadata JSON. Works for single videos, playlists, and entire channels. Auto-subtitle extraction included.</p>
+              <span class="scraping-card-source">yt-dlp</span>
+            </a>
+
+            <a href="https://www.reddit.com/dev/api/" target="_blank" class="scraping-card">
+              <div class="scraping-card-icon"><i class="fa-brands fa-reddit"></i></div>
+              <p class="scraping-card-title">Native JSON Endpoint <span class="scraping-card-platform">&middot; Reddit</span></p>
+              <p class="scraping-card-desc">No auth required. Append <code>.json</code> to any Reddit URL: subreddits, post threads, user profiles, search. Paginates via <code>?after=</code>.</p>
+              <span class="scraping-card-source">reddit.com/.json</span>
+            </a>
+
+            <a href="https://github.com/vladkens/twscrape" target="_blank" class="scraping-card">
+              <div class="scraping-card-icon"><i class="fa-brands fa-twitter"></i></div>
+              <p class="scraping-card-title">Async Scraper <span class="scraping-card-platform">&middot; Twitter/X</span></p>
+              <p class="scraping-card-desc">Async Python client for tweet search, user timelines, and profiles. Manages multiple accounts and handles rate-limit rotation automatically.</p>
+              <span class="scraping-card-source">twscrape</span>
+            </a>
+
           </div>
 
         </section>
