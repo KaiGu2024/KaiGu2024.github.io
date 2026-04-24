@@ -535,3 +535,33 @@ footer {
   transition: color 0.14s, border-color 0.14s;
 }
 .skill-source:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+
+.skill-footer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.skill-file {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--accent);
+  text-decoration: none;
+  margin-left: auto;
+  white-space: nowrap;
+  transition: color 0.14s;
+}
+.skill-file:hover { color: var(--accent-hover); text-decoration: none; }
+
+.subsection-icon {
+  font-size: 0.8em;
+  opacity: 0.65;
+  margin-right: 0.35em;
+}
+
+.skill-icon {
+  font-size: 0.85em;
+  opacity: 0.6;
+  margin-right: 0.3em;
+}
