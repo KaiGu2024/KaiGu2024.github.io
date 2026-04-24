@@ -19,7 +19,7 @@
 html { scroll-behavior: smooth; font-size: 18px; }
 
 body {
-  font-family: 'DM Sans', 'Inter', sans-serif;
+  font-family: 'Roboto', 'DM Sans', sans-serif;
   font-weight: 400;
   color: var(--text);
   background: var(--bg);
@@ -264,13 +264,13 @@ h1 {
 .paper:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 
 .paper-title {
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 1.05rem;
-  font-weight: 400;
-  font-style: italic;
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  font-style: normal;
   color: var(--navy);
   margin-bottom: 0.4rem;
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
 .paper-authors {
@@ -418,10 +418,10 @@ footer {
 .material-item:last-of-type { margin-bottom: 0; }
 
 .material-title {
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 1rem;
-  font-weight: 400;
-  font-style: italic;
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-style: normal;
   color: var(--navy);
   margin-bottom: 0.2rem;
   line-height: 1.4;
