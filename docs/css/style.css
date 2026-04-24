@@ -161,7 +161,9 @@ h2 {
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--navy);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--navy);
 }
 
 /* ==============================
@@ -257,8 +259,8 @@ h1 {
 .subsection-title:first-child { margin-top: 0; }
 
 .paper {
-  margin-bottom: 2.75rem;
-  padding-bottom: 2.75rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.75rem;
   border-bottom: 1px solid var(--border);
 }
 .paper:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
@@ -271,16 +273,6 @@ h1 {
   color: var(--navy);
   margin-bottom: 0.4rem;
   line-height: 1.45;
-}
-
-.paper-num {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 0.35rem;
 }
 
 .paper-authors {
