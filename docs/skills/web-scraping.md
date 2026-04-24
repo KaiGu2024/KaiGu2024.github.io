@@ -170,6 +170,10 @@ yt-dlp -x --audio-format mp3 URL
 yt-dlp --flat-playlist --print-json "https://www.youtube.com/@channel"
 ```
 
+**defuddle** can complement yt-dlp by extracting transcript/description text from YouTube page HTML.
+
+GitHub: [yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp)
+
 ---
 
 ## Reddit — Native JSON Endpoint
