@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reading Group — Kai Gu</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg:           #f9f5ef;
@@ -21,7 +21,7 @@
     html { font-size: 20px; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Times New Roman', Times, serif;
       background: var(--bg);
       color: var(--navy);
       line-height: 1.65;
@@ -42,6 +42,7 @@
       gap: 0.6rem;
     }
     header a {
+      font-family: 'DM Sans', sans-serif;
       font-size: 0.65rem;
       font-weight: 500;
       letter-spacing: 0.08em;
@@ -50,16 +51,17 @@
       text-decoration: none;
     }
     header a:hover { color: var(--accent); }
-    header .sep   { font-size: 0.65rem; color: var(--border); }
-    header .crumb { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy); }
+    header .sep   { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; color: var(--border); }
+    header .crumb { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy); }
 
     /* ── Hero ── */
     .hero {
-      max-width: 860px;
+      max-width: 1020px;
       margin: 0 auto;
       padding: 5rem 3rem 2.75rem;
     }
     .hero-eyebrow {
+      font-family: 'DM Sans', sans-serif;
       font-size: 0.6rem;
       font-weight: 600;
       letter-spacing: 0.14em;
@@ -68,24 +70,25 @@
       margin-bottom: 1rem;
     }
     .hero h1 {
-      font-family: 'DM Serif Display', serif;
+      font-family: 'Times New Roman', Times, serif;
       font-size: 3.4rem;
-      font-weight: 400;
+      font-weight: 700;
       line-height: 1.1;
       color: var(--navy);
       margin-bottom: 1.1rem;
     }
-    .hero h1 em { font-style: italic; }
+    .hero h1 em { font-style: italic; font-weight: 400; }
     .hero p {
+      font-family: 'Times New Roman', Times, serif;
       font-size: 0.85rem;
       color: var(--muted);
-      max-width: 480px;
+      max-width: 560px;
       line-height: 1.75;
     }
 
     /* ── Filter bar ── */
     .filter-bar {
-      max-width: 860px;
+      max-width: 1020px;
       margin: 0 auto;
       padding: 0 3rem 2.5rem;
       display: flex;
@@ -111,7 +114,7 @@
 
     /* ── Article list ── */
     .articles {
-      max-width: 860px;
+      max-width: 1020px;
       margin: 0 auto;
       padding: 0 3rem 5rem;
       border-top: 1px solid var(--border);
@@ -132,9 +135,10 @@
     .article-left { flex: 1; min-width: 0; }
 
     .article-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.15rem;
-      font-style: italic;
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      font-style: normal;
       color: var(--navy);
       line-height: 1.35;
       margin-bottom: 0.55rem;
@@ -151,6 +155,7 @@
     .article-tags { display: flex; gap: 0.35rem; flex-wrap: wrap; }
 
     .tag {
+      font-family: 'DM Sans', sans-serif;
       font-size: 0.52rem;
       font-weight: 600;
       letter-spacing: 0.09em;
@@ -161,8 +166,6 @@
     .tag-recommender { background: #e3eeea; color: #20523a; }
     .tag-cultural    { background: #ece7f4; color: #4b3372; }
     .tag-llm         { background: #fde9de; color: #8c3312; }
-    .tag-nlp         { background: #ddeaf8; color: #1a3f72; }
-    .tag-policy      { background: #f6ece0; color: #6b3c0a; }
 
     .article-meta {
       display: flex;
@@ -172,7 +175,15 @@
       flex-shrink: 0;
       padding-top: 0.1rem;
     }
+    .article-date {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 0.62rem;
+      font-style: italic;
+      color: var(--muted);
+      white-space: nowrap;
+    }
     .article-format {
+      font-family: 'DM Sans', sans-serif;
       font-size: 0.55rem;
       font-weight: 600;
       letter-spacing: 0.1em;
@@ -221,6 +232,34 @@
 
   <div class="articles">
 
+    <a class="article-card" href="Blank2026_HouseholdGenAI/" data-categories="llm">
+      <div class="article-left">
+        <p class="article-title">Household GenAI <span class="article-sub">Blank 2026</span></p>
+        <div class="article-tags">
+          <span class="tag tag-llm">LLMs &amp; GenAI</span>
+        </div>
+      </div>
+      <div class="article-meta">
+        <span class="article-date">Apr 23, 2026</span>
+        <span class="article-format">HTML</span>
+        <span class="article-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="article-card" href="0227_Consent_in_Crisis/" data-categories="llm">
+      <div class="article-left">
+        <p class="article-title">Consent in Crisis: The Rapid Decline of the AI Data Commons</p>
+        <div class="article-tags">
+          <span class="tag tag-llm">LLMs &amp; GenAI</span>
+        </div>
+      </div>
+      <div class="article-meta">
+        <span class="article-date">Feb 27, 2026</span>
+        <span class="article-format">PDF</span>
+        <span class="article-arrow">→</span>
+      </div>
+    </a>
+
     <a class="article-card" href="BNP_for_recommending_systems/" data-categories="recommender">
       <div class="article-left">
         <p class="article-title">BNP for Recommending Systems</p>
@@ -229,6 +268,21 @@
         </div>
       </div>
       <div class="article-meta">
+        <span class="article-date">Jan 19, 2026</span>
+        <span class="article-format">PDF</span>
+        <span class="article-arrow">→</span>
+      </div>
+    </a>
+
+    <a class="article-card" href="1201Cloze/" data-categories="llm">
+      <div class="article-left">
+        <p class="article-title">Cloze Encounters: The Impact of Pirated Data Access on LLM Performance</p>
+        <div class="article-tags">
+          <span class="tag tag-llm">LLMs &amp; GenAI</span>
+        </div>
+      </div>
+      <div class="article-meta">
+        <span class="article-date">Dec 1, 2025</span>
         <span class="article-format">PDF</span>
         <span class="article-arrow">→</span>
       </div>
@@ -242,45 +296,7 @@
         </div>
       </div>
       <div class="article-meta">
-        <span class="article-format">PDF</span>
-        <span class="article-arrow">→</span>
-      </div>
-    </a>
-
-    <a class="article-card" href="0227_Consent_in_Crisis/" data-categories="llm">
-      <div class="article-left">
-        <p class="article-title">Consent in Crisis: The Rapid Decline of the AI Data Commons</p>
-        <div class="article-tags">
-          <span class="tag tag-llm">LLMs &amp; GenAI</span>
-        </div>
-      </div>
-      <div class="article-meta">
-        <span class="article-format">PDF</span>
-        <span class="article-arrow">→</span>
-      </div>
-    </a>
-
-    <a class="article-card" href="Blank2026_HouseholdGenAI/" data-categories="llm">
-      <div class="article-left">
-        <p class="article-title">Household GenAI <span class="article-sub">Blank 2026</span></p>
-        <div class="article-tags">
-          <span class="tag tag-llm">LLMs &amp; GenAI</span>
-        </div>
-      </div>
-      <div class="article-meta">
-        <span class="article-format">HTML</span>
-        <span class="article-arrow">→</span>
-      </div>
-    </a>
-
-    <a class="article-card" href="1201Cloze/" data-categories="llm">
-      <div class="article-left">
-        <p class="article-title">Cloze Encounters: The Impact of Pirated Data Access on LLM Performance</p>
-        <div class="article-tags">
-          <span class="tag tag-llm">LLMs &amp; GenAI</span>
-        </div>
-      </div>
-      <div class="article-meta">
+        <span class="article-date">Oct 31, 2025</span>
         <span class="article-format">PDF</span>
         <span class="article-arrow">→</span>
       </div>
