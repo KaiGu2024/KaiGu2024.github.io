@@ -2,7 +2,7 @@
 
 Principles and code patterns for publication-ready figures in Python.
 
-Reference: [Data Visualization: A Practical Introduction — Kieran Healy](https://socviz.co/)
+References: [Data Visualization: A Practical Introduction — Kieran Healy](https://socviz.co/) · [Lecture Slides — Yiqing Xu](https://yiqingxu.org/teachings/resources/data_visual.pdf)
 
 ---
 
