@@ -19,7 +19,7 @@
 html { scroll-behavior: smooth; font-size: 18px; }
 
 body {
-  font-family: 'Roboto', 'DM Sans', sans-serif;
+  font-family: 'Lora', serif;
   font-weight: 400;
   color: var(--text);
   background: var(--bg);
@@ -266,7 +266,7 @@ h1 {
 .paper:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 
 .paper-title {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Lora', serif;
   font-size: 1rem;
   font-weight: 700;
   font-style: normal;
@@ -420,7 +420,7 @@ footer {
 .material-item:last-of-type { margin-bottom: 0; }
 
 .material-title {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Lora', serif;
   font-size: 0.95rem;
   font-weight: 700;
   font-style: normal;
