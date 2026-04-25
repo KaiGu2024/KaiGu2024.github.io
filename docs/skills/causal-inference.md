@@ -4,6 +4,8 @@ Methods for credible identification of causal effects in observational data.
 
 Reference: [Causal Inference: The Mixtape — Scott Cunningham](https://mixtape.scunning.com/)
 
+[StatsPAI](https://github.com/brycewang-stanford/StatsPAI) — agent-native Python package covering 800+ causal/econometric functions (DiD, IV, RD, synthetic control, causal forests, DML) with a unified `CausalResult` API and publication-ready export (`.to_latex()`, `.to_docx()`). Use `list_functions()` / `function_schema()` for LLM tool-use integration.
+
 ---
 
 ## Method Selection Guide
@@ -42,6 +44,22 @@ import pyfixest as pf
 fit = pf.feols("outcome ~ i(time, treated, ref=-1) | unit + time", df)
 pf.iplot(fit)  # event study plot
 ```
+
+**Panel counterfactual estimators (staggered / switching treatment)**: use [`fect`](https://github.com/xuyiqing/fect) (R). Implements generalized synthetic control, matrix completion, and two-way FE imputation; handles treatments that switch on and off. See [user manual](https://yiqingxu.org/packages/fect/).
+
+```r
+library(fect)
+out <- fect(Y ~ D + X1 + X2, data = df,
+            index = c("unit", "time"),
+            method = "mc",        # "fe", "ife", "mc", "polynomial"
+            CV = TRUE, r = c(0, 5),
+            se = TRUE, nboots = 200)
+print(out)
+plot(out)          # ATT plot with confidence band
+plot(out, type = "gap")  # gap plot
+```
+
+Key options: `method` selects estimator; `r` sets factor number range for cross-validation; `force = "two-way"` for two-way FE; `placebo.period` for placebo tests.
 
 ---
 

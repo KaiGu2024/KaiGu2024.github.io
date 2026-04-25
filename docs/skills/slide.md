@@ -9,8 +9,12 @@ Output path: `slide/<slug>.html`
 ## Workflow
 
 ```
-PDF → extract text (pdfplumber) → reading notes → Reveal.js slides
+TeX source provided  →  read directly → reading notes → Reveal.js slides
+PDF only             →  extract to markdown (pdfplumber) → reading notes → Reveal.js slides
 ```
+
+- **TeX available**: Read the `.tex` files directly. Extract equations, table source, and figure paths from source — no extraction script needed.
+- **PDF only**: Run the pdfplumber extraction script (Step 1) to produce markdown, then proceed.
 
 Generate slides only when explicitly requested. Default to the Reveal.js HTML format; use `slide/<slug>.tex` (Beamer / metropolis theme) only if TeX is requested.
 
@@ -61,7 +65,11 @@ Before generating slides, produce structured reading notes at `notes/<slug>.md` 
 
 Include an **Analytical Model** slide immediately before Results if the paper has a formal model.
 
-**Never self-generate a table or figure.** Always use originals from the paper's TeX source or arXiv tarball.
+**Figure and table sourcing — tiered policy:**
+
+1. **TeX available** → use figures/tables directly from source (preferred).
+2. **PDF only** → attempt to extract original figures/tables from the PDF (pdfplumber image export or cropped screenshots). Use extracted assets if successful.
+3. **Extraction fails** → insert a `<!-- MANUAL: supply figure here -->` placeholder with a visible caveat block in the slide, and tell the user which asset to provide. **Do not self-generate** a table or figure unless the user explicitly instructs it.
 
 ---
 
@@ -220,6 +228,59 @@ For each author (in order):
 </body>
 </html>
 ```
+
+---
+
+## Aesthetic & Animation Guidelines
+
+### Typography
+Use `clamp()` for fluid scaling — no media queries needed:
+```css
+:root {
+  --title-size: clamp(1.4rem, 4vw, 3rem);
+  --body-size:  clamp(0.75rem, 1.5vw, 1.1rem);
+  --ease-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal .slides section { font-size: var(--body-size); line-height: 1.4; }
+.reveal h2 { font-size: var(--title-size); }
+```
+
+### Layout
+- Slide container: Reveal.js handles viewport; keep `height: 650px; overflow-y: auto` on sections.
+- Content max-width: `max-width: min(90vw, 1000px)`.
+- Responsive columns: `grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr))`.
+
+### Animation (professional preset)
+Subtle and fast — matches academic context. Add to `<style>`:
+```css
+/* Fragment entrance */
+.reveal .fragment.fade-up {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.3s var(--ease-expo), transform 0.3s var(--ease-expo);
+}
+.reveal .fragment.fade-up.visible { opacity: 1; transform: none; }
+
+/* Staggered list — set style="--i:0" style="--i:1" etc. on <li> */
+.reveal li {
+  animation: fadeSlideUp 0.35s var(--ease-expo) both;
+  animation-delay: calc(var(--i, 0) * 0.08s);
+}
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, .reveal .fragment { animation: none !important; transition: none !important; }
+}
+```
+
+### Background options
+Choose one per deck:
+- **Clean white** (default for academic) — no background set.
+- **Gradient mesh** (warmer, editorial): `background: radial-gradient(ellipse at 20% 50%, #e8f4f8, transparent 60%), radial-gradient(ellipse at 80% 20%, #f0e8f8, transparent 60%);`
+- **Subtle grid** (structured, data-heavy): `background-image: linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px); background-size: 40px 40px;`
 
 ---
 
