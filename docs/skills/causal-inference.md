@@ -6,7 +6,6 @@ Methods for credible identification of causal effects in observational data.
 
 | Package | Language | Scope |
 |---|---|---|
-| [StatsPAI](https://github.com/brycewang-stanford/StatsPAI) | Python | 800+ functions: DiD, IV, RD, synthetic control, causal forests, DML — unified `CausalResult` API |
 | [diff-diff](https://github.com/igerber/diff-diff) | Python | DiD specialists: staggered estimators, honest DiD, synthetic DiD, triple diff |
 | [fect](https://github.com/xuyiqing/fect) | R | Panel counterfactual estimators: IFE, matrix completion, generalized synthetic control |
 
@@ -18,51 +17,16 @@ Reading reference: [Causal Inference: The Mixtape — Scott Cunningham](https://
 
 | Setting | Tool |
 |---|---|
-| Treatment assigned by cutoff | `sp.rdrobust()` (StatsPAI) |
-| Panel data, staggered rollout | `diff-diff` staggered estimators or `sp.callaway_santanna()` |
-| Instrument available | `sp.ivreg()` (StatsPAI) |
-| No panel, rich covariates | `sp.matching()` / `sp.ipw()` (StatsPAI) |
-| Comparative case study | `sp.synth()` (StatsPAI) |
+| Treatment assigned by cutoff | Regression Discontinuity (RDD) |
+| Panel data, staggered rollout | `diff-diff` staggered estimators |
+| Instrument available | Instrumental Variables (IV) |
+| No panel, rich covariates | Matching / IPW |
+| Comparative case study | Synthetic Control |
 | Panel with interactive FE / switching treatment | `fect` (R) |
 
 ---
 
-## StatsPAI — Unified API
-
-Every estimator returns a `CausalResult` with the same interface:
-
-```python
-import statspai as sp
-
-result.summary()           # formatted output with inference
-result.tidy()              # DataFrame of coefficients
-result.plot()              # appropriate visualization
-result.to_latex()          # LaTeX table
-result.to_docx()           # Word document
-result.to_agent_summary()  # JSON-ready structured output
-result.cite()              # BibTeX citation
-
-# Discovery
-sp.list_functions()
-sp.function_schema("callaway_santanna")
-```
-
----
-
 ## Difference-in-Differences
-
-### Staggered DiD — StatsPAI (Callaway–Sant'Anna)
-
-```python
-import statspai as sp
-
-df = sp.datasets.mpdta()
-cs = sp.callaway_santanna(data=df, y='lemp', t='year',
-                          i='countyreal', g='first_treat')
-result = sp.aggte(cs, type='simple')   # or 'dynamic', 'group', 'calendar'
-result.summary()
-result.plot()
-```
 
 ### Staggered DiD — diff-diff
 
@@ -110,12 +74,17 @@ Key options: `method` selects estimator; `r` = factor number range for CV; `forc
 ## Instrumental Variables
 
 ```python
-import statspai as sp
+from linearmodels.iv import IV2SLS
 
-df = sp.datasets.card_1995()
-iv = sp.ivreg('lwage ~ (educ ~ nearc4) + exper + expersq', data=df)
-iv.summary()
-# First-stage F-stat in iv.tidy() diagnostics
+result = IV2SLS(
+    dependent=df["outcome"],
+    exog=df[["const", "controls"]],
+    endog=df[["treatment"]],
+    instruments=df[["instrument"]]
+).fit(cov_type="robust")
+
+print(result.summary)
+print("First-stage F:", result.first_stage.diagnostics["f.stat"].values)
 ```
 
 ---
@@ -123,29 +92,19 @@ iv.summary()
 ## Regression Discontinuity
 
 ```python
-import statspai as sp
-
-df = sp.datasets.lee_2008_senate()
-rd = sp.rdrobust(data=df, y='voteshare_next', x='margin', c=0)
-rd.summary()
-rd.plot()   # RD plot with confidence intervals
+import rpy2.robjects as ro
+ro.r('''
+library(rdrobust)
+result <- rdrobust(y=df$outcome, x=df$running, c=cutoff)
+summary(result)
+rdplot(y=df$outcome, x=df$running, c=cutoff)
+''')
 ```
 
-McCrary density test for manipulation at cutoff — call `sp.rddensity()`.
-
----
-
-## Synthetic Control
-
-```python
-import statspai as sp
-
-df = sp.datasets.california_prop99()
-sc = sp.synth(data=df, outcome='cigsale', unit='state',
-              time='year', treated_unit='California',
-              treatment_time=1989)
-sc.summary()
-sc.plot()
+McCrary density test to check for manipulation at cutoff:
+```r
+library(rddensity)
+rddensity(X = df$running, c = cutoff)
 ```
 
 ---
@@ -154,7 +113,7 @@ sc.plot()
 
 - **Cluster** at the unit of treatment assignment (never smaller)
 - **HC3 robust** for cross-sectional with heteroskedasticity
-- **Wild cluster bootstrap** when few clusters (< 30): `sp.wildboottest()` or `wildboottest` (Python)
+- **Wild cluster bootstrap** when few clusters (< 30): use `wildboottest` (Python)
 
 ---
 
