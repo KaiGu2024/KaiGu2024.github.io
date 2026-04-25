@@ -2,50 +2,94 @@
 
 Methods for credible identification of causal effects in observational data.
 
-Reference: [Causal Inference: The Mixtape — Scott Cunningham](https://mixtape.scunning.com/)
+## Core packages
 
-[StatsPAI](https://github.com/brycewang-stanford/StatsPAI) — agent-native Python package covering 800+ causal/econometric functions (DiD, IV, RD, synthetic control, causal forests, DML) with a unified `CausalResult` API and publication-ready export (`.to_latex()`, `.to_docx()`). Use `list_functions()` / `function_schema()` for LLM tool-use integration.
+| Package | Language | Scope |
+|---|---|---|
+| [StatsPAI](https://github.com/brycewang-stanford/StatsPAI) | Python | 800+ functions: DiD, IV, RD, synthetic control, causal forests, DML — unified `CausalResult` API |
+| [diff-diff](https://github.com/igerber/diff-diff) | Python | DiD specialists: staggered estimators, honest DiD, synthetic DiD, triple diff |
+| [fect](https://github.com/xuyiqing/fect) | R | Panel counterfactual estimators: IFE, matrix completion, generalized synthetic control |
+
+Reading reference: [Causal Inference: The Mixtape — Scott Cunningham](https://mixtape.scunning.com/)
 
 ---
 
 ## Method Selection Guide
 
-| Setting | Method |
+| Setting | Tool |
 |---|---|
-| Treatment assigned by cutoff | Regression Discontinuity (RDD) |
-| Panel data, staggered rollout | Difference-in-Differences (DiD) |
-| Instrument available | Instrumental Variables (IV) |
-| No panel, rich covariates | Matching / IPW |
-| Comparative case study | Synthetic Control |
-| Sharp event, panel data | Event Study |
+| Treatment assigned by cutoff | `sp.rdrobust()` (StatsPAI) |
+| Panel data, staggered rollout | `diff-diff` staggered estimators or `sp.callaway_santanna()` |
+| Instrument available | `sp.ivreg()` (StatsPAI) |
+| No panel, rich covariates | `sp.matching()` / `sp.ipw()` (StatsPAI) |
+| Comparative case study | `sp.synth()` (StatsPAI) |
+| Panel with interactive FE / switching treatment | `fect` (R) |
+
+---
+
+## StatsPAI — Unified API
+
+Every estimator returns a `CausalResult` with the same interface:
+
+```python
+import statspai as sp
+
+result.summary()           # formatted output with inference
+result.tidy()              # DataFrame of coefficients
+result.plot()              # appropriate visualization
+result.to_latex()          # LaTeX table
+result.to_docx()           # Word document
+result.to_agent_summary()  # JSON-ready structured output
+result.cite()              # BibTeX citation
+
+# Discovery
+sp.list_functions()
+sp.function_schema("callaway_santanna")
+```
 
 ---
 
 ## Difference-in-Differences
 
-```python
-import statsmodels.formula.api as smf
-
-# Two-way FE DiD
-result = smf.ols(
-    "outcome ~ treated * post + C(unit) + C(time)",
-    data=df
-).fit(cov_type="cluster", cov_kwds={"groups": df["unit"]})
-print(result.summary())
-```
-
-**Parallel trends test**: plot pre-period means by treatment status; run placebo DiD on pre-period only.
-
-**Staggered DiD**: use `did` (R) or `csdid` / `pyfixest` (Python) for Callaway–Sant'Anna estimator.
+### Staggered DiD — StatsPAI (Callaway–Sant'Anna)
 
 ```python
-# pyfixest: TWFE with clustered SE
-import pyfixest as pf
-fit = pf.feols("outcome ~ i(time, treated, ref=-1) | unit + time", df)
-pf.iplot(fit)  # event study plot
+import statspai as sp
+
+df = sp.datasets.mpdta()
+cs = sp.callaway_santanna(data=df, y='lemp', t='year',
+                          i='countyreal', g='first_treat')
+result = sp.aggte(cs, type='simple')   # or 'dynamic', 'group', 'calendar'
+result.summary()
+result.plot()
 ```
 
-**Panel counterfactual estimators (staggered / switching treatment)**: use [`fect`](https://github.com/xuyiqing/fect) (R). Implements generalized synthetic control, matrix completion, and two-way FE imputation; handles treatments that switch on and off. See [user manual](https://yiqingxu.org/packages/fect/).
+### Staggered DiD — diff-diff
+
+```python
+from diffdiff import CallwaySantanna, SunAbraham, Borusyak
+
+# Callaway–Sant'Anna
+cs = CallwaySantanna().fit(
+    data=df, outcome='y', treatment='treated',
+    time='t', unit='id', first_treat='g',
+    covariates=['x1', 'x2'], cluster='id'
+)
+
+# Imputation estimator (Borusyak–Jaravel–Spiess)
+bjs = Borusyak().fit(data=df, outcome='y', treatment='treated',
+                     time='t', unit='id')
+
+# Honest DiD bounds (Rambachan–Roth)
+from diffdiff import HonestDiD
+HonestDiD().fit(cs, M=0.5)
+```
+
+**Diagnostics**: parallel trends test, Goodman-Bacon decomposition, placebo tests — all available in diff-diff.
+
+### Panel counterfactual / switching treatment — fect (R)
+
+Use when treatment switches on and off, or you want IFE / matrix completion imputation:
 
 ```r
 library(fect)
@@ -55,30 +99,23 @@ out <- fect(Y ~ D + X1 + X2, data = df,
             CV = TRUE, r = c(0, 5),
             se = TRUE, nboots = 200)
 print(out)
-plot(out)          # ATT plot with confidence band
-plot(out, type = "gap")  # gap plot
+plot(out)                   # ATT with confidence band
+plot(out, type = "gap")     # gap plot
 ```
 
-Key options: `method` selects estimator; `r` sets factor number range for cross-validation; `force = "two-way"` for two-way FE; `placebo.period` for placebo tests.
+Key options: `method` selects estimator; `r` = factor number range for CV; `force = "two-way"` for TWFE; `placebo.period` for placebo tests. [User manual](https://yiqingxu.org/packages/fect/).
 
 ---
 
 ## Instrumental Variables
 
 ```python
-from linearmodels.iv import IV2SLS
+import statspai as sp
 
-# First stage: instrument → treatment
-# Second stage: instrumented treatment → outcome
-result = IV2SLS(
-    dependent=df["outcome"],
-    exog=df[["const", "controls"]],
-    endog=df[["treatment"]],
-    instruments=df[["instrument"]]
-).fit(cov_type="robust")
-
-print(result.summary)
-print("First-stage F:", result.first_stage.diagnostics["f.stat"].values)
+df = sp.datasets.card_1995()
+iv = sp.ivreg('lwage ~ (educ ~ nearc4) + exper + expersq', data=df)
+iv.summary()
+# First-stage F-stat in iv.tidy() diagnostics
 ```
 
 ---
@@ -86,40 +123,29 @@ print("First-stage F:", result.first_stage.diagnostics["f.stat"].values)
 ## Regression Discontinuity
 
 ```python
-# rdrobust (R-style interface via rpy2, or use rdrobust Python port)
-import rpy2.robjects as ro
-ro.r('''
-library(rdrobust)
-result <- rdrobust(y=df$outcome, x=df$running, c=cutoff)
-summary(result)
-rdplot(y=df$outcome, x=df$running, c=cutoff)
-''')
+import statspai as sp
+
+df = sp.datasets.lee_2008_senate()
+rd = sp.rdrobust(data=df, y='voteshare_next', x='margin', c=0)
+rd.summary()
+rd.plot()   # RD plot with confidence intervals
 ```
 
-McCrary density test to check for manipulation at cutoff:
-```r
-library(rddensity)
-rddensity(X = df$running, c = cutoff)
-```
+McCrary density test for manipulation at cutoff — call `sp.rddensity()`.
 
 ---
 
-## Event Study / Parallel Trends Plot
+## Synthetic Control
 
 ```python
-import matplotlib.pyplot as plt
+import statspai as sp
 
-coefs = result.params.filter(like="time:")
-cis   = result.conf_int().filter(like="time:", axis=0)
-
-plt.figure(figsize=(8, 4))
-plt.axhline(0, color="black", lw=0.8)
-plt.axvline(-0.5, color="red", ls="--", lw=0.8, label="Event")
-plt.errorbar(range(len(coefs)), coefs, 
-             yerr=(coefs - cis[0], cis[1] - coefs),
-             fmt="o", capsize=3)
-plt.xlabel("Periods relative to treatment"); plt.ylabel("Estimate")
-plt.tight_layout(); plt.savefig("event_study.pdf")
+df = sp.datasets.california_prop99()
+sc = sp.synth(data=df, outcome='cigsale', unit='state',
+              time='year', treated_unit='California',
+              treatment_time=1989)
+sc.summary()
+sc.plot()
 ```
 
 ---
@@ -128,7 +154,7 @@ plt.tight_layout(); plt.savefig("event_study.pdf")
 
 - **Cluster** at the unit of treatment assignment (never smaller)
 - **HC3 robust** for cross-sectional with heteroskedasticity
-- **Wild cluster bootstrap** when few clusters (< 30): use `wildboottest` (Python)
+- **Wild cluster bootstrap** when few clusters (< 30): `sp.wildboottest()` or `wildboottest` (Python)
 
 ---
 
@@ -136,8 +162,8 @@ plt.tight_layout(); plt.savefig("event_study.pdf")
 
 After completing a causal analysis, output a brief report:
 
-**Strategy:** Identification method used (DiD, IV, RDD, …) and the source of variation exploited.  
-**Sample:** N observations; unit of observation; time period; any sample restrictions applied.  
+**Strategy:** Identification method and source of variation exploited.  
+**Sample:** N observations; unit of observation; time period; sample restrictions.  
 **Main estimate:** Point estimate with units, SE, and CI; cluster level used.  
-**Key assumption:** State the identifying assumption and whether pre-tests / diagnostics passed (pre-trend F-stat, KP F-stat, McCrary p-value).  
-**Concerns:** Any threats to identification not fully addressed; data quality issues; external validity limitations.
+**Key assumption:** Identifying assumption and whether diagnostics passed (pre-trend F-stat, KP F-stat, McCrary p-value).  
+**Concerns:** Threats to identification not fully addressed; data quality issues; external validity limitations.
