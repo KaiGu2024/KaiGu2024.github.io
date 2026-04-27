@@ -130,6 +130,8 @@ schema.validate(df)
 
 ## Step 3 — Univariate Analysis
 
+For all plots in Steps 3–6, follow the standards in [Data Visualization](data-visualization.md): sort categorical axes by value, use `theme_pub()` for consistent fonts and DPI, prefer direct annotation over legends, and apply the Okabe-Ito palette.
+
 ```python
 import matplotlib.pyplot as plt
 
