@@ -14,6 +14,45 @@ Standard output format for all skill reports.
 
 ---
 
+## Benchmark (when reporting a standard measure)
+
+When the output is a common measure — CTR, ATT, conversion rate, effect size, kappa — contextualize it against external comparators before drawing conclusions. Use [Literature Review](literature-review.md) to find 3–5 academic papers and 1–2 industry reports on the same measure.
+
+**Industry sources to check by measure type:**
+
+| Measure type | Sources |
+|---|---|
+| Web traffic, CTR, engagement | SimilarWeb, SEMrush, Comscore, Adobe Analytics Benchmarks |
+| Search behavior | Google Search Console industry benchmarks, SparkToro |
+| News / media consumption | Reuters Institute Digital News Report, Pew Research Center, Nielsen |
+| E-commerce, conversion | Salesforce State of Commerce, Adobe Commerce Report, eMarketer / Insider Intelligence |
+| Social media | Sprout Social Benchmarks, Hootsuite Digital Report, DataReportal |
+| Email marketing | Mailchimp Industry Benchmarks, HubSpot Marketing Report |
+| App / mobile | App Annie (data.ai), Sensor Tower, Apptopia |
+| Advertising | IAB Internet Advertising Revenue Report, Statista, WARC |
+| General aggregator | Statista, Gartner, Forrester, McKinsey Global Institute |
+
+**Comparison table** — one row per source:
+
+| Source | Measure | Value | Time period | Sample |
+|---|---|---|---|---|
+| *This study* | CTR (AI summary present) | 8.2% | Mar 2025 | 900 U.S. adults, Google Search |
+| Pew Research 2025 | CTR (AI summary present) | 8% | Mar 2025 | 900 U.S. adults (same dataset) |
+| Reuters Inst. 2025 | "Consistently click through" AI answers | ~33% | 2025 | Multi-country opt-in survey |
+
+**Flag data differences** for each comparator that diverges from your study:
+- *Time period* — pre/post a product change, different year
+- *Sample* — size, selection mechanism (opt-in vs. representative), geography, platform, B2B vs. consumer
+
+**Flag measure differences** when the operationalization differs:
+- Numerator/denominator definition
+- Aggregation level (per-query vs. per-session vs. per-user)
+- Behavioral (observed clicks) vs. self-reported ("do you click?")
+
+**Rationale paragraph** — 2–4 sentences after the table. Does your estimate align with the literature? If it diverges, name the most plausible explanation: sample selection, time period shift, measure definition mismatch, or platform difference.
+
+---
+
 ## Principles
 
 **Be concrete, not vague.**
