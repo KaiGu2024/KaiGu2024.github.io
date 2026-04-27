@@ -19,19 +19,24 @@ Use the Quick Template for single-step skill outputs (a scraping run, an annotat
 ## Writing Pipeline
 
 ### Title
+
 `Report — {Name}`
 
 ### Abstract
+
 Write last, place first.
+
 - Sentence 1: overall purpose and scope — what questions this report addresses and why
 - One sentence per section: what each section contains or finds (include at least one number where the section has a main result)
 
 ### §1 Data & Sample
-**Analysis:** data source, time period, unit of observation, N-funnel (N at each filtering step), final sample size.  
-**Takeaway:** whether the sample is representative; any selection concerns.  
+
+**Analysis:** data source, time period, unit of observation, N-funnel (N at each filtering step), final sample size.
+**Takeaway:** whether the sample is representative; any selection concerns.
 **Note:** if different analyses in the report use different subsamples, state the differences here explicitly rather than in each analysis section.
 
 ### §2 Definitions
+
 For each concept or metric that appears in the report:
 
 ```
@@ -45,39 +50,35 @@ Notes: [edge cases, exclusions, or competing definitions in the literature]
 - **Standard metrics** (CTR, Cohen's κ, ATT): cite the canonical source; define only if your operationalization deviates.
 - **Custom or uncommon metrics**: define in full here. All subsequent sections reference back: e.g., "adjusted engagement rate (§2)." Standard metrics need not be back-referenced after first mention.
 
-### §3 Descriptive Statistics
-**Analysis:** distributions and summary table of key variables (mean, SD, p10/p50/p90, N).  
-**Takeaway:** notable patterns before modeling — skew, outliers, structural zeros, unexpected distributions.
+### §3+ Analysis Sections *(one per research question)*
 
-### §4+ Analysis Sections *(one per research question)*
 Each section follows the same structure:
 
-**Analysis:** method applied, sample used (note if it differs from §1), main result with point estimate and 95% CI or SE, effect size.  
+**Analysis:** method applied, sample used (note if it differs from §1), main result with point estimate and 95% CI or SE, effect size.
 **Takeaway:** practical significance; whether the result clears a meaningful threshold; main caveat.
 
 Back-reference §2 for any self-defined or uncommon metric on every appearance. Flag any deviation from planned analysis as exploratory.
 
 ### §N Heterogeneity *(if applicable)*
-**Analysis:** subgroup breakdown by the most theoretically motivated dimensions (platform, user type, time window, geography).  
+
+**Analysis:** subgroup breakdown by the most theoretically motivated dimensions (platform, user type, time window, geography).
 **Takeaway:** where the effect is largest, smallest, or absent; whether heterogeneity is consistent with the proposed mechanism.
 
-### §N Robustness *(if applicable)*
-**Analysis:** alternative operationalizations, alternative samples, or alternative specifications; present as a table if more than two checks.  
-**Takeaway:** how sensitive the main result is; which assumption drives the result most.
+### §N Benchmark (if applicable)
 
-### §N Benchmark
-**Analysis:** comparison table against 3–5 academic papers and 1–2 industry reports on the same measure. See the [Benchmark reference](#benchmark-reference) section below for sources by measure type.  
+**Analysis:** comparison table against 3–5 academic papers and 1–2 industry reports on the same measure. See the [Benchmark reference](#benchmark-reference) section below for sources by measure type.
 
-| Source | Measure | Value | Time period | Sample |
-|---|---|---|---|---|
-| *This study* | … | … | … | … |
-| [Prior work] | … | … | … | … |
+| Source         | Measure | Value | Time period | Sample |
+| -------------- | ------- | ----- | ----------- | ------ |
+| *This study* | …      | …    | …          | …     |
+| [Prior work]   | …      | …    | …          | …     |
 
-Flag **data differences** (time period, sample size, selection mechanism, geography, platform) and **measure differences** (numerator/denominator, aggregation level, behavioral vs. self-reported) for each comparator.  
+Flag **data differences** (time period, sample size, selection mechanism, geography, platform) and **measure differences** (numerator/denominator, aggregation level, behavioral vs. self-reported) for each comparator.
 **Takeaway:** alignment or divergence explained in 2–4 sentences. Name the most plausible explanation if estimates diverge.
 
 ### §N Limitations *(if applicable)*
-**Analysis:** enumerate threats to validity — identification assumptions violated, sample selection, measurement error, generalizability.  
+
+**Analysis:** enumerate threats to validity — identification assumptions violated, sample selection, measurement error, generalizability.
 **Takeaway:** which limitation would most change the conclusion if addressed; suggested next steps.
 
 ---
@@ -100,14 +101,14 @@ Flag **data differences** (time period, sample size, selection mechanism, geogra
 
 Industry sources by measure type:
 
-| Measure type | Sources |
-|---|---|
-| Web traffic, CTR, engagement | SimilarWeb, SEMrush, Comscore, Adobe Analytics Benchmarks |
-| Search behavior | Google Search Console industry benchmarks, SparkToro |
-| News / media consumption | Reuters Institute Digital News Report, Pew Research Center, Nielsen |
-| E-commerce, conversion | Salesforce State of Commerce, Adobe Commerce Report, eMarketer / Insider Intelligence |
-| Social media | Sprout Social Benchmarks, Hootsuite Digital Report, DataReportal |
-| Email marketing | Mailchimp Industry Benchmarks, HubSpot Marketing Report |
-| App / mobile | App Annie (data.ai), Sensor Tower, Apptopia |
-| Advertising | IAB Internet Advertising Revenue Report, Statista, WARC |
-| General aggregator | Statista, Gartner, Forrester, McKinsey Global Institute |
+| Measure type                 | Sources                                                                               |
+| ---------------------------- | ------------------------------------------------------------------------------------- |
+| Web traffic, CTR, engagement | SimilarWeb, SEMrush, Comscore, Adobe Analytics Benchmarks                             |
+| Search behavior              | Google Search Console industry benchmarks, SparkToro                                  |
+| News / media consumption     | Reuters Institute Digital News Report, Pew Research Center, Nielsen                   |
+| E-commerce, conversion       | Salesforce State of Commerce, Adobe Commerce Report, eMarketer / Insider Intelligence |
+| Social media                 | Sprout Social Benchmarks, Hootsuite Digital Report, DataReportal                      |
+| Email marketing              | Mailchimp Industry Benchmarks, HubSpot Marketing Report                               |
+| App / mobile                 | App Annie (data.ai), Sensor Tower, Apptopia                                           |
+| Advertising                  | IAB Internet Advertising Revenue Report, Statista, WARC                               |
+| General aggregator           | Statista, Gartner, Forrester, McKinsey Global Institute                               |
