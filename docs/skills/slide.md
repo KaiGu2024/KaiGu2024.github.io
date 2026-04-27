@@ -22,26 +22,41 @@ Generate slides only when explicitly requested. Default to the Reveal.js HTML fo
 
 ## Step 1 — Extract PDF Text
 
-```python
-import pdfplumber, re, pathlib
-
-def extract_paper(pdf_path: str, slug: str) -> str:
-    text_blocks = []
-    with pdfplumber.open(pdf_path) as pdf:
-        for page in pdf.pages:
-            raw = page.extract_text(x_tolerance=2, y_tolerance=3) or ""
-            # Strip page headers/footers (heuristic: short lines at top/bottom)
-            lines = raw.splitlines()
-            lines = [l for l in lines if len(l.strip()) > 30 or re.match(r"^#+\s", l)]
-            text_blocks.append("\n".join(lines))
-    prose = "\n\n".join(text_blocks)
-    # Fix run-together words from PDF extraction
-    prose = re.sub(r"([a-z])([A-Z])", r"\1 \2", prose)
-    out = pathlib.Path(f"paper/{slug}.md")
-    out.parent.mkdir(exist_ok=True)
-    out.write_text(prose, encoding="utf-8")
-    return prose
+Install (one-time; downloads ~3–5 GB of model weights on first run):
+```bash
+pip install magic-pdf
 ```
+
+```python
+import json, pathlib, subprocess
+
+def extract_paper(pdf_path: str, slug: str) -> dict:
+    out_dir = pathlib.Path("paper") / slug
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    subprocess.run(
+        ["magic-pdf", "-p", pdf_path, "-o", str(out_dir), "-m", "auto"],
+        check=True,
+    )
+
+    stem = pathlib.Path(pdf_path).stem
+    auto_dir = out_dir / stem / "auto"
+
+    prose = (auto_dir / f"{stem}.md").read_text(encoding="utf-8")
+    content = json.loads((auto_dir / f"{stem}_content_list.json").read_text(encoding="utf-8"))
+    figures_dir = auto_dir / "images"
+
+    return {
+        "markdown":    prose,         # full text + table markdown + LaTeX formulas as $$...$$
+        "content":     content,       # structured list: {type, text/table_body, img_path, ...}
+        "figures_dir": figures_dir,   # PNG files, one per extracted figure
+    }
+```
+
+`content` item types used in later steps:
+- `{"type": "table", "table_body": [[...rows...]], "img_path": "..."}` — use `table_body` for slide tables
+- `{"type": "image", "img_path": "...", "img_caption": "..."}` — figure PNGs for results slides
+- `{"type": "equation", "text": "$$...$$"}` — LaTeX for the identification slide
 
 ---
 
