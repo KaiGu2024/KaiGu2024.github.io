@@ -84,6 +84,32 @@ def robust_fetch(url):
     return SESSION.get(url, timeout=15)
 ```
 
+### Trial Run Before Full Collection
+
+Always test on 5–10 URLs before scaling up:
+
+```python
+import time
+
+sample = urls[:10]
+trial = []
+for url in sample:
+    r = fetch(url)
+    trial.append({"url": url, "status": r.status_code, "size": len(r.content)})
+    time.sleep(1 / rps)
+
+for row in trial:
+    print(row)
+```
+
+Check before proceeding:
+- All status codes are 200 (or expected redirects)
+- Response size is plausible — a login wall or CAPTCHA returns a very small, uniform page
+- Parsed fields are present and correctly typed
+- Estimated total time: `total_urls / rps / 60` minutes
+
+Only run the full collection after the trial passes all four checks.
+
 ### Parsing response formats
 
 ```python
@@ -311,6 +337,6 @@ Use Responses API for exploratory lookups and quick checks. Use requests for any
 
 See [Report format](report.md).
 
-**Definition (measure):** N records / pages fetched; coverage % of target universe (if known); date range; output file and format.  
-**Analyses:** Source and endpoint type used (JSON API / XML / HTML); auth method; rate-limit handling applied.  
-**Takeaway:** Data quality verdict; any auth errors, missing fields, or coverage gaps requiring human review.
+**Definition (measure):** N records / pages fetched; coverage % of target universe (if known); date range; wall-clock scraping time; output file and format.  
+**Analyses:** Source URL(s) and endpoint type (JSON API / XML / HTML); auth method; rate-limit handling applied; HTTP status breakdown (e.g., 200 × 1,842 · 404 × 12 · 429 × 3).  
+**Takeaway:** Data quality verdict; error diagnosis for any non-200 responses — e.g., 401/403 = auth required or IP blocked, 404 = URL pattern changed or content removed, 429 = rate limit hit, 5xx = server-side failure. Flag URLs that returned errors for manual review.
