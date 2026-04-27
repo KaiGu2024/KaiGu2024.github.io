@@ -4,7 +4,7 @@ Standard output format for all skill reports.
 
 ---
 
-## Template
+## Quick Template
 
 ```
 **Definition (measure):** The primary output and how it is quantified.
@@ -12,13 +12,93 @@ Standard output format for all skill reports.
 **Takeaway:** Key result with practical significance. Flag concerns.
 ```
 
+Use the Quick Template for single-step skill outputs (a scraping run, an annotation batch, an EDA). Use the Writing Pipeline below for multi-section analysis reports.
+
 ---
 
-## Benchmark (when reporting a standard measure)
+## Writing Pipeline
 
-When the output is a common measure — CTR, ATT, conversion rate, effect size, kappa — contextualize it against external comparators before drawing conclusions. Use [Literature Review](literature-review.md) to find 3–5 academic papers and 1–2 industry reports on the same measure.
+### Title
+`Report — {Name}`
 
-**Industry sources to check by measure type:**
+### Abstract
+Write last, place first.
+- Sentence 1: overall purpose and scope — what questions this report addresses and why
+- One sentence per section: what each section contains or finds (include at least one number where the section has a main result)
+
+### §1 Data & Sample
+**Analysis:** data source, time period, unit of observation, N-funnel (N at each filtering step), final sample size.  
+**Takeaway:** whether the sample is representative; any selection concerns.  
+**Note:** if different analyses in the report use different subsamples, state the differences here explicitly rather than in each analysis section.
+
+### §2 Definitions
+For each concept or metric that appears in the report:
+
+```
+Name: [metric name]
+Formula: [precise definition — numerator / denominator, or construction steps]
+Unit: [%, count, log-odds, standardized, etc.]
+Range: [e.g., 0–100%, unbounded, −1 to 1]
+Notes: [edge cases, exclusions, or competing definitions in the literature]
+```
+
+- **Standard metrics** (CTR, Cohen's κ, ATT): cite the canonical source; define only if your operationalization deviates.
+- **Custom or uncommon metrics**: define in full here. All subsequent sections reference back: e.g., "adjusted engagement rate (§2)." Standard metrics need not be back-referenced after first mention.
+
+### §3 Descriptive Statistics
+**Analysis:** distributions and summary table of key variables (mean, SD, p10/p50/p90, N).  
+**Takeaway:** notable patterns before modeling — skew, outliers, structural zeros, unexpected distributions.
+
+### §4+ Analysis Sections *(one per research question)*
+Each section follows the same structure:
+
+**Analysis:** method applied, sample used (note if it differs from §1), main result with point estimate and 95% CI or SE, effect size.  
+**Takeaway:** practical significance; whether the result clears a meaningful threshold; main caveat.
+
+Back-reference §2 for any self-defined or uncommon metric on every appearance. Flag any deviation from planned analysis as exploratory.
+
+### §N Heterogeneity *(if applicable)*
+**Analysis:** subgroup breakdown by the most theoretically motivated dimensions (platform, user type, time window, geography).  
+**Takeaway:** where the effect is largest, smallest, or absent; whether heterogeneity is consistent with the proposed mechanism.
+
+### §N Robustness *(if applicable)*
+**Analysis:** alternative operationalizations, alternative samples, or alternative specifications; present as a table if more than two checks.  
+**Takeaway:** how sensitive the main result is; which assumption drives the result most.
+
+### §N Benchmark
+**Analysis:** comparison table against 3–5 academic papers and 1–2 industry reports on the same measure. See the [Benchmark reference](#benchmark-reference) section below for sources by measure type.  
+
+| Source | Measure | Value | Time period | Sample |
+|---|---|---|---|---|
+| *This study* | … | … | … | … |
+| [Prior work] | … | … | … | … |
+
+Flag **data differences** (time period, sample size, selection mechanism, geography, platform) and **measure differences** (numerator/denominator, aggregation level, behavioral vs. self-reported) for each comparator.  
+**Takeaway:** alignment or divergence explained in 2–4 sentences. Name the most plausible explanation if estimates diverge.
+
+### §N Limitations *(if applicable)*
+**Analysis:** enumerate threats to validity — identification assumptions violated, sample selection, measurement error, generalizability.  
+**Takeaway:** which limitation would most change the conclusion if addressed; suggested next steps.
+
+---
+
+## Conventions
+
+- **Scope** — state what is *not* covered: *"organic CTR only; paid and direct excluded."*
+- **Abstract integrity** — every abstract claim maps to a section; every section has at least one number.
+- **Scale consistency** — flag when effect sizes across analyses are on different scales (pp vs. log-odds vs. standardized).
+- **Data provenance** — record when data was pulled and which script cleaned it; *"recent data"* is not recoverable.
+- **Concrete over vague** — "N = 14,203; 47 duplicates removed" beats "the dataset was cleaned." — *McCloskey*
+- **Pair estimates with uncertainty** — always SE or 95% CI alongside a point estimate. — *Gelman*
+- **Practical significance** — report effect sizes; state whether the result clears a meaningful threshold. — *APA JARS*
+- **Confirmatory vs. exploratory** — label post-hoc findings explicitly; the same data cannot generate and test a hypothesis. — *TOP Guidelines*
+- **Flag threats** — name the main concern in every Takeaway; an unaddressed threat is not a clean result.
+
+---
+
+## Benchmark Reference
+
+Industry sources by measure type:
 
 | Measure type | Sources |
 |---|---|
@@ -31,52 +111,3 @@ When the output is a common measure — CTR, ATT, conversion rate, effect size, 
 | App / mobile | App Annie (data.ai), Sensor Tower, Apptopia |
 | Advertising | IAB Internet Advertising Revenue Report, Statista, WARC |
 | General aggregator | Statista, Gartner, Forrester, McKinsey Global Institute |
-
-**Comparison table** — one row per source:
-
-| Source | Measure | Value | Time period | Sample |
-|---|---|---|---|---|
-| *This study* | CTR (AI summary present) | 8.2% | Mar 2025 | 900 U.S. adults, Google Search |
-| Pew Research 2025 | CTR (AI summary present) | 8% | Mar 2025 | 900 U.S. adults (same dataset) |
-| Reuters Inst. 2025 | "Consistently click through" AI answers | ~33% | 2025 | Multi-country opt-in survey |
-
-**Flag data differences** for each comparator that diverges from your study:
-- *Time period* — pre/post a product change, different year
-- *Sample* — size, selection mechanism (opt-in vs. representative), geography, platform, B2B vs. consumer
-
-**Flag measure differences** when the operationalization differs:
-- Numerator/denominator definition
-- Aggregation level (per-query vs. per-session vs. per-user)
-- Behavioral (observed clicks) vs. self-reported ("do you click?")
-
-**Rationale paragraph** — 2–4 sentences after the table. Does your estimate align with the literature? If it diverges, name the most plausible explanation: sample selection, time period shift, measure definition mismatch, or platform difference.
-
----
-
-## Principles
-
-**Be concrete, not vague.**
-"N = 14,203 rows; 47 duplicates removed; price coerced from string (12 NaN)" beats "the dataset was cleaned."
-Numbers anchor the reader. Name files, functions, and thresholds. — *McCloskey, Economical Writing*
-
-**Always pair estimates with uncertainty.**
-Report point estimates with SE or 95% CI. Never present a coefficient alone as fact.
-"β = 0.12 (SE = 0.03, 95% CI [0.06, 0.18])" not "β = 0.12."
-A wide interval is informative — it tells you the evidence is weak. — *Gelman, Ethics in Statistical Practice*
-
-**State practical significance, not just statistical.**
-Report effect sizes alongside p-values. Tell the reader whether the effect is large enough to matter, not only whether it clears a threshold.
-"Cohen's d = 0.08 — detectable but smaller than the minimum meaningful effect of 0.20" is a complete takeaway. — *APA Journal Article Reporting Standards*
-
-**Distinguish confirmatory from exploratory.**
-Label each analysis: was it planned before seeing the data, or discovered after?
-The same data cannot generate and test a hypothesis without qualification.
-Exploratory findings belong in Takeaway only if labeled as such. — *Transparency and Openness Promotion (TOP) Guidelines*
-
-**Flag threats, not just results.**
-Takeaway must name the main concern: a violated assumption, a coverage gap, a data quality issue.
-A result with an unaddressed threat is not a clean result. — *Gelman; standard referee norms*
-
-**Report what happened, not what you tried.**
-Analyses lists methods applied and decisions made, not intentions.
-"Lazy evaluation used; cache hit rate 94% on re-run" not "we attempted to use caching."
