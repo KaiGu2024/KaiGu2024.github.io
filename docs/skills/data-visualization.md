@@ -33,6 +33,10 @@ These rules apply to all figures produced for research:
    - Inline annotations: 10–11 pt
    - Panel title (if needed): 14–16 pt
 
+5. **Comparisons: plot differences, not raw values, sorted by diff**: When the point is to compare groups or conditions, compute the gap and display it as a single value (e.g., treatment minus control). Sort by the difference so the reader sees the ranking immediately. Showing two bars side by side forces the reader to subtract mentally; showing the diff makes the comparison explicit.
+
+6. **Box plots: always sort**: Order groups by median (ascending or descending) before plotting. An unsorted box plot has no natural reading order and obscures which groups are high or low.
+
 ---
 
 ## Chart Type Guide

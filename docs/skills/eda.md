@@ -11,7 +11,7 @@ For datasets > 1 GB or when lazy evaluation / caching is needed, see [Big-Data P
 ## Workflow
 
 ```
-Load → Inspect → Clean → Univariate → Bivariate → Temporal/Group → Document
+Load → Inspect → Clean → Univariate → [Text] → Bivariate → Temporal/Group → Document
 ```
 
 Run EDA before feature engineering or model fitting. Its purpose is to surface problems, surprises, and structure — not to confirm hypotheses.
@@ -151,6 +151,12 @@ for col in df.select(cs.string()).columns:
     print(f"\n{col}  (nunique={df[col].n_unique()})")
     print(vc.head(10))
 ```
+
+---
+
+## Step 3b — Text Column Exploration
+
+For datasets with text columns, see [Text-as-Data](text-as-data.md): surface inspection, embeddings + UMAP, GPT measurement (Rating / Classification / Extraction / Ranking / Discovery), and validation before scaling.
 
 ---
 

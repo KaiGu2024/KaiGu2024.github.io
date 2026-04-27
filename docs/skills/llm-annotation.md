@@ -36,11 +36,11 @@ Text: {text}"""
 
 **Structured output** (recommended for downstream use):
 ```python
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 class Label(BaseModel):
     category: str
-    confidence: str  # "high" | "medium" | "low"
+    confidence: float = Field(ge=0.0, le=1.0)  # float beats categorical: 3× better calibration (Yang et al., 2024)
     rationale: str
 
 resp = openai.beta.chat.completions.parse(
@@ -49,6 +49,7 @@ resp = openai.beta.chat.completions.parse(
     response_format=Label
 )
 label = resp.choices[0].message.parsed
+# Flag items below 0.7 for human review; accept ≥ 0.7 directly
 ```
 
 ---
@@ -104,6 +105,10 @@ def consistent_label(text, categories, n=3):
 3. **Ask for rationale** before the label to improve accuracy (chain-of-thought)
 4. **Set temperature=0** for reproducibility
 5. **Test on 50–100 human-labeled examples** before full deployment
+6. **Randomize label order** across batches — first listed gets 8–15% more assignments regardless of fit (Zheng et al., ICLR 2024)
+7. **One call per dimension** for multi-attribute tasks — accuracy degrades for the 2nd and 3rd labels in a joint call (Ma et al., EMNLP 2025); costs Nx but recovers accuracy
+8. **Web search for entity tasks** — pass a `web_search` tool when classifying entities the model may not know (obscure domains, recent events); not needed when the text itself is the context
+9. **Use XML tags** for structured input — wrap instructions, categories, and content in `<instructions>`, `<categories>`, `<text>` tags; Claude was trained on XML and allocates attention to tagged regions more reliably
 
 ---
 
