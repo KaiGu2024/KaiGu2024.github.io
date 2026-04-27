@@ -10,11 +10,11 @@ Output path: `slide/<slug>.html`
 
 ```
 TeX source provided  →  read directly → reading notes → Reveal.js slides
-PDF only             →  extract to markdown (pdfplumber) → reading notes → Reveal.js slides
+PDF only             →  MinerU extraction (Step 1) → reading notes → Reveal.js slides
 ```
 
 - **TeX available**: Read the `.tex` files directly. Extract equations, table source, and figure paths from source — no extraction script needed.
-- **PDF only**: Run the pdfplumber extraction script (Step 1) to produce markdown, then proceed.
+- **PDF only**: Run the MinerU extraction (Step 1) to produce markdown, structured tables, and figure PNGs, then proceed.
 
 Generate slides only when explicitly requested. Default to the Reveal.js HTML format; use `slide/<slug>.tex` (Beamer / metropolis theme) only if TeX is requested.
 
@@ -83,7 +83,7 @@ Include an **Analytical Model** slide immediately before Results if the paper ha
 **Figure and table sourcing — tiered policy:**
 
 1. **TeX available** → use figures/tables directly from source (preferred).
-2. **PDF only** → attempt to extract original figures/tables from the PDF (pdfplumber image export or cropped screenshots). Use extracted assets if successful.
+2. **PDF only** → use MinerU output: `figures_dir/` for figure PNGs, `content` list for table rows. Use extracted assets if successful.
 3. **Extraction fails** → insert a `<!-- MANUAL: supply figure here -->` placeholder with a visible caveat block in the slide, and tell the user which asset to provide. **Do not self-generate** a table or figure unless the user explicitly instructs it.
 
 ---
