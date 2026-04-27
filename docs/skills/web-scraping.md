@@ -84,6 +84,52 @@ def robust_fetch(url):
     return SESSION.get(url, timeout=15)
 ```
 
+### Parallel Fetching
+
+Web scraping is I/O-bound — the bottleneck is waiting for responses, not CPU. Use threads or async, not processes.
+
+**ThreadPoolExecutor** (simplest, drop-in replacement for a loop):
+
+```python
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+def fetch_safe(url):
+    try:
+        return url, fetch(url)
+    except Exception as e:
+        return url, e
+
+urls = [...]
+results = {}
+with ThreadPoolExecutor(max_workers=10) as pool:
+    futures = {pool.submit(fetch_safe, url): url for url in urls}
+    for future in as_completed(futures):
+        url, result = future.result()
+        results[url] = result
+```
+
+**asyncio + aiohttp** (higher throughput, better for 1000+ URLs):
+
+```python
+import asyncio, aiohttp
+
+async def fetch_async(session, url, semaphore):
+    async with semaphore:
+        async with session.get(url, timeout=aiohttp.ClientTimeout(total=15)) as r:
+            r.raise_for_status()
+            return url, await r.json()
+
+async def fetch_all(urls, rps=5):
+    semaphore = asyncio.Semaphore(rps)
+    async with aiohttp.ClientSession(headers=SESSION.headers) as session:
+        tasks = [fetch_async(session, url, semaphore) for url in urls]
+        return await asyncio.gather(*tasks, return_exceptions=True)
+
+results = asyncio.run(fetch_all(urls, rps=5))
+```
+
+**Rule of thumb:** `ThreadPoolExecutor(max_workers=10–20)` for most scraping jobs. Switch to `asyncio` when jobs exceed ~500 URLs or when latency variance is high (some requests blocking others in a thread pool).
+
 ### Trial Run Before Full Collection
 
 Always test on 5–10 URLs before scaling up:

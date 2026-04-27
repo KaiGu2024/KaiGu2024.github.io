@@ -117,6 +117,66 @@ def lookup(entity_id: int) -> str:
 
 ---
 
+## Multiprocessing
+
+Polars already uses all CPU cores internally — reach for multiprocessing only when the bottleneck is outside Polars: running independent analyses on multiple files, calling a CPU-bound Python function per chunk, or orchestrating separate scripts.
+
+**When to use which:**
+
+| Workload | Tool |
+|---|---|
+| CPU-bound Python (custom functions, sklearn, embedding) | `ProcessPoolExecutor` |
+| I/O-bound (file reads, API calls, DB queries) | `ThreadPoolExecutor` |
+| Already inside Polars operations | Nothing — Polars handles it |
+
+**ProcessPoolExecutor — parallel file processing:**
+
+```python
+from concurrent.futures import ProcessPoolExecutor, as_completed
+from pathlib import Path
+import polars as pl
+
+def process_file(path: str) -> pl.DataFrame:
+    return (
+        pl.read_parquet(path)
+        .filter(pl.col("year") >= 2015)
+        .group_by("country")
+        .agg(pl.col("value").mean())
+    )
+
+files = list(Path("data/").glob("*.parquet"))
+results = []
+with ProcessPoolExecutor(max_workers=8) as pool:
+    futures = {pool.submit(process_file, str(f)): f for f in files}
+    for future in as_completed(futures):
+        results.append(future.result())
+
+df = pl.concat(results)
+```
+
+**Chunk a large task across cores:**
+
+```python
+import multiprocessing as mp
+
+def process_chunk(chunk: list) -> list:
+    # CPU-bound work per item
+    return [heavy_fn(item) for item in chunk]
+
+items = list(range(100_000))
+n_cores = mp.cpu_count()
+chunk_size = len(items) // n_cores
+chunks = [items[i:i+chunk_size] for i in range(0, len(items), chunk_size)]
+
+with ProcessPoolExecutor(max_workers=n_cores) as pool:
+    results = list(pool.map(process_chunk, chunks))
+flat = [x for chunk in results for x in chunk]
+```
+
+**Caution:** `ProcessPoolExecutor` spawns separate Python interpreters — objects are pickled across process boundaries. Large DataFrames or non-picklable objects (open file handles, lambda functions) will fail. Pass file paths, not DataFrames, between processes.
+
+---
+
 ## Saving / Loading Efficiently
 
 ```python
