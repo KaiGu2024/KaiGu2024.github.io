@@ -133,10 +133,8 @@ df = pl.read_ipc("data.arrow")
 
 ## Report
 
-After completing a data processing task, output a brief report:
+See [Report format](report.md).
 
-**Input:** Source file(s), format, and shape (N rows × K cols) before processing.  
-**Output:** Destination file, format, and shape after processing.  
-**Operations:** List major transformations applied (filter, join, group-by, etc.) and row counts at each step.  
-**Performance:** Wall-clock time; peak memory if notable; whether lazy evaluation was used.  
-**Cache:** Which results were cached and where; cache hit/miss rate if repeated runs.
+**Definition (measure):** Input and output shape (N rows × K cols) and format; wall-clock time; cache hit/miss rate if repeated runs.  
+**Analyses:** Major transformations applied (filter, join, group-by, etc.) with row counts at each step; whether lazy evaluation was used; which results were cached and where.  
+**Takeaway:** Performance gain vs. naive approach; any data quality issues surfaced during processing.

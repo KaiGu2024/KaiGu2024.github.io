@@ -126,10 +126,8 @@ clf = LogisticRegression().fit(X, y)
 
 ## Report
 
-After completing an annotation task, output a brief report:
+See [Report format](report.md).
 
-**Task:** One sentence — what was labelled and which categories were used.  
-**Volume:** N items annotated; model and temperature used.  
-**Agreement:** Cohen's kappa against human labels (if available); self-consistency rate (if run).  
-**Prompt:** Note any few-shot examples used and whether chain-of-thought was requested.  
-**Concerns:** Categories where the model showed low confidence or high inconsistency; any hallucination risk in the rationale; recommended human review sample size.
+**Definition (measure):** N items annotated; Cohen's κ against human labels (if available); self-consistency rate (if run); model and temperature used.  
+**Analyses:** Annotation task and categories; prompt strategy (zero-shot / few-shot / chain-of-thought); batch size and API used.  
+**Takeaway:** Quality verdict — whether κ meets the bar for the downstream task; categories with low confidence or high inconsistency; recommended human-review sample size.

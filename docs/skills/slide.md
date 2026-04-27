@@ -306,11 +306,8 @@ Adapt to the paper's strategy:
 
 ## Report
 
-After generating slides, output a brief report:
+See [Report format](report.md).
 
-**Paper:** Title, authors, venue, year.  
-**Slug:** Output path `slide/<slug>.html`.  
-**Slides generated:** N slides; list the sections covered.  
-**Figures:** Whether original figures were used (preferred) or unavailable (notify user).  
-**Notes file:** Whether `notes/<slug>.md` was produced first.  
-**Concerns:** Any LLM-annotation steps flagged; any identification assumptions that warrant discussion; any missing information (photos, formulas, data) that requires human input.
+**Definition (measure):** Paper (title, authors, venue, year); output path `slide/<slug>.html`; N slides generated.  
+**Analyses:** Sections covered; figure sourcing method (TeX source / PDF extraction / placeholder); whether `notes/<slug>.md` was produced first.  
+**Takeaway:** Any missing assets (photos, figures, formulas) or identification assumptions that require human input before the slides are presentation-ready.

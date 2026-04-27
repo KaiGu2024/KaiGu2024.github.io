@@ -2,7 +2,9 @@
 
 Systematic investigation of a new dataset: cleaning as premise, then distribution, correlation, and pattern analysis before any modeling.
 
-Reference: [Python for Data Analysis — Wes McKinney](https://wesmckinney.com/book/)
+References: [Python for Data Analysis — Wes McKinney](https://wesmckinney.com/book/) · [Polars User Guide](https://docs.pola.rs/)
+
+For datasets > 1 GB or when lazy evaluation / caching is needed, see [Big-Data Processing](big-data-processing.md).
 
 ---
 
@@ -19,56 +21,109 @@ Run EDA before feature engineering or model fitting. Its purpose is to surface p
 ## Step 1 — Load & Inspect (Premise)
 
 ```python
-import pandas as pd
+import polars as pl
+import polars.selectors as cs
 
-df = pd.read_csv("data.csv")           # or read_parquet, read_excel, etc.
+df = pl.read_csv("data.csv")       # or read_parquet (preferred for large files)
 
-# Shape, types, nulls
+# Shape and schema
 print(df.shape)
-print(df.dtypes)
-print(df.isnull().sum())
-print(df.isnull().mean().sort_values(ascending=False).head(10))
+print(df.schema)
+
+# Null counts and fractions
+print(df.null_count())
+print(df.null_count() / len(df))
 
 # Duplicates
-print(df.duplicated().sum())
+print(df.is_duplicated().sum())
 
 # Quick look
 print(df.head())
-print(df.describe(include="all"))      # include="all" covers categoricals too
+print(df.describe())
 ```
 
 ---
 
 ## Step 2 — Data Cleaning (Premise)
 
-Fix problems found in Step 1 before analysis.
+Fix problems found in Step 1 before analysis. Tidy data principles: each variable is a column, each observation is a row, each observational unit is a table.
+
+### Type coercion
 
 ```python
 # Dates
-df["date"] = pd.to_datetime(df["date"], format="%Y-%m-%d", errors="coerce")
+df = df.with_columns(pl.col("date").str.to_date("%Y-%m-%d", strict=False))
 
 # Numerics with dirty strings
-df["price"] = pd.to_numeric(df["price"].str.replace(r"[$,]", "", regex=True), errors="coerce")
+df = df.with_columns(
+    pl.col("price").str.replace_all(r"[$,]", "").cast(pl.Float64, strict=False)
+)
 
-# Ordered categoricals
-df["size"] = pd.Categorical(df["size"], categories=["S","M","L","XL"], ordered=True)
-
-# Deduplication: keep most recent record per entity
-df = df.sort_values("updated_at", ascending=False).drop_duplicates("entity_id").reset_index(drop=True)
-
-# Drop rows missing key outcome variable; impute elsewhere
-df = df.dropna(subset=["outcome"])
-df["income"] = df.groupby("region")["income"].transform(lambda x: x.fillna(x.median()))
+# Categoricals
+df = df.with_columns(pl.col("size").cast(pl.Categorical))
 ```
 
 ### Reshaping
 
 ```python
 # Wide → Long
-df_long = df.melt(id_vars=["id","year"], var_name="variable", value_name="value")
+df_long = df.unpivot(index=["id", "year"], variable_name="variable", value_name="value")
 
 # Long → Wide
-df_wide = df_long.pivot_table(index=["id","year"], columns="variable", values="value").reset_index()
+df_wide = df_long.pivot(index=["id", "year"], on="variable", values="value")
+
+# Multi-stub wide → long: use pandas wide_to_long, then convert back
+import pandas as pd
+df_long = pl.from_pandas(
+    pd.wide_to_long(df.to_pandas(), stubnames=["sales", "cost"], i="id", j="year", sep="_")
+    .reset_index()
+)
+```
+
+### Deduplication
+
+```python
+# Drop exact duplicates
+df = df.unique()
+
+# Keep most recent record per entity
+df = df.sort("updated_at", descending=True).unique(subset=["entity_id"], keep="first")
+
+# Fuzzy deduplication (names, addresses)
+from rapidfuzz import fuzz, process
+names = df["name"].to_list()
+matches = process.cdist(names, names, scorer=fuzz.token_sort_ratio)
+```
+
+### Missing values
+
+```python
+# Drop rows missing key outcome variable
+df = df.drop_nulls(subset=["outcome"])
+
+# Fill with group median
+df = df.with_columns(
+    pl.col("income").fill_null(pl.col("income").median().over("region"))
+)
+
+# Imputation for ML pipelines (via sklearn)
+import numpy as np
+from sklearn.impute import SimpleImputer
+numeric_cols = df.select(cs.numeric()).columns
+arr = SimpleImputer(strategy="median").fit_transform(df.select(numeric_cols).to_numpy())
+df = df.with_columns([pl.Series(col, arr[:, i]) for i, col in enumerate(numeric_cols)])
+```
+
+### Validation & Assertions
+
+```python
+import pandera.polars as pa
+
+schema = pa.DataFrameSchema({
+    "id":     pa.Column(pl.Int64, pa.Check.gt(0)),
+    "amount": pa.Column(pl.Float64, nullable=True),
+})
+schema.validate(df)
 ```
 
 ---
@@ -77,23 +132,23 @@ df_wide = df_long.pivot_table(index=["id","year"], columns="variable", values="v
 
 ```python
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 # Numeric: distribution
-for col in df.select_dtypes("number"):
+for col in df.select(cs.numeric()).columns:
+    data = df[col].drop_nulls().to_numpy()
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(9, 3))
-    df[col].hist(bins=40, ax=ax1)
+    ax1.hist(data, bins=40)
     ax1.set_title(f"{col} — histogram")
-    df.boxplot(column=col, ax=ax2)
+    ax2.boxplot(data)
     ax2.set_title(f"{col} — boxplot")
     plt.tight_layout()
     plt.savefig(f"eda_{col}.png", dpi=150)
     plt.close()
 
 # Categorical: frequency
-for col in df.select_dtypes("object"):
-    vc = df[col].value_counts()
-    print(f"\n{col}  (nunique={vc.shape[0]})")
+for col in df.select(cs.string()).columns:
+    vc = df[col].value_counts(sort=True)
+    print(f"\n{col}  (nunique={df[col].n_unique()})")
     print(vc.head(10))
 ```
 
@@ -102,9 +157,10 @@ for col in df.select_dtypes("object"):
 ## Step 4 — Bivariate & Correlation Analysis
 
 ```python
-# Correlation matrix (numeric)
-corr = df.select_dtypes("number").corr()
+import seaborn as sns
 
+# Correlation matrix (convert to pandas for seaborn heatmap)
+corr = df.select(cs.numeric()).to_pandas().corr()
 fig, ax = plt.subplots(figsize=(10, 8))
 sns.heatmap(corr, annot=True, fmt=".2f", cmap="RdBu_r", center=0,
             square=True, linewidths=0.4, ax=ax)
@@ -115,11 +171,12 @@ plt.close()
 
 # Key outcome vs. predictors
 outcome = "y"
-for col in df.select_dtypes("number").columns:
+y = df[outcome].to_numpy()
+for col in df.select(cs.numeric()).columns:
     if col == outcome:
         continue
     fig, ax = plt.subplots(figsize=(5, 4))
-    ax.scatter(df[col], df[outcome], alpha=0.3, s=8)
+    ax.scatter(df[col].to_numpy(), y, alpha=0.3, s=8)
     ax.set_xlabel(col)
     ax.set_ylabel(outcome)
     fig.tight_layout()
@@ -128,13 +185,19 @@ for col in df.select_dtypes("number").columns:
 
 # Categorical vs. continuous (group means ± CI)
 cat_col = "group"
-import scipy.stats as stats
-groups = df.groupby(cat_col)[outcome]
-means = groups.mean().sort_values()
-sems  = groups.sem()
+stats = (
+    df.group_by(cat_col)
+    .agg([
+        pl.col(outcome).mean().alias("mean"),
+        pl.col(outcome).std().alias("std"),
+        pl.col(outcome).count().alias("n"),
+    ])
+    .with_columns((1.96 * pl.col("std") / pl.col("n").sqrt()).alias("ci"))
+    .sort("mean")
+)
 fig, ax = plt.subplots(figsize=(6, 4))
-ax.barh(means.index, means.values, xerr=1.96 * sems[means.index].values,
-        color="steelblue", alpha=0.8, capsize=3)
+ax.barh(stats[cat_col].to_list(), stats["mean"].to_numpy(),
+        xerr=stats["ci"].to_numpy(), color="steelblue", alpha=0.8, capsize=3)
 ax.set_xlabel(f"Mean {outcome} ± 95% CI")
 fig.tight_layout()
 fig.savefig("eda_group_means.png", dpi=150)
@@ -146,21 +209,20 @@ plt.close()
 ## Step 5 — Outlier Detection
 
 ```python
+import numpy as np
 from scipy import stats as sp_stats
 
-# Z-score method (flag |z| > 3)
-z = sp_stats.zscore(df.select_dtypes("number"), nan_policy="omit")
+numeric_arr = df.select(cs.numeric()).to_numpy()
+z = sp_stats.zscore(numeric_arr, nan_policy="omit")
 outlier_mask = (abs(z) > 3).any(axis=1)
 print(f"Outliers (z>3): {outlier_mask.sum()} rows ({outlier_mask.mean():.1%})")
 
 # IQR method
-def iqr_outliers(series):
-    q1, q3 = series.quantile([0.25, 0.75])
+for col in df.select(cs.numeric()).columns:
+    vals = df[col].drop_nulls().to_numpy()
+    q1, q3 = np.percentile(vals, [25, 75])
     iqr = q3 - q1
-    return (series < q1 - 1.5*iqr) | (series > q3 + 1.5*iqr)
-
-for col in df.select_dtypes("number"):
-    n = iqr_outliers(df[col]).sum()
+    n = ((vals < q1 - 1.5 * iqr) | (vals > q3 + 1.5 * iqr)).sum()
     if n > 0:
         print(f"  {col}: {n} IQR outliers")
 ```
@@ -170,21 +232,25 @@ for col in df.select_dtypes("number"):
 ## Step 6 — Temporal & Group Patterns
 
 ```python
-# Time series: aggregate by period
-df["month"] = df["date"].dt.to_period("M")
-ts = df.groupby("month")[outcome].mean()
+# Time series: aggregate by month
+df = df.with_columns(pl.col("date").dt.truncate("1mo").alias("month"))
+ts = df.group_by("month").agg(pl.col(outcome).mean()).sort("month")
 
 fig, ax = plt.subplots(figsize=(9, 3))
-ts.plot(ax=ax)
+ax.plot(ts["month"].to_list(), ts[outcome].to_numpy())
 ax.set_ylabel(f"Mean {outcome}")
-ax.set_xlabel("")
 fig.tight_layout()
 fig.savefig("eda_timeseries.png", dpi=150)
 plt.close()
 
 # Group-level panel: mean per group over time
-pivot = df.groupby(["month", "group"])[outcome].mean().unstack("group")
-pivot.plot(figsize=(9, 4), title=f"{outcome} by group over time")
+pivot = (
+    df.group_by(["month", "group"])
+    .agg(pl.col(outcome).mean())
+    .pivot(index="month", on="group", values=outcome)
+    .sort("month")
+)
+pivot.to_pandas().set_index("month").plot(figsize=(9, 4))
 plt.tight_layout()
 plt.savefig("eda_group_timeseries.png", dpi=150)
 plt.close()
@@ -195,7 +261,7 @@ plt.close()
 ## Step 7 — Profiling Report (automated)
 
 ```python
-# ydata-profiling: one-command HTML report
+# ydata-profiling: one-command HTML report (supports Polars directly)
 from ydata_profiling import ProfileReport
 report = ProfileReport(df, title="EDA Report", explorative=True)
 report.to_file("eda_report.html")
@@ -207,10 +273,8 @@ Install: `pip install ydata-profiling`
 
 ## Report
 
-After completing EDA, output a brief report:
+See [Report format](report.md).
 
-**Dataset:** File name, shape (N rows × K cols), and time period if applicable.  
-**Cleaning actions:** List each issue found and how it was resolved (e.g., "47 duplicate rows removed", "price coerced from string; 12 failures set to NaN").  
-**Key patterns:** 2–4 notable findings from univariate/bivariate analysis (e.g., heavy right-skew in income; strong positive correlation between X and Y, r=0.72).  
-**Outliers:** Count and nature of flagged rows; whether they were dropped or kept.  
-**Concerns:** Any data quality issues that require domain knowledge or human review before proceeding to modeling.
+**Definition (measure):** Dataset shape (N rows × K cols); time period if applicable; key quality metrics (% missing, duplicate count) before and after cleaning.  
+**Analyses:** Cleaning actions taken (list each issue and resolution); univariate and bivariate patterns found; outlier counts and handling.  
+**Takeaway:** 2–4 notable findings (e.g., heavy right-skew in income; r=0.72 between X and Y); any data quality concerns requiring domain review before modeling.

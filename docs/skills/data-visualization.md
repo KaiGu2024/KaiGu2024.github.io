@@ -205,3 +205,13 @@ fig.savefig("figure.png",  bbox_inches="tight", dpi=600)
 for ext in ["pdf", "png", "tiff"]:
     fig.savefig(f"figure.{ext}", bbox_inches="tight", dpi=600)
 ```
+
+---
+
+## Report
+
+See [Report format](report.md).
+
+**Definition (measure):** Figures produced (count, types, output paths); format and DPI; whether colorblind check was run.  
+**Analyses:** Chart types chosen and rationale; annotation strategy (direct vs. legend); journal standard compliance (DPI, font, line weight).  
+**Takeaway:** Visual message conveyed; any deviations from personal figure standards or journal requirements that require human sign-off.

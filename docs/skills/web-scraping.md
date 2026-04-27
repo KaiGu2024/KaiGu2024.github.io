@@ -6,13 +6,15 @@ Toolset and patterns for collecting data from the web and social media platforms
 
 ## Format Preference
 
-Always prefer structured endpoints over HTML parsing:
+Prefer structured, stable contracts over layout-dependent formats:
 
 ```
-JSON API  >  XML feed  >  CSV download  >  HTML (BeautifulSoup / Playwright)
+JSON API  >  XML feed  >  CSV download*  >  HTML (BeautifulSoup / Playwright)
 ```
 
-JSON and XML are stable contracts; HTML structure breaks silently when sites update. Only fall back to HTML parsing when no API or structured endpoint exists.
+JSON and XML are machine contracts — they break loudly when the schema changes. HTML breaks silently when a site redesigns. Only fall back to HTML parsing when no structured endpoint exists.
+
+*CSV download is convenient for small, one-shot exports but is not always better than HTML: if the CSV is paginated, requires auth per chunk, or exceeds memory, a streaming JSON API or direct HTML parse may be preferable. Choose based on stability and size, not format alone.
 
 ---
 
@@ -125,7 +127,10 @@ Use [Apify](https://apify.com) for non-social-media app data:
 Convert unstructured web pages into structured data in two steps:
 
 **Step 1 — Crawl to Markdown**
-Use [Firecrawl](https://firecrawl.dev) to scrape any URL and return clean Markdown:
+
+Two options:
+
+- [**Firecrawl**](https://firecrawl.dev) — paid SaaS (free tier: 500 credits/month). Handles JS rendering, auth, and pagination automatically.
 ```python
 from firecrawl import FirecrawlApp
 app = FirecrawlApp(api_key="...")
@@ -133,23 +138,60 @@ result = app.scrape_url("https://example.com")
 markdown = result["markdown"]
 ```
 
-**Open-source alternative**: [`defuddle`](https://github.com/kepano/defuddle) (TypeScript) — extracts
-main article content from any page and converts to Markdown without an API key.
-
-**Step 2 — Extract JSON via LLM**
-Pass the Markdown to OpenAI with a schema prompt:
+- [**MarkItDown**](https://github.com/microsoft/markitdown) — free, open-source (Microsoft, MIT). Runs locally, no API key. Best for static pages and documents (HTML, PDF, DOCX, XLSX).
 ```python
-import openai, json
-response = openai.chat.completions.create(
-    model="gpt-4o-mini",
-    messages=[{
-        "role": "user",
-        "content": f"Extract a JSON object with fields {{title, author, date, summary}} from:\n\n{markdown}"
-    }],
-    response_format={"type": "json_object"}
-)
-data = json.loads(response.choices[0].message.content)
+from markitdown import MarkItDown
+md = MarkItDown()
+result = md.convert("https://example.com")
+print(result.text_content)
 ```
+
+- [**defuddle**](https://github.com/kepano/defuddle) — free, open-source (TypeScript). Extracts main article content from any page, strips boilerplate.
+
+**Step 2 — Extract JSON via LLM (schema-constrained)**
+
+Use Pydantic structured outputs — eliminates invalid or missing fields entirely:
+
+```python
+from pydantic import BaseModel
+from openai import OpenAI
+
+class Article(BaseModel):
+    title: str
+    author: str | None
+    date: str | None
+    summary: str
+
+client = OpenAI()
+resp = client.beta.chat.completions.parse(
+    model="gpt-4o-mini",
+    messages=[{"role": "user", "content": prompt}],
+    response_format=Article,
+)
+data = resp.choices[0].message.parsed   # typed Article object, not raw JSON
+```
+
+**Prompt structure for reliable extraction** (three research-backed rules):
+
+1. **Schema first** — "lost in the middle" causes 30%+ accuracy drops for instructions buried mid-prompt (Liu et al., TACL 2024). Put field definitions before the content block.
+2. **XML tags** — wrap instructions and content in separate tags; Claude was trained on XML structure.
+3. **Repeat schema after content** — prompt repetition wins 47/70 benchmark-model combinations with zero losses (Google Research, 2025).
+
+```
+<instructions>
+Extract these fields from the page below.
+Fields: title (str), author (str or null), date (ISO 8601 or null), summary (1–2 sentences).
+If a field is absent, return null — do not guess.
+</instructions>
+
+<content>
+{markdown}
+</content>
+
+Fields to extract: title, author, date, summary.
+```
+
+**Batch size** — when extracting from multiple pages in one call, cap at 15–25 items. Naive batching at 64 drops accuracy from 90.6% to 72.8% (BatchPrompt, ICLR 2024).
 
 ---
 
@@ -235,12 +277,40 @@ asyncio.run(main())
 
 ---
 
+## Responses API with `web_search` (One-off Queries)
+
+For small-scale research lookups — a few pages, no bulk collection — the OpenAI Responses API lets the model handle the fetch itself, skipping the requests+parse pipeline entirely:
+
+```python
+from openai import OpenAI
+
+client = OpenAI()
+resp = client.responses.create(
+    model="gpt-4o",
+    tools=[{"type": "web_search_preview"}],
+    input="Fetch example.com and extract: site name, main product, pricing model.",
+)
+print(resp.output_text)
+```
+
+**Trade-offs vs. requests + parse:**
+
+| | Responses API | requests + parse |
+|---|---|---|
+| Setup | Zero — model fetches | Session, headers, retries |
+| Auth/rate control | None | Full control |
+| Cost | Per search call | Compute only |
+| Scale | One-off queries | Bulk collection |
+| JS rendering | Handled automatically | Needs Playwright |
+
+Use Responses API for exploratory lookups and quick checks. Use requests for any collection exceeding ~20 pages.
+
+---
+
 ## Report
 
-After completing a scraping task, output a brief report:
+See [Report format](report.md).
 
-**Task:** One sentence — what was scraped and from where.  
-**Source:** URL pattern or platform used.  
-**Volume:** N records / pages fetched; date range if applicable.  
-**Format:** How the data was saved (CSV, JSON, Parquet) and where.  
-**Notes:** Any auth errors, rate-limit hits, missing fields, or coverage gaps requiring human review.
+**Definition (measure):** N records / pages fetched; coverage % of target universe (if known); date range; output file and format.  
+**Analyses:** Source and endpoint type used (JSON API / XML / HTML); auth method; rate-limit handling applied.  
+**Takeaway:** Data quality verdict; any auth errors, missing fields, or coverage gaps requiring human review.
