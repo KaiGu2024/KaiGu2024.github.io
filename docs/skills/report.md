@@ -70,7 +70,7 @@ Back-reference §2 for any self-defined or uncommon metric on every appearance. 
 
 ### §N Benchmark (if applicable)
 
-**Analysis:** comparison table against 3–5 academic papers and 1–2 industry reports on the same measure. See the [Benchmark reference](#benchmark-reference) section below for sources by measure type.
+**Analysis:** comparison table against prior work on the same measure — 1 highly relevant source is enough; add more only if they materially differ in sample or method. See the [Benchmark reference](#benchmark-reference) section below for sources by measure type.
 
 | Source         | Measure | Value | Time period | Sample |
 | -------------- | ------- | ----- | ----------- | ------ |
