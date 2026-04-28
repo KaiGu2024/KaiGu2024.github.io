@@ -28,12 +28,14 @@ Write last, place first.
 
 - Sentence 1: overall purpose and scope — what questions this report addresses and why
 - One sentence per section: what each section contains or finds (include at least one number where the section has a main result)
+- Cap at ~150 words total; merge thin sections into one abstract sentence if needed.
 
 ### §1 Data & Sample
 
 **Analysis:** data source, time period, unit of observation, N-funnel (N at each filtering step), final sample size.
 **Takeaway:** whether the sample is representative; any selection concerns.
 **Note:** if different analyses in the report use different subsamples, state the differences here explicitly rather than in each analysis section.
+**Suite note:** if this report is one of several sharing the same sample and definitions (e.g., a fact-sheet suite), replace §1/§2 with a one-line pointer — *"Sample and definitions: see [Suite Reference]"* — and omit the full restatement.
 
 ### §2 Definitions
 
@@ -89,19 +91,19 @@ Flag **data differences** (time period, sample size, selection mechanism, geogra
 
 ## Conventions
 
-Write brief and to the point — remove any word, sentence, or section that adds length without adding new information.
+Write brief and to the point — remove word, sentence, or section that adds length without adding new information.
 
 - **Scope** — state what is *not* covered: *"organic CTR only; paid and direct excluded."*
-- **Abstract integrity** — every abstract claim maps to a section; every section has at least one number.
+- **Abstract integrity** — every abstract claim maps to a section.
 - **Scale consistency** — flag when effect sizes across analyses are on different scales (pp vs. log-odds vs. standardized).
 - **Data provenance** — record when data was pulled and which script cleaned it; *"recent data"* is not recoverable.
-- **Concrete over vague** — "N = 14,203; 47 duplicates removed" beats "the dataset was cleaned." — *McCloskey*
+- **Concrete over vague** — "N = 14,203; 47 duplicates removed" beats "the dataset was cleaned."
 - **Pair estimates with uncertainty** — always SE or 95% CI alongside a point estimate. — *Gelman*
-- **Practical significance** — report effect sizes; state whether the result clears a meaningful threshold. — *APA JARS*
-- **Confirmatory vs. exploratory** — label post-hoc findings explicitly; the same data cannot generate and test a hypothesis. — *TOP Guidelines*
-- **Flag threats** — name the main concern in every Takeaway; an unaddressed threat is not a clean result.
-- **List structure** — organize each analysis as a bulleted or numbered list; avoid prose paragraphs where a list suffices.
-- **Keyword prose** — prefer broken phrases over full sentences: "Video 8.3%; text 2.2%; 3.8× gap" not "Video posts average 8.3% engagement while text posts average 2.2%, a gap of 3.8×."
+- **Practical significance** — report effect sizes; state whether the result clears a meaningful threshold.
+- **Confirmatory vs. exploratory** — label post-hoc findings explicitly; the same data cannot generate and test a hypothesis.
+- **Flag threats** — name the main concern.
+- **List structure** — organize analysis as a bulleted or numbered list; avoid prose paragraphs where a list suffices. Use prose when a list would fragment the argument.
+- **Highlight keywords** — write in normal phrases and sentences, but bold key terms, numbers, and conclusions: "**Video** posts average **8.3%** engagement vs. **2.2%** for text — a **3.8× gap**."
 - **Arrow for logic** — use → to show reasoning chains: "high churn → low LTV → unprofitable segment."
 
 ---
