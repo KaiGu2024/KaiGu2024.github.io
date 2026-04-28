@@ -8,8 +8,8 @@ Standard output format for all skill reports.
 
 ```
 **Definition (measure):** The primary output and how it is quantified.
-**Analyses:** What was done — methods, sources, diagnostics. Distinguish planned from exploratory.
-**Takeaway:** Key result with practical significance. Flag concerns.
+**Description:** What the figure or table shows — observable pattern, numbers, direction.
+**Takeaway:** What we conclude — practical significance, flag concerns.
 ```
 
 Use the Quick Template for single-step skill outputs (a scraping run, an annotation batch, an EDA). Use the Writing Pipeline below for multi-section analysis reports.
@@ -54,8 +54,12 @@ Notes: [edge cases, exclusions, or competing definitions in the literature]
 
 Each section follows the same structure:
 
-**Analysis:** method applied, sample used (note if it differs from §1), main result with point estimate and 95% CI or SE, effect size.
-**Takeaway:** practical significance; whether the result clears a meaningful threshold; main caveat.
+**Description:** What the figure or table shows — observable pattern, numbers, direction. For regression output: method, sample (note deviations from §1), point estimate with 95% CI or SE, effect size. For figures/tables: the trend, distribution, or comparison visible in the output.
+**Takeaway:** What we conclude — practical significance; whether the result clears a meaningful threshold; main caveat.
+
+> **Example — bar chart of engagement rate by content type**
+> *Description:* Video posts average 8.3% engagement, image posts 5.1%, text posts 2.2%. Video engagement is 3.8× that of text.
+> *Takeaway:* Video materially outperforms other formats. Shifting 20% of posts from text to video would raise portfolio engagement by ~1.2 pp given current content mix — but the sample covers a single quarter; seasonality could inflate video's advantage.
 
 Back-reference §2 for any self-defined or uncommon metric on every appearance. Flag any deviation from planned analysis as exploratory.
 

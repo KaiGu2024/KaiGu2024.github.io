@@ -133,6 +133,16 @@ schema.validate(df)
 For all plots in Steps 3–6, follow the standards in [Data Visualization](data-visualization.md): sort categorical axes by value, use `theme_pub()` for consistent fonts and DPI, prefer direct annotation over legends, and apply the Okabe-Ito palette.
 
 ```python
+# Numeric: count, null_count, mean, std, min, p25, median, p75, max
+print(df.select(cs.numeric()).describe())
+
+# Categorical: cardinality and mode
+for col in df.select(cs.string() | cs.categorical()).columns:
+    vc = df[col].value_counts(sort=True)
+    print(f"{col}: {df[col].n_unique()} unique | mode = {vc[col][0]!r} ({vc['count'][0]})")
+```
+
+```python
 import matplotlib.pyplot as plt
 
 # Numeric: distribution
