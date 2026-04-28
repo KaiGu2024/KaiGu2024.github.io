@@ -4,6 +4,44 @@ Configuring Claude Code for a research project: CLAUDE.md, status line, context 
 
 ---
 
+## Installation (Windows)
+
+**Prerequisites — Git for Windows:**
+
+Claude Code's installer requires Git for Windows (provides the Unix tools it depends on).
+
+1. Download from https://git-scm.com/download/win and run the installer.
+2. On the *Adjusting your PATH* screen, select **"Git from the command line and also from 3rd-party software"** (the default).
+3. Complete the install, then open a new PowerShell window.
+
+**Install Claude Code:**
+
+```powershell
+irm https://claude.ai/install.ps1 | iex
+```
+
+This handles PATH registration automatically. Verify with `claude --version`.
+
+**Fallback (if you prefer npm):**
+
+```powershell
+npm install -g @anthropic-ai/claude-code
+```
+
+If `claude` is not found after install, add the npm bin dir to PATH:
+
+```powershell
+$npmBin = "$(npm config get prefix)"
+$current = [Environment]::GetEnvironmentVariable("Path", "User")
+if ($current -notlike "*$npmBin*") {
+    [Environment]::SetEnvironmentVariable("Path", "$current;$npmBin", "User")
+}
+```
+
+Then restart the terminal and verify with `claude --version`.
+
+---
+
 ## CLAUDE.md
 
 `CLAUDE.md` is loaded into every session and survives `/compact`. It is the one place for rules that must persist — put anything here that you would otherwise need to repeat after a context reset.
@@ -70,12 +108,15 @@ can open it later.
 ```
 Make the bar twice as long.
 ```
+
 ```
 Add an emoji for each zone (✅ / 🟡 / 🚨).
 ```
+
 ```
 Show the git branch at the right instead of cost.
 ```
+
 ```
 Use a darker shade of yellow — the current one is hard to read.
 ```
@@ -91,6 +132,7 @@ Each request is one line. You do not need to touch the script yourself — the a
 The context window fills as the session grows. When it reaches capacity, responses degrade silently before erroring.
 
 **Signs of context pressure:**
+
 - Agent stops following rules it followed earlier
 - Responses become shorter and less specific
 - The agent "forgets" files or constraints it previously knew
@@ -112,6 +154,7 @@ Without a preservation prompt, compaction may lose the task state and force you 
 ## Subagent Delegation
 
 Delegate to a subagent when a subtask is:
+
 - **Isolated** — it doesn't need the main session's full context
 - **Context-heavy** — running it inline would fill the window before the main task finishes
 - **Risky** — you want failures contained and recoverable
@@ -128,13 +171,3 @@ Constraints: [Any rules from CLAUDE.md that apply]
 ```
 
 **When not to delegate:** If the subtask needs information that only exists in the current conversation (live variable values, intermediate results held in memory), keep it in the main session.
-
----
-
-## Report
-
-See [Report format](report.md).
-
-**Definition (measure):** Configuration files created or modified; context % at session end; number of subagents spawned.  
-**Analyses:** Which configuration choices were made and why (status items selected, CLAUDE.md sections added).  
-**Takeaway:** Whether the session stayed within context budget; any rules that survived compaction vs. had to be re-entered.
