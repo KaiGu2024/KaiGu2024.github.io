@@ -89,6 +89,8 @@ Flag **data differences** (time period, sample size, selection mechanism, geogra
 
 ## Conventions
 
+Write brief and to the point — remove any word, sentence, or section that adds length without adding new information.
+
 - **Scope** — state what is *not* covered: *"organic CTR only; paid and direct excluded."*
 - **Abstract integrity** — every abstract claim maps to a section; every section has at least one number.
 - **Scale consistency** — flag when effect sizes across analyses are on different scales (pp vs. log-odds vs. standardized).
@@ -98,6 +100,9 @@ Flag **data differences** (time period, sample size, selection mechanism, geogra
 - **Practical significance** — report effect sizes; state whether the result clears a meaningful threshold. — *APA JARS*
 - **Confirmatory vs. exploratory** — label post-hoc findings explicitly; the same data cannot generate and test a hypothesis. — *TOP Guidelines*
 - **Flag threats** — name the main concern in every Takeaway; an unaddressed threat is not a clean result.
+- **List structure** — organize each analysis as a bulleted or numbered list; avoid prose paragraphs where a list suffices.
+- **Keyword prose** — prefer broken phrases over full sentences: "Video 8.3%; text 2.2%; 3.8× gap" not "Video posts average 8.3% engagement while text posts average 2.2%, a gap of 3.8×."
+- **Arrow for logic** — use → to show reasoning chains: "high churn → low LTV → unprofitable segment."
 
 ---
 
