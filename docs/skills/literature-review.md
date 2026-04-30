@@ -58,7 +58,7 @@ def crossref_lookup(doi):
     }
 ```
 
-Cross-check title, authors, and year against the OpenAlex record. Flag mismatches.
+Cross-check title, authors, year, and venue against the OpenAlex record. Flag mismatches.
 
 ---
 
@@ -105,10 +105,11 @@ Unless the user specifies otherwise, apply these filters:
 | Category | Outlets |
 |---|---|
 | Econ top 5 | AER, QJE, JPE, REStud, Econometrica |
-| Econ field | AEJ (Applied, Policy, Macro, Micro), EJ, RAND Journal of Economics |
+| Econ field | AEJ (Applied, Policy, Macro, Micro), EJ, RAND Journal of Economics, Review of Economics and Statistics |
 | Marketing / IS | Marketing Science, JMR, JM, Management Science, MISQ, ISR, QME |
 | Multidisciplinary science | PNAS, Science, Nature; Nature-family: Nature Communications, Science Advances, Nature Human Behaviour |
 | CS / ML conferences | NeurIPS, ICML, ICLR, ACL, EMNLP |
+| CS / IR & Web conferences | SIGIR, WWW (The Web Conference), RecSys, KDD |
 | Working papers | NBER, SSRN, arXiv (cs.*, econ.*, stat.*) — include only if no published version exists |
 
 Apply the whitelist during **triage** (Step 2), not during search. Cast a wide net in Step 1, then filter to whitelisted venues before verification.
@@ -136,7 +137,7 @@ def search_openalex_scoped(query, n=100, year_from=None):
         # Econ field
         "american economic journal: applied economics", "american economic journal: economic policy",
         "american economic journal: macroeconomics", "american economic journal: microeconomics",
-        "the economic journal", "rand journal of economics",
+        "the economic journal", "rand journal of economics", "review of economics and statistics",
         # Marketing / IS
         "marketing science", "journal of marketing research", "journal of marketing",
         "management science", "mis quarterly", "information systems research",
@@ -146,12 +147,25 @@ def search_openalex_scoped(query, n=100, year_from=None):
         "nature communications", "science advances", "nature human behaviour",
         # CS / ML
         "neurips", "icml", "iclr", "acl", "emnlp",
+        # CS / IR & Web
+        "sigir", "the web conference", "recsys", "knowledge discovery and data mining",
     }
     return [r for r in results
-            if any(v.lower() in whitelist
-                   for v in (r.get("primary_location") or {}).get("source", {}).get("display_name", "").lower().split()
-                   )]
+            if any(w in (r.get("primary_location") or {}).get("source", {}).get("display_name", "").lower()
+                   for w in whitelist)]
 ```
+
+---
+
+## Stopping Criterion
+
+If zero papers survive triage or verification, **stop and report that honestly.**
+
+Do not fabricate entries to fill the bibliography. Return a short note such as:
+
+> No papers matching the research question were found in whitelisted venues within the target date range. Consider broadening the date window, relaxing the venue filter, or switching to Path B for grey literature.
+
+This applies at every filtering stage: after venue triage, after relevance triage, and after verification.
 
 ---
 
