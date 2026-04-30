@@ -59,9 +59,9 @@ Each section follows the same structure:
 **Description:** What the figure or table shows — observable pattern, numbers, direction. For regression output: method, sample (note deviations from §1), point estimate with 95% CI or SE, effect size. For figures/tables: the trend, distribution, or comparison visible in the output.
 **Takeaway:** What we conclude — practical significance; whether the result clears a meaningful threshold; main caveat.
 
-> **Example — bar chart of engagement rate by content type**
-> *Description:* Video posts average 8.3% engagement, image posts 5.1%, text posts 2.2%. Video engagement is 3.8× that of text.
-> *Takeaway:* Video materially outperforms other formats. Shifting 20% of posts from text to video would raise portfolio engagement by ~1.2 pp given current content mix — but the sample covers a single quarter; seasonality could inflate video's advantage.
+> **Example — Yelp ratings by category**
+> *Description:* Health averages **4.1 stars** with a **31.7%** five-star rate, but only **483** total reviews — the lowest review volume across categories.
+> *Takeaway:* High satisfaction paired with low review volume signals **underengagement** → Yelp should prioritize Health category promotion to drive platform activity. Saying "Health has high stars" is data; pairing the satisfaction signal with the volume gap and naming the action is analysis.
 
 Back-reference §2 for any self-defined or uncommon metric on every appearance. Flag any deviation from planned analysis as exploratory.
 

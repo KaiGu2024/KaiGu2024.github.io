@@ -70,7 +70,7 @@ Before generating slides, produce structured reading notes at `notes/<slug>.md` 
 
 | # | Slide | Notes |
 |---|---|---|
-| 1 | **Title** | Full title; authors + affiliations; journal + year or "Working Paper" |
+| 1 | **Title** | Full title; authors + affiliations; journal + year or "Working Paper". *Optional:* one-sentence headline finding in a `.callout-result` to anchor the deck. |
 | 2 | **Author Bios** | 3-column grid; photo (circular) + position + PhD + research interests |
 | 3 | **Outline** | Substantive sections only — skip motivation, data, ID; one bold title + one sentence each |
 | 4 | **Data & Setting** | Filtering pipeline with N and %; LLM annotation steps with amber callout boxes |
@@ -82,7 +82,11 @@ Include an **Analytical Model** slide immediately before Results if the paper ha
 
 **Figure and table sourcing — tiered policy:**
 
-1. **TeX available** → use figures/tables directly from source (preferred).
+1. **TeX available** → rebuild **tables** as HTML from source; for **figures**, browsers will not render `<img src="*.pdf">`, so convert each `\includegraphics` PDF/EPS to PNG first:
+   ```bash
+   pdftoppm -png -r 200 figures/fig1.pdf slide/assets/fig1   # → slide/assets/fig1-1.png
+   ```
+   Then reference the PNG in the slide.
 2. **PDF only** → use MinerU output: `figures_dir/` for figure PNGs, `content` list for table rows. Use extracted assets if successful.
 3. **Extraction fails** → insert a `<!-- MANUAL: supply figure here -->` placeholder with a visible caveat block in the slide, and tell the user which asset to provide. **Do not self-generate** a table or figure unless the user explicitly instructs it.
 
