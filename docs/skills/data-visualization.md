@@ -26,13 +26,25 @@ These rules apply to all figures produced for research:
 3. **Y-axis baseline**: Start at 0 (or 100 for indexed/normalized series). Only deviate if the entire range of the data is far from zero AND the deviation within the data is the primary story — and always disclose this explicitly.
 4. **Direct annotation, no legends**: Label each line or group at its endpoint or most legible point along the curve. A legend box forces the reader's eye to travel; annotation keeps meaning at the data. When mapping a variable to both `x` and `fill`/`color`, suppress the redundant legend with `guides(fill = "none")`.
 5. **High DPI**: Save at `dpi = 600` (or as PDF vector). This is the *Science*/*Nature* minimum for revised manuscript submission.
-6. **Enlarged fonts for high DPI**: At 600 DPI, default ggplot font sizes (≈11pt) render too small in print. Use:
-   - Axis labels: 15–16 pt
-   - Tick labels: 13–14 pt
-   - Inline annotations: 12–13 pt
-   - Panel title (if needed): 17–18 pt
-7. **Comparisons: plot differences, not raw values, sorted by diff**: When the point is to compare groups or conditions, compute the gap and display it as a single value (e.g., treatment minus control). Sort by the difference so the reader sees the ranking immediately. Showing two bars side by side forces the reader to subtract mentally; showing the diff makes the comparison explicit.
-8. **Calculate before you graph.** Pre-aggregate with dplyr, then plot with `stat = "identity"` (`geom_col()`, `geom_line()` on summarized data). Do not rely on geom-side stats (`after_stat(prop)`, `stat_summary`) for anything beyond a quick exploratory pass — they fail in surprising ways with grouped/multi-variable aggregation, and the summary table is itself a useful artifact.
+6. **Enlarged components for high DPI**: At 600 DPI, default ggplot font sizes (≈11 pt) and line weights (≈0.5 pt) render too small/thin in print. Bias every visual component upward:
+   - Axis titles: 18–20 pt
+   - Tick labels: 15–17 pt
+   - Inline annotations / direct labels: 14–16 pt
+   - Panel title (if needed): 20–22 pt
+   - Panel tag (A/B/C): 16–18 pt bold
+   - Data lines: 1.0–1.4 pt (`linewidth = 1.0` to `1.4`); reference/zero lines 0.5–0.7 pt
+   - Points: `size = 2.5–3.5`
+   - Axis lines: `linewidth = 0.6` (not the ggplot default ~0.3)
+   - Error-bar / ribbon line: 0.7–0.9 pt; ribbon `alpha = 0.18–0.22`
+
+   When in doubt, go bigger — under-sized text and hairlines are the single most common reason a figure fails review at print resolution.
+7. **Thin out dense axis ticks.** When tick labels crowd or overlap, do not shrink the font — drop ticks. Show every 3rd or 6th month for monthly time series, every 5 or 10 years for long horizons, integer years only for daily data, every other category for long ordinal axes. The reader does not need every tick labeled to read the trend; they need the labels they *do* see to be legible.
+   - Date axis: `scale_x_date(date_breaks = "3 months", date_labels = "%Y-%m")` (or `"6 months"`, `"1 year"`).
+   - Numeric axis: `scale_x_continuous(breaks = scales::pretty_breaks(n = 6))` or an explicit `breaks = seq(min, max, by = 5)`.
+   - Categorical axis with many levels: keep all bars, but label only every other one via `scale_x_discrete(breaks = levels[c(TRUE, FALSE)])`, or rotate to horizontal layout so labels have room.
+   - Rotation is a last resort: prefer fewer ticks over `angle = 45`. If you must rotate, use `angle = 30` and `hjust = 1`.
+8. **Comparisons: plot differences, not raw values, sorted by diff**: When the point is to compare groups or conditions, compute the gap and display it as a single value (e.g., treatment minus control). Sort by the difference so the reader sees the ranking immediately. Showing two bars side by side forces the reader to subtract mentally; showing the diff makes the comparison explicit.
+9. **Calculate before you graph.** Pre-aggregate with dplyr, then plot with `stat = "identity"` (`geom_col()`, `geom_line()` on summarized data). Do not rely on geom-side stats (`after_stat(prop)`, `stat_summary`) for anything beyond a quick exploratory pass — they fail in surprising ways with grouped/multi-variable aggregation, and the summary table is itself a useful artifact.
 
 ---
 
@@ -102,17 +114,19 @@ library(ggrepel)
 library(patchwork)
 library(scales)
 
-theme_pub <- function(base_size = 14) {
+theme_pub <- function(base_size = 16) {
   theme_minimal(base_size = base_size, base_family = "Helvetica") +
     theme(
-      axis.title       = element_text(size = 16),
-      axis.text        = element_text(size = 14),
-      plot.title       = element_text(size = 18, face = "bold"),
+      axis.title       = element_text(size = 19),
+      axis.text        = element_text(size = 16),
+      plot.title       = element_text(size = 21, face = "bold"),
+      plot.tag         = element_text(size = 17, face = "bold"),
       panel.grid.minor = element_blank(),
-      panel.grid.major = element_line(linewidth = 0.3, colour = "grey85"),
+      panel.grid.major = element_line(linewidth = 0.4, colour = "grey85"),
       panel.border     = element_blank(),
-      axis.line        = element_line(linewidth = 0.4, colour = "grey20"),
-      strip.text       = element_text(size = 14, face = "bold"),
+      axis.line        = element_line(linewidth = 0.6, colour = "grey20"),
+      axis.ticks       = element_line(linewidth = 0.5, colour = "grey20"),
+      strip.text       = element_text(size = 16, face = "bold"),
       legend.position  = "none"   # direct annotation by default
     )
 }
@@ -150,6 +164,30 @@ df |>
   facet_wrap(~ platform, scales = "free_y") +
   tidytext::scale_y_reordered()
 ```
+
+---
+
+## Thinning Dense Axes
+
+```r
+# Time series — show one tick per quarter or half-year, not every month
+ggplot(df, aes(x = date, y = value)) +
+  geom_line(linewidth = 1.2) +
+  scale_x_date(date_breaks = "3 months", date_labels = "%Y-%m",
+               expand = expansion(mult = c(0.02, 0.05)))
+
+# Long horizon — every 5 years
+scale_x_date(date_breaks = "5 years", date_labels = "%Y")
+
+# Numeric — pretty breaks targeting ~6 ticks
+scale_x_continuous(breaks = scales::pretty_breaks(n = 6))
+
+# Categorical — label every other level when there are many
+lv <- levels(df$category)
+scale_x_discrete(breaks = lv[c(TRUE, FALSE)])
+```
+
+If labels still overlap after thinning, prefer flipping to a horizontal bar layout (`coord_flip()` or swap `x`/`y` aesthetics) over rotating axis text.
 
 ---
 

@@ -75,7 +75,7 @@ Before generating slides, produce structured reading notes at `notes/<slug>.md` 
 | 3 | **Outline** | Substantive sections only — skip motivation, data, ID; one bold title + one sentence each |
 | 4 | **Data & Setting** | Filtering pipeline with N and %; LLM annotation steps with amber callout boxes |
 | 5 | **Identification** | Three sections: challenge → strategy → **assumptions to discuss** (see strategy table below). Skip the empirical specification for canonical DiD/IV/RD — audience knows it; show the spec in LaTeX only if the paper deviates (staggered DiD, shift-share IV, fuzzy RD, etc.). |
-| 6–N | **Results** | **One fact per slide**; reproduce original table/figure; pair with brief **Description + Analysis** (see below). Slides scroll vertically (`overflow-y: auto`) — let content overflow rather than splitting one fact across two slides. |
+| 6–N | **Results** | **One fact per slide**; reproduce original table/figure; pair with brief **Description + Analysis** (see below). If a single fact carries heavy content (large table + long commentary, multi-panel figure, or a figure paired with a regression table), **split across 2–3 slides** rather than cramming — e.g. slide A = figure + description, slide B = analysis + caveats; or one slide per panel. Prefer splitting over scrolling. |
 | N+1 | **Takeaways & Discussion** | 3 bullet takeaways then 5 discussion questions stacked vertically |
 
 Include an **Analytical Model** slide immediately before Results if the paper has a formal model.
@@ -84,11 +84,30 @@ Include an **Analytical Model** slide immediately before Results if the paper ha
 
 1. **TeX available** → rebuild **tables** as HTML from source; for **figures**, browsers will not render `<img src="*.pdf">`, so convert each `\includegraphics` PDF/EPS to PNG first:
    ```bash
-   pdftoppm -png -r 200 figures/fig1.pdf slide/assets/fig1   # → slide/assets/fig1-1.png
+   pdftoppm -png -r 200 figures/fig1.pdf /tmp/fig1   # → /tmp/fig1-1.png
    ```
-   Then reference the PNG in the slide.
 2. **PDF only** → use MinerU output: `figures_dir/` for figure PNGs, `content` list for table rows. Use extracted assets if successful.
 3. **Extraction fails** → insert a `<!-- MANUAL: supply figure here -->` placeholder with a visible caveat block in the slide, and tell the user which asset to provide. **Do not self-generate** a table or figure unless the user explicitly instructs it.
+
+**Self-contained output — embed everything in the HTML:**
+
+The generated `slide/<slug>.html` must be a single self-contained file with **no external asset references** (no `slide/assets/`, no relative image paths). Every figure and table lives inside the HTML itself.
+
+- **Tables** → write as native `<table>` HTML (always — never as an image of a table).
+- **Raster figures (PNG/JPG)** → embed as base64 data URIs:
+  ```python
+  import base64, pathlib
+  def to_data_uri(path):
+      data = pathlib.Path(path).read_bytes()
+      mime = "image/png" if str(path).lower().endswith(".png") else "image/jpeg"
+      return f"data:{mime};base64,{base64.b64encode(data).decode()}"
+  # then: <img src="{{to_data_uri('fig1.png')}}" class="fig-full" alt="...">
+  ```
+- **Vector figures (SVG)** → inline the `<svg>...</svg>` element directly (smaller than base64 PNG, stays crisp).
+- **Author photos** → same treatment: base64-embed; if no photo is available, omit the `<img>` entirely rather than linking to a remote URL.
+- **No `slide/assets/` directory** should be created. Convert PDFs to PNG in a temp location, base64 it, then discard.
+
+CDN links for Reveal.js/MathJax/Google Fonts are the one allowed exception — those are infrastructure, not content. Everything that is *content of the paper* must be inlined.
 
 ---
 
