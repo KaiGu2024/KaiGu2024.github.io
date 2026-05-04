@@ -52,6 +52,7 @@ Then restart the terminal and verify with `claude --version`.
 - Tool constraints (e.g., which compiler to use, path overrides)
 - Non-obvious conventions (naming, output locations, forbidden actions)
 - Verification commands (how to test that the code/analysis is correct)
+- Subagent inventory — names, purposes, and the scope constraints to re-state when spawning each one. Spawned subagents do not inherit CLAUDE.md, so the main agent needs the canonical text here to paste into every subagent brief.
 
 **What does not belong:**
 
@@ -74,6 +75,12 @@ Then restart the terminal and verify with `claude --version`.
 - Never edit files in `data/raw/`
 - Compile with: [exact compile command]
 - Output figures to `output/figures/`
+
+## Subagents
+- `data-loader` — pulls and harmonizes raw files into `data/cleaned/`.
+  Re-state in every brief: "do not look in `..` or modify anything in `data/raw/`".
+- `figure-builder` — produces figures in `output/figures/`.
+  Re-state in every brief: "house style is Kieran Healy; one chart per file; never write outside `output/figures/`".
 
 ## Verification
 - Run `make test` to check pipeline end-to-end

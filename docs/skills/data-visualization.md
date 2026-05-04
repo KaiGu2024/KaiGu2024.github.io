@@ -23,7 +23,9 @@ These rules apply to all figures produced for research:
 
 1. **Tool: R + ggplot2.** Default to ggplot2 for every figure. The grammar-of-graphics composability, `fct_reorder()` for factor axes, ggrepel for non-overlapping labels, and patchwork for multi-panel layouts are non-negotiable for production figures. Do not reach for matplotlib/seaborn unless the figure genuinely cannot be made in ggplot2.
 2. **Always sort when ordering is possible.** If a categorical axis has no inherent order (countries, brands, domains, models, conditions), sort by the value being plotted, or by the metric of interest if there are multiple panels. Use `fct_reorder(var, value)` (descending: `fct_reorder(var, value, .desc = TRUE)`). Alphabetical default ordering wastes the strongest pre-attentive channel — position. The only exceptions: time, naturally-ordered categories (Likert scales, age bins), or when a fixed external ordering is the comparison's whole point.
-3. **Y-axis baseline**: Start at 0 (or 100 for indexed/normalized series). Only deviate if the entire range of the data is far from zero AND the deviation within the data is the primary story — and always disclose this explicitly.
+3. **Y-axis range.**
+   - **Lower bound:** Start at 0 (or 100 for indexed/normalized series). Only deviate if the entire range of the data is far from zero AND the deviation within the data is the primary story — and always disclose this explicitly.
+   - **Upper bound:** Let ggplot's default 5% expansion handle headroom for unbounded metrics — do not pad to a round number (`0–80` for `50–60` data adds dead space that under-sells the level). For bounded metrics (percent, share, normalized score, Likert), set the axis to the **cap** (100, 1.0, 5, 7) regardless of data range, so the reader can see where values sit on the full scale.
 4. **Direct annotation, no legends**: Label each line or group at its endpoint or most legible point along the curve. A legend box forces the reader's eye to travel; annotation keeps meaning at the data. When mapping a variable to both `x` and `fill`/`color`, suppress the redundant legend with `guides(fill = "none")`.
 5. **High DPI**: Save at `dpi = 600` (or as PDF vector). This is the *Science*/*Nature* minimum for revised manuscript submission.
 6. **Enlarged components for high DPI**: At 600 DPI, default ggplot font sizes (≈11 pt) and line weights (≈0.5 pt) render too small/thin in print. Bias every visual component upward:
@@ -45,6 +47,9 @@ These rules apply to all figures produced for research:
    - Rotation is a last resort: prefer fewer ticks over `angle = 45`. If you must rotate, use `angle = 30` and `hjust = 1`.
 8. **Comparisons: plot differences, not raw values, sorted by diff**: When the point is to compare groups or conditions, compute the gap and display it as a single value (e.g., treatment minus control). Sort by the difference so the reader sees the ranking immediately. Showing two bars side by side forces the reader to subtract mentally; showing the diff makes the comparison explicit.
 9. **Calculate before you graph.** Pre-aggregate with dplyr, then plot with `stat = "identity"` (`geom_col()`, `geom_line()` on summarized data). Do not rely on geom-side stats (`after_stat(prop)`, `stat_summary`) for anything beyond a quick exploratory pass — they fail in surprising ways with grouped/multi-variable aggregation, and the summary table is itself a useful artifact.
+10. **Brief titles; no cross-panel overlap.** Axis titles, plot titles, and facet strip text should be the shortest phrasing that names what is on the axis or in the panel — 1–4 words plus units (`Loan amount ($, log)`, not `Loan amount in dollars (logarithmic scale)`). Long titles waste plot area, force the reader to read prose mid-figure, and in multi-panel layouts run into neighboring panels.
+    - Pre-export, render at the final export width and inspect strip-text and axis-title boundaries between panels — `patchwork` and `facet_wrap` do not auto-resolve title overflow.
+    - If titles still collide: shorten further; drop redundant y-axis titles from non-leftmost panels (`labs(y = NULL)`); share axes via `plot_layout(axes = "collect")`; rotate to a horizontal layout when category labels are too wide; or move secondary information into the figure caption rather than the title.
 
 ---
 
@@ -138,6 +143,8 @@ okabe_ito <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442",
 options(ggplot2.discrete.colour = okabe_ito,
         ggplot2.discrete.fill   = okabe_ito)
 ```
+
+**Greek and math symbols.** Use Unicode characters directly in axis labels, annotations, and titles — `α`, `β`, `μ`, `σ²`, `≥`, `×` — never Symbol-font glyphs, which render as tofu in modern PDF readers and fail journal preflight. ggplot2 + Helvetica handles Unicode without configuration; just paste the character.
 
 ---
 
@@ -284,24 +291,89 @@ ggplot(df, aes(x = week, y = visits, group = platform)) +
 
 ## Color Palettes
 
+### Color does four jobs
+
+Before picking a palette, name what color is for in this figure. The palette family follows from the job. **Mismatch is the most-violated rule in published figures** — a sequential palette mapped to categories obscures the categories; a categorical palette mapped to a magnitude misleads about ordering.
+
+| Job | When | Palette family |
+|---|---|---|
+| **Identification** — distinguish unordered categories | Treatment vs. control, platform A vs. B | Categorical (Okabe-Ito) |
+| **Magnitude** — encode an ordered/continuous value | Choropleth, heatmap, density | Sequential (viridis, Blues) |
+| **Signed deviation** — encode +/− around a midpoint | Coefficient vs. baseline, residual map | Diverging (RdBu, Purple-Green) |
+| **Emphasis** — focus one series, fade others | "ChatGPT vs. all platforms" | Layer-and-highlight (gray + accent) |
+
+### Categorical — Okabe-Ito with discipline
+
+The 8-color Okabe-Ito palette is the gold standard (Wong 2011, *Nature Methods*; default in Wilke's *Fundamentals of Data Visualization*; first-tier recommendation in *R Journal* 2023). Set globally in `theme_pub()` above; use it for every categorical mapping.
+
 ```r
-# Categorical (Okabe-Ito, set globally above)
-scale_colour_manual(values = okabe_ito)
-
-# Sequential — for ordered/continuous magnitudes
-scale_fill_viridis_c(option = "viridis")
-scale_fill_distiller(palette = "Blues", direction = 1)
-
-# Diverging — only when the variable has a meaningful midpoint (e.g., 0)
-scale_fill_distiller(palette = "RdBu", direction = -1, limits = c(-x, x))
-
-# Warm accent palette (Anthropic-style)
-WARM <- c("#c96442", "#e8b89a", "#1a1a1a", "#7a706b", "#e6ddd6")
+okabe_ito <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442",
+               "#0072B2", "#D55E00", "#CC79A7", "#000000")
 ```
 
-**Critical rule** (Healy): match the palette's structure to the variable's structure. Never map a sequential variable to a categorical palette, or use a diverging palette for a variable with no defined midpoint.
+**Two-group canonical pair: orange `#E69F00` + blue `#0072B2`.** *The* default for treatment vs. control, before vs. after, fintech vs. bank, and any binary comparison. High **luminance** contrast (survives grayscale) and high **hue** contrast (survives protanopia / deuteranopia / tritanopia). Use this pair unless you have a strong reason not to.
 
-**Colorblind & B&W test**: check every figure with [Color Oracle](https://colororacle.org/), and convert to grayscale (`ggplot2::scale_colour_grey()` proof) before submission. INFORMS journals print B&W: pair color with linetype variation (`solid`, `dashed`, `dotted`) when distinguishing series matters.
+```r
+scale_colour_manual(values = c(treatment = "#E69F00", control = "#0072B2"))
+```
+
+**Single-series default: blue `#0072B2`.** When only one color is needed (single line, single bar series, one density), use the Okabe-Ito blue everywhere — not `steelblue`, not the ggplot2 default, not arbitrary hex. Consistency across the figures in one paper is itself a reading aid.
+
+**Five-category ceiling.** Distinguishability collapses past 5 categorical colors. Above 5, switch to facet or layer-and-highlight. When 3–4 suffice, the *R Journal* 2023 recommendation is to use the **first four Okabe-Ito colors** (orange, sky blue, bluish green, yellow-with-border).
+
+**Known weaknesses to design around:**
+
+- `#F0E442` (yellow) is nearly invisible on white — use **only for fills with borders**, never for lines or thin marks.
+- `#000000` (black) clashes with axis lines — drop it from the active palette unless used for a single highlighted "headline" series.
+- The two oranges (`#E69F00` light + `#D55E00` vermillion) confuse for protanopia. **Don't pair them as the two main categories** — choose orange + blue or blue + green instead.
+- Avoid red + green combinations (8% of men, 0.5% of women have red-green CVD) regardless of palette.
+
+### Sequential — viridis (default) or Blues
+
+For ordered / continuous magnitudes:
+
+```r
+scale_fill_viridis_c(option = "viridis")                  # perceptually uniform default
+scale_fill_viridis_c(option = "cividis")                  # blue-yellow, max colorblind safety
+scale_fill_distiller(palette = "Blues", direction = 1)    # higher value → darker
+```
+
+Viridis has **monotonic luminance** (equal data distance → equal perceived distance), is colorblind-safe across all three deficiency types, and converts cleanly to grayscale. `rainbow()`, `heat.colors()`, and matplotlib's `jet` violate all three — never use them. ColorBrewer's HCL palettes are sometimes recommended but are *not always* colorblind-safe (*R Journal* 2023); default to viridis when in doubt.
+
+`direction = 1` makes higher values darker — the printed-figure convention. Don't flip it without reason.
+
+### Diverging — only with a meaningful midpoint
+
+Use a diverging palette only when the variable has a **defined zero or baseline**: signed coefficient, percent change relative to control, residual, deviation from a target.
+
+```r
+scale_fill_gradient2(low = "#762A83", mid = "white", high = "#1B7837",
+                     midpoint = 0, limits = c(-x, x))      # Purple-Green, accessible
+scale_fill_distiller(palette = "RdBu", direction = -1, limits = c(-x, x))
+```
+
+**The midpoint must be the meaningful zero, not the data midpoint.** Symmetric `limits = c(-x, x)` keeps the white center aligned with zero. Forgetting this is the canonical diverging-palette mistake — a 5%-to-30% range plotted with the default midpoint of 17.5% reads as a sign change at 17.5%.
+
+### Colorblind check
+
+Live simulation: [Color Oracle](https://colororacle.org/) (free, all OS) — flick through protanopia / deuteranopia / tritanopia views and confirm the message survives. Static grayscale proof:
+
+```r
+p + scale_colour_grey()
+```
+
+When color alone is fragile (more than two series, anticipated grayscale printing, accessibility audit), **pair color with linetype or shape**:
+
+```r
+# Lines — pair color with linetype
+aes(colour = group, linetype = group)
+scale_linetype_manual(values = c("solid", "dashed", "dotted"))
+
+# Points — pair color with shape
+aes(colour = group, shape = group)
+```
+
+The orange + blue pair survives grayscale on its own; a third or fourth series almost certainly will not — pair channels above N = 2.
 
 ---
 
@@ -313,29 +385,10 @@ library(patchwork)
 (p1 | p2) / p3 +
   plot_layout(heights = c(2, 1), axes = "collect") +
   plot_annotation(tag_levels = "A",
-                  theme = theme(plot.tag = element_text(face = "bold", size = 14)))
+                  theme = theme(plot.tag = element_text(face = "bold", size = 17)))
 ```
 
-`axes = "collect"` deduplicates shared axes; `tag_levels = "A"` adds journal-style A/B/C panel labels.
-
----
-
-## Journal Standards Reference
-
-From *Science* (AAAS) revised manuscript guidelines:
-
-- **DPI**: 300–600 minimum; vector formats (PDF, EPS, AI) preferred
-- **Font**: Sans-serif only (Helvetica / Arial); no Symbol fonts
-- **Label size**: 7–8 pt in the *final printed figure* — scale up proportionally for high-DPI exports
-- **Line weight**: Avoid hairlines; minimum ~0.5 pt; prefer 1 pt for data lines
-- **Direct annotation preferred**: "Remove unnecessary labels from the figure itself; explain in the caption"
-- **Panel labels**: uppercase A, B, C at upper-left; 10–12 pt bold
-
-From *Marketing Science* / *Management Science* (INFORMS):
-
-- **DPI**: 300 minimum for photos; supply graphs as vector if possible
-- **Grayscale test**: Figures publish in color online but must convert cleanly to B&W for print; use line-style variation (solid, dashed, dotted) in addition to color
-- **Colorblind palette**: Okabe-Ito (categorical) or Viridis family (sequential/diverging)
+`axes = "collect"` deduplicates shared axes. `tag_levels = "A"` produces **uppercase** A/B/C panel labels — the journal-required form (lowercase `tag_levels = "a"` is non-standard for *Science*, *Nature*, and most econ/marketing journals; do not use it). Patchwork places tags at the upper-left of each panel by default, which is also the journal convention — do not override the position. Tag size 17 pt bold matches Personal Figure Standards #6 (panel tag 16–18 pt bold at export DPI); the often-cited 10–12 pt is a *printed-size* value that survives downscaling at the typesetter, not an instruction for your export.
 
 ---
 

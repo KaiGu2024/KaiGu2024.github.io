@@ -11,7 +11,7 @@ For datasets > 1 GB or when lazy evaluation / caching is needed, see [Big-Data P
 ## Workflow
 
 ```
-Load → Inspect → Clean → Univariate → [Text] → Bivariate → Temporal/Group → Document
+Load → Inspect → Summary table → Clean → Univariate → [Text] → Bivariate → Temporal/Group → Document
 ```
 
 Run EDA before feature engineering or model fitting. Its purpose is to surface problems, surprises, and structure — not to confirm hypotheses.
@@ -41,6 +41,58 @@ print(df.is_duplicated().sum())
 print(df.head())
 print(df.describe())
 ```
+
+---
+
+## Step 1b — Summary Statistics Table
+
+Build a publication-style Table 1 alongside the diagnostic prints. Variables × {N, mean, sd, min, p25, median, p75, max}, optionally stratified by treatment / pre-post / region. Build it once **before** Step 2 and again **after**; the diff makes data-cleaning effects visible.
+
+### Quick version — Polars `describe()` + LaTeX
+
+```python
+stats_pre = df.select(cs.numeric()).describe()
+stats_pre.write_csv("output/tables/summary_pre.csv")
+print(stats_pre.to_pandas().to_latex(index=False, float_format="%.3f"))
+```
+
+### Stratified version — `tableone`
+
+```python
+# pip install tableone
+from tableone import TableOne
+
+t1 = TableOne(
+    df.to_pandas(),
+    columns     = ["age", "income", "education", "treated"],
+    categorical = ["education"],
+    groupby     = "treated",      # column defining the strata
+    pval        = True,           # test column (t / chi-sq / Mann-Whitney)
+    nonnormal   = ["income"],     # report median [IQR] for skewed vars
+)
+t1.to_latex("output/tables/summary_strat.tex")
+t1.to_html ("output/tables/summary_strat.html")
+print(t1.tabulate(tablefmt="grid"))
+```
+
+`tableone` reports mean±sd for normal variables, median [IQR] for those flagged `nonnormal`, frequencies for categoricals, and runs the appropriate two-sample test per row.
+
+### Diff against post-cleaning
+
+After Step 2, re-run on the cleaned frame and compare:
+
+```python
+stats_post = df.select(cs.numeric()).describe()
+stats_post.write_csv("output/tables/summary_post.csv")
+
+delta = (
+    stats_post.to_pandas().set_index("statistic")
+    - stats_pre.to_pandas().set_index("statistic")
+)
+print(delta.round(3))
+```
+
+Any large change in N (rows dropped) or moments (winsorization, recoding) should be **traceable to a Step 2 action**. If a change isn't, the cleaning has done something unintended — investigate before continuing.
 
 ---
 

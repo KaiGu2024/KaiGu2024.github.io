@@ -2,21 +2,23 @@
 
 Generate Reveal.js reading-group slides from a paper PDF. Follows the reading group slide template.
 
-Output path: `slide/<slug>.html`
+Output paths:
+- `slide/<slug>.html` — Reveal.js HTML (default).
+- `slide/<slug>.pdf` — exported from the HTML via Decktape, **on request only** (Step 4).
 
 ---
 
 ## Workflow
 
 ```
-TeX source provided  →  read directly → reading notes → Reveal.js slides
-PDF only             →  MinerU extraction (Step 1) → reading notes → Reveal.js slides
+TeX source provided  →  read directly        → reading notes → Reveal.js slides → [PDF on request]
+PDF only             →  MinerU extraction    → reading notes → Reveal.js slides → [PDF on request]
 ```
 
 - **TeX available**: Read the `.tex` files directly. Extract equations, table source, and figure paths from source — no extraction script needed.
 - **PDF only**: Run the MinerU extraction (Step 1) to produce markdown, structured tables, and figure PNGs, then proceed.
 
-Generate slides only when explicitly requested. Default to the Reveal.js HTML format; use `slide/<slug>.tex` (Beamer / metropolis theme) only if TeX is requested.
+Generate slides only when explicitly requested. Default to the Reveal.js HTML format; use `slide/<slug>.tex` (Beamer / metropolis theme) only if TeX is requested. Export to PDF only when the user asks for a PDF version — Step 4.
 
 ---
 
@@ -75,7 +77,7 @@ Before generating slides, produce structured reading notes at `notes/<slug>.md` 
 | 3 | **Outline** | Substantive sections only — skip motivation, data, ID; one bold title + one sentence each |
 | 4 | **Data & Setting** | Filtering pipeline with N and %; LLM annotation steps with amber callout boxes |
 | 5 | **Identification** | Three sections: challenge → strategy → **assumptions to discuss** (see strategy table below). Skip the empirical specification for canonical DiD/IV/RD — audience knows it; show the spec in LaTeX only if the paper deviates (staggered DiD, shift-share IV, fuzzy RD, etc.). |
-| 6–N | **Results** | **One fact per slide**; reproduce original table/figure; pair with brief **Description + Analysis** (see below). If a single fact carries heavy content (large table + long commentary, multi-panel figure, or a figure paired with a regression table), **split across 2–3 slides** rather than cramming — e.g. slide A = figure + description, slide B = analysis + caveats; or one slide per panel. Prefer splitting over scrolling. |
+| 6–N | **Results** | **One fact per slide**; reproduce original table/figure; pair with brief **Description + Analysis** (see below). If a single fact carries heavy content (large table + long commentary, multi-panel figure, or a figure paired with a regression table), **split across 2–3 slides** rather than cramming — e.g. slide A = figure + description, slide B = analysis + caveats; or one slide per panel. Prefer splitting over scrolling. **Required for PDF export — see Step 4.** |
 | N+1 | **Takeaways & Discussion** | 3 bullet takeaways then 5 discussion questions stacked vertically |
 
 Include an **Analytical Model** slide immediately before Results if the paper has a formal model.
@@ -108,6 +110,43 @@ The generated `slide/<slug>.html` must be a single self-contained file with **no
 - **No `slide/assets/` directory** should be created. Convert PDFs to PNG in a temp location, base64 it, then discard.
 
 CDN links for Reveal.js/MathJax/Google Fonts are the one allowed exception — those are infrastructure, not content. Everything that is *content of the paper* must be inlined.
+
+---
+
+## Step 4 — PDF Export (on request)
+
+When the user asks for a PDF version, render `slide/<slug>.html` via [Decktape](https://github.com/astefanutti/decktape) (headless Chrome → fixed-size pages):
+
+```bash
+npm install -g decktape                                          # one-time
+decktape reveal --size 1280x720 slide/<slug>.html slide/<slug>.pdf
+```
+
+Decktape walks every `<section>` and writes one fixed-size page per slide. Unlike the HTML view, **PDF pages cannot scroll** — content that overflows the viewport is silently clipped. The HTML's `overflow-y: auto` on `.reveal .slides section` is a safety net for HTML viewing only; in PDF it does nothing.
+
+### One section per page; split if overflowing
+
+Before exporting, audit each slide for fit. Any section that does not fit a single 1280×720 page must be split at logical section boundaries *before* the export. Splitting rules:
+
+- **Description + Analysis exceeds the page** → slide A = figure + Description, slide B = Analysis + caveats. Keep the same `<h2>` headline; the second slide carries it verbatim with no "(cont.)" suffix.
+- **Multi-panel figures** → one panel per slide; share the headline; subordinate the panel label to a `<h3>` (e.g. *Panel A: by income decile*).
+- **Figure + regression table** → figure on slide A, table on slide B.
+- **Long bulleted lists** → split at the first natural `<h3>` boundary (e.g. between *Mechanism* and *Heterogeneity*). Each `<h3>` block belongs to exactly one slide; never let an `<h3>` straddle a page break.
+- **Wide tables** → split by row group (one result type per slide) or move overflow to an appendix slide. Do not shrink the font below `var(--fs-small)` to force fit.
+
+Rule: every `<h3>` subheading lives on one and only one page in the PDF.
+
+### Audit checklist before exporting
+
+Open the HTML in a browser. For each `<section>`, scroll its body. Any section that requires scrolling to read all content **must be split** before running Decktape — scroll-fit and print-fit are different problems.
+
+- All figures fit within `max-height: 400px` (`.fig-full`) or `360px` (`.col-7-5` right cell).
+- No `<section>` body exceeds the 650px viewport at the default 1280×720 page size.
+- Tables that span more rows than fit are split at logical row boundaries.
+- Each slide has at most one `<h2>` and a small number of `<h3>` blocks.
+- Callout boxes and code blocks fit without their bottom edge being clipped.
+
+After the audit + splits, re-run Decktape. The resulting PDF should have one self-contained slide per page with no clipped content.
 
 ---
 
