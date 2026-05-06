@@ -1,9 +1,7 @@
-# Agent Skill: Big-Data Processing
-
-Polars for in-memory work, DuckDB for tens-of-GB datasets, and caching strategies for expensive computations.
-
-References: [Polars Documentation](https://docs.pola.rs/) · [DuckDB Documentation](https://duckdb.org/docs/)
-
+---
+name: big-data-processing
+description: Use when working with datasets too large for Pandas — Polars by default for in-memory work, DuckDB once raw size hits tens of GB or RAM becomes the bottleneck. Covers lazy query planning, Arrow zero-copy interop between the two tools, caching strategies for expensive computations, and the tradeoffs at different scales.
+allowed-tools: Read, Edit, Write, Bash
 ---
 
 ## Polars by default; DuckDB at scale

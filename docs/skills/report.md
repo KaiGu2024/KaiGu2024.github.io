@@ -1,7 +1,7 @@
-# Agent Skill: Report Format
-
-Standard output format for all skill reports.
-
+---
+name: report
+description: Standard output format for skill reports and multi-section analysis writeups — Quick Template (Definition / Description / Takeaway) for single-step outputs, Writing Pipeline (Abstract / Data & Sample / Definitions / Analysis / Heterogeneity / Benchmark / Limitations) for multi-section reports. Includes the pre-report validity check (analysis review) that should run before any §3+ Analysis Section is drafted.
+allowed-tools: Read, Edit, Write
 ---
 
 ## Quick Template
@@ -86,6 +86,81 @@ Flag **data differences** (time period, sample size, selection mechanism, geogra
 
 **Analysis:** enumerate threats to validity — identification assumptions violated, sample selection, measurement error, generalizability.
 **Takeaway:** which limitation would most change the conclusion if addressed; suggested next steps.
+
+---
+
+## Pre-report Validity Check (analysis review)
+
+Before any §3+ Analysis Section is drafted, the underlying script needs a **research-validity audit** — not a style review. A report that documents an invalid pipeline is worse than no report. This step catches the failures that linters cannot: silent N drops, leakage between train and test, type coercion that produces NAs, mismatches between the stated design and what the code actually does.
+
+### When to run
+
+- Before first internal circulation of the report
+- Before any submission (working paper, journal, replication package)
+- After any non-trivial change to the data pipeline (new merge, new filter, new sample restriction)
+
+### Severity levels
+
+Every flagged issue must point to a specific `file:line` and carry one of three severities. Vague comments ("the cleaning could be cleaner") are not allowed.
+
+| Severity | Meaning |
+|---|---|
+| **CRITICAL** | Changes the substantive result. Must be fixed before the report is circulated. |
+| **WARNING** | Likely a mistake but does not change the headline result. Fix or justify in §N Limitations. |
+| **NOTE** | Worth knowing; usually a documentation or hygiene item. |
+
+### Mandatory checks
+
+| Check | What to look for |
+|---|---|
+| **Silent N drops** | `drop_na()` / `na.omit()` / `dropna()` without an explicit `count_before == count_after` log |
+| **Train/test leakage** | Feature engineering on the full dataset before the split |
+| **Coerced types** | `as.numeric(x)` on character columns producing NAs without warning |
+| **Filter logic** | `&` vs `&&`, `==` vs `<-` typos, off-by-one date filters |
+| **Outlier rules** | Any `x > threshold` filter that depends on the **outcome** variable |
+| **Replication seed** | `set.seed(...)` before any sampling / random split / bootstrap |
+| **Cluster SE** | Standard errors clustered at the level the design implies |
+| **Multiple comparisons** | If many tests are run, are corrections applied (or pre-registered as exploratory)? |
+| **Path hard-coding** | Paths that only work on the author's machine |
+
+### Cross-check against stated design
+
+If a study description, design memo, or pre-registration exists, compare it line-by-line against the code:
+
+- Sample inclusion criteria match?
+- Outcome variable matches the pre-registered one?
+- Covariates listed in the design are all in the model?
+- The pre-registered analysis (e.g. DID with two-way fixed effects) is the one actually run?
+
+Any mismatch → CRITICAL.
+
+### Report-the-review format
+
+```
+# Analysis Review — <project>
+
+**Files audited:** N  |  **CRITICAL:** A  |  **WARNING:** B  |  **NOTE:** C
+
+## CRITICAL
+- `analysis.R:184` — Train/test leakage: scaling fit on full data before split. Result: out-of-sample fit overstated.
+
+## WARNING
+- `data_clean.R:42` — 1,247 rows silently dropped at `drop_na(income)`. If income is MAR not MCAR, this biases the sample.
+
+## NOTE
+- `model.R:16` — `set.seed(42)` is set at file top but `bootstrap()` re-seeds each call; consider standardizing.
+
+## Checks performed
+[every check from the table with status: PASS / FAIL / SKIPPED-with-reason]
+```
+
+Never say "looks fine" without listing what was checked. **Absence of evidence is not evidence of absence** — if a check could not be performed (e.g. data is gitignored), say so explicitly rather than skip silently.
+
+### Notes for extending
+
+- **Language-specific checkers.** Add R-specific checks (factor level handling, `data.table` reference semantics) in `checks/r.md`; Python in `checks/py.md`. Loaded only when the relevant language appears.
+- **Pre-registration parsing.** Auto-extract cross-check items from an OSF preregistration JSON so the design-vs-code comparison runs without manual transcription.
+- **Subagent pattern (`context: fork`).** This is the canonical case for forking a subagent. Reading a full pipeline spans 10–30 files of code that is irrelevant to the conversation that called the skill — the verbose file-reading would otherwise blow the main context. The subagent reads the files, runs the checks, returns the compact report above; the main conversation never sees the raw code.
 
 ---
 

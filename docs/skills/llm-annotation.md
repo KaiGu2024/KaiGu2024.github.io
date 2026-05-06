@@ -1,9 +1,7 @@
-# Agent Skill: LLM Annotation
-
-Using large language models to generate, assess, and integrate data labels for research workflows.
-
-References: [LLM4Annotation Survey — Tan et al., EMNLP 2024](https://arxiv.org/abs/2402.13446); Törnberg, P. (2024). Best practices for text annotation with large language models.
-
+---
+name: llm-annotation
+description: Use when generating, assessing, or integrating data labels via LLMs for research workflows — structured Pydantic outputs, batch processing, validation against a human gold-set, agreement metrics (Cohen's κ, F1), and uncertainty quantification. For when ground-truth labels are slow or expensive to obtain from human annotators.
+allowed-tools: Read, Edit, Write, Bash
 ---
 
 ## When to Use
@@ -12,6 +10,103 @@ References: [LLM4Annotation Survey — Tan et al., EMNLP 2024](https://arxiv.org
 - Task is well-defined enough to specify in a prompt (sentiment, topic, entity, stance, etc.)
 - You need to annotate thousands to millions of items at low cost
 - You want to augment or validate a smaller set of human labels
+
+---
+
+## Building a Codebook from Raw Text (Qualitative Pre-Step)
+
+Before you can use an LLM to annotate text, you need a codebook — the set of labels with definitions, inclusion criteria, exclusion criteria, and example quotes. If a codebook already exists (prior qualitative work, theoretical framework, pilot study), skip this section and go to **Label Generation**. If you're starting from raw transcripts, focus-group notes, or open-ended responses, build a draft first.
+
+This step produces a **draft** codebook, not a final one. Real qualitative coding requires human judgment, inter-coder reliability checks, and theoretical framing the model cannot provide. The output is a starting point for human refinement.
+
+### Non-negotiable rules
+
+1. Every code must have: a **name**, a **one-sentence definition**, **inclusion criteria** (what counts), **exclusion criteria** (what does not), and **at least 2 example quotes** (with source `file:offset`).
+2. **Never invent a quote.** Every example must be a literal substring of an actual transcript.
+3. **Never claim the codebook is comprehensive.** Always end with "this is a starting point for human refinement" and list what was *not* coded for.
+4. **Refuse if the corpus is too thin** to support inductive coding (fewer than 5 documents, or under 500 words total).
+
+### Workflow
+
+```
+Inventory corpus → Open coding (read all) → Cluster to 8–15 candidate codes → Write each formally → Emit with provenance
+```
+
+**Step 1 — Inventory the corpus.**
+
+```bash
+fd -e txt -e md -e docx -e pdf <path>
+
+# Word count per file
+for f in *.txt; do echo "$f $(wc -w < "$f")"; done
+```
+
+If files are PDFs or DOCX, ask the user to convert to plain text first. Do not silently OCR.
+
+**Step 2 — Open coding (first read).** Read each file. Note any phrase or passage that stands out as expressing a recurring theme, attitude, behavior, or concern. Maintain a running list: theme phrase + source `file:offset` + the literal quote. Aim for breadth — 30+ tentative themes is fine. Do not collapse them yet.
+
+**Step 3 — Cluster into candidate codes.** Group tentative themes into 8–15 candidate codes. Each cluster must be:
+
+- **Coherent** — members share a clear concept, not just surface-level wording
+- **Distinct** — two codes must not require the coder to flip a coin between them
+- **Evidenced** — backed by at least 3 instances across at least 2 files
+
+Drop clusters that fail any of the three.
+
+**Step 4 — Write each code formally.**
+
+```markdown
+### Code: <NAME_IN_CAPS>
+
+**Definition:** <one sentence>
+
+**Inclusion criteria:**
+- <bullet>
+- <bullet>
+
+**Exclusion criteria:**
+- <bullet>
+- <bullet>
+
+**Examples:**
+1. "<literal quote>" — `interview_03.txt:412`
+2. "<literal quote>" — `interview_07.txt:88`
+3. "<literal quote>" — `interview_12.txt:201`
+
+**Frequency in corpus:** <N occurrences across M files>
+```
+
+**Step 5 — Emit the codebook with provenance.**
+
+```markdown
+# Draft Codebook — <project name>
+
+**Corpus:** N files, M words total. Coding date: YYYY-MM-DD. Coder: claude-code (model version X).
+
+This is a **first-pass draft**. Before using it for substantive analysis:
+
+1. Review every code with at least one human coder.
+2. Pilot the codebook on a held-out subset and compute inter-coder agreement (Krippendorff's alpha or Cohen's kappa).
+3. Revise codes that score below 0.70 agreement.
+4. Document every revision in a coding memo.
+
+## Codes
+[the formal blocks from Step 4]
+
+## What was not coded
+- [obvious themes the model deliberately did not include — e.g., "demographic descriptors are metadata, not coded"]
+```
+
+The codebook produced here feeds directly into **Prompt Codebook** below — inclusion/exclusion criteria become the LLM annotation rubric; example quotes become few-shot examples in the prompt.
+
+### Subagent pattern (`context: fork`)
+
+Reading 5–50 transcripts fills the main conversation context fast and the raw transcripts are irrelevant to the parent conversation. Run this step as a subagent — the subagent reads the files, develops the codebook, and returns the codebook only.
+
+### Notes for extending
+
+- **Deductive overlay.** If the user has an existing theoretical framework (e.g., self-determination theory), accept it as input and cluster around its constructs rather than purely inductively.
+- **Inter-coder pre-check.** Add a Step 4.5 that double-codes a held-out 10% of the corpus and reports preliminary agreement.
 
 ---
 

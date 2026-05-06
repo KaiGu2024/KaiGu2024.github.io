@@ -1,7 +1,7 @@
-# Agent Skill: Literature Review
-
-Two paths to a verified bibliography for a research question.
-
+---
+name: literature-review
+description: Use when the user asks for a literature review, citation search, or annotated bibliography — Path A (OpenAlex search → Crossref DOI verification) for indexed work, Path B (web search → post-hoc DOI/title/author/year/venue checklist) for grey literature. Drops unverified entries rather than "fixing" them; never returns citations from model memory.
+allowed-tools: Read, Bash, WebFetch
 ---
 
 ## When to Use
@@ -62,23 +62,101 @@ Cross-check title, authors, year, and venue against the OpenAlex record. Flag mi
 
 ---
 
-## Path B — Web Search → Draft → Post-hoc Verification
+## Path B — Verify an Existing Bibliography
 
 ```
-Web search for topic → draft bibliography → verify each entry
+Parse input → Crossref DOI lookup → title-search fallback → classify → report
 ```
 
-Use when the topic is niche enough that OpenAlex coverage is sparse, or when you need grey literature (working papers, reports).
+Use when a list of citations already exists and needs to be audited before it can be trusted:
 
-**Verification checklist (apply to every entry):**
+- Web search produced a draft bibliography → verify before using
+- A paper's reference section needs spot-checking
+- Another LLM was asked for sources and the output is suspicious
+- An old bibliography needs re-checking for broken DOIs
+- Topic is niche enough that OpenAlex coverage is sparse and grey literature (working papers, reports) is in the mix
 
-1. DOI resolves to the claimed paper
-2. Title matches exactly (not approximately)
-3. Author list matches (check first author + year)
-4. Journal/venue matches
-5. Year is correct
+### Non-negotiable rules
 
-Flag any entry that fails one or more checks as **unverified** — do not include in the final bibliography without human review.
+1. Every entry is classified into exactly one of: **VERIFIED**, **MISMATCH**, **FABRICATED**.
+2. **Never "fix" a FABRICATED entry by substituting a similar-looking real paper.** Flag it and stop. The job is to report, not to repair — the user decides what to do.
+3. Never downgrade a MISMATCH to VERIFIED because "it is close enough". Record exactly what was wrong.
+
+### Step 1 — Parse the input
+
+Accept any common format: APA, BibTeX, Chicago, plain text, or a markdown list. For each entry, extract:
+
+- First author surname
+- Year
+- Title
+- Venue (journal / conference name)
+- DOI (if present)
+
+If a field is missing, record it as `null` and proceed — missing fields are informative.
+
+### Step 2 — Resolve DOIs at Crossref
+
+For entries that have a DOI:
+
+```bash
+curl -s "https://api.crossref.org/works/$DOI" > crossref.json
+```
+
+Parse the JSON and check:
+
+- **First author surname:** exact match (case-insensitive) against Crossref's `author[0].family`.
+- **Year:** exact match against `issued.date-parts[0][0]`.
+- **Title:** ≥ 80% fuzzy match against `title[0]` (use `difflib.SequenceMatcher` from Python stdlib).
+
+Record which fields passed and which failed.
+
+### Step 3 — Title-search fallback for entries with no DOI
+
+For entries with no DOI (or where the DOI returned HTTP 404), search Crossref by title:
+
+```bash
+ENCODED_TITLE=$(python3 -c "import urllib.parse,sys; print(urllib.parse.quote(sys.argv[1]))" "$TITLE")
+curl -s "https://api.crossref.org/works?query.title=$ENCODED_TITLE&rows=3" > fallback.json
+```
+
+For each of the top 3 hits, compare first author and year against the claimed citation. If any hit matches both, record its DOI as evidence.
+
+### Step 4 — Classify every entry
+
+Apply these rules in order:
+
+| Verdict | Condition |
+|---|---|
+| **VERIFIED** | DOI resolved at Crossref AND first author, year, and title (≥ 80%) all match. Or title-search found a hit where author + year match. |
+| **MISMATCH** | The paper exists (DOI resolved or title search found a confident match) BUT at least one claimed field is wrong. Record exactly which fields differ and what Crossref says. |
+| **FABRICATED** | No DOI resolution AND no title-search match. The paper cannot be located in Crossref. |
+
+A **MISMATCH is not a fabrication.** The paper is real — the citation just has errors (typos, misremembered years). The user may want to fix them.
+
+### Step 5 — Report
+
+Produce a markdown file with a summary header and a verdict table:
+
+```markdown
+# Citation Verification Report
+
+**Input:** <source file or description>  |  **Entries audited:** N
+**Verified:** V  |  **Mismatch:** M  |  **Fabricated:** F
+
+| # | Original citation | Verdict | Evidence |
+|---|---|---|---|
+| 1 | Author, A. (2023). Title. *Venue*. | VERIFIED | https://doi.org/... |
+| 2 | Author, B. (2022). Title. *Venue*. | MISMATCH | year should be 2021; https://doi.org/... |
+| 3 | Author, C. (2024). Fake Title. *Venue*. | FABRICATED | no Crossref match for title or author+year |
+
+## Recommended actions
+
+- **Verified (V):** safe to use as-is.
+- **Mismatch (M):** real papers, but fix the flagged fields before citing.
+- **Fabricated (F):** drop from the bibliography. Do not cite.
+```
+
+For FABRICATED entries, the output is "FABRICATED — not found in Crossref". Do not suggest "a similar paper" or "did you mean…". The user decides.
 
 ---
 

@@ -1,7 +1,7 @@
-# Agent Skill: Agent Configuration
-
-Configuring Claude Code for a research project: CLAUDE.md, status line, context management, and subagent delegation.
-
+---
+name: agent-configuration
+description: Use when configuring Claude Code for a research project — installing the CLI, writing CLAUDE.md (with the research-specific Data Provenance, Citation Policy, and AI Disclosure sections), customizing the status line, managing context with /compact, and delegating to subagents. Inspects the project directory to populate CLAUDE.md sections from real evidence rather than boilerplate.
+allowed-tools: Read, Bash, Glob, Grep
 ---
 
 ## Installation (Windows)
@@ -61,6 +61,193 @@ Then restart the terminal and verify with `claude --version`.
 - Generic best practices (the model already knows these)
 
 **Compaction survival test:** Read each line in CLAUDE.md and ask "if this disappeared after `/compact`, would the agent make a wrong decision?" If no, cut it.
+
+### Research-project CLAUDE.md (mandatory sections)
+
+Generic CLAUDE.md guidance is not enough for a research project. Reproducibility, citation integrity, and AI disclosure are research-specific concerns that the model will not enforce on its own — they have to be written down. **Three sections are non-negotiable** for any dissertation, paper replication, or working-paper repo:
+
+1. **Data Provenance.** Sources, access (license, embargoes, how to re-obtain raw data), versioning (how data versions are tracked). Research projects without data lineage become unreproducible the moment the original author leaves. If the directory has no data folder yet, leave the section as a checklist for the user to fill in — but include the heading.
+2. **Citation Policy.** Every cited paper must have a verified DOI in `references.bib`. Reference the [`literature-review`](literature-review.md) skill as the verification path — Path A (OpenAlex search → Crossref DOI verification) for indexed work, Path B (post-hoc DOI / title / author / year / venue checklist) for grey literature.
+3. **AI Disclosure policy.** Track AI-assisted commits with the `[AI]` tag in commit messages. Reference the `ai-disclosure-block` skill for end-of-pipeline disclosure generation. Even a project that does "minimal" AI use needs this section so the policy is visible to co-authors and reviewers.
+
+### Generating a research CLAUDE.md (workflow)
+
+```
+Inspect → ask ≤2 questions → emit → diff against existing
+```
+
+**Step 1 — Inspect the project** (do not ask the user what `ls` can answer).
+
+```bash
+# Languages present
+fd -e py -e R -e do -e ipynb -e qmd -e Rmd | head -40
+
+# Data folder conventions
+ls -d data raw_data data/raw data/processed 2>/dev/null
+
+# Build / pipeline tooling
+ls Makefile Snakefile _quarto.yml renv.lock requirements.txt 2>/dev/null
+
+# Existing CLAUDE.md
+test -f CLAUDE.md && head -200 CLAUDE.md
+```
+
+Capture: dominant language, data folder location (if any), pipeline entrypoint, presence of pre-commit / CI / Quarto, any existing CLAUDE.md.
+
+**Step 2 — Ask up to 2 questions.** Only what cannot be inferred:
+
+1. What is the research question this project addresses? (one sentence)
+2. What is the target output? (paper, dissertation chapter, replication package, working paper)
+
+Skip if already answered. **Never ask about anything readable from the directory.**
+
+**Step 3 — Emit** (skip irrelevant sections for empty projects, but keep the headings as scaffolding):
+
+```markdown
+# CLAUDE.md — <project-name>
+
+## Project Overview
+<one paragraph from Step 2>
+
+## Tools and Languages
+<from Step 1: e.g., "R 4.4 (primary), Python 3.11 (text analysis only)">
+
+## Repository Layout
+<top-level dirs, one-line description each>
+
+## Data Provenance
+- **Sources:** <data sources, or TODO list>
+- **Access:** <how to obtain raw data; license; embargoes>
+- **Versioning:** <how data versions are tracked>
+
+## Coding Conventions
+<concrete rules derived from a quick read of existing files — never invent
+a convention the project does not actually use>
+
+## Reproducibility
+- Random seeds: <set in code; if absent, flag>
+- Environment: <requirements.txt / renv.lock / etc.>
+- Pipeline entrypoint: <Makefile target / Quarto file / driver script>
+
+## Citation Policy
+- Every cited paper must have a verified DOI in `references.bib`.
+- Use the [`literature-review`](literature-review.md) skill (Path B verification checklist) before committing the bibliography.
+
+## AI Disclosure
+- Track AI-assisted commits with the `[AI]` tag in commit messages.
+- For final outputs, generate a disclosure block with the `ai-disclosure-block` skill.
+
+## Conventions for Claude Code
+- When writing new analysis: produce both the code and the output it generates.
+- When proposing a method change: state which result(s) it would change before editing.
+- When uncertain about a number or citation: flag with `[TODO]` rather than guess.
+```
+
+**Step 4 — Diff against any existing CLAUDE.md.** Do **not** overwrite. Show a unified diff and ask the user to approve, reject, or merge per section.
+
+### Notes for extending
+
+- **Per-language profiles.** Factor language-specific convention blocks into `profiles/<lang>.md` files (R, Python, Stata, Julia). Loaded as Level-3 resources only when the language is present — keeps the main file short.
+- **Multi-machine projects.** Add a section noting machine-specific paths (HPC vs. laptop) when the project runs in both places.
+
+### Generating a replication-package README (handoff to public)
+
+The CLAUDE.md above is for **active development**. The replication-package **README.md** is for the **public handoff** — a reviewer or future replicator should be able to clone the repo and run the pipeline end-to-end. Different audience, different discipline.
+
+Use this when preparing a replication package for a paper submission, JoP / Code Ocean upload, or dissertation appendix. For a project still under active development, use the CLAUDE.md generator above instead.
+
+#### Non-negotiable rules
+
+1. **Every command in the README must be one a reviewer can run verbatim** (no placeholders without an explicit `<...>` and instructions for what to substitute).
+2. **Every input file referenced must exist in the package or be accompanied by access instructions.**
+3. **Software versions must be pinned.** "R 4.4" is acceptable; "R" alone is not.
+4. **The Outputs section must list every figure and table the package produces, keyed to the paper.**
+
+#### Workflow
+
+```
+Inspect package → Identify run order → Identify outputs → Emit README → Emit TODO list
+```
+
+**Step 1 — Inspect the package.**
+
+```bash
+ls -la
+fd -e R -e py -e do -e jl -e qmd -e Rmd | head -20
+ls Makefile master.do _quarto.yml run_all.py 2>/dev/null
+ls renv.lock requirements.txt environment.yml conda-lock.yml Pipfile.lock 2>/dev/null
+ls -d data raw_data data/raw data/processed 2>/dev/null
+```
+
+Capture: language(s), entrypoint(s), lock file(s), data folder structure, presence of `figures/` and `tables/` output folders.
+
+**Step 2 — Identify the run order.** Read the entrypoint (Makefile / `master.do` / `_quarto.yml` / driver script) and extract the canonical sequence. If there is no entrypoint, walk the data flow manually.
+
+**Step 3 — Identify the outputs.** Find every script that writes to `figures/`, `tables/`, or equivalent. Record: filename, the script that produces it, and (if findable) the figure/table number in the paper. If the paper-to-output mapping is not in the code, leave a TODO for the user.
+
+**Step 4 — Emit the README.** Use this template (skip sections that do not apply, but keep the headings as scaffolding so the user knows what is missing):
+
+```markdown
+# Replication Package: <Paper Title>
+
+**Authors:** <names>
+**Last updated:** <date>
+
+## Overview
+<one paragraph: what the paper does, what this package replicates>
+
+## Software Requirements
+- <Language> <version>, with the following packages: <list, or "see lock file">
+- <Other tools: pdflatex, GNU make, Stata 18, etc.>
+
+Reproducibility tested on: <OS / hardware>.
+
+## Data
+| File | Source | Access | License |
+|---|---|---|---|
+| `data/raw/...` | <provenance> | <how to obtain> | <license / restrictions> |
+
+If any data file cannot be redistributed, the table makes that explicit.
+
+## Directory Layout
+<tree -L 2, with one-line description per top-level dir>
+
+## How to Reproduce
+\```bash
+# 1. Install dependencies
+<command, derived from lock file>
+
+# 2. Run the full pipeline
+<command, derived from entrypoint>
+\```
+
+Approximate runtime: <hours/minutes on what hardware>.
+
+## Outputs
+| File | Script | Paper reference |
+|---|---|---|
+| `figures/fig1.pdf` | `scripts/02_descriptive.R` | Figure 1 |
+| `tables/tab1.tex` | `scripts/03_main_results.R` | Table 1 |
+
+## AI Disclosure
+<populated from the ai-disclosure-block skill, or TODO>
+
+## Citation
+<BibTeX block for the paper>
+
+## License
+<MIT / CC-BY-4.0 / etc. for the code; data may differ>
+
+## Contact
+<email / GitHub issues link>
+```
+
+**Step 5 — Emit a TODO list.** After writing the README, print every section that contains a `<...>` placeholder or `TODO`. The user fills these by hand — the goal is to make the gaps visible, not paper over them.
+
+#### Notes for extending
+
+- **Language-specific install blocks.** Factor `install/r.md`, `install/py.md`, `install/stata.md` as Level-3 resources and load only the relevant ones.
+- **Figure-to-paper map.** If the paper exists as a `.tex` file in the package, parse `\caption{...}` blocks to auto-fill the paper-reference column.
 
 ```markdown
 # Project: [Name]

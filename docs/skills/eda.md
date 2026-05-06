@@ -1,8 +1,8 @@
-# Agent Skill: Exploratory Data Analysis
-
-Systematic investigation of a new dataset: cleaning as premise, then distribution, correlation, and pattern analysis before any modeling.
-
-References: [Python for Data Analysis — Wes McKinney](https://wesmckinney.com/book/) · [Polars User Guide](https://docs.pola.rs/)
+---
+name: eda
+description: Use when the user has a new dataset and wants systematic exploratory analysis before modeling — load → inspect → summary table → clean → univariate → bivariate → temporal/group → document, in Polars by default. Surfaces problems, surprises, and structure; never confirms hypotheses. For datasets > 1 GB or when lazy evaluation is needed, hand off to big-data-processing.
+allowed-tools: Read, Edit, Write, Bash
+---
 
 For datasets > 1 GB or when lazy evaluation / caching is needed, see [Big-Data Processing](big-data-processing.md).
 

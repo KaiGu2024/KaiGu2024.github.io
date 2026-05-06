@@ -1,9 +1,7 @@
-# Agent Skill: Text-as-Data
-
-Turning unstructured text into quantitative measures for social science research.
-
-References: [GPT as a Measurement Tool — Asirvatham, Mokski & Shleifer, NBER WP 34834, 2026](https://cdn.openai.com/pdf/7517a586-5bfa-4b87-bd3d-6ea0e9e844c7/GPT-as-a-measurement-tool.pdf) · [GABRIEL](https://github.com/openai/GABRIEL)
-
+---
+name: text-as-data
+description: Use when turning unstructured text into quantitative measures for social-science research — surface inspection, frequency analysis, embeddings, GPT-as-measurement-tool with validation against human labels, then scaling. Pipeline: Inspect → Frequency → Embed → Measure (GPT) → Validate → Scale.
+allowed-tools: Read, Edit, Write, Bash
 ---
 
 ## Workflow

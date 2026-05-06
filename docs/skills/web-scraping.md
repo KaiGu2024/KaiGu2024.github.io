@@ -1,7 +1,7 @@
-# Agent Skill: Web Scraping
-
-Toolset and patterns for collecting data from the web and social media platforms.
-
+---
+name: web-scraping
+description: Use when collecting data from the web or social media platforms — prefers structured contracts (JSON API > XML feed > CSV > HTML + Playwright) over layout-dependent formats. Covers rate limits, retries, auth, pagination, and the legal / ethical guardrails (robots.txt, ToS).
+allowed-tools: Read, Edit, Write, Bash, WebFetch
 ---
 
 ## Format Preference

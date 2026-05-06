@@ -1,20 +1,7 @@
-# Agent Skill: Data Visualization
-
-Principles and code patterns for publication-ready figures in R / ggplot2.
-
-References: [Data Visualization: A Practical Introduction — Kieran Healy](https://socviz.co/) · [Lecture Slides — Yiqing Xu](https://yiqingxu.org/teachings/resources/data_visual.pdf)
-
 ---
-
-## Core Principles
-
-1. **Choose the right chart type** for the data relationship (see guide below)
-2. **Label directly** — annotate lines/points in place; never add a separate legend box
-3. **Use color purposefully** — categorical vs. sequential vs. diverging; always colorblind-safe
-4. **Show uncertainty** — always include confidence intervals or error bars
-5. **Maximize data-ink ratio** — remove gridlines, borders, and tick marks that add no information
-6. **Y-axis starts at baseline** — always begin at 0 (or 100% for indexed series); a truncated axis exaggerates effects
-
+name: data-visualization
+description: Use when producing publication-ready figures in R + ggplot2 — Cleveland-McGill perceptual ranking, Okabe-Ito colorblind-safe palette, direct annotation over legend boxes, 600 DPI output for journal submission, multi-panel patchwork layouts. Enforces personal figure standards (always sort categorical axes, plot differences not raw values, calculate before you graph). For journal-formatted regression tables, see tables.md.
+allowed-tools: Read, Edit, Write, Bash
 ---
 
 ## Personal Figure Standards
@@ -50,6 +37,8 @@ These rules apply to all figures produced for research:
 10. **Brief titles; no cross-panel overlap.** Axis titles, plot titles, and facet strip text should be the shortest phrasing that names what is on the axis or in the panel — 1–4 words plus units (`Loan amount ($, log)`, not `Loan amount in dollars (logarithmic scale)`). Long titles waste plot area, force the reader to read prose mid-figure, and in multi-panel layouts run into neighboring panels.
     - Pre-export, render at the final export width and inspect strip-text and axis-title boundaries between panels — `patchwork` and `facet_wrap` do not auto-resolve title overflow.
     - If titles still collide: shorten further; drop redundant y-axis titles from non-leftmost panels (`labs(y = NULL)`); share axes via `plot_layout(axes = "collect")`; rotate to a horizontal layout when category labels are too wide; or move secondary information into the figure caption rather than the title.
+11. **Show uncertainty.** Always include confidence intervals or error bars on inferential plots — a ribbon (`geom_ribbon` at `alpha = 0.18–0.22`) for continuous coverage, an error bar for discrete points. A point estimate without uncertainty conveys false precision.
+12. **Maximize data-ink ratio.** Remove gridlines, borders, and tick marks that add no information (Tufte). The default `theme_pub()` below already drops minor gridlines and the panel border; resist re-adding them.
 
 ---
 
@@ -293,7 +282,7 @@ ggplot(df, aes(x = week, y = visits, group = platform)) +
 
 ### Color does four jobs
 
-Before picking a palette, name what color is for in this figure. The palette family follows from the job. **Mismatch is the most-violated rule in published figures** — a sequential palette mapped to categories obscures the categories; a categorical palette mapped to a magnitude misleads about ordering.
+Before picking a palette, name what color is for in this figure. The palette family follows from the job. A sequential palette mapped to categories obscures the categories; a categorical palette mapped to a magnitude misleads about ordering.
 
 | Job | When | Palette family |
 |---|---|---|
@@ -304,7 +293,7 @@ Before picking a palette, name what color is for in this figure. The palette fam
 
 ### Categorical — Okabe-Ito with discipline
 
-The 8-color Okabe-Ito palette is the gold standard (Wong 2011, *Nature Methods*; default in Wilke's *Fundamentals of Data Visualization*; first-tier recommendation in *R Journal* 2023). Set globally in `theme_pub()` above; use it for every categorical mapping.
+The 8-color Okabe-Ito palette is the gold standard. Set globally in `theme_pub()` above; use it for every categorical mapping.
 
 ```r
 okabe_ito <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442",
@@ -352,7 +341,7 @@ scale_fill_gradient2(low = "#762A83", mid = "white", high = "#1B7837",
 scale_fill_distiller(palette = "RdBu", direction = -1, limits = c(-x, x))
 ```
 
-**The midpoint must be the meaningful zero, not the data midpoint.** Symmetric `limits = c(-x, x)` keeps the white center aligned with zero. Forgetting this is the canonical diverging-palette mistake — a 5%-to-30% range plotted with the default midpoint of 17.5% reads as a sign change at 17.5%.
+**The midpoint must be the meaningful zero, not the data midpoint.** Symmetric `limits = c(-x, x)` keeps the white center aligned with zero.
 
 ### Colorblind check
 
@@ -388,7 +377,7 @@ library(patchwork)
                   theme = theme(plot.tag = element_text(face = "bold", size = 17)))
 ```
 
-`axes = "collect"` deduplicates shared axes. `tag_levels = "A"` produces **uppercase** A/B/C panel labels — the journal-required form (lowercase `tag_levels = "a"` is non-standard for *Science*, *Nature*, and most econ/marketing journals; do not use it). Patchwork places tags at the upper-left of each panel by default, which is also the journal convention — do not override the position. Tag size 17 pt bold matches Personal Figure Standards #6 (panel tag 16–18 pt bold at export DPI); the often-cited 10–12 pt is a *printed-size* value that survives downscaling at the typesetter, not an instruction for your export.
+`axes = "collect"` deduplicates shared axes. `tag_levels = "A"` produces **uppercase** A/B/C panel labels — the journal-required form. Tag size 17 pt bold matches Personal Figure Standards #6 (panel tag 16–18 pt bold at export DPI).
 
 ---
 
@@ -411,6 +400,12 @@ for (ext in c("pdf", "png", "tiff")) {
 ```
 
 Specify `width` / `height` explicitly — letting ggsave guess from the active device locks in the wrong physical size for fonts and line weights.
+
+---
+
+## Tables
+
+For regression / descriptive tables — journal-specific star cutoffs, booktabs templates, the never-change-a-number rule — see the sibling skill: [tables.md](tables.md).
 
 ---
 
