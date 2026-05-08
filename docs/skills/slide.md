@@ -3,6 +3,7 @@ name: slide
 description: Use when generating Reveal.js reading-group slides from a paper PDF or TeX source — TeX route reads source directly; PDF-only route runs MinerU extraction first, then proceeds. Default output slide/<slug>.html; PDF export via Decktape only on explicit request. Follows the reading-group slide template.
 allowed-tools: Read, Edit, Write, Bash
 user-invocable: true
+invocation: auto
 ---
 
 Output paths:

@@ -2,6 +2,7 @@
 name: agent-configuration
 description: Use when configuring Claude Code for a research project — installing the CLI, writing CLAUDE.md (with the research-specific Data Provenance, Citation Policy, and AI Disclosure sections), customizing the status line, managing context with /compact, and delegating to subagents. Inspects the project directory to populate CLAUDE.md sections from real evidence rather than boilerplate.
 allowed-tools: Read, Bash, Glob, Grep
+invocation: manual
 ---
 
 ## Installation (Windows)
@@ -365,3 +366,54 @@ Constraints: [Any rules from CLAUDE.md that apply]
 ```
 
 **When not to delegate:** If the subtask needs information that only exists in the current conversation (live variable values, intermediate results held in memory), keep it in the main session.
+
+---
+
+## Skill Invocation Contract
+
+Every skill in `docs/skills/` declares an `invocation:` field in its frontmatter. It controls when Claude is allowed to fire the skill:
+
+| Value | Behavior |
+|---|---|
+| **`auto`** | Fires whenever the description matches user intent. No confirmation. Default for skills with no side effects (drafting, analysis, reading, formatting). |
+| **`confirm`** | Fires when the description matches *and* asks one yes/no before acting. Required for skills with side effects: commits, external writes, paid LLM calls. |
+| **`manual`** | Never auto-fires on description match alone. Runs only when the user types the skill name explicitly (`/skill-name`, "use the X skill", or directly references the skill). For heavyweight or one-shot setup skills. |
+
+**Caveat — convention, not infrastructure.** Claude Code's skill loader does not enforce this field. Claude reads it and respects it. If a skill marked `confirm` fires without confirmation, that is a bug in Claude's behavior, not the loader's.
+
+**Current assignments:**
+
+- **`manual`** — `agent-configuration` (one-shot setup), `paper-review` (6-agent run, expensive)
+- **`confirm`** — `version-control`, `ai-disclosure-block`, `analysis-cleanup`, `llm-annotation`, `web-scraping` (each has commits, external writes, or paid API calls)
+- **`auto`** — everything else (drafting, analysis, reading, formatting)
+
+**Default if missing:** `auto`. Matches current loader behavior so older skills without the field keep working.
+
+**Relationship to `user-invocable: true`.** A few skills (`ai-disclosure-block`, `revision`, `slide`) carry a legacy `user-invocable: true` field. The two fields are complementary — `user-invocable` exposes the skill for direct invocation; `invocation:` controls Claude's auto-fire decision. A skill can be both `user-invocable: true` and `invocation: auto` (most permissive). Eventually consider consolidating to one field; no urgency.
+
+---
+
+## Automated Version Control
+
+The [`version-control`](version-control.md) skill auto-fires when end-of-task is signaled and the working tree is non-clean. It infers the repo's commit-message style from the last 10 commits, runs project-specific build hooks (e.g., the CV rebuild when `code/cv.tex` changes), commits, and pushes. You do not re-state which files belong, what the message should say, or whether the build artifact is current.
+
+**Why a skill, not a `Stop` hook.** A hook would fire after every assistant turn, but most turns are not commit-worthy — debugging steps, exploratory edits, half-finished refactors. A skill defers to model judgment about *whether* this is a good checkpoint, while remaining trivial to invoke explicitly when you want it ("commit this", "save", "push").
+
+**Per-project tuning.** Record any of the following in the project's CLAUDE.md so the skill picks them up automatically:
+
+- `[AI]` disclosure tag policy (research repos that track AI-assisted commits)
+- Conventional-commit prefixes if the repo uses them
+- Pre-commit build steps tied to specific file changes (LaTeX → PDF, Quarto render, figure regeneration)
+- Sensitive paths to never stage (data files, credentials, large binaries)
+
+The skill reads CLAUDE.md before committing and respects whatever is documented there. Conventions that are not written down will not be applied.
+
+**What the skill will not do:**
+
+- Open pull requests (`gh pr create` is a separate, explicit step)
+- Bypass pre-commit hooks (`--no-verify`)
+- Amend a previous commit after a hook failure (creates a new commit instead — `--amend` would silently modify the wrong commit)
+- Force-push to `main`
+- Stage files indiscriminately (`git add -A` / `git add .` are forbidden because they sweep in `.env`, credentials, and untracked binaries)
+
+**Invocation.** Auto-triggered, but you can also be explicit: "commit", "push", "save the current state", "snapshot this", "ship it". If the working tree is clean or the changes look mid-task, the skill asks before firing rather than guessing.

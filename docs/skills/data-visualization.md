@@ -2,6 +2,7 @@
 name: data-visualization
 description: Use when producing publication-ready figures in R + ggplot2 — Cleveland-McGill perceptual ranking, Okabe-Ito colorblind-safe palette, direct annotation over legend boxes, 600 DPI output for journal submission, multi-panel patchwork layouts. Enforces personal figure standards (always sort categorical axes, plot differences not raw values, calculate before you graph). For journal-formatted regression tables, see tables.md.
 allowed-tools: Read, Edit, Write, Bash
+invocation: auto
 ---
 
 ## Personal Figure Standards

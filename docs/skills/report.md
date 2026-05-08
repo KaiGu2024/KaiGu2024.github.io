@@ -2,6 +2,7 @@
 name: report
 description: Standard output format for skill reports and multi-section analysis writeups — Quick Template (Definition / Description / Takeaway) for single-step outputs, Writing Pipeline (Abstract / Data & Sample / Definitions / Analysis / Heterogeneity / Benchmark / Limitations) for multi-section reports. Includes the pre-report validity check (analysis review) that should run before any §3+ Analysis Section is drafted.
 allowed-tools: Read, Edit, Write
+invocation: auto
 ---
 
 ## Quick Template
@@ -86,6 +87,20 @@ Flag **data differences** (time period, sample size, selection mechanism, geogra
 
 **Analysis:** enumerate threats to validity — identification assumptions violated, sample selection, measurement error, generalizability.
 **Takeaway:** which limitation would most change the conclusion if addressed; suggested next steps.
+
+---
+
+## Paper-section Templates
+
+The Writing Pipeline above structures an *internal report*. These templates structure *paper sections* for a journal submission — a different audience and stage. Pair with [`writing`](writing.md) §Movement 7 when strict claim traceability is required (the canonical case is Methods, where one invented detail sinks credibility).
+
+| Section | Slots |
+|---|---|
+| **Methods** | Design, sample, measures, analysis plan, ethics |
+| **Results** | Descriptive stats, main findings, robustness — use §3+ Analysis Sections above for slot-level structure |
+| **Discussion** | Summary, theoretical contribution, practical implications, limitations, future research |
+
+Slots without source material become explicit `[TODO]` placeholders, never silent omissions. The discipline that enforces this — `[CITE: handle]` for references, `[TODO: number]` for absent values, `file:line` provenance for every empirical claim — is in [`writing`](writing.md) §Movement 7.
 
 ---
 

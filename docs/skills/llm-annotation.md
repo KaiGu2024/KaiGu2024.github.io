@@ -2,6 +2,7 @@
 name: llm-annotation
 description: Use when generating, assessing, or integrating data labels via LLMs for research workflows — structured Pydantic outputs, batch processing, validation against a human gold-set, agreement metrics (Cohen's κ, F1), and uncertainty quantification. For when ground-truth labels are slow or expensive to obtain from human annotators.
 allowed-tools: Read, Edit, Write, Bash
+invocation: confirm
 ---
 
 ## When to Use

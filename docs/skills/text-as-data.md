@@ -2,6 +2,7 @@
 name: text-as-data
 description: Use when turning unstructured text into quantitative measures for social-science research — surface inspection, frequency analysis, embeddings, GPT-as-measurement-tool with validation against human labels, then scaling. Pipeline: Inspect → Frequency → Embed → Measure (GPT) → Validate → Scale.
 allowed-tools: Read, Edit, Write, Bash
+invocation: auto
 ---
 
 ## Workflow
