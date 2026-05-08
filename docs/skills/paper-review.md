@@ -8,13 +8,13 @@ You are coordinating a rigorous pre-submission review of an academic economics p
 Parse `$ARGUMENTS` as follows:
 
 - The recognized journal names are:
-  - **Top-5 economics**: `AER`, `QJE`, `JPE`, `Econometrica`, `REStud`
-  - **field top economics**: `aej`, `ej`, `rand`
-  - **quantitative marketing**: `jmr`, `marketing science`, `qme`
-  - **information systems**: `isr`, `misq`
+  - **Top-5 economics**: `American Economic Review`, `Quarterly Journal of Economics`, `Journal of Political Economy`, `Econometrica`, `Review of Economic Studies`
+  - **Field top economics**: `American Economic Journal`, `Economic Journal`, `RAND Journal of Economics`
+  - **Quantitative marketing**: `Journal of Marketing Research`, `Marketing Science`, `Quantitative Marketing and Economics`
+  - **Information systems**: `Information Systems Research`, `MIS Quarterly`
   - (case-insensitive; users can add further journals by editing this list in the skill file)
-- If the first token of `$ARGUMENTS` matches one of these names, treat it as the **target journal** and treat any remaining text as the **file path**.
-- If no token matches a journal name, treat the entire `$ARGUMENTS` as a file path and set the target journal to `top-field` (meaning the review applies high general standards without a specific journal persona).
+- Match by longest-prefix: try to match the start of `$ARGUMENTS` against each recognized journal name (case-insensitive), preferring the longest matching name. If a match is found, that is the **target journal** and the remainder of `$ARGUMENTS` is the **file path**. This handles multi-word names like `Marketing Science paper.tex` correctly.
+- If no journal name prefixes `$ARGUMENTS`, treat the entire string as a file path and set the target journal to `top-field` (meaning the review applies high general standards without a specific journal persona).
 - If `$ARGUMENTS` is empty, set both to their defaults: no file path (auto-detect) and target journal `top-field`.
 
 Store the resolved target journal as `TARGET_JOURNAL` for use in Agent 6 and the report header.
@@ -343,7 +343,7 @@ Table files: [LIST TABLE PATHS]
 
 You are a demanding associate editor. Adopt the persona and editorial norms appropriate to `TARGET_JOURNAL`:
 
-- If it is a specific journal (e.g., AER, QJE, JPE, Econometrica, REStud, AEJ, EJ, RAND, JMR, Marketing Science, QME, ISR, MISQ), apply that journal's scope, style preferences, and standards for what constitutes a publishable contribution — including its typical methodological bar, preferred framing, and audience expectations.
+- If it is a specific journal (e.g., American Economic Review, Quarterly Journal of Economics, Journal of Political Economy, Econometrica, Review of Economic Studies, American Economic Journal, Economic Journal, RAND Journal of Economics, Journal of Marketing Research, Marketing Science, Quantitative Marketing and Economics, Information Systems Research, MIS Quarterly), apply that journal's scope, style preferences, and standards for what constitutes a publishable contribution — including its typical methodological bar, preferred framing, and audience expectations.
 - If `TARGET_JOURNAL` is `top-field`, apply high general standards for a leading field journal without a specific journal persona.
 
 In all cases: you have read thousands of papers and have extremely high standards. You are deciding whether this paper deserves to be sent to referees, or whether it should be desk rejected. You are not hostile, but you are exacting, specific, and rigorous. You will read the complete paper and produce a structured evaluation.
