@@ -74,28 +74,56 @@ Before generating slides, produce structured reading notes at `notes/<slug>.md` 
 
 ## Step 3 — Slide Structure (12–16 slides)
 
+### The 7-slide skeleton
+
 | # | Slide | Notes |
 |---|---|---|
 | 1 | **Title** | Full title; authors + affiliations; journal + year or "Working Paper". *Optional:* one-sentence headline finding in a `.callout-result` to anchor the deck. |
-| 2 | **Author Bios** | 3-column grid; photo (circular) + position + PhD + research interests |
+| 2 | **Author Bios** | 3-column grid; photo (circular) + position + PhD + research interests. See [Author Bios slide](#author-bios-slide). |
 | 3 | **Outline** | Substantive sections only — skip motivation, data, ID; one bold title + one sentence each |
 | 4 | **Data & Setting** | Filtering pipeline with N and %; LLM annotation steps with amber callout boxes |
-| 5 | **Identification** | Three sections: challenge → strategy → **assumptions to discuss** (see strategy table below). Skip the empirical specification for canonical DiD/IV/RD — audience knows it; show the spec in LaTeX only if the paper deviates (staggered DiD, shift-share IV, fuzzy RD, etc.). |
-| 6–N | **Results** | **One fact per slide**; reproduce original table/figure; pair with brief **Description + Analysis** (see below). If a single fact carries heavy content (large table + long commentary, multi-panel figure, or a figure paired with a regression table), **split across 2–3 slides** rather than cramming — e.g. slide A = figure + description, slide B = analysis + caveats; or one slide per panel. Prefer splitting over scrolling. **Required for PDF export — see Step 4.** |
+| 5 | **Identification** | Challenge → strategy → assumptions to discuss. See [Identification slide](#identification-slide). |
+| 6–N | **Results** | **One fact per slide**; reproduce original table/figure; pair with brief **Description + Analysis**. If a single fact carries heavy content, **split across 2–3 slides** rather than cramming. Prefer splitting over scrolling. **Required for PDF export — see Step 4.** |
 | N+1 | **Takeaways & Discussion** | 3 bullet takeaways then 5 discussion questions stacked vertically |
 
 Include an **Analytical Model** slide immediately before Results if the paper has a formal model.
 
-**Figure and table sourcing — tiered policy:**
+### Equations get a symbol gloss
 
-1. **TeX available** → rebuild **tables** as HTML from source; for **figures**, browsers will not render `<img src="*.pdf">`, so convert each `\includegraphics` PDF/EPS to PNG first:
-   ```bash
-   pdftoppm -png -r 200 figures/fig1.pdf /tmp/fig1   # → /tmp/fig1-1.png
-   ```
+**Mandatory: every equation gets a symbol gloss.** Any displayed equation (MathJax `$$…$$` block, the empirical specification on the Identification slide, the model on the Analytical Model slide) must be followed by a 2–3 bullet inline gloss naming each non-trivial symbol. Without the gloss, a reading-group audience cannot follow the math at slide pace.
+
+```html
+<p>$$P_{ijt} = \alpha_i + \beta Q_{jt} + \gamma X_{ijt} + \varepsilon_{ijt}$$</p>
+<ul class="gloss">
+  <li><strong>$P_{ijt}$</strong>: price paid by household $i$ for product $j$ in week $t$</li>
+  <li><strong>$Q_{jt}$</strong>: weekly category-level demand shock</li>
+  <li><strong>$\alpha_i$</strong>: household fixed effect</li>
+</ul>
+```
+
+Skip the gloss only for textbook identities (e.g. $E[Y \mid X]$) where every symbol is fully standard.
+
+### Figure and table sourcing — tiered policy
+
+1. **TeX available** → rebuild **tables** as HTML from source; for **figures**, browsers will not render `<img src="*.pdf">`, so convert each `\includegraphics` PDF/EPS to PNG first.
+
+   - **Default — `pdftoppm`** (CLI, no Python deps):
+     ```bash
+     pdftoppm -png -r 200 figures/fig1.pdf /tmp/fig1   # → /tmp/fig1-1.png
+     ```
+   - **Preferred for journal-grade fidelity — PyMuPDF at 2.5× zoom.** Sharper than `-r 200` and respects vector data when present:
+     ```python
+     import fitz  # PyMuPDF
+     def render_figure(pdf_path: str, out_png: str, zoom: float = 2.5) -> None:
+         doc = fitz.open(pdf_path)
+         page = doc.load_page(0)
+         pix = page.get_pixmap(matrix=fitz.Matrix(zoom, zoom), alpha=False)
+         pix.save(out_png)
+     ```
 2. **PDF only** → use MinerU output: `figures_dir/` for figure PNGs, `content` list for table rows. Use extracted assets if successful.
 3. **Extraction fails** → insert a `<!-- MANUAL: supply figure here -->` placeholder with a visible caveat block in the slide, and tell the user which asset to provide. **Do not self-generate** a table or figure unless the user explicitly instructs it.
 
-**Self-contained output — embed everything in the HTML:**
+### Self-contained output — embed everything in the HTML
 
 The generated `slide/<slug>.html` must be a single self-contained file with **no external asset references** (no `slide/assets/`, no relative image paths). Every figure and table lives inside the HTML itself.
 
@@ -115,46 +143,7 @@ The generated `slide/<slug>.html` must be a single self-contained file with **no
 
 CDN links for Reveal.js/MathJax/Google Fonts are the one allowed exception — those are infrastructure, not content. Everything that is *content of the paper* must be inlined.
 
----
-
-## Step 4 — PDF Export (on request)
-
-When the user asks for a PDF version, render `slide/<slug>.html` via [Decktape](https://github.com/astefanutti/decktape) (headless Chrome → fixed-size pages):
-
-```bash
-npm install -g decktape                                          # one-time
-decktape reveal --size 1280x720 slide/<slug>.html slide/<slug>.pdf
-```
-
-Decktape walks every `<section>` and writes one fixed-size page per slide. Unlike the HTML view, **PDF pages cannot scroll** — content that overflows the viewport is silently clipped. The HTML's `overflow-y: auto` on `.reveal .slides section` is a safety net for HTML viewing only; in PDF it does nothing.
-
-### One section per page; split if overflowing
-
-Before exporting, audit each slide for fit. Any section that does not fit a single 1280×720 page must be split at logical section boundaries *before* the export. Splitting rules:
-
-- **Description + Analysis exceeds the page** → slide A = figure + Description, slide B = Analysis + caveats. Keep the same `<h2>` headline; the second slide carries it verbatim with no "(cont.)" suffix.
-- **Multi-panel figures** → one panel per slide; share the headline; subordinate the panel label to a `<h3>` (e.g. *Panel A: by income decile*).
-- **Figure + regression table** → figure on slide A, table on slide B.
-- **Long bulleted lists** → split at the first natural `<h3>` boundary (e.g. between *Mechanism* and *Heterogeneity*). Each `<h3>` block belongs to exactly one slide; never let an `<h3>` straddle a page break.
-- **Wide tables** → split by row group (one result type per slide) or move overflow to an appendix slide. Do not shrink the font below `var(--fs-small)` to force fit.
-
-Rule: every `<h3>` subheading lives on one and only one page in the PDF.
-
-### Audit checklist before exporting
-
-Open the HTML in a browser. For each `<section>`, scroll its body. Any section that requires scrolling to read all content **must be split** before running Decktape — scroll-fit and print-fit are different problems.
-
-- All figures fit within `max-height: 400px` (`.fig-full`) or `360px` (`.col-7-5` right cell).
-- No `<section>` body exceeds the 650px viewport at the default 1280×720 page size.
-- Tables that span more rows than fit are split at logical row boundaries.
-- Each slide has at most one `<h2>` and a small number of `<h3>` blocks.
-- Callout boxes and code blocks fit without their bottom edge being clipped.
-
-After the audit + splits, re-run Decktape. The resulting PDF should have one self-contained slide per page with no clipped content.
-
----
-
-## Author Bio Format
+### Author Bios slide
 
 For each author (in order):
 1. Name as heading
@@ -165,9 +154,45 @@ For each author (in order):
 6. Bachelor's degree — only if author is Chinese (mainland/Taiwan/HK) OR non-econ/business major
 7. Research interests — 3–5 keywords
 
----
+**Photo pipeline.** Author Bios slides without photos look spartan — empty grid cells make the slide feel under-built. Always try the pipeline below before omitting; only omit if every step fails.
 
-## Reveal.js Template
+1. **Find** — `WebSearch` for `"<author name>" <institution> faculty photo`. The first hit is usually the faculty page; the personal site is the fallback.
+2. **Fetch** — `WebFetch` the page, locate the headshot URL (often `…/photo.jpg`, `…/headshot.png`, `…/profile.jpg`).
+3. **Normalize + embed** — square-crop to centred 1:1, resize to 280×280, JPEG q=82, base64-embed. Do **not** link to the remote URL (slides break offline and on PDF export):
+   ```python
+   from PIL import Image
+   from io import BytesIO
+   import base64, requests
+
+   def author_photo_data_uri(url: str, size: int = 280) -> str:
+       img = Image.open(BytesIO(requests.get(url, timeout=10).content)).convert("RGB")
+       w, h = img.size
+       s = min(w, h)
+       img = img.crop(((w - s) // 2, (h - s) // 2, (w + s) // 2, (h + s) // 2))
+       img = img.resize((size, size), Image.LANCZOS)
+       buf = BytesIO(); img.save(buf, format="JPEG", quality=82, optimize=True)
+       return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
+   ```
+4. **Mark up** — `<img class="photo" src="{{data_uri}}" alt="{{name}}">` inside the `.author-card`. The `.author-card img.photo` rule handles the circular crop, border, and shadow.
+
+### Identification slide
+
+For canonical DiD / IV / RD / RCT, **skip the empirical specification** — the audience knows it. Spend the slide on the assumption(s) most likely to fail in this setting and the diagnostic the paper uses (or should use). Show the spec only for non-standard variants (staggered DiD, shift-share IV, fuzzy RD, recentered IV).
+
+Compact reference — pick the relevant row, put that assumption + diagnostic on the slide:
+
+| Strategy | Identifying assumption | Standard diagnostic |
+|---|---|---|
+| **DiD** | Strict exogeneity (parallel trends + no anticipation) | Pre-trend event-study; honest-DiD bounds (Rambachan-Roth) |
+| **IV** | Instrument validity (independence + exclusion) + relevance | First-stage F (rule of thumb >10; tF / Lee 2022 for weak-IV); placebo outcomes; covariate balance |
+| **RD** | Continuity / no manipulation at the cutoff | McCrary or Cattaneo-Jansson-Ma density test; covariate smoothness at $c$ |
+| **Experiment / RCT** | Random assignment + SUTVA | Balance table; attrition by arm; spillover-robust design |
+
+Always add a **SUTVA / no-spillovers** caveat for DiD and Experiment when units are spatially or socially proximate. For IV-LATE, note the **monotonicity** assumption if the paper claims a LATE interpretation.
+
+Slide layout: three `<h3>` blocks — *Challenge* (what naive OLS gets wrong) → *Strategy* (source of variation) → *Assumptions to discuss* (the bullet from the table above). Close with a `.callout-tip`: "Discussion: Is each assumption credible here? What stories would violate it?"
+
+### Reveal.js template
 
 ```html
 <!DOCTYPE html>
@@ -183,17 +208,19 @@ For each author (in order):
   <style>
     /* ===========================================================
        Paste the full design-system CSS here from the
-       "Aesthetic & Animation Guidelines" section below — sections
+       "Aesthetic & animation system" subsection below — sections
        1–6 in order: design tokens (:root), base overrides, layout
        grids, figures, tables, callouts, author grid, animation.
-       The Aesthetic & Animation Guidelines section is the
+       The Aesthetic & animation system subsection is the
        canonical source; do not maintain a second copy here.
 
        Author-grid block (only needed on the Author Bios slide):
          .author-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-5); }
-         .author-card img { width: 80px; height: 80px; border-radius: 50%;
-                             object-fit: cover; border: var(--border); box-shadow: var(--shadow-xs); }
-         .author-card h3 { font-size: var(--fs-h3); font-weight: 700;
+         .author-card img.photo { width: 100%; max-width: 140px; aspect-ratio: 1 / 1;
+                             object-fit: cover; border-radius: 50%;
+                             border: var(--border); box-shadow: var(--shadow-xs); }
+         .author-card h3 { font-family: var(--font-display);
+                             font-size: var(--fs-h3); font-weight: 700;
                              margin: var(--sp-2) 0 var(--sp-1); color: var(--c-ink); }
          .author-card p  { font-size: var(--fs-small); margin: 2px 0; color: var(--c-ink-soft); }
        =========================================================== */
@@ -348,13 +375,11 @@ For each author (in order):
 </html>
 ```
 
----
-
-## Aesthetic & Animation Guidelines
+### Aesthetic & animation system
 
 All tokens below go in the `<style>` block of every generated slide. Copy the full block; swap palette variables per deck.
 
-### 1. Design System Tokens
+#### 1. Design system tokens
 
 ```css
 :root {
@@ -371,15 +396,18 @@ All tokens below go in the `<style>` block of every generated slide. Copy the fu
   --c-paper-warm:   #f7f5f0;
   --c-line:         #ebe6dc;
 
-  /* Typography */
-  --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
+  /* Typography — pair PJS (display) with Inter (body) + Source Serif 4 (accent).
+     Reading-group decks are content-dense; clamps below are sized for academic
+     prose, not marketing slides. Do not shrink them. */
+  --font-display: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+  --font-body:    'Inter', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-serif:   'Source Serif 4', Georgia, 'Times New Roman', serif;
   --font-mono:    ui-monospace, 'JetBrains Mono', Consolas, monospace;
-  --fs-h1:    clamp(1.6rem, 4vw,   2.4rem);
-  --fs-h2:    clamp(1.1rem, 2.5vw, 1.6rem);
-  --fs-h3:    clamp(0.9rem, 2vw,   1.2rem);
-  --fs-body:  clamp(0.75rem, 1.5vw, 1rem);
-  --fs-small: clamp(0.65rem, 1vw,  0.82rem);
+  --fs-h1:    clamp(2.0rem,  4.6vw, 3.0rem);
+  --fs-h2:    clamp(1.35rem, 2.8vw, 1.95rem);
+  --fs-h3:    clamp(1.1rem,  2.3vw, 1.45rem);
+  --fs-body:  clamp(1.0rem,  1.85vw, 1.25rem);
+  --fs-small: clamp(0.85rem, 1.3vw, 1.05rem);
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Spacing (4px base scale) */
@@ -396,29 +424,32 @@ All tokens below go in the `<style>` block of every generated slide. Copy the fu
 }
 ```
 
-Load Plus Jakarta Sans from Google Fonts — add in `<head>` before stylesheets:
+Load Plus Jakarta Sans (display), Inter (body), and Source Serif 4 (serif accent) from Google Fonts — add in `<head>` before stylesheets:
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 ```
 
----
+#### 2. Base slide overrides
 
-### 2. Base Slide Overrides
+When body and display fonts differ, **explicitly assign `var(--font-display)` to every heading-like element** — `h1`/`h2`/`h3`, `table th`, `.author-card h3`, callout titles. Without explicit assignment, headings silently inherit the body font (Inter) and the display/body distinction collapses.
 
 ```css
 .reveal .slides section {
-  text-align: left; height: 650px; overflow-y: auto;
+  text-align: left; height: 720px; overflow-y: auto;
   font-family: var(--font-body); font-size: var(--fs-body); line-height: 1.5;
   padding: var(--sp-6) var(--sp-7);
   background: var(--c-paper);
 }
 .reveal h2 {
+  font-family: var(--font-display);
   font-size: var(--fs-h1); font-weight: 800; letter-spacing: -0.025em;
   color: var(--c-primary); margin-bottom: var(--sp-4);
   border-bottom: 1px solid var(--c-line); padding-bottom: var(--sp-2);
 }
 .reveal h3 {
+  font-family: var(--font-display);
   font-size: var(--fs-h3); font-weight: 700;
   color: var(--c-ink); margin: var(--sp-4) 0 var(--sp-2);
 }
@@ -428,9 +459,7 @@ code { font-family: var(--font-mono); font-size: 0.88em;
        background: var(--c-primary-soft); padding: 1px 5px; border-radius: 4px; }
 ```
 
----
-
-### 3. Layout Patterns
+#### 3. Layout patterns
 
 Named column grids — wrap slide content in the appropriate div:
 
@@ -443,23 +472,49 @@ Named column grids — wrap slide content in the appropriate div:
 
 ```css
 .col-7-5, .col-6-6, .col-3 {
-  display: grid; gap: var(--sp-5) var(--sp-6); align-items: start;
+  display: grid; gap: var(--sp-5) var(--sp-6); align-items: stretch;
 }
 .col-7-5 { grid-template-columns: 7fr 5fr; }
 .col-6-6 { grid-template-columns: 1fr 1fr; }
 .col-3   { grid-template-columns: repeat(3, 1fr); }
+
+/* Column children: stretch + center their figure so a tall text column
+   doesn't leave a short figure floating at the top of its cell. */
+.col-7-5 > *, .col-6-6 > *, .col-3 > * {
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+/* Figures inside columns must shrink — never burst the cell. */
+.col-7-5 img, .col-6-6 img, .col-3 img {
+  max-height: 340px; width: auto; max-width: 100%;
+  margin: 0 auto; object-fit: contain;
+}
+
 @media (max-width: 700px) {
   .col-7-5, .col-6-6, .col-3 { grid-template-columns: 1fr; }
 }
+
+/* Pattern: side-by-side row above, full-width callout below.
+   Use when the row is "figure + table" or "figure + interpretation" and the
+   key-result callout would be crammed if stuffed inside a narrow cell. */
+.row-then-callout > .callout { margin-top: var(--sp-4); }
 ```
 
----
+**When to use which layout:**
 
-### 4. Figure & Table Sizing
+| Slide content | Layout |
+|---|---|
+| Single figure, no commentary | `.col-full` (just the `<img class="fig-full">`) |
+| Figure + short bullets | `.col-7-5` (text left, figure right) |
+| Two parallel results (e.g. by subgroup) | `.col-6-6` |
+| Three mechanisms / three panels | `.col-3` |
+| Figure + table + interpretation | `.col-6-6` row, then `<div class="callout callout-result">` *below* the row — never inside a column |
+
+#### 4. Figure & table sizing
 
 **Figures**
-- Full-width (main result): `width: 100%; max-height: 400px; object-fit: contain; border: var(--border); border-radius: var(--radius-sm); box-shadow: var(--shadow-xs);`
-- In `.col-7-5` right cell: natural width, `max-height: 360px; object-fit: contain;`
+- Full-width (main result, `.fig-full`): `width: 100%; max-height: 400px; object-fit: contain; border: var(--border); border-radius: var(--radius-sm); box-shadow: var(--shadow-xs);`
+- Inside any `.col-*` cell: `max-height: 340px; width: auto; max-width: 100%; margin: 0 auto;` (already set by the column rules above — do not re-declare per-figure).
 - Thumbnail grid: `height: 180px; width: 100%; object-fit: cover;`
 
 **Tables**
@@ -476,6 +531,7 @@ Named column grids — wrap slide content in the appropriate div:
   font-family: var(--font-display); font-weight: 700;
   text-align: left; letter-spacing: 0.03em;
 }
+/* Required when display ≠ body fonts: th would otherwise inherit body font. */
 .reveal table td {
   padding: var(--sp-2) var(--sp-3);
   border-bottom: 1px solid var(--c-line);
@@ -485,9 +541,7 @@ Named column grids — wrap slide content in the appropriate div:
 .reveal table tr:last-child td     { border-bottom: none; }
 ```
 
----
-
-### 5. Callout Variants
+#### 5. Callout variants
 
 Replace the single `.amber` class with three semantic variants:
 
@@ -515,9 +569,7 @@ Example:
 </div>
 ```
 
----
-
-### 6. Animation
+#### 6. Animation
 
 ```css
 .reveal .fragment.fade-up {
@@ -540,52 +592,83 @@ Example:
 
 ---
 
-## Identification Slide — Assumptions by Strategy
+## Step 4 — PDF Export (on request)
 
-For canonical DiD / IV / RD, **skip the empirical specification** . Spend the slide on the assumptions and what would violate them. Show the spec only if the paper uses a non-standard variant (staggered DiD with heterogeneous timing, shift-share IV, fuzzy RD, recentered IV, etc.).
+When the user asks for a PDF version, render `slide/<slug>.html` via [Decktape](https://github.com/astefanutti/decktape) (headless Chrome → fixed-size pages):
 
-### DiD — Difference-in-Differences
+```bash
+npm install -g decktape                                          # one-time
+decktape reveal --size 1280x720 slide/<slug>.html slide/<slug>.pdf
+```
 
-Following Chiu, Lan, Liu, Xu (2023, *APSR*). Two assumptions, not five — **parallel trends** and **no anticipation** are the testable manifestations of strict exogeneity, so discuss them under one heading:
+Decktape walks every `<section>` and writes one fixed-size page per slide. Unlike the HTML view, **PDF pages cannot scroll** — content that overflows the viewport is silently clipped. The HTML's `overflow-y: auto` on `.reveal .slides section` is a safety net for HTML viewing only; in PDF it does nothing.
 
-| Assumption | Statement | Diagnostic / how violated |
-|---|---|---|
-| **Strict exogeneity** *(parallel trends + no anticipation)* | Treatment assignment is independent of the unobserved shocks in **any** period, conditional on FEs and covariates. Implies (i) **parallel trends**: absent treatment, treated and control would have evolved on the same trend; (ii) **no anticipation**: future treatment does not affect today's potential outcomes. | **PT diagnostic:** pre-trend event-study plot, placebo periods, honest-DiD / Rambachan-Roth sensitivity bounds. **No-anticipation diagnostic:** pre-period coefficients ≈ 0; institutional knowledge of announcement vs. implementation timing. **Substantive argument:** is the policy timing plausibly orthogonal to unit-level shocks (no Ashenfelter dip, no selection-on-shocks)? |
-| **SUTVA / no spillovers** | Control units are unaffected by treatment of treated units. | Spatial / network proximity to treated; ring-buffer robustness; geography of the policy. |
+### Splitting rules
 
-### IV — Instrumental Variables
+Before exporting, audit each slide for fit. Any section that does not fit a single 1280×720 page must be split at logical section boundaries *before* the export. Splitting rules:
 
-Independence and exclusion are typically discussed together as **instrument validity** (Angrist-Pischke); keep them merged unless the paper invokes them separately.
+- **Description + Analysis exceeds the page** → slide A = figure + Description, slide B = Analysis + caveats. Keep the same `<h2>` headline; the second slide carries it verbatim with no "(cont.)" suffix.
+- **Multi-panel figures** → one panel per slide; share the headline; subordinate the panel label to a `<h3>` (e.g. *Panel A: by income decile*).
+- **Figure + regression table** → figure on slide A, table on slide B.
+- **Long bulleted lists** → split at the first natural `<h3>` boundary (e.g. between *Mechanism* and *Heterogeneity*). Each `<h3>` block belongs to exactly one slide; never let an `<h3>` straddle a page break.
+- **Wide tables** → split by row group (one result type per slide) or move overflow to an appendix slide. Do not shrink the font below `var(--fs-small)` to force fit.
 
-| Assumption | Statement | Diagnostic / how violated |
-|---|---|---|
-| **Instrument validity** *(independence + exclusion)* | $Z$ is as-good-as-randomly assigned conditional on controls, AND affects $Y$ only through $X$. | **Untestable** — argue from institutional knowledge. Support with balance on pre-determined covariates and placebo outcomes that should be unaffected. Discuss alternative pathways from $Z$ to $Y$. |
-| **Relevance** | $Z$ predicts $X$ (first stage non-zero). | First-stage F-stat (rule of thumb F > 10; tF / Lee 2022 for weak-IV-robust inference). |
-| **Monotonicity** *(for LATE)* | No "defiers" — $Z$ moves $X$ in the same direction for everyone. | Untestable; argue from setting. Without it, the estimand is not LATE. |
+Rule: every `<h3>` subheading lives on one and only one page in the PDF.
 
-### RD — Regression Discontinuity
+### Audit checklist
 
-Continuity and no-manipulation are two sides of the same identifying claim — manipulation is the canonical way continuity fails — so discuss them together.
+Open the HTML in a browser. For each `<section>`, scroll its body. Any section that requires scrolling to read all content **must be split** before running Decktape — scroll-fit and print-fit are different problems.
 
-| Assumption | Statement | Diagnostic / how violated |
-|---|---|---|
-| **Continuity at the cutoff** *(no manipulation)* | Potential outcomes $E[Y(0) \mid r]$ and $E[Y(1) \mid r]$ are continuous in $r$ at $c$; equivalently, units cannot precisely manipulate $r$ to land on the desired side. | McCrary / Cattaneo-Jansson-Ma density test for sorting; smoothness of pre-determined covariates at $c$; any other determinant of $Y$ that jumps at $c$ violates it. |
+- All figures fit within `max-height: 400px` (`.fig-full`) or `360px` (`.col-7-5` right cell).
+- No `<section>` body exceeds the 720px viewport at the default 1280×720 page size.
+- Tables that span more rows than fit are split at logical row boundaries.
+- Each slide has at most one `<h2>` and a small number of `<h3>` blocks.
+- Callout boxes and code blocks fit without their bottom edge being clipped.
 
-### Experiment / RCT
+After the audit + splits, re-run Decktape. The resulting PDF should have one self-contained slide per page with no clipped content.
 
-| Assumption | Statement | Diagnostic / how violated |
-|---|---|---|
-| **Random assignment** | Treatment is statistically independent of potential outcomes. | Covariate balance table; randomization protocol; compliance and attrition by arm (LATE via IV if non-compliance is non-trivial). |
-| **SUTVA / no spillovers** | No interference between units; one version of treatment. | Network / cluster structure; spillover-robust design. |
+---
 
-**Discussion questions** should follow the relevant field's norms (from Journals Covered):
+## Agent process notes
 
-| Journal | Discussion emphasis |
-|---|---|
-| AER | Identification validity and external validity |
-| Marketing Science (Frontiers) | Behavioral mechanisms and managerial implications |
-| Management Science | Information systems / operational mechanisms |
-| PNAS / Science | Broader societal significance |
+Two recurring failure modes when editing slide HTML once it has many embedded figures. Both stem from the same root cause: base64-embedded assets blow up the file size past what `Read` and `Edit` handle gracefully.
+
+### Editing decks with embedded base64
+
+**Do not** `Read` or `Edit` a slide HTML once it carries multiple base64 figures — the Read tool fails on >25k-token files, and a single full-resolution PNG embedded as a data URI can be 30–80k tokens by itself. Reaching for `Read`/`Edit` will silently truncate or error.
+
+**Do** drop a one-off Python script under `.tmp_edit/` and run it:
+
+```python
+# .tmp_edit/patch_slide.py
+from pathlib import Path
+src = Path("slide/<slug>.html")
+text = src.read_text(encoding="utf-8")
+text = text.replace("<old marker>", "<new marker>")
+src.write_text(text, encoding="utf-8")
+```
+
+```bash
+python .tmp_edit/patch_slide.py
+rm -rf .tmp_edit
+```
+
+Treat `.tmp_edit/` as scratch — write, run, delete. Never commit it.
+
+### Inspecting deck structure without choking on base64
+
+When you need to scan `<section>` boundaries, headings, or class names in a deck full of embedded figures, **skip base64 lines** before printing — they are the only lines longer than a few hundred chars and contain no useful structural signal:
+
+```python
+from pathlib import Path
+for i, ln in enumerate(Path("slide/<slug>.html").read_text(encoding="utf-8").splitlines(), 1):
+    if "base64," in ln and len(ln) > 500:
+        print(f"{i:>5}: <<base64 line, {len(ln)} chars>>")
+    else:
+        print(f"{i:>5}: {ln}")
+```
+
+This keeps the structural outline (sections, headings, callouts) legible without drowning the terminal in megabytes of encoded image data.
 
 ---
 
