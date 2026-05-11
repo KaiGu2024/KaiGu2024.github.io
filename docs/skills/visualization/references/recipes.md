@@ -184,10 +184,21 @@ Variations:
 
 The "dies before the top axis" trick is what most people miss. A full-height `geom_vline` reads as a chart axis, not as data context.
 
-## Layer-and-highlight — focal series in crimson
+## Layer-and-highlight — focal series in crimson, all series labeled
+
+Highlight changes color, not coverage — every line still gets a name at its endpoint so the reader knows what the grey cloud is. Focal line and label in `brand$accent`; non-focal lines in `grey80` and their labels in `grey50` (slightly darker than the line so the text reads against white).
 
 ```r
 focal <- c("ChatGPT")
+
+endpoints <- df |>
+  group_by(platform) |>
+  slice_max(week, n = 1) |>
+  ungroup() |>
+  mutate(
+    is_focal     = platform %in% focal,
+    label_colour = ifelse(is_focal, brand$accent, "grey50")
+  )
 
 ggplot(df, aes(x = week, y = visits, group = platform)) +
   geom_line(data = filter(df, !platform %in% focal),
@@ -195,16 +206,17 @@ ggplot(df, aes(x = week, y = visits, group = platform)) +
   geom_line(data = filter(df,  platform %in% focal),
             colour = brand$accent, linewidth = 2.6) +
   geom_text_repel(
-    data = filter(df, platform %in% focal) |>
-             group_by(platform) |> slice_max(week, n = 1),
-    aes(label = platform), colour = brand$accent, size = 8,
-    hjust = 0, nudge_x = 1, direction = "y", segment.colour = NA
+    data = endpoints,
+    aes(label = platform, colour = label_colour),
+    size = 7, hjust = 0, nudge_x = 1, direction = "y",
+    segment.colour = NA
   ) +
-  scale_x_continuous(expand = expansion(mult = c(0.02, 0.12))) +
+  scale_colour_identity() +    # use the literal hex / "grey50" from the column
+  scale_x_continuous(expand = expansion(mult = c(0.02, 0.18))) +
   labs(x = "Week", y = "Visits")
 ```
 
-For two focal series, use `brand$primary` and `brand$accent` against `grey80`.
+For two focal series, give each a distinct accent (`brand$primary` and `brand$accent`) with its label matching its line; the rest stay grey80 / grey50.
 
 ## Distribution comparisons (ridge plot)
 
