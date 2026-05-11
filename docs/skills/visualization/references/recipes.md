@@ -64,6 +64,18 @@ scale_x_date(date_breaks = "1 month", labels = two_row_date,
              expand = expansion(mult = c(0.02, 0.05)))
 ```
 
+**Tilted dense labels — fit ~3× more breaks.** When you want a tighter cadence than the table allows (every 2 months on a 4-year panel, monthly on an 18-month panel), tilt the labels 30°. Dates are short and standardized, so the tilt reads fine — this is the publication standard for time-series x-axes (see rule 4 for why prose is different):
+
+```r
+# Every 2 months on a 2-4 year panel, tilted 30°
+scale_x_date(date_breaks = "2 months", date_labels = "%Y-%m",
+             expand = expansion(mult = c(0.02, 0.05)))
++ theme(axis.text.x = element_text(angle = 30, hjust = 1,
+                                   margin = margin(t = 6)))
+```
+
+`hjust = 1` right-anchors the label so its end sits under the tick mark; `margin(t = 6)` adds breathing room between the rotated text and the axis line. If labels still feel crowded after tilting, escalate to two-row labels rather than going steeper than 30°.
+
 For numeric-year axes (`2018, 2019, …`), use `scales::pretty_breaks(n = 6)` and let ggplot pick.
 
 ## Direct line annotation
