@@ -7,7 +7,7 @@ invocation: auto
 
 ## Contents
 
-1. [Standards](#1-standards) — the 12 rules every figure must obey
+1. [Standards](#1-standards) — the 13 rules every figure must obey
 2. [Perception](#2-perception) — Cleveland-McGill, channel budget, layer-and-highlight
 3. [Decisions](#3-decisions) — pick the chart type, name the color job
 4. [Setup](#4-setup) — `theme_pub()` and the brand palette
@@ -52,6 +52,16 @@ invocation: auto
 11. **Show uncertainty.** Confidence intervals always — `geom_ribbon(alpha = 0.18–0.22)` for continuous, error bars for discrete. Point estimates without uncertainty convey false precision.
 
 12. **No gridlines.** Drop both major and minor gridlines, panel border, and redundant ticks (Tufte taken further than the usual "faint major" compromise). The axis line + ticks carry value-lookup; lengthen ticks (`axis.ticks.length ≈ 6 pt`) and use `scales::pretty_breaks(n = 6–8)` so the axis itself is the lookup aid. When a specific numeric value is part of the message — endpoint of a line, peak of a curve, a single bar — direct-label it with `geom_text` instead of asking the reader to interpolate against a grid. `theme_pub()` (§4) implements this.
+
+13. **Nothing clips, nothing overlaps.** Oversized fonts (rule 6) collide easily — axis titles into tick labels, tick labels into each other, endpoint labels off the right edge, rotated annotations off the top. Before saving, render at the target export size and verify:
+    1. **Tick labels don't touch each other** → thin breaks (`scales::pretty_breaks(n = 6)`, `date_breaks` cadence per recipes, or two-row date labels).
+    2. **Axis title doesn't touch tick labels** → `theme_pub()` sets `axis.title.x/y` margins of 12 pt; bump higher if axis text wraps.
+    3. **Endpoint / direct labels don't run off the panel** → expand the data-side axis with `scale_x_*(expand = expansion(mult = c(0.02, 0.15)))`. Right margin 0.12–0.18 is the usual range for line-endpoint labels.
+    4. **Annotations above/below the panel don't get cropped** → `coord_cartesian(clip = "off")` plus extra `plot.margin` (e.g., `margin(t = 30, ...)`) when rotated labels or drop-pins extend past the data region.
+    5. **Long y-category labels don't clip the left edge** → either wrap with `scales::label_wrap(20)` / `stringr::str_wrap(label, 20)`, or pad with `plot.margin = margin(l = 30)`.
+    6. **The image itself is large enough for the fonts.** At 28 pt axis titles, author width ≥ 4.5 in. Authoring at 3.5 in will clip the axis title onto the panel.
+
+    The check is visual — open the saved PDF/PNG, don't trust the RStudio viewer (its width drifts). Recipes in `references/recipes.md` already use the right `expand =` and `clip = "off"` settings; if you copy one, keep them.
 
 ---
 
@@ -131,8 +141,11 @@ library(scales)
 theme_pub <- function(base_size = 22) {
   theme_minimal(base_size = base_size, base_family = "Helvetica") +
     theme(
-      axis.title       = element_text(size = 28),
-      axis.text        = element_text(size = 24),
+      # Axis titles — explicit margin keeps title off the tick labels (rule 13.2)
+      axis.title.x     = element_text(size = 28, margin = margin(t = 12)),
+      axis.title.y     = element_text(size = 28, margin = margin(r = 12)),
+      axis.text.x      = element_text(size = 24, margin = margin(t = 4)),
+      axis.text.y      = element_text(size = 24, margin = margin(r = 4)),
       # In-figure title / subtitle / caption / tag are intentionally suppressed.
       # All such text belongs in LaTeX (\caption{}, \subcaption{}).
       plot.title       = element_blank(),
@@ -144,7 +157,11 @@ theme_pub <- function(base_size = 22) {
       axis.line        = element_line(linewidth = 1.1, colour = "grey20"),
       axis.ticks       = element_line(linewidth = 1.0, colour = "grey20"),
       axis.ticks.length = unit(8, "pt"),
-      strip.text       = element_text(size = 24, face = "bold"),
+      strip.text       = element_text(size = 24, face = "bold",
+                                      margin = margin(b = 8)),
+      # Outer padding so axis titles and end-of-axis tick labels don't crop
+      # at the figure boundary (rule 13.1, 13.5, 13.6).
+      plot.margin      = margin(t = 18, r = 22, b = 12, l = 14),
       legend.position  = "none"   # direct annotation by default
     )
 }
@@ -267,6 +284,8 @@ Read the recipes file before writing a new figure — most patterns are already 
 ## 7. Output
 
 **One panel per file.** No patchwork, no `plot_annotation(tag_levels = "A")`, no in-R combining. Each chart goes to its own PDF/PNG and is composed in LaTeX.
+
+**Before `ggsave`, run the overflow check** (rule 13). Save first, then **open the file in a PDF viewer** — the RStudio plot pane re-scales and lies. Walk the six checks: (1) tick labels not touching each other, (2) axis title not touching tick labels, (3) endpoint labels not running off the panel, (4) annotations above/below not cropped (use `coord_cartesian(clip = "off")` if needed), (5) long y-category labels not clipped on the left, (6) image wide enough for the fonts (≥ 4.5 in author width at 28 pt axis titles). If a check fails, fix it before exporting — don't shrink the font.
 
 ```r
 # Always specify width/height so font and line sizes lock in.
