@@ -335,7 +335,7 @@ con.sql("""
 
 ## Report
 
-See [Report format](report.md).
+Output uses the Quick Template — three labeled lines, **Definition** / **Description** / **Takeaway**. (For multi-section writeups, see [report.md](report.md).)
 
 **Definition (measure):** Input and output shape (N rows × K cols) and format; wall-clock time; cache hit/miss rate if repeated runs.  
 **Analyses:** Major transformations applied (filter, join, group-by, etc.) with row counts at each step; whether lazy evaluation was used; which results were cached and where.  

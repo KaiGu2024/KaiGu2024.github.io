@@ -1,6 +1,6 @@
 ---
 name: report
-description: Standard output format for skill reports and multi-section analysis writeups — Quick Template (Definition / Description / Takeaway) for single-step outputs, Writing Pipeline (Abstract / Data & Sample / Definitions / Analysis / Heterogeneity / Benchmark / Limitations) for multi-section reports. Includes the pre-report validity check (analysis review) that should run before any §3+ Analysis Section is drafted.
+description: Use when writing up the result of an analysis, modeling run, or data exploration into a structured deliverable — triggers on "summarize the findings", "write this up", "give me the executive summary", "draft the writeup", "report what we found", as well as explicit "report" requests. Quick Template (Definition / Description / Takeaway) for single-step outputs; Writing Pipeline (Abstract / Data & Sample / Definitions / Analysis / Heterogeneity / Benchmark / Limitations) for multi-section reports. Includes the pre-report validity check (analysis review) that should run before any §3+ Analysis Section is drafted.
 allowed-tools: Read, Edit, Write
 invocation: auto
 ---

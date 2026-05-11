@@ -62,8 +62,9 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -94,16 +95,16 @@
 
       <!-- SIDEBAR -->
       <aside class="sidebar">
-        <div class="about-photo" aria-label="Kai Gu (顾开), PhD Student in Marketing, Bocconi University">
+        <div class="about-photo reveal-up" style="--reveal-delay:0.05s" aria-label="Kai Gu (顾开), PhD Student in Marketing, Bocconi University">
           <!-- Replace src with your photo path when available -->
           <div class="photo-placeholder">KG</div>
           <!-- <img src="assets/photo.jpg" alt="Kai Gu (顾开), PhD Student in Marketing, Bocconi University"> -->
         </div>
-        <h1>Kai Gu <span class="name-cn">顾开</span></h1>
-        <p class="name-phonetic">/ kaɪ ɡuː /</p>
-        <p class="about-title">PhD Student in Marketing<br>Bocconi University</p>
+        <h1 class="reveal-up" style="--reveal-delay:0.12s">Kai Gu <span class="name-cn">顾开</span></h1>
+        <p class="name-phonetic reveal-up" style="--reveal-delay:0.18s">/ kaɪ ɡuː /</p>
+        <p class="about-title reveal-up" style="--reveal-delay:0.24s">PhD Student in Marketing<br>Bocconi University</p>
 
-        <div class="about-links">
+        <div class="about-links reveal-up" style="--reveal-delay:0.30s">
           <a href="mailto:kai.gu@studbocconi.it" title="Email">
             <i class="fa-solid fa-envelope"></i> kai.gu@studbocconi.it
           </a>
@@ -124,14 +125,14 @@
 
         <!-- WELCOME -->
         <section id="welcome">
-          <h2>Welcome!</h2>
-          <p class="about-bio">
+          <h2 class="reveal-up" style="--reveal-delay:0.36s">Welcome!</h2>
+          <p class="about-bio reveal-up" style="--reveal-delay:0.42s">
             I am Kai Gu (顾开), a PhD student in Marketing at Bocconi University. Before joining Bocconi, I studied Economics at Zhejiang University.
           </p>
         </section>
 
         <!-- RESEARCH -->
-        <section id="research">
+        <section id="research" class="reveal-up">
           <h2>Research</h2>
 
           <h3 class="subsection-title">Research Interests</h3>
@@ -175,171 +176,49 @@
         </section>
 
         <!-- LEARNING MATERIALS -->
-        <section id="materials">
+        <section id="materials" class="reveal-up">
           <h2>Learning Materials</h2>
 
           <h3 class="subsection-title"><i class="fa-solid fa-code-branch subsection-icon"></i> Causal Inference</h3>
 
-          <div class="material-item">
-            <p class="material-title">Panel Data Causal Tools: fect, interflex, fdid</p>
-            <p class="material-meta">Yiqing Xu &middot; Stanford / Princeton &middot; 2025</p>
-            <p class="material-desc">
-              <strong>fect</strong> &mdash; counterfactual estimators for panel data with interactive fixed effects, generalizing DiD and synthetic control.<br>
-              <strong>interflex</strong> &mdash; estimates, visualizes, and interprets conditional marginal effects of a treatment on an outcome across different values of a moderator.<br>
-              <strong>fdid</strong> &mdash; Factorial DiD for settings where an event affects all units; identifies treatment effect heterogeneity by baseline characteristics using cross-sectional variation; separates effect modification from causal moderation.
-            </p>
-            <div class="material-links">
-              <a href="https://yiqingxu.org/packages/fect/" target="_blank" class="material-link">fect</a>
-              <a href="https://yiqingxu.org/packages/interflex/" target="_blank" class="material-link">interflex</a>
-              <a href="https://yiqingxu.org/papers/2025_fdid/fdid.pdf" target="_blank" class="material-link">fdid</a>
-            </div>
-          </div>
-
-          <div class="material-item">
-            <p class="material-title">Applied Empirical Methods</p>
-            <p class="material-meta">Paul Goldsmith-Pinkham &middot; Yale SOM &middot; 2020</p>
-            <p class="material-desc">PhD-level lecture slides covering DiD, IV, RDD, event studies, and ML for empirical work.</p>
-            <div class="material-links">
-              <a href="https://github.com/paulgp/applied-methods-phd" target="_blank" class="material-link">GitHub</a>
-            </div>
-          </div>
-
-          <div class="material-item">
-            <p class="material-title">Double / Debiased Machine Learning (DML)</p>
-            <p class="material-meta">Chernozhukov et al. &middot; Econometrics Journal &middot; 2018</p>
-            <p class="material-desc">Uses Neyman-orthogonal moment conditions and cross-fitting to estimate low-dimensional treatment effects while flexibly controlling for high-dimensional nuisance functions via ML.</p>
-            <div class="material-links">
-              <a href="https://arxiv.org/abs/1608.00060" target="_blank" class="material-link">arXiv</a>
-              <a href="https://www.aeaweb.org/articles?id=10.1257/jel.20261758" target="_blank" class="material-link">JEL</a>
-              <a href="https://github.com/microsoft/EconML" target="_blank" class="material-link">EconML (Python)</a>
-            </div>
-          </div>
-
-          <div class="material-item">
-            <p class="material-title">Matching &amp; Weighting Methods</p>
-            <p class="material-meta">Kosuke Imai &middot; Harvard</p>
-            <p class="material-desc">Lecture notes covering propensity score matching, inverse-probability weighting, and covariate balance diagnostics for estimating average treatment effects in observational studies.</p>
-            <div class="material-links">
-              <a href="https://imai.fas.harvard.edu/teaching/files/matching_weighting.pdf" target="_blank" class="material-link">PDF</a>
-            </div>
-          </div>
+          <ul class="compact-list">
+            <li><strong><a href="https://yiqingxu.org/packages/fect/" target="_blank">fect</a> / <a href="https://yiqingxu.org/packages/interflex/" target="_blank">interflex</a> / <a href="https://yiqingxu.org/papers/2025_fdid/fdid.pdf" target="_blank">fdid</a></strong> (Xu) + <strong><a href="https://github.com/paulgp/applied-methods-phd" target="_blank">Applied Empirical Methods</a></strong> (Goldsmith-Pinkham) &mdash; DiD/IV/RDD.</li>
+            <li><strong><a href="https://arxiv.org/abs/2504.08324" target="_blank">Double Machine Learning</a></strong> (Ahrens et al., 2025) &mdash; Neyman-orthogonal moments + cross-fitting.</li>
+            <li><strong><a href="https://imai.fas.harvard.edu/teaching/files/matching_weighting.pdf" target="_blank">Matching &amp; Weighting</a></strong> (Imai) &mdash; propensity score matching, IPW, covariate balance for ATEs.</li>
+          </ul>
 
           <h3 class="subsection-title"><i class="fa-solid fa-brain subsection-icon"></i> Machine Learning &amp; NLP</h3>
 
-          <div class="material-item">
-            <p class="material-title">Learning Preferences from Conjoint Data: A Structural Deep Learning Approach</p>
-            <p class="material-meta">Acharya, Hainmueller &amp; Xu &middot; arXiv &middot; April 2026</p>
-            <p class="material-desc">Embeds neural networks within random utility models to recover heterogeneous preferences from conjoint experiments &mdash; bridging structural preference modeling and deep learning.</p>
-            <div class="material-links">
-              <a href="https://arxiv.org/abs/2604.10845" target="_blank" class="material-link">arXiv</a>
-            </div>
-          </div>
-
-          <div class="material-item">
-            <p class="material-title">GPT as a Measurement Tool</p>
-            <p class="material-meta">Asirvatham, Mokski &amp; Shleifer &middot; NBER WP 34834 &middot; February 2026</p>
-            <p class="material-desc">Treats GPT as a reliable, auditable measurement instrument for text, images, and audio. Introduces GABRIEL with five primitives: Rating (0&ndash;100), Classification, Extraction, Ranking, and Discovery. Test-retest &kappa; = 0.93&ndash;0.99; median human agreement &kappa; = 0.65 across tasks.</p>
-            <div class="material-links">
-              <a href="https://www.nber.org/papers/w34834" target="_blank" class="material-link">NBER</a>
-              <a href="https://cdn.openai.com/pdf/7517a586-5bfa-4b87-bd3d-6ea0e9e844c7/GPT-as-a-measurement-tool.pdf" target="_blank" class="material-link">PDF</a>
-              <a href="https://github.com/openai/GABRIEL" target="_blank" class="material-link">GitHub</a>
-            </div>
-          </div>
-
-          <div class="material-item">
-            <p class="material-title">Agent-Based Simulation of Social Systems</p>
-            <p class="material-meta">Joon Sung Park &middot; Stanford CS222 &middot; Fall 2024</p>
-            <p class="material-desc">Graduate seminar on simulating social systems with large language model agents: generative agents, emergent behavior, and evaluation methods.</p>
-            <div class="material-links">
-              <a href="https://joonspk-research.github.io/cs222-fall24/index.html" target="_blank" class="material-link">Course site</a>
-            </div>
-          </div>
-
-          <div class="material-item">
-            <p class="material-title">LLM4Annotation</p>
-            <p class="material-meta">Zhen Tan et al. &middot; EMNLP 2024</p>
-            <p class="material-desc">Survey on generating, assessing, and integrating LLM-produced labels for supervised learning and content analysis.</p>
-            <div class="material-links">
-              <a href="https://arxiv.org/abs/2402.13446" target="_blank" class="material-link">arXiv</a>
-              <a href="https://github.com/Zhen-Tan-dmml/LLM4Annotation" target="_blank" class="material-link">GitHub</a>
-            </div>
-          </div>
-
-          <div class="material-item">
-            <p class="material-title">Deep Learning for Economists</p>
-            <p class="material-meta">econdl.github.io</p>
-            <p class="material-desc">Practical introduction to neural networks, sequence models, and large language models oriented toward economists and social scientists.</p>
-            <div class="material-links">
-              <a href="https://econdl.github.io/" target="_blank" class="material-link">Course site</a>
-            </div>
-          </div>
+          <ul class="compact-list">
+            <li><strong><a href="https://econdl.github.io/" target="_blank">Deep Learning for Economists</a></strong> &mdash; intro to neural networks, sequence models, and LLMs for social scientists.</li>
+            <li><strong><a href="https://arxiv.org/abs/2402.13446" target="_blank">LLM4Annotation</a></strong> (Tan et al., EMNLP 2024) &mdash; survey on LLM-produced labels for ML and content analysis.</li>
+            <li><strong><a href="https://www.nber.org/papers/w34834" target="_blank">GPT4Measurement</a></strong> (Asirvatham et al., NBER 2026) &mdash; Rating, Classification, Extraction, Ranking, Discovery.</li>
+            <li><strong><a href="https://arxiv.org/abs/2604.10845" target="_blank">NN4Preferences</a></strong> (Acharya et al., 2026) &mdash; embeds NN in random utility models for conjoint preferences.</li>
+            <li><strong><a href="https://joonspk-research.github.io/cs222-fall24/index.html" target="_blank">Agent-Based Simulation</a></strong> (Park, Stanford CS222, 2024) &mdash; simulating social systems with LLM agents.</li>
+          </ul>
 
           <h3 class="subsection-title"><i class="fa-solid fa-chart-line subsection-icon"></i> Empirical IO</h3>
 
-          <div class="material-item">
-            <p class="material-title">Graduate Empirical IO</p>
-            <p class="material-meta">Chris Conlon &middot; NYU Stern</p>
-            <p class="material-desc">15+ lectures on demand estimation, Bertrand competition, merger simulation, and dynamic discrete choice.</p>
-            <div class="material-links">
-              <a href="https://chrisconlon.github.io/gradio.html" target="_blank" class="material-link">Course site</a>
-              <a href="https://github.com/chrisconlon/Grad-IO" target="_blank" class="material-link">GitHub</a>
-            </div>
-          </div>
+          <ul class="compact-list">
+            <li><strong><a href="https://chrisconlon.github.io/gradio.html" target="_blank">Empirical IO</a></strong> (Conlon, NYU) &mdash; demand estimation, merger simulation, productivity, dynamic discrete choice.</li>
+          </ul>
 
           <h3 class="subsection-title"><i class="fa-solid fa-spider subsection-icon"></i> Web Scraping</h3>
 
-          <div class="scraping-grid">
-
-            <a href="https://scrapecreators.com" target="_blank" class="scraping-card">
-              <div class="scraping-card-icon"><i class="fa-solid fa-satellite-dish"></i></div>
-              <p class="scraping-card-title">Managed API <span class="scraping-card-platform">&middot; Social Media</span></p>
-              <p class="scraping-card-desc">Unified REST APIs for Twitter/X, Instagram, TikTok, LinkedIn. Handles auth, rate limits, and anti-bot — no credentials or browser automation needed.</p>
-              <span class="scraping-card-source">ScrapeCreators</span>
-            </a>
-
-            <a href="https://apify.com" target="_blank" class="scraping-card">
-              <div class="scraping-card-icon"><i class="fa-solid fa-robot"></i></div>
-              <p class="scraping-card-title">Actor Marketplace <span class="scraping-card-platform">&middot; E-commerce &amp; Maps</span></p>
-              <p class="scraping-card-desc">Cloud-hosted actors for Amazon reviews, Google Maps listings, and more. Handles JavaScript rendering, captchas, and large-scale crawls.</p>
-              <span class="scraping-card-source">Apify</span>
-            </a>
-
-            <a href="https://firecrawl.dev" target="_blank" class="scraping-card">
-              <div class="scraping-card-icon"><i class="fa-solid fa-file-code"></i></div>
-              <p class="scraping-card-title">Page&rarr;Markdown&rarr;JSON <span class="scraping-card-platform">&middot; Any Webpage</span></p>
-              <p class="scraping-card-desc">Firecrawl converts pages to clean Markdown; OpenAI extracts structured JSON from it. Open-source alternative: defuddle for the crawl step.</p>
-              <span class="scraping-card-source">Firecrawl + defuddle</span>
-            </a>
-
-            <a href="https://github.com/yt-dlp/yt-dlp" target="_blank" class="scraping-card">
-              <div class="scraping-card-icon"><i class="fa-brands fa-youtube"></i></div>
-              <p class="scraping-card-title">Bulk Download <span class="scraping-card-platform">&middot; YouTube</span></p>
-              <p class="scraping-card-desc">Downloads video, audio, subtitles, and metadata JSON. Works for single videos, playlists, and entire channels. Auto-subtitle extraction included.</p>
-              <span class="scraping-card-source">yt-dlp</span>
-            </a>
-
-            <a href="https://www.reddit.com/dev/api/" target="_blank" class="scraping-card">
-              <div class="scraping-card-icon"><i class="fa-brands fa-reddit"></i></div>
-              <p class="scraping-card-title">Native JSON Endpoint <span class="scraping-card-platform">&middot; Reddit</span></p>
-              <p class="scraping-card-desc">No auth required. Append <code>.json</code> to any Reddit URL: subreddits, post threads, user profiles, search. Paginates via <code>?after=</code>.</p>
-              <span class="scraping-card-source">reddit.com/.json</span>
-            </a>
-
-            <a href="https://github.com/vladkens/twscrape" target="_blank" class="scraping-card">
-              <div class="scraping-card-icon"><i class="fa-brands fa-twitter"></i></div>
-              <p class="scraping-card-title">Async Scraper <span class="scraping-card-platform">&middot; Twitter/X</span></p>
-              <p class="scraping-card-desc">Async Python client for tweet search, user timelines, and profiles. Manages multiple accounts and handles rate-limit rotation automatically.</p>
-              <span class="scraping-card-source">twscrape</span>
-            </a>
-
-          </div>
+          <ul class="compact-list">
+            <li><strong><a href="https://github.com/kepano/defuddle" target="_blank">defuddle</a> (web) + <a href="https://github.com/microsoft/markitdown" target="_blank">markitdown</a> (files) + <a href="https://firecrawl.dev" target="_blank">Firecrawl</a> (API)</strong> &mdash; source to Markdown, then LLM to structured JSON.</li>
+            <li><a href="https://apify.com" target="_blank"><strong>Apify</strong></a> &mdash; APIs for marketplaces and listings such as Amazon and Google Maps.</li>
+            <li><a href="https://scrapecreators.com" target="_blank"><strong>ScrapeCreators</strong></a> &mdash; managed REST APIs for major social platforms. Auth, rate-limits, anti-bot handled.</li>
+            <li><a href="https://github.com/yt-dlp/yt-dlp" target="_blank"><strong>yt-dlp</strong></a> &mdash; YouTube video, audio, subtitles, metadata JSON. Single videos, playlists, or entire channels.</li>
+            <li><a href="https://www.reddit.com/dev/api/" target="_blank"><strong>reddit.com/.json</strong></a> &mdash; append <code>.json</code> to any Reddit URL. No auth; paginates via <code>?after=</code>.</li>
+          </ul>
 
         </section>
 
         <!-- AGENT SKILLS -->
-        <section id="skills">
+        <section id="skills" class="reveal-up">
           <h2>Agent Skills</h2>
-          <p class="about-bio" style="margin-bottom:1.75rem; font-size:0.88rem;">Skill modules for agent-assisted research workflows. Each available skill ships a Markdown file an agent can fetch and execute.</p>
+          <p class="about-bio" style="margin-bottom:1.75rem; font-size:0.88rem;">Skill modules for agent-assisted research workflows. Each skill ships a Markdown file an agent can fetch and execute.</p>
 
           <div class="skills-list">
 
@@ -348,7 +227,7 @@
                 <span class="skill-name"><i class="fa-solid fa-gears skill-icon"></i> Agent Configuration</span>
                 <span class="skill-badge skill-available">Available</span>
               </div>
-              <p class="skill-desc">Configuring Claude Code for a research project: writing load-bearing CLAUDE.md rules, building a color-coded context-window status line, managing token pressure with <code>/compact</code>, and delegating isolated subtasks to subagents.</p>
+              <p class="skill-desc">Configuring Claude Code for a research project &mdash; installing the CLI, writing CLAUDE.md with mandatory research sections (Data Provenance, Citation Policy, AI Disclosure), customizing the status line, managing context with <code>/compact</code>, and delegating to subagents.</p>
               <div class="skill-footer">
                 <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" class="skill-source">Claude Code Documentation</a>
                 <a href="skills/agent-configuration" class="skill-file">Skill file &rarr;</a>
@@ -360,9 +239,9 @@
                 <span class="skill-name"><i class="fa-solid fa-spider skill-icon"></i> Web Scraping</span>
                 <span class="skill-badge skill-available">Available</span>
               </div>
-              <p class="skill-desc">Raw HTTP with <code>requests</code> (headers, auth, rate-limit); JSON/XML preferred over HTML. Social media via ScrapeCreators; app data via Apify; web&rarr;markdown&rarr;JSON via Firecrawl/defuddle; YouTube via yt-dlp; Reddit JSON endpoint; Twitter/X via twscrape.</p>
+              <p class="skill-desc">Collecting data from the web or social platforms. Prefers structured contracts (JSON API &gt; XML &gt; CSV &gt; HTML + Playwright) over layout-dependent formats. Covers rate limits, retries, auth, pagination, and the legal/ethical guardrails (robots.txt, ToS).</p>
               <div class="skill-footer">
-                <a href="https://realpython.com/python-web-scraping-practical-introduction/" target="_blank" class="skill-source">Python Web Scraping &mdash; Real Python</a>
+                <a href="https://realpython.com/python-web-scraping-practical-introduction/" target="_blank" class="skill-source">Real Python tutorial</a>
                 <a href="skills/web-scraping" class="skill-file">Skill file &rarr;</a>
               </div>
             </div>
@@ -372,7 +251,7 @@
                 <span class="skill-name"><i class="fa-solid fa-book-open skill-icon"></i> Literature Review</span>
                 <span class="skill-badge skill-available">Available</span>
               </div>
-              <p class="skill-desc">Two paths to a verified bibliography: API-grounded (OpenAlex &rarr; triage &rarr; Crossref) and web-search with post-hoc verification. Hallucination taxonomy, journal/time scope defaults (econ top-5, PNAS/Science/Nature, CS conferences), and detection checklist.</p>
+              <p class="skill-desc">Two paths to a verified bibliography: Path A (OpenAlex search &rarr; Crossref DOI verification) for indexed work, Path B (web search &rarr; post-hoc DOI/title/author/year/venue checklist) for grey literature. Drops unverified entries; never returns citations from model memory.</p>
               <div class="skill-footer">
                 <a href="https://openalex.org/" target="_blank" class="skill-source">OpenAlex API</a>
                 <a href="skills/literature-review" class="skill-file">Skill file &rarr;</a>
@@ -384,7 +263,7 @@
                 <span class="skill-name"><i class="fa-solid fa-database skill-icon"></i> Big-Data Processing</span>
                 <span class="skill-badge skill-available">Available</span>
               </div>
-              <p class="skill-desc">High-performance DataFrames with Polars (lazy evaluation, parallel CPU execution); disk and in-memory caching with joblib and DiskCache; multiprocessing for CPU-bound Python functions outside Polars.</p>
+              <p class="skill-desc">Datasets too large for Pandas. Polars by default for in-memory work; DuckDB once raw size hits tens of GB or RAM becomes the bottleneck. Lazy query planning, Arrow zero-copy interop between the two, caching strategies for expensive computations.</p>
               <div class="skill-footer">
                 <a href="https://docs.pola.rs/" target="_blank" class="skill-source">Polars Documentation</a>
                 <a href="skills/big-data-processing" class="skill-file">Skill file &rarr;</a>
@@ -396,9 +275,9 @@
                 <span class="skill-name"><i class="fa-solid fa-magnifying-glass-chart skill-icon"></i> Exploratory Data Analysis</span>
                 <span class="skill-badge skill-available">Available</span>
               </div>
-              <p class="skill-desc">Data cleaning as premise (types, deduplication, missings), then univariate distributions, correlation matrices, outlier detection, and temporal/group patterns before any modeling.</p>
+              <p class="skill-desc">Load &rarr; inspect &rarr; summary table &rarr; clean &rarr; univariate &rarr; bivariate &rarr; temporal/group &rarr; document, in Polars. Surfaces problems, surprises, and structure before modeling; never confirms hypotheses. Hands off to big-data-processing once datasets exceed ~1 GB.</p>
               <div class="skill-footer">
-                <a href="https://wesmckinney.com/book/" target="_blank" class="skill-source">Python for Data Analysis &mdash; Wes McKinney</a>
+                <a href="https://wesmckinney.com/book/" target="_blank" class="skill-source">Python for Data Analysis &mdash; McKinney</a>
                 <a href="skills/eda" class="skill-file">Skill file &rarr;</a>
               </div>
             </div>
@@ -408,9 +287,9 @@
                 <span class="skill-name"><i class="fa-solid fa-tag skill-icon"></i> LLM Annotation</span>
                 <span class="skill-badge skill-available">Available</span>
               </div>
-              <p class="skill-desc">Generating, assessing, and integrating LLM-produced labels for machine learning and content analysis workflows.</p>
+              <p class="skill-desc">Generating and integrating data labels via LLMs for research workflows. Structured Pydantic outputs, batch processing, validation against a human gold-set, agreement metrics (Cohen's &kappa;, F1), uncertainty quantification. For when human labels are slow or expensive.</p>
               <div class="skill-footer">
-                <a href="https://arxiv.org/abs/2402.13446" target="_blank" class="skill-source">LLM4Annotation Survey &mdash; Tan et al., EMNLP 2024</a>
+                <a href="https://arxiv.org/abs/2402.13446" target="_blank" class="skill-source">LLM4Annotation &mdash; Tan et al., EMNLP 2024</a>
                 <a href="skills/llm-annotation" class="skill-file">Skill file &rarr;</a>
               </div>
             </div>
@@ -420,23 +299,23 @@
                 <span class="skill-name"><i class="fa-solid fa-quote-left skill-icon"></i> Text-as-Data</span>
                 <span class="skill-badge skill-available">Available</span>
               </div>
-              <p class="skill-desc">Turning unstructured text into quantitative measures: surface inspection (length, word frequency), semantic embeddings + UMAP, and GPT-based measurement via five primitives (Rating, Classification, Extraction, Ranking, Discovery). Includes test-retest and human-agreement validation before scaling.</p>
+              <p class="skill-desc">Pipeline for turning unstructured text into quantitative measures: surface inspection &rarr; frequency analysis &rarr; embeddings &rarr; GPT measurement &rarr; validation against human labels &rarr; scale. Each step gates the next; nothing scales without validation.</p>
               <div class="skill-footer">
-                <a href="https://www.nber.org/papers/w34834" target="_blank" class="skill-source">GPT as a Measurement Tool &mdash; Asirvatham, Mokski &amp; Shleifer, NBER 2026</a>
+                <a href="https://www.nber.org/papers/w34834" target="_blank" class="skill-source">GPT4Measurement &mdash; Asirvatham et al., NBER 2026</a>
                 <a href="skills/text-as-data" class="skill-file">Skill file &rarr;</a>
               </div>
             </div>
 
             <div class="skill-item">
               <div class="skill-header">
-                <span class="skill-name"><i class="fa-solid fa-chart-bar skill-icon"></i> Data Visualization</span>
+                <span class="skill-name"><i class="fa-solid fa-chart-bar skill-icon"></i> Visualization</span>
                 <span class="skill-badge skill-available">Available</span>
               </div>
-              <p class="skill-desc">Follow best practices for publication-ready figures: chart type selection, direct labeling, color, and data-ink ratio.</p>
+              <p class="skill-desc">Publication-ready figures in R + ggplot2. Cleveland-McGill perceptual ranking; Monet/Hokusai brand palette (dusty-blue + sage canonical pair, crimson accent); 600 DPI output. Direct annotation over legends; sort categorical axes by value; plot differences, not raw.</p>
               <div class="skill-footer">
-                <a href="https://socviz.co/" target="_blank" class="skill-source">Data Visualization &mdash; Kieran Healy</a>
-                <a href="https://yiqingxu.org/teachings/resources/data_visual.pdf" target="_blank" class="skill-source" style="margin-left:0.5rem">Slides &mdash; Yiqing Xu</a>
-                <a href="skills/data-visualization" class="skill-file">Skill file &rarr;</a>
+                <a href="https://socviz.co/" target="_blank" class="skill-source">Data Visualization &mdash; Healy</a>
+                <a href="https://yiqingxu.org/teachings/resources/data_visual.pdf" target="_blank" class="skill-source" style="margin-left:0.5rem">Xu slides</a>
+                <a href="skills/visualization" class="skill-file">Skill file &rarr;</a>
               </div>
             </div>
 
@@ -445,7 +324,7 @@
                 <span class="skill-name"><i class="fa-solid fa-display skill-icon"></i> Slide Generation</span>
                 <span class="skill-badge skill-available">Available</span>
               </div>
-              <p class="skill-desc">Generate Reveal.js reading-group slides from a paper PDF: extract text, produce structured notes, then build 12–16 slides covering authors, data, identification, results, and discussion questions.</p>
+              <p class="skill-desc">Reading-group slides from a paper PDF or TeX source. TeX route reads source directly; PDF-only route runs MinerU extraction. Default output is Reveal.js HTML; PDF export via Decktape on request. Aesthetic aligned with the Monet/Hokusai brand.</p>
               <div class="skill-footer">
                 <a href="https://revealjs.com/" target="_blank" class="skill-source">Reveal.js Documentation</a>
                 <a href="skills/slide" class="skill-file">Skill file &rarr;</a>
@@ -454,10 +333,10 @@
 
             <div class="skill-item">
               <div class="skill-header">
-                <span class="skill-name"><i class="fa-solid fa-file-lines skill-icon"></i> Report Format</span>
+                <span class="skill-name"><i class="fa-solid fa-file-lines skill-icon"></i> Report</span>
                 <span class="skill-badge skill-available">Available</span>
               </div>
-              <p class="skill-desc">Two-tier output template: Quick Template (Definition / Analyses / Takeaway) for single-step outputs, and a Writing Pipeline (Data &amp; Sample &rarr; Definitions &rarr; Analysis &rarr; Heterogeneity / Benchmark / Limitations) for formal research reports. Conventions from McCloskey, Gelman, APA JARS, and TOP Guidelines.</p>
+              <p class="skill-desc">Standard output template for analysis writeups. Quick Template (Definition / Description / Takeaway) for single-step outputs; Writing Pipeline (Abstract / Data &amp; Sample / Definitions / Analysis / Heterogeneity / Benchmark / Limitations) for multi-section reports.</p>
               <div class="skill-footer">
                 <a href="https://press.uchicago.edu/ucp/books/book/chicago/E/bo25674588.html" target="_blank" class="skill-source">Economical Writing &mdash; McCloskey</a>
                 <a href="skills/report" class="skill-file">Skill file &rarr;</a>
@@ -468,7 +347,7 @@
         </section>
 
         <!-- CV -->
-        <section id="cv">
+        <section id="cv" class="reveal-up">
           <h2>CV</h2>
           <p>
             <a href="assets/cv.pdf" target="_blank" class="cv-button">

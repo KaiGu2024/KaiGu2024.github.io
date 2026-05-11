@@ -183,7 +183,7 @@ schema.validate(df)
 
 ## Step 3 — Univariate Analysis
 
-For all plots in Steps 3–6, follow the standards in [Data Visualization](data-visualization.md): sort categorical axes by value, use `theme_pub()` for consistent fonts and DPI, prefer direct annotation over legends, and apply the Okabe-Ito palette.
+For all plots in Steps 3–6, follow the standards in [Visualization](visualization.md): sort categorical axes by value, use `theme_pub()` for consistent fonts and DPI, prefer direct annotation over legends, and apply the Okabe-Ito palette.
 
 ```python
 # Numeric: count, null_count, mean, std, min, p25, median, p75, max
@@ -344,7 +344,7 @@ Install: `pip install ydata-profiling`
 
 ## Report
 
-See [Report format](report.md).
+Output uses the Quick Template — three labeled lines, **Definition** / **Description** / **Takeaway**. (For multi-section writeups, see [report.md](report.md).)
 
 **Definition (measure):** Dataset shape (N rows × K cols); time period if applicable; key quality metrics (% missing, duplicate count) before and after cleaning.  
 **Analyses:** Cleaning actions taken (list each issue and resolution); univariate and bivariate patterns found; outlier counts and handling.  

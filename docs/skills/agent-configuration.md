@@ -1,7 +1,7 @@
 ---
 name: agent-configuration
 description: Use when configuring Claude Code for a research project — installing the CLI, writing CLAUDE.md (with the research-specific Data Provenance, Citation Policy, and AI Disclosure sections), customizing the status line, managing context with /compact, and delegating to subagents. Inspects the project directory to populate CLAUDE.md sections from real evidence rather than boilerplate.
-allowed-tools: Read, Bash, Glob, Grep
+allowed-tools: Read, Edit, Write, Bash, Glob, Grep
 invocation: manual
 ---
 
@@ -389,7 +389,7 @@ Every skill in `docs/skills/` declares an `invocation:` field in its frontmatter
 
 **Default if missing:** `auto`. Matches current loader behavior so older skills without the field keep working.
 
-**Relationship to `user-invocable: true`.** A few skills (`ai-disclosure-block`, `revision`, `slide`) carry a legacy `user-invocable: true` field. The two fields are complementary — `user-invocable` exposes the skill for direct invocation; `invocation:` controls Claude's auto-fire decision. A skill can be both `user-invocable: true` and `invocation: auto` (most permissive). Eventually consider consolidating to one field; no urgency.
+**Relationship to `user-invocable: true`.** A few skills (`ai-disclosure-block`, `revision-plan`, `slide`) carry a legacy `user-invocable: true` field. The two fields are complementary — `user-invocable` exposes the skill for direct invocation; `invocation:` controls Claude's auto-fire decision. A skill can be both `user-invocable: true` and `invocation: auto` (most permissive). Eventually consider consolidating to one field; no urgency.
 
 ---
 

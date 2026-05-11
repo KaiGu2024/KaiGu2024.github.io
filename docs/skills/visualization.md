@@ -1,5 +1,5 @@
 ---
-name: data-visualization
+name: visualization
 description: Use when producing publication-ready figures in R + ggplot2 — Cleveland-McGill perceptual ranking; a tight Monet/Hokusai-inspired brand palette (dusty blue + sage canonical pair on warm cream, Hokusai-Prussian sequential ramp, viridis for precise magnitudes, crimson accent for emphasis); five-element title/axis/strip hierarchy with axis-title floor 3 words + unit; direct annotation over legends; 600 DPI output. Enforces personal figure standards (sort categorical axes, plot differences not raw, calculate before you graph). For regression tables, see tables.md.
 allowed-tools: Read, Edit, Write, Bash
 invocation: auto

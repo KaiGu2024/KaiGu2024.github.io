@@ -264,7 +264,7 @@ The prompt codebook is the reproducibility artifact for LLM annotation. Archive 
 
 ## Report
 
-See [Report format](report.md).
+Output uses the Quick Template — three labeled lines, **Definition** / **Description** / **Takeaway**. (For multi-section writeups, see [report.md](report.md).)
 
 **Definition (measure):** N items annotated; Cohen's κ against human labels (if available); subset-level κ for multilingual/multi-context corpora; prompt stability α (if run); self-consistency rate (if run); model and temperature used.  
 **Analyses:** Annotation task and categories; prompt strategy (zero-shot / few-shot / chain-of-thought); batch size and API used.  

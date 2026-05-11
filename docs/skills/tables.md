@@ -1,12 +1,12 @@
 ---
 name: tables
-description: Use when reformatting a regression or descriptive table to a target journal's conventions — JM / MS / AER / QJE / JCR star cutoffs, booktabs templates, never-change-a-number rule. Sibling to data-visualization; never re-runs the model, never invents Notes content.
+description: Use when reformatting a regression or descriptive table to a target journal's conventions — JM / MS / AER / QJE / JCR star cutoffs, booktabs templates, never-change-a-number rule. Sibling to visualization; never re-runs the model, never invents Notes content.
 allowed-tools: Read, Edit
 invocation: auto
 ---
 Reformat a regression or descriptive table — the figure's sibling artifact — to a target journal's conventions. The discipline is narrower than for figures: tables have one job (display numbers exactly), so the rules are about **formatting**, never re-running the model.
 
-For figures, see [data-visualization.md](data-visualization.md). For the validity audit that should run before any table is drafted, see [report.md](report.md) → Pre-report Validity Check.
+For figures, see [visualization.md](visualization.md). For the validity audit that should run before any table is drafted, see [report.md](report.md) → Pre-report Validity Check.
 
 ---
 
@@ -115,7 +115,7 @@ $R^2$    & ... & ... \\
 
 ## Report
 
-See [Report format](report.md).
+Output uses the Quick Template — three labeled lines, **Definition** / **Description** / **Takeaway**. (For multi-section writeups, see [report.md](report.md).)
 
 **Definition (measure):** Tables produced (count, target journal, output paths); whether all coefficients survived validation; whether the notes line came from source or user.
 **Analyses:** Journal-specific rules applied (star cutoffs, SE placement, R² reporting); deviations from the source format that required user confirmation.

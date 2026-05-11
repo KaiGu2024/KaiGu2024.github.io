@@ -167,7 +167,7 @@ For large corpora, see also [LLM Annotation](llm-annotation.md) for batch pipeli
 
 ## Report
 
-See [Report format](report.md).
+Output uses the Quick Template — three labeled lines, **Definition** / **Description** / **Takeaway**. (For multi-section writeups, see [report.md](report.md).)
 
 **Definition (measure):** N texts; attribute(s) measured; scale or category set; model and temperature.  
 **Analyses:** Surface stats (length, word count); embedding visualization (UMAP); GPT measurement method used (Rating / Classification / Extraction / Ranking / Discovery); test-retest κ; human–GPT κ on validation sample.  

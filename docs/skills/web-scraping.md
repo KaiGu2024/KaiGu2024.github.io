@@ -382,7 +382,7 @@ Use Responses API for exploratory lookups and quick checks. Use requests for any
 
 ## Report
 
-See [Report format](report.md).
+Output uses the Quick Template — three labeled lines, **Definition** / **Description** / **Takeaway**. (For multi-section writeups, see [report.md](report.md).)
 
 **Definition (measure):** N records / pages fetched; coverage % of target universe (if known); date range; wall-clock scraping time; output file and format.  
 **Analyses:** Source URL(s) and endpoint type (JSON API / XML / HTML); auth method; rate-limit handling applied; HTTP status breakdown (e.g., 200 × 1,842 · 404 × 12 · 429 × 3).  

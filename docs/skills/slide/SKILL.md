@@ -1,6 +1,6 @@
 ---
 name: slide
-description: Use when generating Reveal.js reading-group slides from a paper PDF or TeX source — TeX route reads source directly; PDF-only route runs MinerU extraction first, then proceeds. Default output slide/<slug>.html; PDF export via Decktape only on explicit request. Aesthetic aligned with the personal Monet/Hokusai brand (Lora display, Inter body, dusty-blue chrome with Hokusai-crimson accent) so embedded figures from data-visualization.md sit calmly inside slide chrome.
+description: Use when generating Reveal.js reading-group slides from a paper PDF or TeX source — TeX route reads source directly; PDF-only route runs MinerU extraction first, then proceeds. Default output slide/<slug>.html; PDF export via Decktape only on explicit request. Aesthetic aligned with the personal Monet/Hokusai brand (Lora display, Newsreader body, dusty-blue chrome with Hokusai-crimson accent) so embedded figures from visualization.md sit calmly inside slide chrome.
 allowed-tools: Read, Edit, Write, Bash
 user-invocable: true
 invocation: auto
@@ -8,7 +8,11 @@ invocation: auto
 
 Output paths:
 - `slide/<slug>.html` — Reveal.js HTML (default).
-- `slide/<slug>.pdf` — exported from the HTML via Decktape, **on request only** (Step 4).
+- `slide/<slug>.pdf` — exported from the HTML via Decktape, **on request only** (see `references/pdf-export.md`).
+
+Reference files:
+- `references/aesthetics.md` — full brand styling spec (palette, fonts, layouts, callouts, animation, paper grain, Hokusai wave). Read this before writing the `<style>` block in the Reveal.js template — the template references tokens defined there.
+- `references/pdf-export.md` — Decktape command, splitting rules, audit checklist. Read only when the user explicitly asks for a PDF.
 
 ---
 
@@ -22,7 +26,7 @@ PDF only             →  MinerU extraction    → reading notes → Reveal.js s
 - **TeX available**: read the `.tex` files directly. Extract equations, table source, and figure paths from source — no extraction script needed.
 - **PDF only**: run MinerU (Step 1) to produce markdown, structured tables, and figure PNGs.
 
-Generate slides only when explicitly requested. Default to Reveal.js HTML; use Beamer (`slide/<slug>.tex`) only if TeX is requested. Export to PDF only when asked — Step 4.
+Generate slides only when explicitly requested. Default to Reveal.js HTML; use Beamer (`slide/<slug>.tex`) only if TeX is requested. Export to PDF only when asked — see `references/pdf-export.md`.
 
 ---
 
@@ -68,7 +72,7 @@ Before generating slides, produce structured reading notes at `notes/<slug>.md` 
 | 3 | **Outline** | Substantive sections only — skip motivation, data, ID; bold title + one sentence each. |
 | 4 | **Data & Setting** | Filtering pipeline with N and %; LLM annotation steps with warn callout. |
 | 5 | **Identification** | Challenge → strategy → assumptions to discuss. |
-| 6–N | **Results** | **One fact per slide**; reproduce original table/figure; pair with brief **Description + Analysis**. If a fact carries heavy content, **split across 2–3 slides**. Required for PDF export — Step 4. |
+| 6–N | **Results** | **One fact per slide**; reproduce original table/figure; pair with brief **Description + Analysis**. If a fact carries heavy content, **split across 2–3 slides**. Required for PDF export — see `references/pdf-export.md`. |
 | N+1 | **Takeaways & Discussion** | 3 bullet takeaways then 5 discussion questions. |
 
 Include an **Analytical Model** slide immediately before Results if the paper has a formal model.
@@ -169,6 +173,8 @@ Slide layout: three `<h3>` blocks — *Challenge* → *Strategy* → *Assumption
 
 ### Reveal.js template
 
+The `<style>` block referenced by `<!-- paste styling block -->` below is defined in full in `references/aesthetics.md` — read that file before populating the inline styles. Tokens like `--c-primary`, `--font-display`, `.col-7-5`, `.callout-result`, `.hokusai-wave`, and the slide-entry animation are all defined there.
+
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -177,17 +183,24 @@ Slide layout: three `<h3>` blocks — *Challenge* → *Strategy* → *Assumption
   <title>{{Paper Title}}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reset.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/white.css">
-  <style>/* paste the Aesthetic & animation system block — sections 1–5 — verbatim */</style>
+  <style>/* paste the full styling system from references/aesthetics.md — sections 1–6 — verbatim */</style>
 </head>
 <body>
 <div class="reveal"><div class="slides">
 
-  <!-- 1. Title — cream card, centered both axes -->
+  <!-- 1. Title — cream card with a Hokusai wave ornament bleeding off bottom-right.
+       The wave is the deck's wordmark; it does not repeat on other slides. -->
   <section class="slide-title">
+    <svg class="hokusai-wave" viewBox="0 0 400 160" aria-hidden="true">
+      <path d="M0,120 C60,40 120,40 180,120 C240,200 300,40 400,100 L400,160 L0,160 Z"
+            fill="var(--c-primary)" opacity="0.85"/>
+      <path d="M0,140 C60,80 130,80 200,140 C260,190 320,80 400,130 L400,160 L0,160 Z"
+            fill="var(--c-accent)" opacity="0.75"/>
+    </svg>
     <div class="title-card">
       <h2>{{Full Paper Title}}</h2>
       <p class="title-authors">{{Author 1}} ({{Affiliation}}) &middot; {{Author 2}} ({{Affiliation}})</p>
@@ -212,13 +225,15 @@ Slide layout: three `<h3>` blocks — *Challenge* → *Strategy* → *Assumption
     </div>
   </section>
 
-  <!-- 3. Outline -->
+  <!-- 3. Outline — two-column numbered map. Reads as the trip plan, not a TOC. -->
   <section>
     <h2>Outline</h2>
-    <ul>
-      <li><strong>{{Section ≤5 words}}</strong> — {{One sentence on finding or method}}</li>
-      <li style="color:var(--c-ink-mute)">Takeaways &amp; Discussion</li>
-    </ul>
+    <ol class="outline-grid">
+      <li><strong>{{Section ≤5 words}}</strong><span>{{One sentence on finding or method}}</span></li>
+      <li><strong>{{Section}}</strong><span>{{…}}</span></li>
+      <li><strong>{{Section}}</strong><span>{{…}}</span></li>
+      <li class="outline-coda"><strong>Takeaways &amp; Discussion</strong><span>{{punchline + Qs}}</span></li>
+    </ol>
   </section>
 
   <!-- 4. Data & Setting -->
@@ -312,254 +327,11 @@ Slide layout: three `<h3>` blocks — *Challenge* → *Strategy* → *Assumption
 </html>
 ```
 
-### Aesthetic & animation system
-
-Aligned with the personal Monet/Hokusai brand — dusty-blue chrome, warm cream paper, Hokusai-crimson accent. Embedded figures from `data-visualization.md` sit calmly inside this chrome instead of fighting it.
-
-#### 1. Design system tokens
-
-```css
-:root {
-  /* Palette — Monet/Hokusai-aligned (matches data-visualization.md brand) */
-  --c-primary:      #2E4A75;  /* Hokusai-Prussian deep — headings, h2 underline */
-  --c-primary-soft: #EFE6D2;  /* warm cream — code background, soft fills */
-  --c-accent:       #A03830;  /* Hokusai crimson — single high-emphasis */
-  --c-warn:         #C9824D;  /* Hokusai ochre — warn callout */
-  --c-mint:         #9CAF88;  /* Monet sage — tip callout */
-  --c-ink:          #1A1A1A;
-  --c-ink-soft:     #4A4A4A;
-  --c-ink-mute:     #8A8A8A;
-  --c-paper:        #FFFFFF;
-  --c-paper-warm:   #EFE6D2;
-  --c-line:         #D4CDB8;
-
-  /* Typography — Lora display + Inter body. Lora matches the personal website
-     identity; Inter holds at slide font sizes where Lora's serifs muddy. */
-  --font-display: 'Lora', Georgia, 'Times New Roman', serif;
-  --font-body:    'Inter', system-ui, sans-serif;
-  --font-mono:    ui-monospace, 'JetBrains Mono', Consolas, monospace;
-
-  /* Tuned for projection (≥24px body); HTML view scrolls when slides exceed
-     720px, PDF export still requires the §4 splits. */
-  --fs-h1:    clamp(2.2rem,  5.0vw, 3.3rem);    /* 53px @1280 */
-  --fs-h3:    clamp(1.25rem, 2.5vw, 1.6rem);    /* 25.6px */
-  --fs-body:  clamp(1.15rem, 2.1vw, 1.4rem);    /* 22.4px */
-  --fs-small: clamp(0.95rem, 1.5vw, 1.2rem);    /* 19.2px */
-  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
-
-  /* Spacing (4px base) */
-  --sp-1: 4px;  --sp-2: 8px;  --sp-3: 12px; --sp-4: 16px;
-  --sp-5: 24px; --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
-
-  /* Borders & shadows — soft drop shadow over thin border. Replaces the
-     earlier brutalist offset. */
-  --border:   1.5px solid var(--c-ink);
-  --radius-sm: 6px; --radius-md: 10px;
-  --shadow-xs: 0 1px 2px rgba(0,0,0,0.08);
-  --shadow-sm: 0 2px 4px rgba(0,0,0,0.10);
-}
-```
-
-Load fonts in `<head>` before stylesheets (already in the template above).
-
-#### 2. Base slide overrides
-
-When body and display fonts differ, **explicitly assign `var(--font-display)` to every heading-like element** — `h2`, `h3`, `table th`, `.author-card h3`. Without explicit assignment, headings inherit the body font and the display/body distinction collapses.
-
-```css
-.reveal .slides section {
-  text-align: left; height: 720px; overflow-y: auto;
-  font-family: var(--font-body); font-size: var(--fs-body); line-height: 1.5;
-  padding: var(--sp-6) var(--sp-7);
-  background: var(--c-paper);
-}
-.reveal h2 {
-  font-family: var(--font-display);
-  font-size: var(--fs-h1); font-weight: 700; letter-spacing: -0.015em;
-  color: var(--c-primary); margin-bottom: var(--sp-4);
-  border-bottom: 1px solid var(--c-line); padding-bottom: var(--sp-2);
-}
-.reveal h3 {
-  font-family: var(--font-display);
-  font-size: var(--fs-h3); font-weight: 600;
-  color: var(--c-ink); margin: var(--sp-4) 0 var(--sp-2);
-}
-.reveal p, .reveal li { color: var(--c-ink-soft); }
-.reveal strong { color: var(--c-ink); font-weight: 600; }
-code { font-family: var(--font-mono); font-size: 0.88em;
-       background: var(--c-primary-soft); padding: 1px 5px; border-radius: 4px; }
-```
-
-#### 3. Layouts, figures, tables
-
-Named column grids — wrap slide content in the appropriate div:
-
-| Class | Grid | Use case |
-|---|---|---|
-| `.col-full` | block | Single figure or table |
-| `.col-7-5` | `7fr 5fr` | Text left, figure right |
-| `.col-6-6` | `1fr 1fr` | Two equal result columns |
-| `.col-3` | `repeat(3, 1fr)` | Three mechanism cards |
-
-```css
-.col-7-5, .col-6-6, .col-3 {
-  display: grid; gap: var(--sp-5) var(--sp-6); align-items: stretch;
-}
-.col-7-5 { grid-template-columns: 7fr 5fr; }
-.col-6-6 { grid-template-columns: 1fr 1fr; }
-.col-3   { grid-template-columns: repeat(3, 1fr); }
-
-.col-7-5 > *, .col-6-6 > *, .col-3 > * {
-  display: flex; flex-direction: column; justify-content: center;
-}
-.col-7-5 img, .col-6-6 img, .col-3 img {
-  max-height: 340px; width: auto; max-width: 100%;
-  margin: 0 auto; object-fit: contain;
-}
-@media (max-width: 700px) {
-  .col-7-5, .col-6-6, .col-3 { grid-template-columns: 1fr; }
-}
-
-/* Title slide — centered cream card so the title doesn't float in empty space */
-.reveal .slides section.slide-title {
-  display: flex; align-items: center; justify-content: center;
-  text-align: center;
-}
-.title-card {
-  background: var(--c-paper-warm);
-  border: var(--border); border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-  padding: var(--sp-7) var(--sp-8);
-  max-width: 80%;
-}
-.title-card h2 {
-  border-bottom: none; padding-bottom: 0;
-  margin-bottom: var(--sp-5);
-}
-.title-card .title-authors { font-size: var(--fs-body);  color: var(--c-ink);      margin-bottom: var(--sp-3); }
-.title-card .title-venue   { font-size: var(--fs-small); color: var(--c-ink-soft); margin: 0; }
-.title-card .callout       { margin-top: var(--sp-5); text-align: left; }
-
-/* Figures */
-.fig-full {
-  width: 100%; max-height: 400px; object-fit: contain;
-  border: var(--border); border-radius: var(--radius-sm); box-shadow: var(--shadow-xs);
-}
-
-/* Tables */
-.reveal table {
-  width: 100%; border-collapse: collapse;
-  font-size: var(--fs-small); line-height: 1.4;
-  border: var(--border); border-radius: var(--radius-sm); overflow: hidden;
-}
-.reveal table th {
-  background: var(--c-primary); color: var(--c-paper);
-  padding: var(--sp-2) var(--sp-3);
-  font-family: var(--font-display); font-weight: 600;
-  text-align: left; letter-spacing: 0.02em;
-}
-.reveal table td {
-  padding: var(--sp-2) var(--sp-3);
-  border-bottom: 1px solid var(--c-line);
-  color: var(--c-ink-soft);
-}
-.reveal table tr:nth-child(even) td { background: var(--c-paper-warm); }
-.reveal table tr:last-child td     { border-bottom: none; }
-
-/* Author bios grid */
-.author-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-5); }
-.author-card img.photo {
-  width: 100%; max-width: 140px; aspect-ratio: 1 / 1;
-  object-fit: cover; border-radius: 50%;
-  border: var(--border); box-shadow: var(--shadow-xs);
-}
-.author-card h3 { font-family: var(--font-display); font-size: var(--fs-h3);
-                  font-weight: 600; margin: var(--sp-2) 0 var(--sp-1); color: var(--c-ink); }
-.author-card p  { font-size: var(--fs-small); margin: 2px 0; color: var(--c-ink-soft); }
-```
-
-**Layout selection:**
-
-| Slide content | Layout |
-|---|---|
-| Single figure, no commentary | `.col-full` (just `<img class="fig-full">`) |
-| Figure + short bullets | `.col-7-5` |
-| Two parallel results | `.col-6-6` |
-| Three mechanisms / panels | `.col-3` |
-| Figure + table + interpretation | `.col-6-6` row; `.callout-result` *below* the row, never inside |
-
-#### 4. Callouts
-
-Three semantic variants — colors aligned with the brand:
-
-```css
-.callout {
-  border-radius: var(--radius-md); border-width: 1.5px; border-style: solid;
-  padding: var(--sp-3) var(--sp-4); margin: var(--sp-3) 0;
-  font-size: var(--fs-small); line-height: 1.5;
-  box-shadow: var(--shadow-xs);
-}
-.callout-warn   { background: #FAF3E8; border-color: var(--c-warn);   }  /* ochre */
-.callout-result { background: #FCEFEC; border-color: var(--c-accent); }  /* crimson */
-.callout-tip    { background: #F0F4EC; border-color: var(--c-mint);   }  /* sage */
-```
-
-Usage: `.callout-warn` for LLM quality concerns and identification threats; `.callout-result` for headline findings; `.callout-tip` for methodological notes.
-
-#### 5. Animation
-
-```css
-.reveal .fragment.fade-up {
-  opacity: 0; transform: translateY(16px);
-  transition: opacity 0.28s var(--ease-expo), transform 0.28s var(--ease-expo);
-}
-.reveal .fragment.fade-up.visible { opacity: 1; transform: none; }
-
-/* Staggered list — set style="--i:0", "--i:1", ... on each <li> */
-.reveal li {
-  animation: li-in 0.3s var(--ease-expo) both;
-  animation-delay: calc(var(--i, 0) * 0.07s);
-}
-@keyframes li-in { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:none; } }
-
-@media (prefers-reduced-motion: reduce) {
-  *, .reveal .fragment { animation: none !important; transition: none !important; }
-}
-```
-
 ---
 
 ## Step 4 — PDF Export (on request)
 
-When the user asks for a PDF, render `slide/<slug>.html` via [Decktape](https://github.com/astefanutti/decktape) (headless Chrome → fixed-size pages):
-
-```bash
-npm install -g decktape                                          # one-time
-decktape reveal --size 1280x720 slide/<slug>.html slide/<slug>.pdf
-```
-
-Decktape walks every `<section>` and writes one fixed-size page per slide. Unlike the HTML view, **PDF pages cannot scroll** — content overflowing the viewport is silently clipped. The HTML's `overflow-y: auto` is a safety net for HTML viewing only; in PDF it does nothing.
-
-### Splitting rules
-
-Audit each slide for fit before exporting. Any section that does not fit a single 1280×720 page must be split at logical boundaries:
-
-- **Description + Analysis exceeds the page** → slide A = figure + Description, slide B = Analysis + caveats. Keep the same `<h2>`, no "(cont.)" suffix.
-- **Multi-panel figures** → one panel per slide; share the headline; subordinate the panel label to `<h3>` (e.g. *Panel A: by income decile*).
-- **Figure + regression table** → figure on slide A, table on slide B.
-- **Long bulleted lists** → split at the first natural `<h3>` boundary. Each `<h3>` block belongs to exactly one slide; never let an `<h3>` straddle a page break.
-- **Wide tables** → split by row group or move overflow to an appendix slide. Do not shrink the font below `var(--fs-small)`.
-
-### Audit checklist
-
-Open the HTML in a browser and scroll each `<section>`. Any section that needs scrolling must be split before Decktape runs:
-
-- Each section fits 720px without scrolling (scroll-fit ≠ print-fit).
-- Figures respect `max-height: 400px` (`.fig-full`) or `340px` (column cells).
-- One `<h2>` per section; `<h3>` blocks don't straddle pages.
-- Callouts and code blocks not clipped at the bottom.
-
-After splits, re-run Decktape.
+Only when the user explicitly asks for a PDF. The procedure (Decktape command, page-fit splitting rules, audit checklist) is in `references/pdf-export.md` — read that file when needed. Do not load it for HTML-only generations.
 
 ---
 
@@ -596,7 +368,7 @@ for i, ln in enumerate(Path("slide/<slug>.html").read_text(encoding="utf-8").spl
 
 ## Report
 
-See [Report format](report.md).
+Output uses the Quick Template — three labeled lines, **Definition** / **Description** / **Takeaway**. (For multi-section writeups, see [report.md](../report.md).)
 
 **Definition:** Paper (title, authors, venue, year); output path `slide/<slug>.html`; N slides generated.
 **Analyses:** Sections covered; figure sourcing method (TeX source / PDF extraction / placeholder); whether `notes/<slug>.md` was produced first.

@@ -1,7 +1,7 @@
 ---
 name: literature-review
 description: Use when the user asks for a literature review, citation search, or annotated bibliography — Path A (OpenAlex search → Crossref DOI verification) for indexed work, Path B (web search → post-hoc DOI/title/author/year/venue checklist) for grey literature. Drops unverified entries rather than "fixing" them; never returns citations from model memory.
-allowed-tools: Read, Bash, WebFetch
+allowed-tools: Read, Bash, WebFetch, WebSearch
 invocation: auto
 ---
 
@@ -261,7 +261,7 @@ This applies at every filtering stage: after venue triage, after relevance triag
 
 ## Report
 
-See [Report format](report.md).
+Output uses the Quick Template — three labeled lines, **Definition** / **Description** / **Takeaway**. (For multi-section writeups, see [report.md](report.md).)
 
 **Definition (measure):** N papers found; N retained after triage; N verified clean; hallucination rate (unverified / total).  
 **Analyses:** Path used (API / web-search); databases searched (OpenAlex, Crossref, Google Scholar); verification method applied.  
