@@ -59,15 +59,17 @@ invocation: auto
 
 12. **No gridlines.** Drop both major and minor gridlines, panel border, and redundant ticks (Tufte taken further than the usual "faint major" compromise). The axis line + ticks carry value-lookup; lengthen ticks (`axis.ticks.length ≈ 6 pt`) and use `scales::pretty_breaks(n = 6–8)` so the axis itself is the lookup aid. When a specific numeric value is part of the message — endpoint of a line, peak of a curve, a single bar — direct-label it with `geom_text` instead of asking the reader to interpolate against a grid. `theme_pub()` (§4) implements this.
 
-13. **Nothing clips, nothing overlaps.** Oversized fonts (rule 6) collide easily — axis titles into tick labels, tick labels into each other, endpoint labels off the right edge, rotated annotations off the top. Before saving, render at the target export size and verify:
+13. **Nothing clips, nothing overlaps.** Oversized fonts (rule 6) collide easily — axis titles into tick labels, tick labels into each other, endpoint labels off the right edge, rotated annotations off the top, and direct-labels stacking on each other when lines converge. The principle applies to annotations as much as to axis chrome: every label must occupy its own white space. Before saving, render at the target export size and verify:
     1. **Tick labels don't touch each other** → thin breaks (`scales::pretty_breaks(n = 6)`, `date_breaks` cadence per recipes, or two-row date labels).
     2. **Axis title doesn't touch tick labels** → `theme_pub()` sets `axis.title.x/y` margins of 12 pt; bump higher if axis text wraps.
     3. **Endpoint / direct labels don't run off the panel** → expand the data-side axis with `scale_x_*(expand = expansion(mult = c(0.02, 0.15)))`. Right margin 0.12–0.18 is the usual range for line-endpoint labels.
     4. **Annotations above/below the panel don't get cropped** → `coord_cartesian(clip = "off")` plus extra `plot.margin` (e.g., `margin(t = 30, ...)`) when rotated labels or drop-pins extend past the data region.
     5. **Long y-category labels don't clip the left edge** → either wrap with `scales::label_wrap(20)` / `stringr::str_wrap(label, 20)`, or pad with `plot.margin = margin(l = 30)`.
     6. **The image itself is large enough for the fonts.** At 28 pt axis titles, author width ≥ 4.5 in. Authoring at 3.5 in will clip the axis title onto the panel.
+    7. **Direct labels don't overlap each other.** For any multi-series endpoint labeling (≥ 2 lines, ≥ 2 dots with text), always use `geom_text_repel` / `geom_label_repel` rather than `geom_text` — repel pushes labels apart and draws thin segments back to the anchor when needed. If labels still collide after repel (tune `box.padding`, `force`, `min.segment.length`), the panel has too many series; facet or switch to layer-and-highlight, don't shrink the font.
+    8. **Direct labels don't sit on top of data lines, points, or bars.** Move them into white space with `nudge_x` / `nudge_y` or let `ggrepel` reposition. Inline annotations placed *inside* a panel (event line labels, statistical callouts) get the same treatment — anchor them in empty regions, not over a fitted curve or a tall bar. `geom_label` (white background box) is the absolute last resort, only when no white space exists.
 
-    The check is visual — open the saved PDF/PNG, don't trust the RStudio viewer (its width drifts). Recipes in `references/recipes.md` already use the right `expand =` and `clip = "off"` settings; if you copy one, keep them.
+    The check is visual — open the saved PDF/PNG, don't trust the RStudio viewer (its width drifts). Recipes in `references/recipes.md` already use the right `expand =`, `clip = "off"`, and `geom_text_repel` settings; if you copy one, keep them.
 
 ---
 
