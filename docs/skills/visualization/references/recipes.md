@@ -159,7 +159,10 @@ ggplot(df, aes(x = date, y = y)) +
            shape = 21, size = 5,
            fill = brand$accent, colour = "white", stroke = 0.9) +
 
-  # 4. Rotated label hanging off the pin
+  # 4. Rotated label hanging off the pin.
+  # angle = 90 (NOT -90 or 270) — text reads bottom-to-top, head tilts LEFT.
+  # hjust = 1 puts the END of the label at y_label, so the text hangs
+  # downward from the pin and the reader's eye runs UP toward the event.
   annotate("text",
            x = ev, y = y_label,
            label = "Policy enacted, 2024-03",

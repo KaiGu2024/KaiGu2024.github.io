@@ -28,6 +28,8 @@ invocation: auto
 
 4. **Direct annotation, no legends.** Label each line/group at its endpoint or most legible point. Suppress redundant guides with `guides(fill = "none")` when a variable is mapped to both `x` and `fill`/`color`.
 
+    **Annotation readability — orientation and contrast.** Horizontal text is always easiest; use it unless a vertical event line or a narrow axis forces rotation. When you must rotate, use **`angle = 90` only** — text reads bottom-to-top, which is the standard direction (head tilts LEFT). `angle = -90` and `angle = 270` produce top-to-bottom text (head tilts RIGHT) and are noticeably slower to read in English; never use them. Avoid diagonals between 15° and 75° entirely — if horizontal won't fit, jump straight to vertical-at-90°. For tick labels that must rotate to fit, prefer flipping the chart (`coord_flip()`) over rotating text; rotate only as a last resort with `angle = 30, hjust = 1`. Minimum text contrast for annotations meant to be *read* is `grey30` on white — `grey60` looks designed but reads as decoration. Never let annotation text sit on top of a data mark; place it in white space, or use `nudge_*` / `ggrepel` to move it. `geom_label` (white-box background) is a last resort — the box adds clutter.
+
 5. **High DPI.** `dpi = 600` (or PDF vector). *Science*/*Nature* minimum at submission.
 
 6. **Oversize every component so figure text reads larger than body text.** Figures are usually placed at half-column or column width inside a paragraph or slide, so the rendered point size is roughly half the source size. Author at sizes that, after scaling, still beat 11 pt body. Default ggplot fonts (~11 pt) and lines (~0.5 pt) are far too small:
