@@ -1,6 +1,6 @@
 ---
 name: visualization
-description: Use when producing publication-ready figures in R + ggplot2 — Cleveland-McGill perceptual ranking; a tight Monet/Hokusai-inspired brand palette (dusty blue + sage canonical pair on warm cream, Hokusai-Prussian sequential ramp, viridis for precise magnitudes, crimson accent for emphasis); five-element title/axis/strip hierarchy with axis-title floor 3 words + unit; direct annotation over legends; 600 DPI output. Enforces personal figure standards (sort categorical axes, plot differences not raw, calculate before you graph). For regression tables, see tables.md.
+description: Use when producing publication-ready figures in R + ggplot2 — Cleveland-McGill perceptual ranking; a tight Monet/Hokusai-inspired brand palette (dusty blue + sage canonical pair on warm cream, Hokusai-Prussian sequential ramp, viridis for precise magnitudes, crimson accent for emphasis); one panel per figure (combine via LaTeX `subfigure`, never patchwork); axis-title-only — no plot title / subtitle / caption / tag inside the image (text belongs in TeX); oversized fonts and components so figure text reads LARGER than the surrounding body text when placed in a paragraph or slide; direct annotation over legends; 600 DPI output. Enforces personal figure standards (sort categorical axes, plot differences not raw, calculate before you graph). For regression tables, see tables.md.
 allowed-tools: Read, Edit, Write, Bash
 invocation: auto
 ---
@@ -12,8 +12,8 @@ invocation: auto
 3. [Decisions](#3-decisions) — pick the chart type, name the color job
 4. [Setup](#4-setup) — `theme_pub()` and the brand palette
 5. [Palettes](#5-palettes) — categorical, sequential, diverging, layer-and-highlight, CVD
-6. [Recipes](#6-recipes) — copy-pasteable code
-7. [Output](#7-output) — patchwork, ggsave at 600 DPI
+6. [Recipes](#6-recipes) — pointer to `references/recipes.md`
+7. [Output](#7-output) — one panel per file, ggsave at 600 DPI, LaTeX `subfigure`
 8. [Cross-references](#8-cross-references)
 
 ---
@@ -30,11 +30,12 @@ invocation: auto
 
 5. **High DPI.** `dpi = 600` (or PDF vector). *Science*/*Nature* minimum at submission.
 
-6. **Enlarged components for high DPI.** Default ggplot fonts (~11 pt) and lines (~0.5 pt) print too thin at 600 DPI:
-   - Axis titles 18–20 pt; tick labels 15–17 pt; inline labels 14–16 pt
-   - Panel title 20–22 pt; subtitle 16–18 pt grey30; tag (A/B/C) 16–18 pt bold; caption 12–14 pt grey40
-   - Data lines `linewidth = 1.0–1.4`; reference/zero lines 0.5–0.7; axis lines 0.6
-   - Points `size = 2.5–3.5`; ribbon `alpha = 0.18–0.22`
+6. **Oversize every component so figure text reads larger than body text.** Figures are usually placed at half-column or column width inside a paragraph or slide, so the rendered point size is roughly half the source size. Author at sizes that, after scaling, still beat 11 pt body. Default ggplot fonts (~11 pt) and lines (~0.5 pt) are far too small:
+   - Axis titles **26–30 pt**; tick labels **22–26 pt**; inline / annotation labels **20–26 pt** (`geom_text(size = 7–9)` — ggplot text `size` is mm, ≈ 2.83 × pt)
+   - Strip text (facets, if any) **22–26 pt** bold
+   - Data lines `linewidth = 2.2–3.0`; reference / zero / vline lines 1.2–1.5; axis lines 1.1; ticks 1.0
+   - Points `size = 6–8`; ribbon `alpha = 0.18–0.22`
+   - **No plot title / subtitle / caption / tag inside the image** — see rule 10.
 
 7. **Thin out dense axis ticks.** Crowded labels → drop ticks, don't shrink fonts. Date: `scale_x_date(date_breaks = "3 months", date_labels = "%Y-%m")`. Numeric: `scales::pretty_breaks(n = 6)`. Categorical: label every other level, or rotate to horizontal layout. Rotation is last resort — `angle = 30, hjust = 1` if you must.
 
@@ -42,23 +43,15 @@ invocation: auto
 
 9. **Calculate before you graph.** Pre-aggregate with dplyr, plot with `stat = "identity"`. Geom-side stats (`after_stat(prop)`, `stat_summary`) fail in surprising ways with grouped/multi-variable aggregation; the summary table is itself a useful artifact.
 
-10. **Title and label hierarchy.** Five text layers, each with a distinct purpose. **Default — minimum required: axis titles only.** Add the rest only when context demands it.
+10. **Axis titles only — no in-figure text.** The only text inside the image is axis titles (and facet strips if a single-panel facet is unavoidable). **Do not** set `plot.title`, `plot.subtitle`, `plot.caption`, or `plot.tag`; those belong in LaTeX (`\caption{}`, `\subcaption{}`, section prose, slide chrome) where they can be re-edited without re-rendering the figure. Notes, sample descriptions, model details, and panel letters (A/B/C) all live in TeX, not in the PNG/PDF.
 
-    | Element | Required? | Word budget | When | Example |
-    |---|---|---|---|---|
-    | Axis title | **Always** | 3–6 words + units | Every figure. Self-contained. | `Mortgage loan amount ($, log)` |
-    | Facet strip | When faceting | 1–3 words | Auto-generated; keep short. | `North America` |
-    | Plot title | Skip by default | 4–8 words | Standalone (slide, blog) only. | `Loan demand fell after the 2023 reform` |
-    | Plot subtitle | Skip by default | 6–12 words | Standalone + in-figure context. | `DiD, US private banks, 2018–2024` |
-    | Caption | Submission only | 2–6 sentences | LaTeX `\caption{}` only. | — |
+    Axis title floor: **3 words + unit.** Self-contained (`Mortgage loan amount ($, log)`, not `Amount`). Failure mode is over-condensed labels — the fix is more words, not a plot title.
 
-    Two failure modes: **over-condensed axis titles** (`Amount`, `Year`) under 3 words / no unit; **title-as-caption** stuffing sample/period detail into the title when LaTeX renders a full caption. Keep title to the finding; let caption carry methodology.
-
-    Cross-panel overlap: render at export width before saving; drop redundant y-titles from non-leftmost panels (`labs(y = NULL)`); share axes via `plot_layout(axes = "collect")`. Shortening below the 3-word floor is not a valid resolution — fix the layout.
+    **One panel per figure.** Faceting and patchwork combining are out of the default toolbox: each panel exports as its own file, and combination happens in LaTeX via `subfigure` / `subcaption` (or in Beamer via columns). This keeps panel labels (a / b / c), sub-captions, and arrangement editable in source. If a faceted layout is truly the right encoding (small multiples over a single ordered variable), export the faceted plot as one file and skip the LaTeX combine — but the default is one chart, one file.
 
 11. **Show uncertainty.** Confidence intervals always — `geom_ribbon(alpha = 0.18–0.22)` for continuous, error bars for discrete. Point estimates without uncertainty convey false precision.
 
-12. **Maximize data-ink ratio.** Drop minor gridlines, panel border, redundant ticks (Tufte). Major gridlines stay faint (`grey85`, `linewidth 0.4`); axis lines and ticks at labeled values stay. `theme_pub()` (§4) implements this.
+12. **No gridlines.** Drop both major and minor gridlines, panel border, and redundant ticks (Tufte taken further than the usual "faint major" compromise). The axis line + ticks carry value-lookup; lengthen ticks (`axis.ticks.length ≈ 6 pt`) and use `scales::pretty_breaks(n = 6–8)` so the axis itself is the lookup aid. When a specific numeric value is part of the message — endpoint of a line, peak of a curve, a single bar — direct-label it with `geom_text` instead of asking the reader to interpolate against a grid. `theme_pub()` (§4) implements this.
 
 ---
 
@@ -91,7 +84,7 @@ Items linked by a line read as a group even if differently colored. Use delibera
 
 ### Layer-and-highlight pattern
 
-For "this country/firm/domain vs. all others": plot all data in `grey80`, plot focal subset on top in saturated accent, label only the focal subset. More effective than a 20-color rainbow; survives B&W. Code in §6.
+For "this country/firm/domain vs. all others": plot all data in `grey80`, plot focal subset on top in saturated accent, label only the focal subset. More effective than a 20-color rainbow; survives B&W. Code in `references/recipes.md` → "Layer-and-highlight".
 
 ---
 
@@ -132,26 +125,26 @@ library(ggplot2)
 library(dplyr)
 library(forcats)
 library(ggrepel)
-library(patchwork)
 library(scales)
+# Note: no patchwork — one panel per figure; combine in LaTeX (subfigure).
 
-theme_pub <- function(base_size = 16) {
+theme_pub <- function(base_size = 22) {
   theme_minimal(base_size = base_size, base_family = "Helvetica") +
     theme(
-      axis.title       = element_text(size = 19),
-      axis.text        = element_text(size = 16),
-      plot.title       = element_text(size = 21, face = "bold"),
-      plot.subtitle    = element_text(size = 17, colour = "grey30",
-                                      margin = margin(t = 2, b = 8)),
-      plot.caption     = element_text(size = 13, colour = "grey40",
-                                      hjust = 0, margin = margin(t = 8)),
-      plot.tag         = element_text(size = 17, face = "bold"),
-      panel.grid.minor = element_blank(),
-      panel.grid.major = element_line(linewidth = 0.4, colour = "grey85"),
+      axis.title       = element_text(size = 28),
+      axis.text        = element_text(size = 24),
+      # In-figure title / subtitle / caption / tag are intentionally suppressed.
+      # All such text belongs in LaTeX (\caption{}, \subcaption{}).
+      plot.title       = element_blank(),
+      plot.subtitle    = element_blank(),
+      plot.caption     = element_blank(),
+      plot.tag         = element_blank(),
+      panel.grid       = element_blank(),   # no gridlines, ever
       panel.border     = element_blank(),
-      axis.line        = element_line(linewidth = 0.6, colour = "grey20"),
-      axis.ticks       = element_line(linewidth = 0.5, colour = "grey20"),
-      strip.text       = element_text(size = 16, face = "bold"),
+      axis.line        = element_line(linewidth = 1.1, colour = "grey20"),
+      axis.ticks       = element_line(linewidth = 1.0, colour = "grey20"),
+      axis.ticks.length = unit(8, "pt"),
+      strip.text       = element_text(size = 24, face = "bold"),
       legend.position  = "none"   # direct annotation by default
     )
 }
@@ -194,10 +187,10 @@ geom_col(aes(fill = group), colour = NA)
 geom_col(fill = brand$primary)
 
 # Lines
-geom_line(aes(colour = group), linewidth = 1.0)
+geom_line(aes(colour = group), linewidth = 2.4)
 
 # Filled points (pch 21–25) — same hex as fill and stroke
-geom_point(aes(fill = group, colour = group), shape = 21, size = 2.8)
+geom_point(aes(fill = group, colour = group), shape = 21, size = 7)
 ```
 
 **Three or more categories: don't add a third color — facet or layer-and-highlight.** The brand caps at 2 because that's where 2-channel comparisons (color × position) work cleanly. For 3+, position becomes the primary distinguisher (facet); color encodes a second dimension only.
@@ -236,28 +229,6 @@ scale_fill_gradient2(low = "#1F3A5F", mid = "white", high = brand$accent,
 
 **The midpoint must be the meaningful zero, not the data midpoint.** Symmetric `limits = c(-x, x)` keeps white centered on zero.
 
-### Layer-and-highlight — focal series in crimson
-
-```r
-focal <- c("ChatGPT")
-
-ggplot(df, aes(x = week, y = visits, group = platform)) +
-  geom_line(data = filter(df, !platform %in% focal),
-            colour = "grey80", linewidth = 0.4) +
-  geom_line(data = filter(df,  platform %in% focal),
-            colour = brand$accent, linewidth = 1.0) +
-  geom_text_repel(
-    data = filter(df, platform %in% focal) |>
-             group_by(platform) |> slice_max(week, n = 1),
-    aes(label = platform), colour = brand$accent,
-    hjust = 0, nudge_x = 1, direction = "y", segment.colour = NA
-  ) +
-  scale_x_continuous(expand = expansion(mult = c(0.02, 0.12))) +
-  labs(x = "Week", y = "Visits")
-```
-
-For two focal series, use `brand$primary` and `brand$accent` against `grey80`.
-
 ### Conceptual diagrams
 
 Same brand colors. Box fill: `scales::alpha(brand$primary, 0.3)`. Box stroke / header strip: full hex with white text. Arrows: `grey30` default; `brand$accent` if the arrow itself encodes emphasis. Diagrams cap at primary + secondary; for 3+ stages distinguish by *position and label*, not color.
@@ -277,150 +248,68 @@ scale_linetype_manual(values = c("solid", "dashed", "dotted"))
 
 ## 6. Recipes
 
-Code assumes `theme_pub()` and the `brand` palette from §4 are loaded.
+Copy-pasteable code lives in **`references/recipes.md`** to keep this file scannable. Sections:
 
-### Sorting categorical axes
+- Sorting categorical axes
+- Thinning dense axes
+- Date axes — format and cadence (ISO `%Y-%m`, two-row labels)
+- Direct line annotation
+- Coefficient / event-study plot
+- Time trend with overlaid fits (raw + models + CI)
+- Designed event line (vertical annotation: drop-pin + rotated label + tinted post-region)
+- Layer-and-highlight (focal series in crimson)
+- Distribution comparisons (ridge plot)
 
-```r
-# Bar plot sorted by value, horizontal layout for long labels
-df |>
-  mutate(domain = fct_reorder(domain, share)) |>
-  ggplot(aes(x = share, y = domain)) +
-  geom_col(fill = brand$primary) +
-  scale_x_continuous(labels = label_percent(accuracy = 1),
-                     expand = expansion(mult = c(0, 0.05))) +
-  labs(x = "Referral share", y = NULL)
-
-# Faceted: order facets by aggregate, order bars within facet by value
-df |>
-  mutate(
-    platform = fct_reorder(platform, value, .fun = sum, .desc = TRUE),
-    domain   = tidytext::reorder_within(domain, value, platform)
-  ) |>
-  ggplot(aes(x = value, y = domain)) +
-  geom_col(fill = brand$primary) +
-  facet_wrap(~ platform, scales = "free_y") +
-  tidytext::scale_y_reordered()
-```
-
-### Thinning dense axes
-
-```r
-scale_x_date(date_breaks = "3 months", date_labels = "%Y-%m",
-             expand = expansion(mult = c(0.02, 0.05)))
-scale_x_date(date_breaks = "5 years", date_labels = "%Y")
-scale_x_continuous(breaks = scales::pretty_breaks(n = 6))
-
-# Categorical — label every other level
-lv <- levels(df$category)
-scale_x_discrete(breaks = lv[c(TRUE, FALSE)])
-```
-
-If labels still overlap after thinning, flip to horizontal before rotating axis text.
-
-### Direct line annotation
-
-```r
-labels <- df |> group_by(group) |> slice_max(year, n = 1) |> ungroup()
-
-ggplot(df, aes(x = year, y = outcome, colour = group)) +
-  geom_line(linewidth = 0.9) +
-  geom_text_repel(
-    data = labels, aes(label = group),
-    hjust = 0, nudge_x = 0.2, direction = "y",
-    segment.colour = NA, size = 4
-  ) +
-  scale_y_continuous(labels = label_percent(accuracy = 1)) +
-  scale_x_continuous(expand = expansion(mult = c(0.02, 0.15))) +
-  labs(x = "Year", y = "Outcome")
-```
-
-### Coefficient / event-study plot
-
-```r
-ggplot(es, aes(x = period, y = coef)) +
-  geom_hline(yintercept = 0, linewidth = 0.4) +
-  geom_vline(xintercept = -0.5, linetype = "dashed",
-             colour = brand$accent, linewidth = 0.4) +
-  geom_ribbon(aes(ymin = lo, ymax = hi),
-              fill = brand$primary, alpha = 0.22) +
-  geom_line(linewidth = 0.8, colour = brand$primary) +
-  geom_point(size = 2.6, colour = brand$primary) +
-  labs(x = "Periods relative to treatment", y = "Estimated effect")
-```
-
-### Time trend with overlaid fits (raw + models + CI)
-
-Three weights: raw series in `brand$dark` at `linewidth = 0.45` (reference); fitted lines distinguished primarily by **linetype** (so the figure reads in grayscale), secondary by hue, at `linewidth = 1.0`; one CI ribbon for the primary fit (`fill = "grey70", alpha = 0.25`).
-
-```r
-ggplot(df, aes(x = year, y = value)) +
-  geom_ribbon(data = filter(df, series == "loess"),
-              aes(ymin = lo, ymax = hi),
-              fill = "grey70", alpha = 0.25, colour = NA) +
-  geom_line(data = filter(df, series == "raw"),
-            colour = brand$dark, linewidth = 0.45) +
-  geom_line(data = filter(df, series != "raw"),
-            aes(linetype = series, colour = series),
-            linewidth = 1.0) +
-  scale_linetype_manual(values = c(linear = "dashed",
-                                   loess  = "solid",
-                                   poly   = "dotted")) +
-  scale_colour_manual(values = c(linear = brand$primary,
-                                 loess  = brand$secondary,
-                                 poly   = brand$accent)) +
-  geom_text_repel(
-    data = filter(df, series != "raw") |>
-             group_by(series) |> slice_max(year, n = 1),
-    aes(label = series, colour = series),
-    hjust = 0, nudge_x = 1, direction = "y",
-    segment.colour = NA, size = 4
-  ) +
-  scale_x_continuous(expand = expansion(mult = c(0.02, 0.15))) +
-  labs(x = "Year", y = "Value (units)")
-```
-
-### Distribution comparisons (ridge plot)
-
-```r
-library(ggridges)
-
-df |>
-  mutate(group = fct_reorder(group, value, median)) |>
-  ggplot(aes(x = value, y = group, fill = group)) +
-  geom_density_ridges(alpha = 0.7, scale = 1.0,
-                      rel_min_height = 0.01, colour = "white") +
-  scale_fill_manual(
-    values = colorRampPalette(brand_blues)(n_distinct(df$group))
-  ) +
-  labs(x = "Value", y = NULL) +
-  guides(fill = "none")
-```
+Read the recipes file before writing a new figure — most patterns are already there.
 
 ---
 
 ## 7. Output
 
-```r
-# Multi-panel layout
-(p1 | p2) / p3 +
-  plot_layout(heights = c(2, 1), axes = "collect") +
-  plot_annotation(tag_levels = "A",
-                  theme = theme(plot.tag = element_text(face = "bold", size = 17)))
+**One panel per file.** No patchwork, no `plot_annotation(tag_levels = "A")`, no in-R combining. Each chart goes to its own PDF/PNG and is composed in LaTeX.
 
-# Saving — always specify width/height so font and line sizes lock in
-ggsave("figure.pdf", plot = p, width = 7, height = 4, units = "in",
-       device = cairo_pdf)
-ggsave("figure.png", plot = p, width = 7, height = 4, units = "in", dpi = 600)
-ggsave("figure.tiff", plot = p, width = 7, height = 4, units = "in", dpi = 600,
-       compression = "lzw")
+```r
+# Always specify width/height so font and line sizes lock in.
+# Author at the size you want the figure to OCCUPY in print — do not author
+# at 7 in and ask LaTeX to scale to 3.3 in (text halves). For a half-column
+# subfigure (~3.3 in), author width = 4–4.5 in; for a column figure, 6–7 in.
+ggsave("fig_panel_a.pdf", plot = p_a, width = 4.5, height = 3.3,
+       units = "in", device = cairo_pdf)
+ggsave("fig_panel_b.pdf", plot = p_b, width = 4.5, height = 3.3,
+       units = "in", device = cairo_pdf)
+ggsave("fig_panel_a.png", plot = p_a, width = 4.5, height = 3.3,
+       units = "in", dpi = 600)
 ```
+
+**LaTeX composition** (uses `subcaption`; load with `\usepackage{subcaption}`):
+
+```latex
+\begin{figure}[t]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{fig_panel_a.pdf}
+    \caption{Pre-period trend}
+    \label{fig:main-a}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{fig_panel_b.pdf}
+    \caption{Post-period effect}
+    \label{fig:main-b}
+  \end{subfigure}
+  \caption{Headline finding. Source / sample / model lives here, not in the PNG.}
+  \label{fig:main}
+\end{figure}
+```
+
+Panel letters (a / b), sub-captions, the overall caption, and the source note are all TeX — never baked into the figure file.
 
 ---
 
 ## 8. Cross-references
 
-For regression / descriptive tables (journal star cutoffs, booktabs, never-change-a-number), see [tables.md](tables.md). Report format in [report.md](report.md).
+For regression / descriptive tables (journal star cutoffs, booktabs, never-change-a-number), see [tables.md](../tables.md). Report format in [report.md](../report.md).
 
 **Definition:** Figures produced (count, types, output paths); format and DPI; whether colorblind/grayscale check was run; whether categorical axes were sorted by value.
 **Analyses:** Chart types and rationale (Cleveland-McGill); annotation strategy; journal compliance (DPI, font, line weight).
