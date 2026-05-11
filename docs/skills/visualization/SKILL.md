@@ -1,6 +1,6 @@
 ---
 name: visualization
-description: Use when producing publication-ready figures in R + ggplot2 — Cleveland-McGill perceptual ranking; a tight Monet/Hokusai-inspired brand palette (dusty blue + sage canonical pair on warm cream, Hokusai-Prussian sequential ramp, viridis for precise magnitudes, crimson accent for emphasis); one panel per figure (combine via LaTeX `subfigure`, never patchwork); axis-title-only — no plot title / subtitle / caption / tag inside the image (text belongs in TeX); oversized fonts and components so figure text reads LARGER than the surrounding body text when placed in a paragraph or slide; direct annotation over legends; 600 DPI output. Enforces personal figure standards (sort categorical axes, plot differences not raw, calculate before you graph). For regression tables, see tables.md.
+description: Use when producing publication-ready figures in R + ggplot2 — Cleveland-McGill perceptual ranking; Monet/Hokusai brand palette (dusty blue + sage default, Prussian sequential, viridis precise, crimson accent); Lora display + Newsreader body fonts matching the personal site/slides/CV; one panel per figure (combine via LaTeX `subfigure`); axis-title-only with no plot title/subtitle/caption inside the image (text belongs in TeX); oversized components so figure text reads LARGER than body text in a paragraph or slide; direct annotation over legends; 600 DPI. Enforces sort-categorical-axes, plot-differences-not-raw, no-gridlines, nothing-clips-or-overlaps. For regression tables, see tables.md.
 allowed-tools: Read, Edit, Write, Bash
 invocation: auto
 ---
@@ -28,9 +28,9 @@ invocation: auto
 
 4. **Direct annotation, no legends.** Label each line/group at its endpoint or most legible point. Suppress redundant guides with `guides(fill = "none")` when a variable is mapped to both `x` and `fill`/`color`.
 
-    **Annotation readability — orientation and contrast.** Horizontal text is always easiest; use it unless a vertical event line or a narrow axis forces rotation. When you must rotate **annotation prose** (event-line labels, callouts, in-panel commentary), use **`angle = 90` only** — text reads bottom-to-top, head tilts LEFT, which is the standard direction. `angle = -90` / `270` produce top-to-bottom text (head tilts RIGHT) and are noticeably slower to read in English; never use them. **Avoid diagonals between 15° and 75° for prose** — full-word text reads slowly at those tilts; jump from horizontal straight to vertical-at-90°. **Short, standardized tick labels are a different case:** dates (`2024-12`), short category strings (≤ 8 chars) read well at `angle = 30, hjust = 1` — this is the publication standard for time-series x-axes and lets a panel fit roughly 3× the breaks of pure horizontal (e.g., a 2-month cadence instead of 6-month). Use the 30° tilt when you want denser dates than the §7 cadence table allows. For long category labels, prefer `coord_flip()` over any rotation — the labels become horizontal y-ticks. Minimum text contrast for annotations meant to be *read* is `grey30` on white — `grey60` looks designed but reads as decoration. Never let annotation text sit on top of a data mark; place it in white space, or use `nudge_*` / `ggrepel` to move it. `geom_label` (white-box background) is a last resort — the box adds clutter.
+    **Annotation readability — orientation and contrast.** Horizontal text is always easiest; use it unless a vertical event line or a narrow axis forces rotation. When you must rotate **annotation prose** (event-line labels, callouts, in-panel commentary), use **`angle = 90` only** — text reads bottom-to-top, head tilts LEFT, which is the standard direction. `angle = -90` / `270` produce top-to-bottom text (head tilts RIGHT) and are noticeably slower to read in English; never use them. **Avoid diagonals between 15° and 75° for prose** — full-word text reads slowly at those tilts; jump from horizontal straight to vertical-at-90°. **Short, standardized tick labels are a different case:** dates (`2024-12`), short category strings (≤ 8 chars) read well at `angle = 30, hjust = 1` — this is the publication standard for time-series x-axes and lets a panel fit roughly 3× the breaks of pure horizontal (e.g., a 2-month cadence instead of 6-month). Use the 30° tilt when you want denser dates than the §7 cadence table allows. For long category labels, prefer `coord_flip()` over any rotation — the labels become horizontal y-ticks. Minimum text contrast for annotations meant to be *read* is `grey30` on white — `grey60` looks designed but reads as decoration. (For *placement* — labels not sitting on data marks — see rule 13.8.)
 
-    **Annotation styling — size, font, no parens.** Use `geom_text(size = 7–8)` ≈ **20–22 pt rendered** for direct line/point labels: slightly smaller than axis tick labels (24 pt) so commentary doesn't compete with the reference axis. Endpoint labels that replace a legend can match the axis text at `size = 8` (~22 pt) since they ARE the identification system. Use the same Helvetica as the rest of the figure (`theme_pub()`); don't switch to serif or display inside the data field — figures stay sans regardless of the body font of the paper they sit in. **Plain nouns only — no parentheses, no qualifiers, no units inside annotations.** Write `ChatGPT`, `Google`, `Treatment` — never `ChatGPT (US)`, `Google (search)`, `Treatment (n=482)`. Units live on axis titles (`Mortgage amount (USD, log)`); sample size, period, country, model spec live in the LaTeX `\caption{}`. Inside the data field, every parenthesis is visual noise. Keep annotations to 1–3 words.
+    **Annotation styling — size, font, no parens.** Use `geom_text(size = 7–8)` ≈ **20–22 pt rendered** for direct line/point labels: slightly smaller than axis tick labels (24 pt) so commentary doesn't compete with the reference axis. Endpoint labels that replace a legend can match the axis text at `size = 8` (~22 pt) since they ARE the identification system. Use the figure's body font (Newsreader via `theme_pub()`); don't introduce a third typeface inside the data field — figures stay in the Lora display + Newsreader body pair, matching the surrounding paper or slide. **Plain nouns only — no parentheses, no qualifiers, no units inside annotations.** Write `ChatGPT`, `Google`, `Treatment` — never `ChatGPT (US)`, `Google (search)`, `Treatment (n=482)`. Units live on axis titles (`Mortgage amount (USD, log)`); sample size, period, country, model spec live in the LaTeX `\caption{}`. Inside the data field, every parenthesis is visual noise. Keep annotations to 1–3 words.
 
     **Label every series the reader needs to identify; highlight changes color, not coverage.** "No legends" means *replace the legend with direct labels*, which applies to every line/group the reader needs to identify by name. For a 5-line chart (ChatGPT, Google, Bing, DuckDuckGo, Yahoo) all five get endpoint labels — what changes with layer-and-highlight is the *color* of the focal line and its label (`brand$accent`), while the others stay in grey (line `grey80`, label `grey50` so it reads against white). Backgrounded series still need names; without them the reader can't reconstruct what the gray cloud represents. Two exceptions: (1) horizontal bar charts where y-axis ticks already name each bar — the ticks ARE the labels, don't double-label; (2) so many series that endpoint labels still collide after `ggrepel` — then facet, don't squeeze.
 
@@ -138,6 +138,8 @@ Name what color is *for* before picking a palette.
 
 ## 4. Setup
 
+The theme function, brand palette, sequential ramp, and global ggplot defaults all live in `scripts/theme_pub.R`. Source it once per session — don't copy-paste from this file, the script is the source of truth.
+
 ```r
 library(ggplot2)
 library(dplyr)
@@ -146,52 +148,28 @@ library(ggrepel)
 library(scales)
 # Note: no patchwork — one panel per figure; combine in LaTeX (subfigure).
 
-theme_pub <- function(base_size = 22) {
-  theme_minimal(base_size = base_size, base_family = "Helvetica") +
-    theme(
-      # Axis titles — explicit margin keeps title off the tick labels (rule 13.2)
-      axis.title.x     = element_text(size = 28, margin = margin(t = 12)),
-      axis.title.y     = element_text(size = 28, margin = margin(r = 12)),
-      axis.text.x      = element_text(size = 24, margin = margin(t = 4)),
-      axis.text.y      = element_text(size = 24, margin = margin(r = 4)),
-      # In-figure title / subtitle / caption / tag are intentionally suppressed.
-      # All such text belongs in LaTeX (\caption{}, \subcaption{}).
-      plot.title       = element_blank(),
-      plot.subtitle    = element_blank(),
-      plot.caption     = element_blank(),
-      plot.tag         = element_blank(),
-      panel.grid       = element_blank(),   # no gridlines, ever
-      panel.border     = element_blank(),
-      axis.line        = element_line(linewidth = 1.1, colour = "grey20"),
-      axis.ticks       = element_line(linewidth = 1.0, colour = "grey20"),
-      axis.ticks.length = unit(8, "pt"),
-      strip.text       = element_text(size = 24, face = "bold",
-                                      margin = margin(b = 8)),
-      # Outer padding so axis titles and end-of-axis tick labels don't crop
-      # at the figure boundary (rule 13.1, 13.5, 13.6).
-      plot.margin      = margin(t = 18, r = 22, b = 12, l = 14),
-      legend.position  = "none"   # direct annotation by default
-    )
-}
-theme_set(theme_pub())
+source("~/.claude/skills/visualization/scripts/theme_pub.R")
 
-# Brand palette — Monet Water Lilies + Hokusai crimson.
-# Pick by role; same hex serves as fill or stroke; tint with scales::alpha().
-brand <- list(
-  primary   = "#6B89A8",  # Monet dusty blue   — default series, single-series fills
-  secondary = "#9CAF88",  # Monet sage green   — second series in 2-group comparisons
-  neutral   = "#EFE6D2",  # warm cream         — backgrounds, "all others"
-  dark      = "#1A1A1A",  # near-black         — raw observed lines, axis text
-  accent    = "#A03830"   # Hokusai crimson    — rare, single high-emphasis callout
-)
+# If Newsreader / Lora aren't installed system-wide, register them per session:
+showtext::font_add_google("Newsreader", "Newsreader")
+showtext::font_add_google("Lora",       "Lora")
+showtext::showtext_auto()
+```
 
-# Sequential ramp — Hokusai-Prussian blues (5 steps, dark = high). Use for
-# ORDERED bins where rank matters but not precise magnitude. For precise
-# magnitude (heatmap, choropleth) use viridis.
-brand_blues <- c("#1F3A5F", "#3A5F87", "#6688AB", "#9DBBD2", "#D2DDE6")
+This loads `theme_pub()` (already applied via `theme_set()`), the `brand` list, the `brand_blues` ramp, and sets discrete fill/colour defaults. **Fonts:** Lora (display) on axis titles + facet strips, Newsreader (body) on tick labels and annotations — the same pair as the personal site, slides, and CV, so figures sit inside the surrounding work instead of clashing with a generic Helvetica.
 
-options(ggplot2.discrete.fill   = c(brand$primary, brand$secondary),
-        ggplot2.discrete.colour = c(brand$primary, brand$secondary))
+Palette slot names (full definitions in `scripts/theme_pub.R`):
+
+```r
+brand$primary    # "#6B89A8"  Monet dusty blue   — default series
+brand$secondary  # "#9CAF88"  Monet sage green   — second series in 2-group
+brand$neutral    # "#EFE6D2"  warm cream         — backgrounds, "all others"
+brand$dark       # "#1A1A1A"  near-black         — raw observed lines, axis text
+brand$accent    # "#A03830"  Hokusai crimson    — rare, single high-emphasis
+
+brand_blues      # c("#1F3A5F", "#3A5F87", "#6688AB", "#9DBBD2", "#D2DDE6")
+                 # Hokusai-Prussian ramp, dark = high; for ORDERED bins.
+                 # For precise magnitude (heatmap, choropleth) use viridis.
 ```
 
 **Greek and math symbols.** Use Unicode directly in labels: `α`, `β`, `μ`, `σ²`, `≥`, `×`. Symbol-font glyphs tofu in modern PDF readers.
@@ -273,17 +251,17 @@ scale_linetype_manual(values = c("solid", "dashed", "dotted"))
 
 ## 6. Recipes
 
-Copy-pasteable code lives in **`references/recipes.md`** to keep this file scannable. Sections:
+Copy-pasteable code lives in **`references/recipes.md`** to keep this file scannable:
 
-- Sorting categorical axes
-- Thinning dense axes
-- Date axes — format and cadence (ISO `%Y-%m`, two-row labels)
-- Direct line annotation
-- Coefficient / event-study plot
-- Time trend with overlaid fits (raw + models + CI)
-- Designed event line (vertical annotation: drop-pin + rotated label + tinted post-region)
-- Layer-and-highlight (focal series in crimson)
-- Distribution comparisons (ridge plot)
+- [Sorting categorical axes](references/recipes.md#sorting-categorical-axes)
+- [Thinning dense axes](references/recipes.md#thinning-dense-axes)
+- [Date axes — format and cadence](references/recipes.md#date-axes--format-and-cadence) (ISO `%Y-%m`, two-row labels, 30° tilt for dense breaks)
+- [Direct line annotation](references/recipes.md#direct-line-annotation)
+- [Coefficient / event-study plot](references/recipes.md#coefficient--event-study-plot)
+- [Time trend with overlaid fits](references/recipes.md#time-trend-with-overlaid-fits-raw--models--ci) (raw + models + CI)
+- [Designed event line](references/recipes.md#designed-event-line) (vertical annotation: drop-pin + rotated label + tinted post-region)
+- [Layer-and-highlight](references/recipes.md#layer-and-highlight--focal-series-in-crimson-all-series-labeled) — focal in crimson, every series still named; includes the vertical-endpoints variant for converging lines
+- [Distribution comparisons (ridge plot)](references/recipes.md#distribution-comparisons-ridge-plot)
 
 Read the recipes file before writing a new figure — most patterns are already there.
 
@@ -336,8 +314,4 @@ Panel letters (a / b), sub-captions, the overall caption, and the source note ar
 
 ## 8. Cross-references
 
-For regression / descriptive tables (journal star cutoffs, booktabs, never-change-a-number), see [tables.md](../tables.md). Report format in [report.md](../report.md).
-
-**Definition:** Figures produced (count, types, output paths); format and DPI; whether colorblind/grayscale check was run; whether categorical axes were sorted by value.
-**Analyses:** Chart types and rationale (Cleveland-McGill); annotation strategy; journal compliance (DPI, font, line weight).
-**Takeaway:** Visual message conveyed; deviations from personal standards or journal requirements requiring human sign-off.
+For regression / descriptive tables (journal star cutoffs, booktabs, never-change-a-number), see [tables.md](../tables.md). When reporting findings back to the user, [report.md](../report.md) carries the deliverable template — figures here are the artifact, the report explains them.

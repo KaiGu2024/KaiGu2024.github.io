@@ -1,6 +1,6 @@
 ---
 name: slide
-description: Use when generating Reveal.js reading-group slides from a paper PDF or TeX source — TeX route reads source directly; PDF-only route runs MinerU extraction first, then proceeds. Default output slide/<slug>.html; PDF export via Decktape only on explicit request. Aesthetic aligned with the personal Monet/Hokusai brand (Lora display, Newsreader body, dusty-blue chrome with Hokusai-crimson accent) so embedded figures from visualization.md sit calmly inside slide chrome.
+description: Use when generating Reveal.js reading-group slides from a paper PDF or TeX source — TeX route reads source directly; PDF-only route runs MinerU extraction first, then proceeds. Default output slide/<slug>.html; PDF export via Decktape only on explicit request. Aesthetic aligned with the personal Monet/Hokusai brand (Lora display, Newsreader body, dusty-blue chrome with Hokusai-crimson accent) so embedded figures from the visualization skill sit calmly inside slide chrome.
 allowed-tools: Read, Edit, Write, Bash
 user-invocable: true
 invocation: auto
