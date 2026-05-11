@@ -52,10 +52,10 @@ These values are also mirrored in the personal-site `docs/css/tokens.css` so the
 
   /* Tuned for projection (≥24px body); HTML view scrolls when slides exceed
      720px, PDF export still requires the splits documented in references/pdf-export.md. */
-  --fs-h1:    clamp(2.2rem,  5.0vw, 3.3rem);    /* 53px @1280 */
-  --fs-h3:    clamp(1.25rem, 2.5vw, 1.6rem);    /* 25.6px */
-  --fs-body:  clamp(1.15rem, 2.1vw, 1.4rem);    /* 22.4px */
-  --fs-small: clamp(0.95rem, 1.5vw, 1.2rem);    /* 19.2px */
+  --fs-h1:    clamp(2.5rem,  5.5vw, 3.8rem);    /* 61px @1280 */
+  --fs-h3:    clamp(1.4rem,  2.8vw, 1.85rem);   /* 29.6px */
+  --fs-body:  clamp(1.3rem,  2.4vw, 1.6rem);    /* 25.6px */
+  --fs-small: clamp(1.05rem, 1.7vw, 1.35rem);   /* 21.6px */
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* Spacing (4px base) */
@@ -253,9 +253,22 @@ Three semantic variants — colors aligned with the brand:
 .callout-warn   { background: #FAF3E8; border-color: var(--c-warn);   }  /* ochre */
 .callout-result { background: #FCEFEC; border-color: var(--c-accent); }  /* crimson */
 .callout-tip    { background: #F0F4EC; border-color: var(--c-mint);   }  /* sage */
+
+/* Equation block — wraps a display MathJax expression. Distinct from
+   advisory callouts: left rule only (not full border), centered, slightly
+   larger font for projection. MathJax renders $$…$$ inside. */
+.eq {
+  background: var(--c-paper-warm);
+  border-left: 3px solid var(--c-primary);
+  border-radius: var(--radius-sm);
+  padding: var(--sp-4) var(--sp-5);
+  margin: var(--sp-4) 0;
+  text-align: center;
+  font-size: var(--fs-body);
+}
 ```
 
-Usage: `.callout-warn` for LLM quality concerns and identification threats; `.callout-result` for headline findings; `.callout-tip` for methodological notes.
+Usage: `.callout-warn` for LLM quality concerns and identification threats; `.callout-result` for headline findings; `.callout-tip` for methodological notes; `.eq` for any displayed equation that needs visual separation from prose (always pair with a `.gloss` list — see SKILL.md §"Equations get a symbol gloss").
 
 ---
 

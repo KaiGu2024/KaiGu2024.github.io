@@ -79,10 +79,12 @@ Include an **Analytical Model** slide immediately before Results if the paper ha
 
 ### Equations get a symbol gloss
 
-Every displayed equation (MathJax `$$…$$`, the empirical specification, the model) must be followed by a 2–3 bullet inline gloss naming each non-trivial symbol. Without it a reading-group audience cannot follow the math at slide pace.
+Every displayed equation must (a) sit inside a `.eq` block — cream paper background with a Hokusai-Prussian left rule — and (b) be followed by a 2–3 bullet `.gloss` list naming each non-trivial symbol. Without the gloss a reading-group audience cannot follow the math at slide pace.
 
 ```html
-<p>$$P_{ijt} = \alpha_i + \beta Q_{jt} + \gamma X_{ijt} + \varepsilon_{ijt}$$</p>
+<div class="eq">
+  $$P_{ijt} = \alpha_i + \beta Q_{jt} + \gamma X_{ijt} + \varepsilon_{ijt}$$
+</div>
 <ul class="gloss">
   <li><strong>$P_{ijt}$</strong>: price paid by household $i$ for product $j$ in week $t$</li>
   <li><strong>$Q_{jt}$</strong>: weekly category-level demand shock</li>
@@ -90,7 +92,9 @@ Every displayed equation (MathJax `$$…$$`, the empirical specification, the mo
 </ul>
 ```
 
-Skip the gloss only for textbook identities ($E[Y \mid X]$) where every symbol is fully standard.
+`.eq` is defined in `references/aesthetics.md` §4. MathJax (loaded by the Reveal.js template via `RevealMath.MathJax3`) renders the `$$…$$` content; standard LaTeX math syntax works (`\sum`, `\mathbf{}`, `\mathbb{1}`, `\sum_{w \neq -1}`, `\begin{aligned}…\end{aligned}` for multi-line, etc.).
+
+Skip the gloss only for textbook identities ($E[Y \mid X]$) where every symbol is fully standard. Inline math (`$x$`) inside prose does not need a `.eq` wrapper — `.eq` is for display equations only.
 
 ### Figure and table sourcing — tiered policy
 
