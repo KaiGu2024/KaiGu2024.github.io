@@ -230,6 +230,23 @@ ggplot(df, aes(x = week, y = visits, group = platform)) +
 
 For two focal series, give each a distinct accent (`brand$primary` and `brand$accent`) with its label matching its line; the rest stay grey80 / grey50.
 
+**Converging-endpoints variant — vertical labels.** When line endpoints crowd into a narrow vertical band at the right edge (5+ platforms all near the same value), horizontal labels with `direction = "y"` repel start stacking with connector lines — messy. Switch to vertical labels at each endpoint: `angle = 90, hjust = 0` makes each label hang upward from its line's endpoint (readable bottom-to-top, head tilts LEFT), and `direction = "x"` spaces them apart horizontally just past the right edge. The whole label rail stays one row tall.
+
+```r
+geom_text_repel(
+  data = endpoints,
+  aes(label = platform, colour = label_colour),
+  size = 7,
+  angle  = 90, hjust = 0,           # vertical, hanging upward from endpoint
+  nudge_x = 1, direction = "x",     # repel only sideways, not vertically
+  segment.colour = NA
+) +
+coord_cartesian(clip = "off") +     # let the labels run past the panel top if needed
+scale_x_continuous(expand = expansion(mult = c(0.02, 0.20)))
+```
+
+Pad `plot.margin = margin(t = 30, ...)` and/or expand the right side further (`mult = c(0.02, 0.25)`) if the rotated labels are long enough to extend above the data region.
+
 ## Distribution comparisons (ridge plot)
 
 ```r
