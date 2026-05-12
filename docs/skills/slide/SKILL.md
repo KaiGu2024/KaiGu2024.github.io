@@ -11,7 +11,8 @@ Output paths:
 - `slide/<slug>.pdf` — exported from the HTML via Decktape, **on request only** (see `references/pdf-export.md`).
 
 Reference files:
-- `references/aesthetics.md` — full brand styling spec (palette, fonts, layouts, callouts, animation, paper grain, Hokusai wave). Read this before writing the `<style>` block in the Reveal.js template — the template references tokens defined there.
+- `references/aesthetics.md` — full brand styling spec (palette, fonts, layouts, callouts, animation, paper grain, Hokusai wave, speaker-notes overlay). Read this before writing the `<style>` block in the Reveal.js template — the template references tokens defined there.
+- `references/speaker-notes.md` — per-slide content guide for the `<aside class="notes">` script (press N at presentation time). Read this when populating notes; the "what goes in the title-slide note" rules and the skip-notes exceptions live there.
 - `references/pdf-export.md` — Decktape command, splitting rules, audit checklist. Read only when the user explicitly asks for a PDF.
 
 ---
@@ -175,6 +176,12 @@ Always add a **SUTVA / no-spillovers** caveat for DiD and RCT when units are spa
 
 Slide layout: three `<h3>` blocks — *Challenge* → *Strategy* → *Assumptions to discuss* — closing with `.callout-tip`: "Discussion: Is each assumption credible here? What stories would violate it?"
 
+### Speaker notes — press N
+
+Every `<section>` gets an `<aside class="notes">` holding the script for that slide. Press `N` at presentation time for an in-window overlay (the keybind is wired in the init script in the template below). Reveal.js's built-in "S" key still opens the dual-monitor speaker view from the same source.
+
+What to write per slide — the title-slide hook, the data-slide pushback to expect, the results-slide read-aloud number, and the skip-notes exceptions — lives in `references/speaker-notes.md`. Read that file before populating notes.
+
 ### Reveal.js template
 
 The `<style>` block referenced by `<!-- paste styling block -->` below is defined in full in `references/aesthetics.md` — read that file before populating the inline styles. Tokens like `--c-primary`, `--font-display`, `.col-7-5`, `.callout-result`, `.hokusai-wave`, and the slide-entry animation are all defined there.
@@ -212,6 +219,11 @@ The `<style>` block referenced by `<!-- paste styling block -->` below is define
       <!-- Optional headline finding — uncomment when the paper has a punchy one-sentence result -->
       <!-- <div class="callout callout-result"><strong>★ {{One-sentence headline finding}}</strong></div> -->
     </div>
+    <aside class="notes">
+      <p><strong>Hook:</strong> {{one concrete example or stat that motivates the question in the first 20 seconds}}</p>
+      <p><strong>Why this room:</strong> {{why this paper matters to *this* audience}}</p>
+      <p><strong>Roadmap:</strong> {{preview the punchline so they know where we're going}}</p>
+    </aside>
   </section>
 
   <!-- 2. Author Bios -->
@@ -238,6 +250,9 @@ The `<style>` block referenced by `<!-- paste styling block -->` below is define
       <li><strong>{{Section}}</strong><span>{{…}}</span></li>
       <li class="outline-coda"><strong>Takeaways &amp; Discussion</strong><span>{{punchline + Qs}}</span></li>
     </ol>
+    <aside class="notes">
+      <p><strong>Pacing:</strong> {{e.g., "We'll spend most of the time on §3 (ID) and §5 (mechanism); §2 is fast."}}</p>
+    </aside>
   </section>
 
   <!-- 4. Data & Setting -->
@@ -254,6 +269,11 @@ The `<style>` block referenced by `<!-- paste styling block -->` below is define
       Validate: sample size reviewed, inter-rater agreement, gold standard comparison?
     </div>
     <pre><code>{{Actual prompt verbatim}}</code></pre>
+    <aside class="notes">
+      <p><strong>Real reason for this dataset:</strong> {{often opportunistic — say it plainly}}</p>
+      <p><strong>Biggest sample-design concern:</strong> {{what you'd push back on as a discussant}}</p>
+      <p><strong>Most consequential filter:</strong> {{which row of the pipeline drops the most informative units}}</p>
+    </aside>
   </section>
 
   <!-- 5. Identification (skip empirical spec for canonical DiD/IV/RD) -->
@@ -270,6 +290,11 @@ The `<style>` block referenced by `<!-- paste styling block -->` below is define
     <div class="callout callout-tip">
       Discussion: Is each assumption credible here? What stories would violate it?
     </div>
+    <aside class="notes">
+      <p><strong>Plain-English assumption:</strong> {{restate the identifying assumption without jargon}}</p>
+      <p><strong>Most plausible violation story:</strong> {{the specific scenario you'd worry about}}</p>
+      <p><strong>Does the diagnostic address it?</strong> {{honest read — often the test addresses an easier threat than the real one}}</p>
+    </aside>
   </section>
 
   <!-- Results — one fact per slide. Description + Analysis must describe ONLY
@@ -289,6 +314,11 @@ The `<style>` block referenced by `<!-- paste styling block -->` below is define
       <li><strong>{{Practical significance}}</strong>: {{benchmark comparison}}</li>
       <li><strong>{{Caveat}}</strong>: {{main threat or scope limit}}</li>
     </ul>
+    <aside class="notes">
+      <p><strong>Read aloud:</strong> {{headline number with units and benchmark, e.g. "+3.2 pp off a 12 pp base — about a 27% lift"}}</p>
+      <p><strong>Point at:</strong> {{the specific region of the figure that carries the result}}</p>
+      <p><strong>Pushback to expect:</strong> {{the most likely audience objection — and whether the paper handles it}}</p>
+    </aside>
   </section>
 
   <!-- Figure + commentary: .col-7-5 -->
@@ -306,6 +336,11 @@ The `<style>` block referenced by `<!-- paste styling block -->` below is define
       </div>
       <img src="{{data_uri}}" class="fig-side" alt="{{caption}}">
     </div>
+    <aside class="notes">
+      <p><strong>Read aloud:</strong> {{headline number with units}}</p>
+      <p><strong>Point at:</strong> {{the region of the figure}}</p>
+      <p><strong>Pushback:</strong> {{likely objection + paper's response}}</p>
+    </aside>
   </section>
 
   <!-- Takeaways & Discussion -->
@@ -315,16 +350,28 @@ The `<style>` block referenced by `<!-- paste styling block -->` below is define
     <ul><li>{{T1}}</li><li>{{T2}}</li><li>{{T3}}</li></ul>
     <h3>Discussion Questions</h3>
     <ol><li>{{Q1}}</li><li>{{Q2}}</li><li>{{Q3}}</li><li>{{Q4}}</li><li>{{Q5}}</li></ol>
+    <aside class="notes">
+      <p><strong>30-second elevator:</strong> {{the paper, one breath}}</p>
+      <p><strong>Bridge to discussion:</strong> {{the one question you most want the room to take up first}}</p>
+    </aside>
   </section>
 
 </div></div>
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5/plugin/math/math.js"></script>
 <script>
+  // Reveal.js binds N to "next slide" out of the box. We rebind 78 (N) so
+  // it toggles the in-window speaker-notes overlay instead — Space, →, and
+  // PageDown still advance the deck. CSS for the overlay lives in
+  // aesthetics.md §7; the convention "every section has <aside class='notes'>"
+  // lives in the "Speaker notes — press N" section above.
   Reveal.initialize({
     hash: true,
     plugins: [RevealMath.MathJax3],
-    math: { mathjax: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" }
+    math: { mathjax: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" },
+    keyboard: {
+      78: () => document.body.classList.toggle('show-notes')  // N
+    }
   });
 </script>
 </body>

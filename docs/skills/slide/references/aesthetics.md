@@ -348,3 +348,56 @@ Plain white paper reads as Slides™. Two cheap moves break out: a faint paper-g
 ```
 
 **Tuning notes.** The grain `baseFrequency='0.85'` is paper-fine; drop to `0.5` if it reads as static at projection scale. The wave SVG above is a stylised three-curve approximation, not a tracing of Hokusai's *Great Wave* — replace with your own SVG or a public-domain trace if you want true homage. The title-only rule for the wave is set in §Aesthetic discipline ("Deck signature").
+
+---
+
+## 7. Speaker-notes overlay — toggle on "N"
+
+Reveal.js's built-in "S" key opens a popup speaker view in a second window — useful for dual-monitor podiums, useless on a laptop at a reading group. The "N" overlay is the lightweight alternative: a bottom-anchored panel that fades over the *current* slide and shows the script for that slide only. Press N to show, N again to hide.
+
+The markup convention is Reveal.js's standard `<aside class="notes">` element placed inside each `<section>`, so the same content also feeds the "S" popup if someone uses it. The styling below is what makes "N" usable — it scopes display to `section.present` and skins the panel in brand colors so it reads as off-stage commentary, not slide content.
+
+```css
+/* Hidden by default — Reveal's own rule. Re-stated so it doesn't matter
+   whether reveal.css loaded first. */
+.reveal aside.notes { display: none; }
+
+/* When body.show-notes is on, surface notes for the CURRENT slide only.
+   Fixed-position bottom panel keeps the slide visible above it; the
+   Hokusai-crimson left rule signals "talker-only", not slide content.
+   Cream paper background ties the panel into the deck's surface palette
+   so it doesn't read as a system-modal popup. */
+body.show-notes .reveal section.present aside.notes {
+  display: block;
+  position: fixed;
+  left: var(--sp-6); right: var(--sp-6); bottom: var(--sp-5);
+  max-height: 38vh; overflow-y: auto;
+  background: var(--c-paper-warm);
+  border: 1.5px solid var(--c-line);
+  border-left: 4px solid var(--c-accent);
+  border-radius: var(--radius-md);
+  padding: var(--sp-4) var(--sp-5);
+  font-family: var(--font-body);
+  font-size: var(--fs-small); line-height: 1.55;
+  color: var(--c-ink); text-align: left;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.20);
+  z-index: 1000;
+}
+body.show-notes .reveal section.present aside.notes::before {
+  content: "Notes — press N to dismiss";
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.78em; letter-spacing: 0.08em;
+  text-transform: uppercase; font-weight: 600;
+  color: var(--c-primary);
+  margin-bottom: var(--sp-3);
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--c-line);
+}
+body.show-notes .reveal aside.notes p,
+body.show-notes .reveal aside.notes li { color: var(--c-ink-soft); margin: var(--sp-1) 0; }
+body.show-notes .reveal aside.notes strong { color: var(--c-primary); font-weight: 600; }
+body.show-notes .reveal aside.notes ul { padding-left: var(--sp-5); margin: var(--sp-2) 0; }
+```
+
+The keybinding itself lives in the Reveal.js init script — see `SKILL.md` → "Reveal.js template". It overrides Reveal's default N-as-next-slide binding through the `keyboard` config map (`78: () => document.body.classList.toggle('show-notes')`), so Space and → still advance the deck while N is repurposed for the notes overlay.
