@@ -1,6 +1,6 @@
 ---
 name: slide
-description: Use when generating Reveal.js reading-group slides from a paper PDF or TeX source — TeX route reads source directly; PDF-only route runs MinerU extraction first, then proceeds. Default output slide/<slug>.html; PDF export via Decktape only on explicit request. Aesthetic aligned with the personal Monet/Hokusai brand (Lora display, Newsreader body, dusty-blue chrome with Hokusai-crimson accent) so embedded figures from the visualization skill sit calmly inside slide chrome.
+description: Use when generating Reveal.js reading-group slides from a paper PDF or TeX source — TeX route reads source directly; PDF-only route runs MinerU extraction first, then proceeds. Default output slide/<slug>.html; PDF export via Decktape only on explicit request. Blue-white academic aesthetic (Plus Jakarta Sans, navy primary, electric-blue accent, white paper) — intentionally distinct from the personal-site Hokusai/Lora brand so decks read as conference-house slides, not magazine-paper.
 allowed-tools: Read, Edit, Write, Bash
 user-invocable: true
 invocation: auto
@@ -11,7 +11,7 @@ Output paths:
 - `slide/<slug>.pdf` — exported from the HTML via Decktape, **on request only** (see `references/pdf-export.md`).
 
 Reference files:
-- `references/aesthetics.md` — full brand styling spec (palette, fonts, layouts, callouts, animation, paper grain, Hokusai wave, speaker-notes overlay). Read this before writing the `<style>` block in the Reveal.js template — the template references tokens defined there.
+- `references/aesthetics.md` — full slide-deck styling spec (palette, fonts, layouts, callouts, animation, speaker-notes overlay). Blue-white academic; intentionally distinct from the personal-site brand. Read this before writing the `<style>` block in the Reveal.js template — the template references tokens defined there.
 - `references/speaker-notes.md` — per-slide content guide for the `<aside class="notes">` script (press N at presentation time). Read this when populating notes; the "what goes in the title-slide note" rules and the skip-notes exceptions live there.
 - `references/pdf-export.md` — Decktape command, splitting rules, audit checklist. Read only when the user explicitly asks for a PDF.
 
@@ -73,14 +73,24 @@ Before generating slides, produce structured reading notes at `notes/<slug>.md` 
 | 3 | **Outline** | Substantive sections only — skip motivation, data, ID; bold title + one sentence each. |
 | 4 | **Data & Setting** | Filtering pipeline with N and %; LLM annotation steps with warn callout. |
 | 5 | **Identification** | Challenge → strategy → assumptions to discuss. |
-| 6–N | **Results** | **One fact per slide**; reproduce original table/figure; pair with brief **Description + Analysis**. If a fact carries heavy content, **split across 2–3 slides**. Required for PDF export — see `references/pdf-export.md`. |
+| 6–N | **Results** | Reproduce original table/figure; pair with brief **Description + Analysis**. Required for PDF export — see `references/pdf-export.md`. |
 | N+1 | **Takeaways & Discussion** | 3 bullet takeaways then 5 discussion questions. |
 
 Include an **Analytical Model** slide immediately before Results if the paper has a formal model.
 
+### Titles
+
+Every content slide's `<h2>` follows the same brief, one-row format. The skill enforces these rules so titles don't wrap, don't drift into magazine register, and stay legible at slide pace.
+
+- **Max ~33 characters** at default `--fs-h1`. Anything longer wraps to two lines and breaks the visual rhythm of the deck.
+- **"Section: topic" colon-prefix.** The section prefix mirrors the outline (slide 3) so the audience can locate themselves; the topic is the slide's actual content. Example: `<h2><span class="h2-section">Findings:</span> main estimates</h2>`. The `.h2-section` span renders in muted italic so the topic word visually dominates.
+- **No em-dash compound h2s.** "Behavioral — Engagement & Confidence" reads long and magazine-y; the colon-prefix form ("Findings: engagement & confidence") is shorter and stays in academic register.
+- **Subtitle only when needed.** A `.slide-subtitle` line below the h2 (Lora-italic, muted) is allowed for slides where the topic alone reads flat. Skip it on slides where the h2 is already self-explanatory (Title, Author Bios, Outline, single-keyword Findings slides).
+- **Single underline rule.** When a subtitle is used, it carries the bottom border instead of h2. The whole "h2 + subtitle" block reads as one title unit, then one rule separating it from content.
+
 ### Equations get a symbol gloss
 
-Every displayed equation must (a) sit inside a `.eq` block — cream paper background with a Hokusai-Prussian left rule — and (b) be followed by a 2–3 bullet `.gloss` list naming each non-trivial symbol. Without the gloss a reading-group audience cannot follow the math at slide pace.
+Every displayed equation must (a) sit inside a `.eq` block — cool-tinted background with an electric-blue left rule — and (b) be followed by a 2–3 bullet `.gloss` list naming each non-trivial symbol. Without the gloss a reading-group audience cannot follow the math at slide pace.
 
 ```html
 <div class="eq">
@@ -184,7 +194,7 @@ What to write per slide — the title-slide hook, the data-slide pushback to exp
 
 ### Reveal.js template
 
-The `<style>` block referenced by `<!-- paste styling block -->` below is defined in full in `references/aesthetics.md` — read that file before populating the inline styles. Tokens like `--c-primary`, `--font-display`, `.col-7-5`, `.callout-result`, `.hokusai-wave`, and the slide-entry animation are all defined there.
+The `<style>` block referenced by `<!-- paste styling block -->` below is defined in full in `references/aesthetics.md` — read that file before populating the inline styles. Tokens like `--c-primary`, `--font-display`, `.col-7-5`, `.callout-result`, `.outline-grid`, and the slide-entry animation are all defined there.
 
 ```html
 <!DOCTYPE html>
@@ -194,7 +204,7 @@ The `<style>` block referenced by `<!-- paste styling block -->` below is define
   <title>{{Paper Title}}</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reset.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/reveal.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5/dist/theme/white.css">
@@ -203,15 +213,10 @@ The `<style>` block referenced by `<!-- paste styling block -->` below is define
 <body>
 <div class="reveal"><div class="slides">
 
-  <!-- 1. Title — cream card with a Hokusai wave ornament bleeding off bottom-right.
-       The wave is the deck's wordmark; it does not repeat on other slides. -->
+  <!-- 1. Title — centered white card; electric-blue underline rule on h2 is the
+       one accent moment. No illustration / signature mark — the personal-site
+       Hokusai wave belongs to the site brand, not the slide brand. -->
   <section class="slide-title">
-    <svg class="hokusai-wave" viewBox="0 0 400 160" aria-hidden="true">
-      <path d="M0,120 C60,40 120,40 180,120 C240,200 300,40 400,100 L400,160 L0,160 Z"
-            fill="var(--c-primary)" opacity="0.85"/>
-      <path d="M0,140 C60,80 130,80 200,140 C260,190 320,80 400,130 L400,160 L0,160 Z"
-            fill="var(--c-accent)" opacity="0.75"/>
-    </svg>
     <div class="title-card">
       <h2>{{Full Paper Title}}</h2>
       <p class="title-authors">{{Author 1}} ({{Affiliation}}) &middot; {{Author 2}} ({{Affiliation}})</p>
@@ -297,8 +302,8 @@ The `<style>` block referenced by `<!-- paste styling block -->` below is define
     </aside>
   </section>
 
-  <!-- Results — one fact per slide. Description + Analysis must describe ONLY
-       the figure/table on this slide; no numbers from other tables. -->
+  <!-- Results — Description + Analysis must describe ONLY the figure/table
+       on this slide; no numbers from other tables. -->
 
   <!-- Single figure: .fig-full -->
   <section>

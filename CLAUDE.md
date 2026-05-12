@@ -1,67 +1,168 @@
 # Personal Academic Website — CLAUDE.md
 
 ## Project Overview
-Personal academic website for Kai Gu (PhD student in Marketing, Bocconi University).
-Hosted on GitHub Pages at `kaigu.github.io`.
 
-## Directory Structure
+Personal academic website for Kai Gu (PhD student in Marketing, Bocconi University), hosted on GitHub Pages at `kaigu.github.io`. The repo has three concerns, in order of weight:
+
+1. **The website itself** — `docs/` is the Jekyll publishing root. Bio, papers, CV, reading group, skill library, learning materials.
+2. **A published Claude Code skill library** — `docs/skills/` doubles as on-site documentation and the user's own active skills. Skills are synced manually to `~/.claude/skills/<name>/SKILL.md`.
+3. **Reading-group Reveal.js decks** — `docs/reading_group/<session>/` produced via the `slide` skill, brand-aligned (blue-white academic), with embedded base64 figures and the press-N speaker-notes overlay.
+
+This is NOT a research replication package; the research-specific Data Provenance / Citation Policy / AI Disclosure sections are intentionally omitted.
+
+---
+
+## Directory Layout
+
 ```
 website/
-├── CLAUDE.md           # This file
-├── code/
-│   └── cv.tex          # LaTeX CV source
+├── CLAUDE.md           # this file
+├── code/cv.tex         # LaTeX CV source
 ├── output/             # LaTeX build artifacts (do not edit manually)
-│   ├── cv.pdf
-│   └── cv.{aux,log,out,synctex.gz}
-└── docs/               # GitHub Pages root (the website)
-    ├── index.html
-    ├── css/style.css
-    ├── js/main.js
-    └── assets/
-        ├── cv.pdf      # Copied from output/cv.pdf after recompile
-        └── photo.jpg   # Profile photo (add when available)
+├── docs/               # GitHub Pages root
+│   ├── index.html      # personal site landing
+│   ├── css/
+│   │   ├── tokens.css  # source-of-truth design tokens for the SITE brand
+│   │   └── style.css   # site styles
+│   ├── assets/
+│   │   ├── cv.pdf      # copied from output/cv.pdf after recompile
+│   │   └── photo.jpg
+│   ├── skills/         # skill library (see "Skill library" below)
+│   └── reading_group/  # Reveal.js decks (see "Reading-group decks" below)
+├── notes/              # working notes, drafts, screenshots — not published
+└── .tmp_edit/          # scratch space for slide-HTML Python patches (gitignored)
 ```
+
+---
 
 ## Compiling the CV
 
-pdflatex has a PATH conflict with Anaconda. Always compile with a clean PATH:
+`cv.tex` supports a `\hideabstracts` toggle: when defined, abstracts and the forced page break before "Honors and Awards" are suppressed (short 1-page CV). When undefined, the long version with abstracts is produced (2 pages). The website ships the **short version** in `docs/assets/cv.pdf`.
+
+pdflatex is provided by TinyTeX; it is not on `PATH` and Anaconda shadows it, so always invoke with explicit path + clean `PATH`. Run from the `code/` directory so the `\input{cv.tex}` form resolves.
 
 ```bash
-MIKTEX="/c/Users/Lenovo/AppData/Local/Programs/MiKTeX/miktex/bin/x64"
-WORK="E:/OneDrive - Università Commerciale Luigi Bocconi/personal materials/website"
-PATH="$MIKTEX:/c/Windows/System32" "$MIKTEX/pdflatex.exe" \
-  -output-directory="$WORK/output" "$WORK/code/cv.tex"
+TINYTEX="/c/Users/kaizhu/AppData/Roaming/TinyTeX/bin/windows"
+cd code
+
+# Short version (what the website ships)
+PATH="$TINYTEX:/c/Windows/System32" "$TINYTEX/pdflatex.exe" \
+  -interaction=nonstopmode \
+  -output-directory="../output" \
+  "\def\hideabstracts{}\input{cv.tex}"
+
+# Long version (with abstracts)
+PATH="$TINYTEX:/c/Windows/System32" "$TINYTEX/pdflatex.exe" \
+  -interaction=nonstopmode \
+  -output-directory="../output" \
+  cv.tex
 ```
 
-After recompiling, sync the PDF to the website:
+After recompiling, sync the PDF: `cp output/cv.pdf docs/assets/cv.pdf`.
+
+### Installing missing LaTeX packages
+
+TinyTeX ships minimal — install on demand via `tlmgr`. `tlmgr.bat` needs the TinyTeX bin dir on `PATH` to locate itself:
+
 ```bash
-cp output/cv.pdf docs/assets/cv.pdf
+PATH="$TINYTEX:$PATH" "$TINYTEX/tlmgr.bat" install <package>
 ```
 
-## Website
+Currently required by `cv.tex`: `fontawesome5`, `parskip`, `ragged2e`, `siunitx`.
 
-Single-page HTML/CSS/JS site. No build step — edit `docs/` files directly.
+---
 
-- **About section:** bio + photo + contact links (email, LinkedIn, CV)
-- **Research section:** working papers with collapsible abstracts
-- **CV section:** download button + embedded PDF iframe
+## Brand system — two cousins, not one identity
 
-### Adding a profile photo
-1. Place `photo.jpg` in `docs/assets/`
-2. In `docs/index.html`, remove the `<div class="photo-placeholder">KG</div>` line
-3. Uncomment the `<img src="assets/photo.jpg" ...>` line below it
+Two visual brands live in this repo. They are *cousins* (both quiet, both reject the AI-slop default), not the same identity. Keep them separate.
 
-### Updating LinkedIn URL
-In `docs/index.html`, replace `YOUR-LINKEDIN-HANDLE` with your actual LinkedIn profile handle.
+| | Personal site (incl. reading-group index) | Slide decks |
+|---|---|---|
+| **Source of truth** | `docs/css/tokens.css` | `docs/skills/slide/references/aesthetics.md` |
+| **Type** | Lora (display) + Newsreader (body), both serif | Plus Jakarta Sans throughout (sans), Source Serif 4 for math |
+| **Palette** | Hokusai Prussian `#2E4A75`, warm cream `#EFE6D2`, Hokusai crimson `#A03830` | Navy `#1d3a6e`, white, electric blue `#0046AD` |
+| **Surface** | Warm cream paper with faint paper-grain | Pure white, no texture |
+| **Register** | Book voice — slow read | Conference house slides — eye-catch at slide pace |
 
-### Adding a new paper
-Copy an existing `.paper` div block in `docs/index.html` and update the title, authors, abstract, tags, and venue.
+**Rules to hold.**
 
-## GitHub Pages Setup
+- **No Inter, anywhere on the site or CV** — body is Newsreader (paired with Lora). Inter / Roboto / Arial / system-ui-only are treated as the AI-slop default.
+- **Slide-context exception.** Plus Jakarta Sans is allowed in slide decks only. Slides need eye-catch sans-serif; the site rule does not transfer.
+- **No warm tones for slides.** No cream paper, no Hokusai crimson on slides. The slide brand is cool only.
+- **Hokusai crimson is for the site, and used sparingly** — ≤2% of visible area. If crimson covers area, it stopped being an accent.
+- **No section dividers** in styling — spacing alone separates blocks.
+- **Saturated colors look old-school for figures** (see `feedback_figure_aesthetic` memory); accent-only, not default.
+
+---
+
+## Skill library — `docs/skills/`
+
+The skill files in `docs/skills/` are simultaneously (a) documentation rendered by Jekyll on the site and (b) the user's active Claude Code skills. They are kept in sync by **manual `cp`**, not a symlink (the symlink path needs Windows admin which is gated).
+
+**Sync workflow.** After editing any `docs/skills/<name>.md` (or `docs/skills/<name>/SKILL.md` for folder-skills):
+
+```bash
+# Single-file skill
+cp docs/skills/<name>.md ~/.claude/skills/<name>/SKILL.md
+
+# Folder-skill (with references/)
+cp docs/skills/<name>/SKILL.md ~/.claude/skills/<name>/SKILL.md
+cp docs/skills/<name>/references/*.md ~/.claude/skills/<name>/references/
+```
+
+Always offer the `cp` commands at end-of-edit. Never assume the user has Jekyll preview running; they read changes on the actual site after push.
+
+**Folder-skills** (have a `references/` subdirectory):
+- `slide/` — Reveal.js deck generation
+- `visualization/` — R + ggplot2 publication figures
+- `paper-review/` — multi-agent referee report
+
+**Flat skills** (single `.md`): `analysis-cleanup`, `ai-disclosure-block`, `agent-configuration`, `big-data-processing`, `brainstorm`, `codebook-generator`, `eda`, `literature-review`, `llm-annotation`, `preregistration`, `replication-readme`, `report`, `revision-plan`, `skill-creator`, `tables`, `text-as-data`, `username-dossier`, `verify-citations`, `version-control`, `web-access`, `web-scraping`, `writing`.
+
+---
+
+## Reading-group decks — `docs/reading_group/`
+
+Each session lives in its own directory; the index at `docs/reading_group/index.html` lists all sessions (newest first). Decks are Reveal.js HTML built via the `slide` skill, self-contained (CSS inline, figures base64-embedded), and ship blue-white per the slide brand.
+
+**Conventions baked into the `slide` skill that affect this repo specifically.**
+
+- **Editing base64-laden HTML** — never `Read` or `Edit` a slide HTML after multiple figures are embedded (a single full-resolution PNG data URI is 30–80k tokens, which trips Read's 25k-token cap). Instead, drop a one-shot Python patch in `.tmp_edit/` and run it. The `.tmp_edit/` directory is scratch — write, run, delete.
+- **Inspecting structure without choking** — `Grep` on text content works; raw `print` of the file does not. Use the line-skip pattern documented in `docs/skills/slide/SKILL.md` → "Agent process notes".
+- **Press-N speaker notes** — every section should carry `<aside class="notes">` with a 30–60s script (the script, not a recap of what's already on the slide). The init script in the template rebinds key 78 to toggle `body.show-notes`. CSS for the overlay is in `aesthetics.md` §7; per-slide content guide in `references/speaker-notes.md`.
+- **No Hokusai wave on slides** — that signature belongs to the personal-site brand only. Slides use a single electric-blue underline on the title-slide h2 as their accent moment.
+
+---
+
+## GitHub Pages setup
+
 - Publishing source: `docs/` folder on `main` branch
 - Settings → Pages → Source: Deploy from branch → `main` / `docs`
+- Jekyll auto-publishes; no build step in this repo
 
-## VS Code LaTeX Preview
-LaTeX Workshop is configured in VS Code settings to use MiKTeX pdflatex directly
-(bypassing the latexmk default and the Anaconda PATH issue).
-Output directory is set to `output/`.
+---
+
+## Do not commit
+
+- `.claude/` — Claude Code state, worktrees, settings.local.json
+- `.tmp_edit/` — scratch Python patches for slide HTML
+- `bash.exe.stackdump` and `docs/skills/bash.exe.stackdump` — Cygwin/MSYS keeps spawning these; safe to delete on sight
+- `output/` LaTeX intermediates (`.aux`, `.log`, `.synctex.gz`) — only `output/cv.pdf` matters and it is copied into `docs/assets/`
+- `notes/` working PDFs, TeX scratch, screenshots — not published
+
+If any of the above show up in `git status`, do not stage them. `git add -A` and `git add .` are forbidden because they sweep these in.
+
+---
+
+## Site editing micro-tasks
+
+- **Add a profile photo.** Place `photo.jpg` in `docs/assets/`; in `docs/index.html`, remove the `<div class="photo-placeholder">KG</div>` line and uncomment the `<img src="assets/photo.jpg" ...>` line below it.
+- **Update LinkedIn URL.** In `docs/index.html`, replace `YOUR-LINKEDIN-HANDLE` with the actual handle.
+- **Add a new paper.** Copy an existing `.paper` div block in `docs/index.html`; update title, authors, abstract, tags, venue.
+- **Add a new reading-group session.** Create `docs/reading_group/<YYYYMMDD>_<slug>/`, drop the deck inside, and add a `<a class="session-card">` block at the top of `docs/reading_group/index.html`. Keep newest-first ordering.
+
+---
+
+## VS Code LaTeX preview
+
+LaTeX Workshop is configured in VS Code settings to use TinyTeX pdflatex directly (bypassing the latexmk default and the Anaconda PATH issue). Output directory is set to `output/`.
