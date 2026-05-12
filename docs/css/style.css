@@ -14,8 +14,15 @@ body {
   line-height: 1.8;
 }
 
-a { color: var(--accent); text-decoration: none; }
-a:hover { color: var(--accent-hover); text-decoration: underline; }
+a {
+  color: var(--navy);
+  text-decoration: underline;
+  text-decoration-color: var(--border);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: color 0.14s, text-decoration-color 0.14s;
+}
+a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
 /* ==============================
    Progress Bar
@@ -54,11 +61,11 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
 }
 
 .nav-name {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Lora', Georgia, serif;
   font-weight: 600;
   font-size: 0.88rem;
   color: var(--navy);
-  letter-spacing: 0.03em;
+  letter-spacing: 0.01em;
   flex-shrink: 0;
 }
 
@@ -70,13 +77,13 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
 }
 
 .nav-links a {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 500;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.78rem;
+  font-weight: 600;
   color: var(--muted);
   text-decoration: none;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-variant: small-caps;
   transition: color 0.15s;
 }
 .nav-links a:hover { color: var(--navy); text-decoration: none; }
@@ -102,8 +109,8 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
 .nav-mobile.open { display: flex; }
 
 .nav-mobile a {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
+  font-family: 'Newsreader', Georgia, 'Iowan Old Style', serif;
+  font-size: 0.88rem;
   font-weight: 500;
   color: var(--navy);
   padding: 0.45rem 0;
@@ -139,10 +146,11 @@ main {
 
 section {
   padding: var(--section-pad);
-  border-bottom: 1px solid var(--border);
 }
 section:first-child { padding-top: 3.5rem; }
-section:last-child { border-bottom: none; }
+/* Single divider above CV anchors the embedded iframe block —
+   every other section separates via white space + h2 underline. */
+#cv { border-top: 1px solid var(--border); }
 
 h2 {
   font-family: var(--font-display);
@@ -176,7 +184,7 @@ h2 {
 .photo-placeholder {
   background: var(--navy);
   color: #faf7f4;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Lora', Georgia, serif;
   font-size: 1.75rem;
   font-weight: 600;
   display: flex;
@@ -203,7 +211,7 @@ h1 {
 }
 
 .name-phonetic {
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   color: var(--muted);
   font-family: 'Lora', serif;
   font-style: italic;
@@ -212,8 +220,8 @@ h1 {
 }
 
 .about-title {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.72rem;
+  font-family: 'Newsreader', Georgia, 'Iowan Old Style', serif;
+  font-size: 0.78rem;
   color: var(--muted);
   margin-bottom: 1rem;
   font-weight: 400;
@@ -235,8 +243,8 @@ h1 {
 }
 
 .about-links a {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.76rem;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.78rem;
   font-weight: 500;
   color: var(--navy);
   display: flex;
@@ -251,11 +259,11 @@ h1 {
    Research Section
    ============================== */
 .subsection-title {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.88rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  font-variant: small-caps;
+  letter-spacing: 0.05em;
   color: var(--muted);
   margin: 2rem 0 0.75rem;
   display: flex;
@@ -282,8 +290,8 @@ h1 {
 }
 
 .paper-authors {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.82rem;
+  font-family: 'Newsreader', Georgia, 'Iowan Old Style', serif;
+  font-size: 0.78rem;
   color: var(--muted);
   margin-bottom: 0.65rem;
 }
@@ -298,19 +306,19 @@ h1 {
 }
 
 .tag {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.65rem;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.04em;
   padding: 0.2rem 0.6rem;
   border-radius: 2px;
-  text-transform: uppercase;
+  font-variant: small-caps;
 }
 .tag-wip { background: #ede8e2; color: #5c4a3a; }
 .tag-presented { background: #e8f0e8; color: #2d6040; }
 
 .paper-venues {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Newsreader', Georgia, 'Iowan Old Style', serif;
   font-size: 0.78rem;
   color: var(--muted);
   display: flex;
@@ -329,9 +337,9 @@ h1 {
   gap: 0.5rem;
   background: var(--navy);
   color: #faf7f4;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Lora', Georgia, serif;
   font-size: 0.78rem;
-  font-weight: 500;
+  font-weight: 600;
   padding: 0.6rem 1.4rem;
   border-radius: 3px;
   text-decoration: none;
@@ -341,8 +349,8 @@ h1 {
 .cv-button:hover { background: var(--accent); color: #faf7f4; text-decoration: none; }
 
 .cv-updated {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.72rem;
+  font-family: 'Newsreader', Georgia, 'Iowan Old Style', serif;
+  font-size: 0.78rem;
   color: var(--muted);
   margin-left: 1rem;
   letter-spacing: 0.01em;
@@ -369,8 +377,8 @@ h1 {
 footer {
   text-align: center;
   padding: 2.5rem 2rem;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.68rem;
+  font-family: 'Newsreader', Georgia, 'Iowan Old Style', serif;
+  font-size: 0.65rem;
   color: var(--muted);
   border-top: 1px solid var(--border);
   letter-spacing: 0.03em;
@@ -434,7 +442,7 @@ footer {
 
 .material-title {
   font-family: 'Lora', serif;
-  font-size: 0.95rem;
+  font-size: 1.0rem;
   font-weight: 700;
   font-style: normal;
   color: var(--navy);
@@ -443,15 +451,15 @@ footer {
 }
 
 .material-meta {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.72rem;
+  font-family: 'Newsreader', Georgia, 'Iowan Old Style', serif;
+  font-size: 0.78rem;
   color: var(--muted);
   margin-bottom: 0.3rem;
   letter-spacing: 0.01em;
 }
 
 .material-desc {
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   color: var(--text);
   line-height: 1.55;
   margin-bottom: 0.45rem;
@@ -460,11 +468,11 @@ footer {
 .material-links { display: flex; gap: 0.4rem; flex-wrap: wrap; }
 
 .material-link {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.65rem;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-variant: small-caps;
   color: var(--navy);
   background: var(--border);
   padding: 0.2rem 0.65rem;
@@ -472,7 +480,7 @@ footer {
   text-decoration: none;
   transition: background 0.14s, color 0.14s;
 }
-.material-link:hover { background: var(--accent); color: #fff; text-decoration: none; }
+.material-link:hover { background: var(--navy); color: #fff; text-decoration: none; }
 
 .material-chips {
   display: flex;
@@ -482,7 +490,7 @@ footer {
 }
 
 .material-chip {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Newsreader', Georgia, 'Iowan Old Style', serif;
   display: flex;
   flex-direction: column;
   padding: 0.55rem 0.85rem;
@@ -493,18 +501,19 @@ footer {
   transition: border-color 0.14s, background 0.14s;
   min-width: 110px;
 }
-.material-chip:hover { border-color: var(--accent); background: #fff; text-decoration: none; color: var(--navy); }
+.material-chip:hover { border-color: var(--navy); background: #fff; text-decoration: none; color: var(--navy); }
 
 .material-chip span {
-  font-size: 0.58rem;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.78rem;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
+  font-variant: small-caps;
+  letter-spacing: 0.03em;
   color: var(--muted);
   margin-top: 0.2rem;
 }
 
-.material-chip { font-size: 0.82rem; font-weight: 500; }
+.material-chip { font-size: 0.78rem; font-weight: 500; }
 
 /* ==============================
    Compact one-line-per-item list. Used across Learning Materials
@@ -515,7 +524,7 @@ footer {
   list-style: none;
   padding: 0;
   margin: 0;
-  font-size: 0.85rem;
+  font-size: 0.88rem;
   line-height: 1.55;
   color: var(--text);
 }
@@ -574,7 +583,7 @@ footer {
               border-color 0.18s var(--ease-expo);
 }
 .skill-item:hover {
-  border-color: var(--accent);
+  border-color: var(--navy);
   box-shadow: var(--shadow-sm);
   transform: translateY(-2px);
 }
@@ -588,18 +597,18 @@ footer {
 }
 
 .skill-name {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.88rem;
   font-weight: 600;
   color: var(--navy);
 }
 
 .skill-badge {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.58rem;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-variant: small-caps;
   padding: 0.18rem 0.6rem;
   border-radius: 2px;
   white-space: nowrap;
@@ -616,14 +625,14 @@ footer {
 }
 
 .skill-source {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.72rem;
+  font-family: 'Newsreader', Georgia, 'Iowan Old Style', serif;
+  font-size: 0.78rem;
   color: var(--muted);
   text-decoration: none;
   border-bottom: 1px solid var(--border);
   transition: color 0.14s, border-color 0.14s;
 }
-.skill-source:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+.skill-source:hover { color: var(--navy); border-color: var(--navy); text-decoration: none; }
 
 .skill-footer {
   display: flex;
@@ -632,16 +641,16 @@ footer {
 }
 
 .skill-file {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.72rem;
+  font-family: 'Newsreader', Georgia, 'Iowan Old Style', serif;
+  font-size: 0.78rem;
   font-weight: 500;
-  color: var(--accent);
+  color: var(--navy);
   text-decoration: none;
   margin-left: auto;
   white-space: nowrap;
   transition: color 0.14s;
 }
-.skill-file:hover { color: var(--accent-hover); text-decoration: none; }
+.skill-file:hover { color: var(--accent); text-decoration: none; }
 
 .subsection-icon {
   font-size: 0.8em;

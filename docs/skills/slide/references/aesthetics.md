@@ -8,13 +8,15 @@ Read this file before populating the `<style>` block in the Reveal.js template (
 
 ## Aesthetic discipline
 
-The brand is a *committed* aesthetic, not a starting point to drift from. The model's natural pull on slide-generation tasks is toward generic-modern: Inter body, white background, blue links, Roboto in fallbacks, system-ui everywhere. That is AI slop. This brand exists to avoid it.
+**The direction is refined minimalism — book-voice serif on warm paper, dusty Prussian chrome, single crimson accent.** Brutalist, maximalist, retro-futuristic, and luxury are all valid commitments for other projects; converging to sans-on-white is not. The model's natural pull on slide-generation tasks is toward generic-modern (Inter body, pure white background, blue links, Roboto in fallbacks, system-ui everywhere) — that is AI slop, and the only thing every extreme aesthetic has in common is rejecting it. This brand has already picked its extreme. Do not re-open the question per deck.
 
 Hold the line on:
 
-- **Typography.** Lora display + Newsreader body, both serif. Never substitute Inter, Roboto, Arial, system-ui, or Space Grotesk — not even as a fallback. Refined minimalism (this brand) and bold maximalism both work as aesthetics; what fails is unintentional convergence to the default sans-on-white.
-- **Color.** Warm cream paper (`--c-paper-warm: #EFE6D2`), dusty-blue chrome, Hokusai-crimson accent. Not pure white. Not purple-gradient-on-white. Not generic blue-on-white "professional" themes. If a future edit pulls toward those, push back.
-- **Layout.** Asymmetric where it helps the eye land; generous negative space over crowding. Predictable component grids are the wrong solution to a "make it look clean" instinct.
+- **Typography.** Lora display + Newsreader body, both serif. Never substitute Inter, Roboto, Arial, system-ui, or Space Grotesk — not even as a fallback.
+- **Palette role-distribution.** Dominant colors with sharp accents, not an evenly-balanced wheel. Roughly: cream / off-white surfaces cover ~90% of the slide area (warm paper + grain), dusty Prussian chrome ~8% (h2 color, table header band, eq-block left rule, callout borders, code background), Hokusai crimson ≤2% (one accent moment per slide — `.callout-result`, `.with-accent` h2 underline, outline-grid numerals, drop-pin on event lines). If crimson starts covering area, it has stopped being an accent.
+- **Color sourcing.** Warm cream paper (`--c-paper-warm: #EFE6D2`), dusty-blue chrome, Hokusai-crimson accent. Not pure white. Not purple-gradient-on-white. Not generic blue-on-white "professional" themes. If a future edit pulls toward those, push back.
+- **Layout.** Asymmetric where it helps the eye land (title slide); generous negative space over crowding everywhere else. Predictable component grids are the wrong solution to a "make it look clean" instinct — but heavy overlap, diagonal flow, and grid-breaking on interior result slides is the wrong solution to "make it look interesting." Reading clarity wins on Results.
+- **Deck signature — one memorable differentiator per deck.** The Hokusai wave is this deck's wordmark: title slide only, bleeding off the lower-right corner. Do not repeat it on section dividers or interior slides — repeating a signature turns wordmark into decoration. Other decks may swap the wave for a different one-time mark (a stamped seal, a torn-paper edge, a single oversized initial), but the rule holds: one mark, title only, never twice.
 - **Execution density.** Refined minimalism asks for *restraint and precision* — careful spacing, exact font weights, deliberate hierarchy. It is not the same as "fewer details" — fewer details executed sloppily reads as draft, not as refinement.
 
 When in doubt, the test: would this slide look the same as a slide generated for a different paper, by a different person? If yes, the aesthetic has drifted to default. The brand only earns its keep when slides for *this* person are recognizable as such.
@@ -345,4 +347,4 @@ Plain white paper reads as Slides™. Two cheap moves break out: a faint paper-g
 .slide-title .title-card { position: relative; z-index: 1; }
 ```
 
-**Tuning notes.** The grain `baseFrequency='0.85'` is paper-fine; drop to `0.5` if it reads as static at projection scale. The wave SVG above is a stylised three-curve approximation, not a tracing of Hokusai's *Great Wave* — replace with your own SVG or a public-domain trace if you want true homage. Keep the wave to the title slide; repeating it on every section turns signature into decoration.
+**Tuning notes.** The grain `baseFrequency='0.85'` is paper-fine; drop to `0.5` if it reads as static at projection scale. The wave SVG above is a stylised three-curve approximation, not a tracing of Hokusai's *Great Wave* — replace with your own SVG or a public-domain trace if you want true homage. The title-only rule for the wave is set in §Aesthetic discipline ("Deck signature").

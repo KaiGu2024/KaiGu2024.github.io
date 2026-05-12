@@ -1,8 +1,8 @@
 /* ==========================================================================
    tokens.css — design tokens for the personal site.
 
-   Shared in spirit with docs/skills/slide.md and visualization.md —
-   Lora display + Inter body, Monet/Hokusai palette
+   Shared in spirit with docs/skills/slide and visualization —
+   Lora display + Newsreader body, Monet/Hokusai palette
    (dusty Prussian blue + crimson + warm cream).
 
    When updating values here, mirror them in slide.md's :root block so
@@ -24,11 +24,13 @@
   --c-line:         #D4CDB8;
 
   /* ---- Site aliases ---------------------------------------------------
-     Site palette = the original warm-beige + terracotta scheme.
-     --navy is near-black ink, not the Hokusai blue. */
+     Site palette = warm-beige paper + Hokusai-crimson accent. Same
+     accent red as the slide deck and the visualization brand palette
+     (--c-accent: #A03830) — one accent red across all three surfaces.
+     --navy is near-black ink, not the Hokusai-Prussian blue. */
   --navy:         #1a1a1a;
-  --accent:       #c96442;
-  --accent-hover: #a8502f;
+  --accent:       #A03830;  /* Hokusai crimson — matches slides + figures */
+  --accent-hover: #7d2a23;  /* darker crimson */
   --text:         #2c2624;
   --muted:        #7a706b;
   --border:       #d4c9bc;
@@ -37,7 +39,7 @@
 
   /* ---- Typography ----------------------------------------------------- */
   --font-display: 'Lora', Georgia, 'Times New Roman', serif;
-  --font-body:    'Inter', system-ui, sans-serif;
+  --font-body:    'Newsreader', Georgia, 'Iowan Old Style', serif;
   --font-mono:    ui-monospace, 'JetBrains Mono', Consolas, monospace;
 
   /* ---- Spacing (4px base) --------------------------------------------- */
@@ -55,6 +57,6 @@
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
   /* ---- Layout --------------------------------------------------------- */
-  --section-pad: 1.75rem 0 1.5rem;
+  --section-pad: 3rem 0 2.5rem;
   --max-width:   1120px;
 }
