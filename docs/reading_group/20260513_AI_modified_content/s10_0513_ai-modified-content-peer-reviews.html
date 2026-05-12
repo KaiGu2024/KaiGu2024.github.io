@@ -770,27 +770,27 @@ body.show-notes .reveal aside.notes ul { padding-left: var(--sp-5); margin: var(
 
 
 <!-- ============================== 15. TAKEAWAYS + DISCUSSION ============================== -->
-<section style="font-size: 0.9em;">
-  <h2><span class="h2-section">Discussion:</span> takeaways</h2>
-  <h3>Three takeaways</h3>
+<section>
+  <h2><span class="h2-section">Discussion:</span> takeaways &amp; open questions</h2>
+
+  <h3 style="margin-top:0;">Takeaways</h3>
   <ol class="tight">
-    <li style="--i:0"><strong>Distributional &gt; instance-level</strong> for any aggregate question about LLM presence in a corpus &mdash; orders of magnitude faster and more accurate than per-document classifiers.</li>
-    <li style="--i:1"><strong>The post-ChatGPT shift in AI-conference reviews is real</strong> (~6.5&ndash;16.9%) and is concentrated in time-pressed, low-confidence, low-engagement reviews.</li>
-    <li style="--i:2"><strong>Homogenization is the deeper risk</strong> &mdash; reviews are converging in style, compressing the diversity of expert feedback. Helpful individually, corrosive collectively.</li>
+    <li style="--i:0"><strong>Post-ChatGPT shift is real</strong> (~6.5&ndash;16.9%) &mdash; concentrated in time-pressed, low-confidence reviewers.</li>
+    <li style="--i:1"><strong>Homogenization is the deeper risk</strong> &mdash; helpful individually, corrosive collectively.</li>
   </ol>
 
-
-  <h3 style="margin-top: var(--sp-5);">Discussion</h3>
+  <h3 style="margin-top: var(--sp-4);">Discussions</h3>
   <ol class="tight">
-    <li style="--i:0"><strong>Methodological shelf-life.</strong> $P$ is fixed at pre-Nov-2022 text. As humans absorb AI-style vocabulary, $\hat\alpha$ will increasingly mix genuine LLM use with stylistic contagion. Fine for now; worth re-baselining in replications a few years out.</li>
-    <li style="--i:1"><strong>Complementary metrics for AI's direct impact.</strong> $\hat\alpha$ measures presence, not effect. Useful complements: information-to-noise ratio, depth/breadth per unit length, logical coherence &mdash; these surface <em>where</em> AI assistance adds value.</li>
-    <li style="--i:2"><strong>AI as quasi-exogenous wording shock.</strong> Nov-2022 is a discontinuity in machine-generated prose &mdash; usable as exogenous variation for designs in our own field.</li>
+    <li style="--i:0"><strong>Linguistic drift from LLM adoption.</strong> As humans absorb AI-style vocabulary, $\hat\alpha$ will increasingly mix genuine LLM use with stylistic contagion.</li>
+    <li style="--i:1"><strong>Complementary metrics.</strong> $\hat\alpha$ measures presence; info-to-noise, depth/breadth, coherence measure value.</li>
+    <li style="--i:2"><strong>AI content as exogenous register shock.</strong> Unconscious adoption injects an Anglo-centric (likely masculine-coded) register &mdash; differential effects on marginal groups; detector recovers treatment.</li>
   </ol>
+
   <aside class="notes">
-    <p><strong>30-second elevator:</strong> per-document AI detection is dead; corpus-level distributional estimation is now the right frame; ~10% of post-ChatGPT AI-conference reviews involve substantial LLM expansion of human outlines; the deeper risk isn't presence but homogenization.</p>
-    <p><strong>Methodological shelf-life (Q1):</strong> $P$ is fixed at pre-Nov-2022 text. As humans absorb AI-style vocabulary, $\hat\alpha$ will increasingly mix genuine LLM use with stylistic contagion. Fine for now; worth re-baselining in replications a few years out.</p>
+    <p><strong>30-second elevator:</strong> per-document AI detection is dead; corpus-level distributional estimation is the right frame; ~10% of post-ChatGPT AI-conference reviews involve substantial LLM expansion of human outlines; the deeper risk isn't presence but homogenization.</p>
+    <p><strong>Linguistic drift (Q1):</strong> not a flaw of the method &mdash; a feature of language. As humans absorb AI-style vocabulary, the human reference distribution $P$ drifts, and $\hat\alpha$ increasingly conflates genuine LLM use with stylistic contagion. Re-baselining $P$ on a more recent corpus is one fix; another is to ask whether the question we want to answer (presence of LLM mediation) is well-posed once human and machine register converge.</p>
     <p><strong>Complementary metrics (Q2):</strong> $\hat\alpha$ measures presence, not effect. Useful complements: information-to-noise ratio, depth/breadth per unit length, logical coherence.</p>
-    <p><strong>Bridge to discussion (Q3):</strong> the Nov-2022 shock as quasi-exogenous wording variation. This is the methodological bridge to designs in our own field &mdash; DiD on whether LLM-mediated course descriptions narrow gender gaps in major applications, etc. This is the one I most want the room to take up first.</p>
+    <p><strong>Bridge to discussion (Q3):</strong> the causal chain: (1) unconscious LLM adoption injects an Anglo-centric (and likely masculine-coded) register into the corpus of written feedback. (2) Because writers didn't opt into the register &mdash; they got it from the tool &mdash; the treatment is exogenous to writer preferences and to most plausible outcomes. (3) The interesting question is differential effects on marginal groups: women, non-native English speakers, junior scholars. (4) The detector (this paper's contribution) is what recovers the treatment indicator at scale. This is the methodological bridge to designs in our own field, and the one I most want the room to take up first.</p>
   </aside>
 </section>
 
