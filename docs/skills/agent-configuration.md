@@ -139,9 +139,19 @@ a convention the project does not actually use>
 - For final outputs, generate a disclosure block with the `ai-disclosure-block` skill.
 
 ## Conventions for Claude Code
+
+**Operational rules** (concrete, apply every time):
+
 - When writing new analysis: produce both the code and the output it generates.
 - When proposing a method change: state which result(s) it would change before editing.
 - When uncertain about a number or citation: flag with `[TODO]` rather than guess.
+
+**General principles** (adapted from [Karpathy's LLM-coding guidelines](https://x.com/karpathy/status/2015883857489522876) — use these when a novel situation isn't covered by the rules above):
+
+- **Think before coding.** State assumptions explicitly. If a request has multiple interpretations, present them — do not pick silently.
+- **Simplicity first.** Minimum code that answers the question. No speculative features, no abstractions for single-use scripts, no error handling for impossible inputs.
+- **Surgical changes.** Touch only what the task requires. Match the existing style. Do not refactor adjacent blocks or "improve" unrelated code. Mention dead code; do not delete it unasked.
+- **Goal-driven execution.** Convert tasks into verifiable goals before running them. Strong success criteria let the agent loop without re-asking.
 ```
 
 **Step 4 — Diff against any existing CLAUDE.md.** Do **not** overwrite. Show a unified diff and ask the user to approve, reject, or merge per section.

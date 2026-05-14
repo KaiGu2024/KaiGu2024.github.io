@@ -268,26 +268,55 @@ Fields to extract: title, author, date, summary.
 
 ---
 
-## YouTube — yt-dlp + defuddle
+## Video & Audio — yt-dlp + whisper.cpp
 
-**yt-dlp** downloads video, audio, subtitles, and metadata:
+**yt-dlp** downloads video, audio, subtitles, and metadata. It supports YouTube and [~1800 other sites](https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md) — Vimeo, Bilibili, TikTok, Twitch VODs, podcast hosts, news sites with embedded players, university lecture portals. Same commands work across sources:
+
 ```bash
 # Full video + metadata JSON
 yt-dlp --write-info-json URL
 
-# Subtitles only (no video download)
-yt-dlp --write-subs --write-auto-subs --skip-download URL
+# Subtitles only (no video download) — try human + auto captions
+yt-dlp --write-subs --write-auto-subs --sub-lang en --skip-download URL
 
-# Audio only (mp3)
-yt-dlp -x --audio-format mp3 URL
+# Audio only (mp3, for transcription)
+yt-dlp -x --audio-format mp3 -o "%(id)s.%(ext)s" URL
 
-# Channel: all videos metadata
+# Channel/playlist: all videos metadata
 yt-dlp --flat-playlist --print-json "https://www.youtube.com/@channel"
 ```
 
-**defuddle** can complement yt-dlp by extracting transcript/description text from YouTube page HTML.
+**defuddle** can complement yt-dlp by extracting transcript/description text from a page's HTML when the site exposes them outside the player.
 
-GitHub: [yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp)
+### Fallback: whisper.cpp when no subtitles exist
+
+Many sources lack captions entirely — podcasts, university lectures, Bilibili uploads, older YouTube videos, any local `.mp4` / `.m4a` / `.mp3` file. Transcribe locally with [whisper.cpp](https://github.com/ggerganov/whisper.cpp) (CPU-friendly C++ port of Whisper; no API cost, no upload):
+
+```bash
+# One-time setup
+git clone https://github.com/ggerganov/whisper.cpp && cd whisper.cpp
+make
+bash ./models/download-ggml-model.sh medium.en   # or large-v3 for non-English
+
+# Transcribe: whisper.cpp wants 16 kHz mono WAV
+ffmpeg -i input.mp3 -ar 16000 -ac 1 -c:a pcm_s16le input.wav
+./main -m models/ggml-medium.en.bin -f input.wav -otxt -ovtt
+# → input.wav.txt (plain text) and input.wav.vtt (timestamped)
+```
+
+End-to-end pipeline for any yt-dlp-supported URL without captions:
+
+```bash
+yt-dlp -x --audio-format mp3 -o audio.mp3 URL
+ffmpeg -i audio.mp3 -ar 16000 -ac 1 -c:a pcm_s16le audio.wav
+./main -m models/ggml-medium.en.bin -f audio.wav -ovtt
+```
+
+**Model choice**: `tiny` / `base` for triage, `medium.en` for English research-grade, `large-v3` for non-English or noisy audio. `medium.en` runs ~3–5× real-time on a modern laptop CPU.
+
+**Output format**: prefer `.vtt` over `.txt` — timestamps are free at transcription time and let you align quotes back to the source.
+
+GitHub: [yt-dlp/yt-dlp](https://github.com/yt-dlp/yt-dlp) · [whisper.cpp](https://github.com/ggerganov/whisper.cpp)
 
 ---
 
