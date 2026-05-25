@@ -13,7 +13,7 @@ Read this file before populating the `<style>` block in the Reveal.js template (
 Hold the line on:
 
 - **Typography.** Plus Jakarta Sans, weight 400–800 across heading and body. One typeface only — no mixing with serif Lora / Newsreader. Source Serif 4 is loaded for math/citations but should not appear as body type. Never substitute Inter, Arial, system-ui-only (Plus Jakarta Sans falls back to system-ui only when the webfont fails to load), or Space Grotesk.
-- **Palette role-distribution.** White surfaces dominate (~92% of slide area), blue chrome ~6% (h2 color, table header band, eq-block left rule, callout borders, code background), electric-blue accent ≤2% (one accent moment per slide — `.callout-result`, `.with-accent` h2 underline, outline-grid numerals). If electric blue starts covering area, it has stopped being an accent.
+- **Palette role-distribution.** White surfaces dominate (~92% of slide area). **Desaturated chrome** (`--c-primary`, `#234E96`) ~6% — h2 color, table-header band, code background, link / role text. **Saturated electric accent** (`--c-accent`, `#0046AD`) ≤2% — one moment per slide: `.callout-result`, the `.with-accent` / title-slide h2 underline, eq-block left rule, outline-grid numerals. The two share a hue but differ in saturation, so the deck reads monochromatic while the accent still pops against the quieter chrome. If electric blue starts covering area, it has stopped being an accent. **Never raise the chrome's saturation back to the accent's** — a fully-saturated table-header band on every slide is the dated, loud look the muted-figure palette exists to avoid.
 - **No warm tones.** No cream paper. No Hokusai crimson. No banana-yellow accents. No coral warns. The personal site uses warm cream and crimson; the slide deck does not. If you find yourself reaching for `#EFE6D2` or `#A03830` while generating a deck, you are conflating brands — stop.
 - **Layout.** Asymmetric where it helps the eye land (title slide gets a big blue underline rule), generous negative space everywhere else. **Fewer, bigger words.** Bullets should breathe; max ~8 words per bullet where possible. The body font sizes in §1 are intentionally one tier larger than the previous deck spec — eye-catch at slide pace, not document-style density.
 - **Execution density.** Academic-clean asks for *restraint and precision* — careful spacing, deliberate type hierarchy, no decorative flourishes. Plain white with a blue stripe is the right answer; a tasteful paper-grain texture is *not* (warm in feel; against the brand).
@@ -33,10 +33,20 @@ These tokens are **specific to slide decks** — they do NOT mirror `docs/css/to
 
 ```css
 :root {
-  /* Palette — blue-white academic, no warm tones */
-  --c-primary:      #0046AD;   /* academic blue — h2, h3, chrome, links */
+  /* Palette — blue-white academic, no warm tones.
+     Chrome (--c-primary) is a desaturated Prussian-leaning blue so the large
+     fills (table-header band, h2) don't read louder than the muted/dusty
+     figures embedded next to them. The accent (--c-accent) stays fully
+     saturated electric blue and is rationed to one moment per slide — the
+     projector eye-catch. Same hue family, different saturation: the deck is
+     still monochromatic, but the accent now pops against quieter chrome
+     instead of competing with it.
+     NOTE: --c-primary is intentionally NOT the site's Hokusai Prussian
+     (#2E4A75) — brand separation is load-bearing; this is a cooler, distinct
+     slide blue. */
+  --c-primary:      #234E96;   /* desaturated slide blue — h2, chrome, links, table-header band */
   --c-primary-soft: #eef3fb;   /* very pale blue — code bg, table stripes (when needed) */
-  --c-accent:       #0046AD;   /* accent moment (same hue as primary; emphasis via weight / position / box) */
+  --c-accent:       #0046AD;   /* saturated electric blue — accent ONLY (title underline, .callout-result, eq left rule, outline numerals) */
   --c-warn:         #8a6d24;   /* muted amber — warn callout */
   --c-mint:         #0e6e5a;   /* deep teal — tip callout */
   --c-ink:          #0a1422;
@@ -121,6 +131,21 @@ code { font-family: var(--font-mono); font-size: 0.88em;
 .reveal ul, .reveal ol { margin: var(--sp-3) 0; }
 .reveal li { margin: var(--sp-2) 0; }
 .reveal ul.tight li, .reveal ol.tight li { margin: 4px 0; }
+
+/* Dense-slide tier — the §1 body sizes are deliberately one tier large for
+   eye-catch on figure/result slides, but they overflow the 720px section on
+   the few text-heavy slides (Takeaways & Discussion: 3 bullets + 5 questions;
+   Outline; Identification's three stacked Challenge/Strategy/Assumptions
+   blocks). Add class="dense" to those <section>s instead of hand-shrinking
+   fonts per deck. It redefines the type tokens one notch down; because the
+   tokens are inherited custom properties, every h2/h3/body/small inside the
+   section scales proportionally with no per-element overrides. */
+.reveal .slides section.dense {
+  --fs-h1:    clamp(2.2rem, 4.6vw, 3.0rem);
+  --fs-h3:    clamp(1.3rem, 2.5vw, 1.6rem);
+  --fs-body:  clamp(1.2rem, 2.1vw, 1.45rem);
+  --fs-small: clamp(1.0rem, 1.6vw, 1.25rem);
+}
 ```
 
 ---

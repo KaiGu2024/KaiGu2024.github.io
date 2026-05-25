@@ -88,6 +88,10 @@ Every content slide's `<h2>` follows the same brief, one-row format. The skill e
 - **Subtitle only when needed.** A `.slide-subtitle` line below the h2 (Lora-italic, muted) is allowed for slides where the topic alone reads flat. Skip it on slides where the h2 is already self-explanatory (Title, Author Bios, Outline, single-keyword Findings slides).
 - **Single underline rule.** When a subtitle is used, it carries the bottom border instead of h2. The whole "h2 + subtitle" block reads as one title unit, then one rule separating it from content.
 
+### Dense slides — step the type down, don't hand-shrink
+
+The §1 body sizes are deliberately one tier large for eye-catch on figure/result slides. A few slide *types* are text-heavy enough to overflow the 720px section at that size: **Takeaways & Discussion** (3 bullets + 5 questions), **Outline**, and **Identification** (three stacked Challenge / Strategy / Assumptions blocks). Add `class="dense"` to those `<section>`s — it redefines the type tokens one notch down so the whole slide scales proportionally. Use it instead of per-element `font-size` overrides or per-deck manual shrinking. CSS is in `references/aesthetics.md` §2 (`section.dense`). Do **not** sprinkle `.dense` on figure/result slides — those want the large tier.
+
 ### Equations get a symbol gloss
 
 Every displayed equation must (a) sit inside a `.eq` block — cool-tinted background with an electric-blue left rule — and (b) be followed by a 2–3 bullet `.gloss` list naming each non-trivial symbol. Without the gloss a reading-group audience cannot follow the math at slide pace.
@@ -246,8 +250,9 @@ The `<style>` block referenced by `<!-- paste styling block -->` below is define
     </div>
   </section>
 
-  <!-- 3. Outline — two-column numbered map. Reads as the trip plan, not a TOC. -->
-  <section>
+  <!-- 3. Outline — two-column numbered map. Reads as the trip plan, not a TOC.
+       class="dense" — text-heavy slide; steps the type tier down (aesthetics.md §2). -->
+  <section class="dense">
     <h2>Outline</h2>
     <ol class="outline-grid">
       <li><strong>{{Section ≤5 words}}</strong><span>{{One sentence on finding or method}}</span></li>
@@ -281,8 +286,9 @@ The `<style>` block referenced by `<!-- paste styling block -->` below is define
     </aside>
   </section>
 
-  <!-- 5. Identification (skip empirical spec for canonical DiD/IV/RD) -->
-  <section>
+  <!-- 5. Identification (skip empirical spec for canonical DiD/IV/RD)
+       class="dense" — three stacked Challenge/Strategy/Assumptions blocks. -->
+  <section class="dense">
     <h2>Identification</h2>
     <h3>1. Challenge</h3>
     <p>{{What naive OLS gets wrong}}</p>
@@ -348,8 +354,9 @@ The `<style>` block referenced by `<!-- paste styling block -->` below is define
     </aside>
   </section>
 
-  <!-- Takeaways & Discussion -->
-  <section>
+  <!-- Takeaways & Discussion — class="dense": 3 bullets + 5 questions overflow
+       the large tier; step it down (aesthetics.md §2). -->
+  <section class="dense">
     <h2>Takeaways &amp; Discussion</h2>
     <h3>Takeaways</h3>
     <ul><li>{{T1}}</li><li>{{T2}}</li><li>{{T3}}</li></ul>
