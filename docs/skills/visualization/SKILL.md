@@ -1,6 +1,6 @@
 ---
 name: visualization
-description: Use when producing publication-ready figures in R + ggplot2 — Cleveland-McGill perceptual ranking; Monet/Hokusai brand palette (dusty blue + sage default, Prussian sequential, viridis precise, crimson accent); Lora display + Newsreader body fonts matching the personal site/slides/CV; one panel per figure (combine via LaTeX `subfigure`); axis-title-only with no plot title/subtitle/caption inside the image (text belongs in TeX); oversized components so figure text reads LARGER than body text in a paragraph or slide; direct annotation over legends; 600 DPI. Enforces sort-categorical-axes, plot-differences-not-raw, no-gridlines, nothing-clips-or-overlaps. For regression tables, see tables.md.
+description: Use when producing publication-ready figures in R + ggplot2 — Cleveland-McGill perceptual ranking; Monet/Hokusai brand palette (dusty blue + sage default, Prussian sequential, viridis precise, crimson accent); Lora display + Newsreader body fonts matching the personal site/slides/CV; one panel per figure (combine via LaTeX `subfigure`); axis-title-only with no plot title/subtitle/caption inside the image (text belongs in TeX); oversized components so figure text reads LARGER than body text in a paragraph or slide; direct annotation over legends; 600 DPI. Enforces sort-categorical-axes, plot-differences-not-raw, no-gridlines, nothing-clips-or-overlaps. For regression tables, see the tables skill.
 allowed-tools: Read, Edit, Write, Bash
 invocation: auto
 ---
@@ -90,11 +90,13 @@ Default to bars or dot plots for quantitative comparison. Never pie, donut, 3D. 
 
 ### Channels for unordered categories (best → worst)
 
-Spatial region (facet) → color hue → motion → shape. Reserve hue for categorical distinction; reserve shape only for redundant encoding (grayscale fallback).
+Spatial region (facet) → color hue → motion → shape. Reserve hue for the categorical distinction; shape is the **default redundant** channel — map it to the same variable as hue so the figure survives grayscale and colorblindness. Never map shape to a *second* variable.
 
 ### Channel budget
 
-Color and luminance pop pre-attentively; shape, angle, size do not. **Hard rule: at most one channel encoding beyond position.** If you find yourself mapping color + shape + size, facet instead.
+Color and luminance pop pre-attentively; shape, angle, size do not. **Hard rule: at most one *variable* encoded beyond position.** If you find yourself mapping two *different* variables to color + shape (color = platform, shape = country), facet instead.
+
+**Redundant encoding is exempt — and is the default for multi-series lines.** Mapping the *same* variable to both color and shape (ChatGPT = blue *and* circle) is one variable shown twice, not two channels of information; it does not spend the budget. It buys grayscale/B&W survival, colorblind safety, and disambiguation where two lines cross (the marker still names the series at the touch point). For 3–5 equal-weight line+point series, do this by default (§5).
 
 ### Gestalt — connection and proximity dominate color similarity
 
@@ -102,7 +104,7 @@ Items linked by a line read as a group even if differently colored. Use delibera
 
 ### Layer-and-highlight pattern
 
-For "this country/firm/domain vs. all others": plot all data in `grey80`, plot focal subset on top in saturated accent, and label *every* series at its endpoint — focal in the accent color, the rest in `grey50` so the reader can still identify the grey cloud. More effective than a 20-color rainbow; survives B&W. Code in `references/recipes.md` → "Layer-and-highlight".
+For "this country/firm/domain vs. all others": plot all data in `grey80`, plot focal subset on top in saturated accent, and label *every* series at its endpoint — focal in the accent color, the rest in `grey50` so the reader can still identify the grey cloud. More effective than a 20-color rainbow; survives B&W. When the focal subset is a recurring named subject (Google, ChatGPT, …), the accent is that subject's **fixed color** (§5 "Locked subject identity"), not a generic crimson — so the highlight reads identically in every figure. Code in `references/recipes.md` → "Layer-and-highlight".
 
 ---
 
@@ -132,7 +134,7 @@ Name what color is *for* before picking a palette.
 | **Magnitude (rank)** | Sorted bars colored by tertile | Brand sequential ramp |
 | **Magnitude (precise)** | Choropleth, heatmap, density | Viridis |
 | **Signed deviation** | Coefficient vs. baseline, residual | Diverging |
-| **Emphasis** | "ChatGPT vs. all platforms" | Layer-and-highlight (gray + accent) |
+| **Emphasis** | "ChatGPT vs. all platforms" | Layer-and-highlight (gray + accent, or the focal subject's fixed colour — see §5 "Locked subject identity") |
 
 ---
 
@@ -170,6 +172,10 @@ brand$accent    # "#A03830"  Hokusai crimson    — rare, single high-emphasis
 brand_blues      # c("#1F3A5F", "#3A5F87", "#6688AB", "#9DBBD2", "#D2DDE6")
                  # Hokusai-Prussian ramp, dark = high; for ORDERED bins.
                  # For precise magnitude (heatmap, choropleth) use viridis.
+
+brand_shapes     # c(21, 24, 22, 23, 25)  filled pch, max-dissimilarity order.
+                 # Redundant shape per series on multi-line figures — map to
+                 # the SAME variable as colour (§5). Caps at 5.
 ```
 
 **Greek and math symbols.** Use Unicode directly in labels: `α`, `β`, `μ`, `σ²`, `≥`, `×`. Symbol-font glyphs tofu in modern PDF readers.
@@ -196,7 +202,38 @@ geom_line(aes(colour = group), linewidth = 2.4)
 geom_point(aes(fill = group, colour = group), shape = 21, size = 7)
 ```
 
-**Three or more categories: don't add a third color — facet or layer-and-highlight.** The brand caps at 2 because that's where 2-channel comparisons (color × position) work cleanly. For 3+, position becomes the primary distinguisher (facet); color encodes a second dimension only.
+**Three or more categories — two different situations.** (a) If color would encode a *second variable* on top of a position comparison, don't — facet so position stays primary, color encodes only the second dimension. (b) If you genuinely have **3–5 equal-weight series**, each its own line, give each a distinct color **and** a distinct redundant shape (next subsection); past 5 series, facet or layer-and-highlight rather than reach for a 6th color.
+
+### Multi-series lines — redundant shape per series
+
+For a line(+point) figure comparing 3–5 equal-weight series, map the **same grouping variable** to `colour`, `fill`, and `shape`. The shape rides redundant on color (it does not spend the channel budget — §2), so the figure stays legible in grayscale, under colorblindness, and where two lines cross (the marker names the series at the touch point). Use the filled `brand_shapes` set from `theme_pub.R` (`c(21, 24, 22, 23, 25)` — circle, triangle, square, diamond, inverted triangle, ordered by dissimilarity).
+
+```r
+pal <- c(A = brand$primary, B = brand$secondary, C = brand$dark)
+
+geom_line(aes(colour = group), linewidth = 2.4) +
+geom_point(aes(fill = group, shape = group),
+           size = 6, stroke = 1.0, colour = "white") +   # white halo keeps
+scale_colour_manual(values = pal) +                      # markers crisp on
+scale_fill_manual(values   = pal) +                      # the line + at
+scale_shape_manual(values  = brand_shapes)               # crossings
+```
+
+**Marker density.** Monthly series — a marker on every point reads cleanly, so plot them all. Weekly (or denser) series — a marker per point beads the line; keep `geom_line` on the full data but feed `geom_point` a thinned subset (every 4th week + each series' last point). Past weekly cadence, drop per-point markers entirely and distinguish by color + linetype, or facet. Code for both in `references/recipes.md` → "Multi-series lines".
+
+### Locked subject identity — one fixed color per recurring subject
+
+When the same named entities recur across many figures in a project — the platforms or ranking sources you compare again and again — give each one a **fixed color**, and a fixed redundant shape, and reuse that exact assignment in every figure. The reader learns one key and carries it across the whole paper or deck. The failure this prevents is *drift*: let each figure re-pick from the auto-palette and the same subject ends up blue in one figure and green in the next, forcing the reader to re-read the legend every time.
+
+Three things keep this consistent with the rest of the skill rather than fighting it:
+
+- **It's the highlight color, not a paint-everyone palette.** In any one figure only the **highlighted** subject(s) wear their fixed color; every other series stays grey (`grey80` line / `grey50` label) per the layer-and-highlight pattern (§2). So the fixed color simply *replaces the generic crimson accent with a subject-specific one* — and the 5-color cap never binds, since you rarely highlight more than 2–3 at once and the rest are grey regardless of how many appear. A peer-comparison figure (several subjects each in their own color) and an emphasis figure (one focal, rest grey) are the same machinery; the first is just the case where every subject present happens to be focal.
+
+- **Muted and hue-aligned.** The fixed color should nod to the subject's real brand hue but stay desaturated, so figures keep the scholarly register and the "saturated = old-school" rule still holds — recognizable without going slope-y.
+
+- **Redundant shape rides on the same subject** (§2 — it doesn't spend the channel budget) for grayscale/CVD survival and disambiguation where lines cross.
+
+Keep the assignments wherever your plotting code can reuse them — a small named color/shape vector at the top of your figure script (or a project-level theme file sourced after `theme_pub.R`) is enough. They're **project-specific** — which subjects exist and what hue each gets belongs with the project that studies them, not baked into this shared theme.
 
 ### Sequential — rank vs. precise
 
@@ -240,9 +277,14 @@ Same brand colors. Box fill: `scales::alpha(brand$primary, 0.3)`. Box stroke / h
 
 Live: [Color Oracle](https://colororacle.org/) — flick through protanopia / deuteranopia / tritanopia. Static grayscale: `p + scale_colour_grey()`.
 
-The brand pair survives grayscale (luminance gap). For 3+ series, pair color with linetype or shape:
+The brand pair survives grayscale (luminance gap). For 3+ series, pair color with a redundant **shape** (line+point figures — the default, see "Multi-series lines" above) or **linetype** (line-only figures):
 
 ```r
+# line+point — shape rides on color (default for multi-series)
+aes(colour = group, fill = group, shape = group)
+scale_shape_manual(values = brand_shapes)
+
+# line-only — linetype rides on color
 aes(colour = group, linetype = group)
 scale_linetype_manual(values = c("solid", "dashed", "dotted"))
 ```
@@ -257,10 +299,11 @@ Copy-pasteable code lives in **`references/recipes.md`** to keep this file scann
 - [Thinning dense axes](references/recipes.md#thinning-dense-axes)
 - [Date axes — format and cadence](references/recipes.md#date-axes--format-and-cadence) (ISO `%Y-%m`, two-row labels, 30° tilt for dense breaks)
 - [Direct line annotation](references/recipes.md#direct-line-annotation)
+- [Multi-series lines — redundant shape per series](references/recipes.md#multi-series-lines--redundant-shape-per-series) (color + shape on the same variable; monthly = every point, weekly = thinned)
 - [Coefficient / event-study plot](references/recipes.md#coefficient--event-study-plot)
 - [Time trend with overlaid fits](references/recipes.md#time-trend-with-overlaid-fits-raw--models--ci) (raw + models + CI)
 - [Designed event line](references/recipes.md#designed-event-line) (vertical annotation: drop-pin + rotated label + tinted post-region)
-- [Layer-and-highlight](references/recipes.md#layer-and-highlight--focal-series-in-crimson-all-series-labeled) — focal in crimson, every series still named; includes the vertical-endpoints variant for converging lines
+- [Layer-and-highlight](references/recipes.md#layer-and-highlight--focal-series-in-crimson-all-series-labeled) — focal in crimson (or the subject's fixed color if it recurs, §5), every series still named; includes the vertical-endpoints variant for converging lines
 - [Distribution comparisons (ridge plot)](references/recipes.md#distribution-comparisons-ridge-plot)
 
 Read the recipes file before writing a new figure — most patterns are already there.
@@ -314,4 +357,4 @@ Panel letters (a / b), sub-captions, the overall caption, and the source note ar
 
 ## 8. Cross-references
 
-For regression / descriptive tables (journal star cutoffs, booktabs, never-change-a-number), see [tables.md](../tables.md). When reporting findings back to the user, [report.md](../report.md) carries the deliverable template — figures here are the artifact, the report explains them.
+For regression / descriptive tables (journal star cutoffs, booktabs, never-change-a-number), see [tables/SKILL.md](../tables/SKILL.md). When reporting findings back to the user, [report.md](../report.md) carries the deliverable template — figures here are the artifact, the report explains them.

@@ -63,5 +63,12 @@ brand <- list(
 # magnitude (heatmap, choropleth) use viridis.
 brand_blues <- c("#1F3A5F", "#3A5F87", "#6688AB", "#9DBBD2", "#D2DDE6")
 
+# Redundant shape set — filled pch (21–25 accept a contrasting border), ordered
+# by perceptual dissimilarity: circle, triangle-up, square, diamond, triangle-
+# down. Map to the SAME grouping variable as colour on multi-series line+point
+# figures so they survive grayscale / colorblindness and read where lines cross
+# (SKILL.md §5). Caps at 5 — past that, facet or layer-and-highlight.
+brand_shapes <- c(21, 24, 22, 23, 25)
+
 options(ggplot2.discrete.fill   = c(brand$primary, brand$secondary),
         ggplot2.discrete.colour = c(brand$primary, brand$secondary))

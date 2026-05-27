@@ -95,6 +95,47 @@ ggplot(df, aes(x = year, y = outcome, colour = group)) +
   labs(x = "Year", y = "Outcome")
 ```
 
+## Multi-series lines — redundant shape per series
+
+3–5 equal-weight series, each its own colored line, with a redundant shape so the figure survives grayscale / colorblindness and reads where lines cross. `shape` and `fill` map to the **same** variable as the line `colour` (SKILL.md §5); shape rides redundant on color and so doesn't spend the channel budget. `brand_shapes <- c(21, 24, 22, 23, 25)` comes from `theme_pub.R`.
+
+```r
+pal <- c(A = brand$primary, B = brand$secondary, C = brand$dark)
+
+labels <- df |> group_by(group) |> slice_max(month, n = 1) |> ungroup()
+
+ggplot(df, aes(x = month, y = value, colour = group)) +
+  geom_line(linewidth = 2.4) +
+  geom_point(aes(fill = group, shape = group),
+             size = 6, stroke = 1.0, colour = "white") +   # white halo
+  geom_text_repel(data = labels, aes(label = group),
+                  hjust = 0, nudge_x = 0.2, direction = "y",
+                  segment.colour = NA, size = 8) +
+  scale_colour_manual(values = pal) +
+  scale_fill_manual(values   = pal) +
+  scale_shape_manual(values  = brand_shapes) +
+  scale_x_continuous(expand = expansion(mult = c(0.02, 0.15))) +
+  labs(x = "Month", y = "Value (units)")
+```
+
+The white `colour` on `geom_point` haloes each filled marker so it stays crisp sitting on its own line and at crossings. Endpoint labels (rule 4) still name every series — the shape is a redundant aid, not a substitute for the label.
+
+**Weekly (or denser) data — thin the markers.** A marker on every monthly point reads fine; on weekly data it beads the line. Keep `geom_line` on the full series, but feed `geom_point` every 4th week plus each series' last point:
+
+```r
+mk <- df |>
+  arrange(group, month) |>
+  group_by(group) |>
+  filter(row_number() %% 4 == 1 | row_number() == n()) |>
+  ungroup()
+
+  geom_line(data = df, linewidth = 2.4) +                  # full line
+  geom_point(data = mk, aes(fill = group, shape = group),
+             size = 6, stroke = 1.0, colour = "white") +   # thinned markers
+```
+
+Past weekly cadence, drop per-point markers entirely — distinguish by color + linetype (see "Time trend with overlaid fits"), or facet.
+
 ## Coefficient / event-study plot
 
 ```r
@@ -229,6 +270,8 @@ ggplot(df, aes(x = week, y = visits, group = platform)) +
 ```
 
 For two focal series, give each a distinct accent (`brand$primary` and `brand$accent`) with its label matching its line; the rest stay grey80 / grey50.
+
+**If the focal subject recurs across your figures** (the same platform / source highlighted in figure after figure), don't use crimson — give that subject one fixed muted hue and reuse that exact color every time, so the highlight reads identically across the paper (SKILL.md §5, "Locked subject identity"). Crimson stays the default for a one-off highlight whose subject won't reappear.
 
 **Converging-endpoints variant — vertical labels.** When line endpoints crowd into a narrow vertical band at the right edge (5+ platforms all near the same value), horizontal labels with `direction = "y"` repel start stacking with connector lines — messy. Switch to vertical labels at each endpoint: `angle = 90, hjust = 0` makes each label hang upward from its line's endpoint (readable bottom-to-top, head tilts LEFT), and `direction = "x"` spaces them apart horizontally just past the right edge. The whole label rail stays one row tall.
 
