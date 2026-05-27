@@ -115,9 +115,10 @@ Always offer the `cp` commands at end-of-edit. Never assume the user has Jekyll 
 **Folder-skills** (have a `references/` subdirectory):
 - `slide/` — Reveal.js deck generation
 - `visualization/` — R + ggplot2 publication figures
+- `tables/` — journal-convention + design-principles table formatting (sibling to `visualization/`)
 - `paper-review/` — multi-agent referee report
 
-**Flat skills** (single `.md`): `analysis-cleanup`, `ai-disclosure-block`, `agent-configuration`, `big-data-processing`, `brainstorm`, `codebook-generator`, `eda`, `literature-review`, `llm-annotation`, `preregistration`, `replication-readme`, `report`, `revision-plan`, `skill-creator`, `tables`, `text-as-data`, `username-dossier`, `verify-citations`, `version-control`, `web-access`, `web-scraping`, `writing`.
+**Flat skills** (single `.md`): `analysis-cleanup`, `ai-disclosure-block`, `agent-configuration`, `big-data-processing`, `brainstorm`, `codebook-generator`, `eda`, `literature-review`, `llm-annotation`, `preregistration`, `replication-readme`, `report`, `revision-plan`, `skill-creator`, `text-as-data`, `username-dossier`, `verify-citations`, `version-control`, `web-access`, `web-scraping`, `writing`.
 
 ---
 
