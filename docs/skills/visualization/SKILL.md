@@ -39,8 +39,8 @@ invocation: auto
 6. **Oversize every component so figure text reads larger than body text.** Figures are usually placed at half-column or column width inside a paragraph or slide, so the rendered point size is roughly half the source size. Author at sizes that, after scaling, still beat 11 pt body. Default ggplot fonts (~11 pt) and lines (~0.5 pt) are far too small:
    - Axis titles **26–30 pt**; tick labels **22–26 pt**; inline / annotation labels **20–26 pt** (`geom_text(size = 7–9)` — ggplot text `size` is mm, ≈ 2.83 × pt)
    - Strip text (facets, if any) **22–26 pt** bold
-   - Data lines `linewidth = 2.2–3.0`; reference / zero / vline lines 1.2–1.5; axis lines 1.1; ticks 1.0
-   - Points `size = 6–8`; ribbon `alpha = 0.18–0.22`
+   - Data lines `linewidth = 2.8` for **sparse** figures (few or monthly points — the default); step down to `2.4` when the series is **dense** (weekly+ points, busy path); reference / zero / vline lines 1.2–1.5; axis lines 1.1; ticks 1.0
+   - Points `size = 9` for **sparse** figures (the default); `size = 7` when dense (and thin the markers — §5); ribbon `alpha = 0.18–0.22`. Keep the marker-to-line ratio near 3:1 — a 9-marker sits on a 2.8 line, a 7-marker on a 2.4 line; don't pair a fat marker with a thin line (beads-on-a-string) or vice versa.
    - **No plot title / subtitle / caption / tag inside the image** — see rule 10.
 
 7. **Thin out dense axis ticks.** Crowded labels → drop ticks, don't shrink fonts. Date: `scale_x_date(date_breaks = "3 months", date_labels = "%Y-%m")`. Numeric: `scales::pretty_breaks(n = 6)`. Categorical: label every other level, or flip the chart with `coord_flip()` for long labels. Rotation is last resort *for arbitrary categorical labels* — but for short standardized labels like dates, `angle = 30, hjust = 1` is a normal option that buys ~3× the breaks (rule 4 has the full guidance; recipes have the code).
@@ -176,6 +176,11 @@ brand_blues      # c("#1F3A5F", "#3A5F87", "#6688AB", "#9DBBD2", "#D2DDE6")
 brand_shapes     # c(21, 24, 22, 23, 25)  filled pch, max-dissimilarity order.
                  # Redundant shape per series on multi-line figures — map to
                  # the SAME variable as colour (§5). Caps at 5.
+
+subject_palette  # 8 fixed candidates for subject identity (the highlighted
+                 # series in layer-and-highlight), ordered by aesthetics.
+subject_families # the same 8 grouped by hue family (blue/green/warm/rose) —
+                 # pick ONE per family when a figure colours >1 subject (§5).
 ```
 
 **Greek and math symbols.** Use Unicode directly in labels: `α`, `β`, `μ`, `σ²`, `≥`, `×`. Symbol-font glyphs tofu in modern PDF readers.
@@ -196,10 +201,10 @@ geom_col(aes(fill = group), colour = NA)
 geom_col(fill = brand$primary)
 
 # Lines
-geom_line(aes(colour = group), linewidth = 2.4)
+geom_line(aes(colour = group), linewidth = 2.8)
 
 # Filled points (pch 21–25) — same hex as fill and stroke
-geom_point(aes(fill = group, colour = group), shape = 21, size = 7)
+geom_point(aes(fill = group, colour = group), shape = 21, size = 9)
 ```
 
 **Three or more categories — two different situations.** (a) If color would encode a *second variable* on top of a position comparison, don't — facet so position stays primary, color encodes only the second dimension. (b) If you genuinely have **3–5 equal-weight series**, each its own line, give each a distinct color **and** a distinct redundant shape (next subsection); past 5 series, facet or layer-and-highlight rather than reach for a 6th color.
@@ -211,29 +216,33 @@ For a line(+point) figure comparing 3–5 equal-weight series, map the **same gr
 ```r
 pal <- c(A = brand$primary, B = brand$secondary, C = brand$dark)
 
-geom_line(aes(colour = group), linewidth = 2.4) +
+geom_line(aes(colour = group), linewidth = 2.8) +
 geom_point(aes(fill = group, shape = group),
-           size = 6, stroke = 1.0, colour = "white") +   # white halo keeps
+           size = 9, stroke = 1.0, colour = "white") +   # white halo keeps
 scale_colour_manual(values = pal) +                      # markers crisp on
 scale_fill_manual(values   = pal) +                      # the line + at
 scale_shape_manual(values  = brand_shapes)               # crossings
 ```
 
-**Marker density.** Monthly series — a marker on every point reads cleanly, so plot them all. Weekly (or denser) series — a marker per point beads the line; keep `geom_line` on the full data but feed `geom_point` a thinned subset (every 4th week + each series' last point). Past weekly cadence, drop per-point markers entirely and distinguish by color + linetype, or facet. Code for both in `references/recipes.md` → "Multi-series lines".
+**Marker density.** Monthly (or sparser) series — a marker on every point reads cleanly, so plot them all at the sparse default (`size = 9`, line `linewidth = 2.8`). Weekly (or denser) series — a marker per point beads the line; step both down to the lighter dense weight (`size = 7`, line `linewidth = 2.4`), keep `geom_line` on the full data, and feed `geom_point` a thinned subset (every 4th week + each series' last point). Past weekly cadence, drop per-point markers entirely and distinguish by color + linetype, or facet. Code for both in `references/recipes.md` → "Multi-series lines".
 
 ### Locked subject identity — one fixed color per recurring subject
 
 When the same named entities recur across many figures in a project — the platforms or ranking sources you compare again and again — give each one a **fixed color**, and a fixed redundant shape, and reuse that exact assignment in every figure. The reader learns one key and carries it across the whole paper or deck. The failure this prevents is *drift*: let each figure re-pick from the auto-palette and the same subject ends up blue in one figure and green in the next, forcing the reader to re-read the legend every time.
 
-Three things keep this consistent with the rest of the skill rather than fighting it:
+**Draw the fixed colors from the candidate pool.** `theme_pub.R` defines `subject_palette` — eight fixed candidates, ordered by aesthetics — plus `subject_families`, the same eight grouped by hue family (blue / green / warm / rose). Assign subjects from this pool once per project; don't hand-pick arbitrary hexes.
 
-- **It's the highlight color, not a paint-everyone palette.** In any one figure only the **highlighted** subject(s) wear their fixed color; every other series stays grey (`grey80` line / `grey50` label) per the layer-and-highlight pattern (§2). So the fixed color simply *replaces the generic crimson accent with a subject-specific one* — and the 5-color cap never binds, since you rarely highlight more than 2–3 at once and the rest are grey regardless of how many appear. A peer-comparison figure (several subjects each in their own color) and an emphasis figure (one focal, rest grey) are the same machinery; the first is just the case where every subject present happens to be focal.
+Four things keep this consistent with the rest of the skill rather than fighting it:
 
-- **Muted and hue-aligned.** The fixed color should nod to the subject's real brand hue but stay desaturated, so figures keep the scholarly register and the "saturated = old-school" rule still holds — recognizable without going slope-y.
+- **It's the highlight color, not a paint-everyone palette.** In any one figure only the **highlighted** subject(s) wear their fixed color; every other series stays grey (`grey80` line / `grey50` label) per the layer-and-highlight pattern (§2). So the fixed color simply *replaces the generic crimson accent with a subject-specific one* — and the pool never runs short, since you rarely highlight more than 2–3 at once and the rest are grey regardless of how many appear. A peer-comparison figure (several subjects each in their own color) and an emphasis figure (one focal, rest grey) are the same machinery; the first is just the case where every subject present happens to be focal.
+
+- **One per family when you color more than one subject.** When a single figure colors two or more subjects, pick each from a *different* `subject_families` group — never two blues, never red-and-coral together — so the subjects separate by hue, not by a saturation the reader has to squint at. The first four entries of `subject_palette` (blue, red, green, rose) are already one-per-family, so a 2–4-subject comparison can take them in order.
+
+- **Saturation is allowed here — this is the one place it is.** Identification colors may be vivid or deep; `subject_palette` deliberately includes saturated hues. Everywhere else the skill keeps colors muted, because saturated *decoration* reads dated — but when color's whole job is to name a subject across a comparison, a vivid hue earns its keep by making that subject unmistakable. So reserve the saturated pool for subject identity, and keep the quiet brand palette for non-subject fills (single-series bars, ribbons, conceptual boxes).
 
 - **Redundant shape rides on the same subject** (§2 — it doesn't spend the channel budget) for grayscale/CVD survival and disambiguation where lines cross.
 
-Keep the assignments wherever your plotting code can reuse them — a small named color/shape vector at the top of your figure script (or a project-level theme file sourced after `theme_pub.R`) is enough. They're **project-specific** — which subjects exist and what hue each gets belongs with the project that studies them, not baked into this shared theme.
+The pool lives in the shared theme, but the **mapping is project-specific** — which subjects exist and which pool entry each one gets belongs with the project that studies them. Pin the assignment in a small named vector at the top of your figure script (or a project-level theme file sourced after `theme_pub.R`) and reuse it everywhere.
 
 ### Sequential — rank vs. precise
 

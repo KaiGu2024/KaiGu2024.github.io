@@ -70,5 +70,33 @@ brand_blues <- c("#1F3A5F", "#3A5F87", "#6688AB", "#9DBBD2", "#D2DDE6")
 # (SKILL.md §5). Caps at 5 — past that, facet or layer-and-highlight.
 brand_shapes <- c(21, 24, 22, 23, 25)
 
+# Subject-identification candidate pool — fixed colours for the emphasized
+# subject(s) in a layer-and-highlight figure (the focal series; everyone else
+# stays grey80). NOT a paint-everyone palette and NOT a strong/weak hierarchy —
+# it is a flat pool of 8 candidates, ordered by aesthetics. When a figure
+# colours more than one subject, pick from DIFFERENT families (see below) so the
+# subjects separate by hue, never two members of the same family in one figure.
+# Which subject gets which colour is project-specific (SKILL.md §5, "Locked
+# subject identity") — assign once per project and reuse so the key never drifts.
+subject_palette <- c(
+  "#2251FF",  # blue
+  "#E3120B",  # red
+  "#78efc0",  # mint / green
+  "#f2006c",  # rose / magenta
+  "#ff804f",  # coral
+  "#9DBBD2",  # dusty blue   (= brand_blues[4]; reuse aware)
+  "#00355F",  # navy
+  "#A02050"   # raspberry
+)
+# Grouped by family so "one per family" is mechanical — e.g. for a 3-subject
+# comparison take blue + warm + rose, never two blues. The first four entries of
+# subject_palette are already one-per-family (blue, red, green, rose).
+subject_families <- list(
+  blue = c("#2251FF", "#9DBBD2", "#00355F"),
+  green = c("#78efc0"),
+  warm  = c("#E3120B", "#ff804f"),   # red + coral
+  rose  = c("#f2006c", "#A02050")    # magenta + raspberry
+)
+
 options(ggplot2.discrete.fill   = c(brand$primary, brand$secondary),
         ggplot2.discrete.colour = c(brand$primary, brand$secondary))

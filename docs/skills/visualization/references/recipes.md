@@ -84,7 +84,7 @@ For numeric-year axes (`2018, 2019, …`), use `scales::pretty_breaks(n = 6)` an
 labels <- df |> group_by(group) |> slice_max(year, n = 1) |> ungroup()
 
 ggplot(df, aes(x = year, y = outcome, colour = group)) +
-  geom_line(linewidth = 2.4) +
+  geom_line(linewidth = 2.8) +
   geom_text_repel(
     data = labels, aes(label = group),
     hjust = 0, nudge_x = 0.2, direction = "y",
@@ -105,9 +105,9 @@ pal <- c(A = brand$primary, B = brand$secondary, C = brand$dark)
 labels <- df |> group_by(group) |> slice_max(month, n = 1) |> ungroup()
 
 ggplot(df, aes(x = month, y = value, colour = group)) +
-  geom_line(linewidth = 2.4) +
+  geom_line(linewidth = 2.8) +                             # monthly = sparse
   geom_point(aes(fill = group, shape = group),
-             size = 6, stroke = 1.0, colour = "white") +   # white halo
+             size = 9, stroke = 1.0, colour = "white") +   # white halo
   geom_text_repel(data = labels, aes(label = group),
                   hjust = 0, nudge_x = 0.2, direction = "y",
                   segment.colour = NA, size = 8) +
@@ -120,7 +120,7 @@ ggplot(df, aes(x = month, y = value, colour = group)) +
 
 The white `colour` on `geom_point` haloes each filled marker so it stays crisp sitting on its own line and at crossings. Endpoint labels (rule 4) still name every series — the shape is a redundant aid, not a substitute for the label.
 
-**Weekly (or denser) data — thin the markers.** A marker on every monthly point reads fine; on weekly data it beads the line. Keep `geom_line` on the full series, but feed `geom_point` every 4th week plus each series' last point:
+**Weekly (or denser) data — thin the markers and lighten the weight.** A marker on every monthly point reads fine; on weekly data it beads the line. Drop from the sparse default to the lighter dense weight (`size = 7`, `linewidth = 2.4`), keep `geom_line` on the full series, and feed `geom_point` every 4th week plus each series' last point:
 
 ```r
 mk <- df |>
@@ -129,9 +129,9 @@ mk <- df |>
   filter(row_number() %% 4 == 1 | row_number() == n()) |>
   ungroup()
 
-  geom_line(data = df, linewidth = 2.4) +                  # full line
+  geom_line(data = df, linewidth = 2.4) +                  # full line, lighter (dense)
   geom_point(data = mk, aes(fill = group, shape = group),
-             size = 6, stroke = 1.0, colour = "white") +   # thinned markers
+             size = 7, stroke = 1.0, colour = "white") +   # thinned markers
 ```
 
 Past weekly cadence, drop per-point markers entirely — distinguish by color + linetype (see "Time trend with overlaid fits"), or facet.
@@ -145,14 +145,14 @@ ggplot(es, aes(x = period, y = coef)) +
              colour = brand$accent, linewidth = 1.2) +
   geom_ribbon(aes(ymin = lo, ymax = hi),
               fill = brand$primary, alpha = 0.22) +
-  geom_line(linewidth = 2.4, colour = brand$primary) +
-  geom_point(size = 6.5, colour = brand$primary) +
+  geom_line(linewidth = 2.8, colour = brand$primary) +
+  geom_point(size = 9, colour = brand$primary) +
   labs(x = "Periods relative to treatment", y = "Estimated effect")
 ```
 
 ## Time trend with overlaid fits (raw + models + CI)
 
-Three weights: raw series in `brand$dark` at `linewidth = 1.0` (reference); fitted lines distinguished primarily by **linetype** (so the figure reads in grayscale), secondary by hue, at `linewidth = 2.6`; one CI ribbon for the primary fit (`fill = "grey70", alpha = 0.25`).
+Three weights: raw series in `brand$dark` at `linewidth = 1.0` (reference); fitted lines distinguished primarily by **linetype** (so the figure reads in grayscale), secondary by hue, at `linewidth = 2.8` (the sparse default — smooth fits carry no markers); one CI ribbon for the primary fit (`fill = "grey70", alpha = 0.25`).
 
 ```r
 ggplot(df, aes(x = year, y = value)) +
@@ -163,7 +163,7 @@ ggplot(df, aes(x = year, y = value)) +
             colour = brand$dark, linewidth = 1.0) +
   geom_line(data = filter(df, series != "raw"),
             aes(linetype = series, colour = series),
-            linewidth = 2.6) +
+            linewidth = 2.8) +
   scale_linetype_manual(values = c(linear = "dashed",
                                    loess  = "solid",
                                    poly   = "dotted")) +
@@ -223,7 +223,7 @@ ggplot(df, aes(x = date, y = y)) +
            size = 6, colour = "grey30") +
 
   # Data on top of all of the above
-  geom_line(linewidth = 2.4, colour = brand$primary) +
+  geom_line(linewidth = 2.8, colour = brand$primary) +
 
   labs(x = "Date", y = "Outcome")
 ```
@@ -257,7 +257,7 @@ ggplot(df, aes(x = week, y = visits, group = platform)) +
   geom_line(data = filter(df, !platform %in% focal),
             colour = "grey80", linewidth = 1.0) +
   geom_line(data = filter(df,  platform %in% focal),
-            colour = brand$accent, linewidth = 2.6) +
+            colour = brand$accent, linewidth = 2.8) +
   geom_text_repel(
     data = endpoints,
     aes(label = platform, colour = label_colour),
@@ -271,7 +271,7 @@ ggplot(df, aes(x = week, y = visits, group = platform)) +
 
 For two focal series, give each a distinct accent (`brand$primary` and `brand$accent`) with its label matching its line; the rest stay grey80 / grey50.
 
-**If the focal subject recurs across your figures** (the same platform / source highlighted in figure after figure), don't use crimson — give that subject one fixed muted hue and reuse that exact color every time, so the highlight reads identically across the paper (SKILL.md §5, "Locked subject identity"). Crimson stays the default for a one-off highlight whose subject won't reappear.
+**If the focal subject recurs across your figures** (the same platform / source highlighted in figure after figure), don't use crimson — give that subject one fixed colour from `subject_palette` (`theme_pub.R`) and reuse that exact colour every time, so the highlight reads identically across the paper (SKILL.md §5, "Locked subject identity"). When a figure highlights two or more subjects at once, take each from a different `subject_families` group (never two blues) so they separate by hue. Crimson stays the default for a one-off highlight whose subject won't reappear.
 
 **Converging-endpoints variant — vertical labels.** When line endpoints crowd into a narrow vertical band at the right edge (5+ platforms all near the same value), horizontal labels with `direction = "y"` repel start stacking with connector lines — messy. Switch to vertical labels at each endpoint: `angle = 90, hjust = 0` makes each label hang upward from its line's endpoint (readable bottom-to-top, head tilts LEFT), and `direction = "x"` spaces them apart horizontally just past the right edge. The whole label rail stays one row tall.
 

@@ -91,7 +91,7 @@ Two visual brands live in this repo. They are *cousins* (both quiet, both reject
 - **No warm tones for slides.** No cream paper, no Hokusai crimson on slides. The slide brand is cool only.
 - **Hokusai crimson is for the site, and used sparingly** — ≤2% of visible area. If crimson covers area, it stopped being an accent.
 - **No section dividers** in styling — spacing alone separates blocks.
-- **Saturated colors look old-school for figures** (see `feedback_figure_aesthetic` memory); accent-only, not default.
+- **Saturated colors look old-school for *decorative* fills and default series** (see `feedback_figure_aesthetic` memory); keep those muted. The exception is **subject identity** — the fixed `subject_palette` in the visualization skill deliberately uses vivid/deep hues, because there color's whole job is to name a recurring subject across a comparison. Pick one color per hue family when a figure colors more than one subject.
 
 ---
 
