@@ -378,6 +378,7 @@ The `<style>` block referenced by `<!-- paste styling block -->` below is define
   // aesthetics.md §7; the convention "every section has <aside class='notes'>"
   // lives in the "Speaker notes — press N" section above.
   Reveal.initialize({
+    width: 1280, height: 720,   // canvas matches the CSS section height (aesthetics.md §2); less letterboxing on wide screens
     hash: true,
     plugins: [RevealMath.MathJax3],
     math: { mathjax: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" },
