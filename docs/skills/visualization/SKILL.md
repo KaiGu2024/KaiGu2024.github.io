@@ -131,7 +131,7 @@ Name what color is *for* before picking a palette.
 | Job | When | Palette |
 |---|---|---|
 | **Identification** | Treatment vs. control | Brand pair (`#6B89A8` + `#9CAF88`) |
-| **Magnitude (rank)** | Sorted bars colored by tertile | Brand sequential ramp |
+| **Magnitude (rank)** | Sorted bars colored by tertile | Brand sequential ramp (`brand_blues`); `subject_ramp()` if the figure is about one subject |
 | **Magnitude (precise)** | Choropleth, heatmap, density | Viridis |
 | **Signed deviation** | Coefficient vs. baseline, residual | Diverging |
 | **Emphasis** | "ChatGPT vs. all platforms" | Layer-and-highlight (gray + accent, or the focal subject's fixed colour — see §5 "Locked subject identity") |
@@ -181,6 +181,11 @@ subject_palette  # 8 fixed candidates for subject identity (the highlighted
                  # series in layer-and-highlight), ordered by aesthetics.
 subject_families # the same 8 grouped by hue family (blue/green/warm/rose) —
                  # pick ONE per family when a figure colours >1 subject (§5).
+
+subject_ramp(hex, n)  # sequential ramp built from a subject's identity hue,
+                 # for the RANK job on a SINGLE-subject figure. Drop-in for
+                 # brand_blues (dark = high). Precise magnitude still uses
+                 # viridis; multi-subject value figures use one neutral ramp (§5).
 ```
 
 **Greek and math symbols.** Use Unicode directly in labels: `α`, `β`, `μ`, `σ²`, `≥`, `×`. Symbol-font glyphs tofu in modern PDF readers.
@@ -252,6 +257,15 @@ The pool lives in the shared theme, but the **mapping is project-specific** — 
 scale_fill_gradientn(colours = rev(brand_blues))   # continuous
 scale_fill_manual(values = brand_blues)            # discrete, ≤5 bins
 ```
+
+**Subject-anchored ramp — rank, single-subject figures.** When the whole figure is about one subject (its values across categories, bars shaded by rank), build the ramp from that subject's identity hue with `subject_ramp(hex, n)` so the value shading reads as the same subject as everywhere else in the paper. Same orientation as `brand_blues` (dark = high), so it drops straight in:
+
+```r
+scale_fill_manual(values  = subject_ramp(subject_hex, k))       # discrete bins
+scale_fill_gradientn(colours = rev(subject_ramp(subject_hex)))  # continuous
+```
+
+The vivid identity colour sits mid-ramp; the endpoints are a darkened high stop and a desaturated light tint, hue held so lightness stays monotonic (so the ramp still reads as ordered and survives grayscale/CVD). Two limits keep this from over-reaching: for **precise** magnitude use viridis regardless of subject — perceptual uniformity matters more than brand identity, and a ramp hand-built from a vivid hue is not uniform; and for a figure encoding value across **multiple** subjects use one neutral ramp, because there the gradient is encoding *value*, not identity — per-subject ramps would conflate the two channels (identity stays categorical via `subject_palette`).
 
 **Viridis — precise magnitude.** When readers extract numeric values (heatmap, choropleth, density). Perceptually uniform, CVD-safe, grayscale-clean.
 

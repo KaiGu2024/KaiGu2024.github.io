@@ -17,6 +17,30 @@ df |>
 
 For "one bar plot per platform", export each platform as its own file and combine with `subfigure` in LaTeX — do not `facet_wrap` into a grid.
 
+## Subject-anchored rank ramp
+
+When the whole figure is about one subject and bars are shaded by rank (tertiles, quantiles, ordered bins), build the ramp from that subject's identity hue so the value shading matches its categorical colour elsewhere. `subject_ramp()` (`theme_pub.R`) returns dark = high, drop-in for `brand_blues`. Use only for *rank* on a *single* subject — precise magnitude stays viridis, multi-subject value figures stay on one neutral ramp (SKILL.md §5).
+
+```r
+subject_hex <- "#2251FF"   # this subject's fixed identity colour (subject_palette)
+
+df |>
+  mutate(domain = fct_reorder(domain, share),
+         bin    = cut(share, breaks = 3, labels = c("low", "mid", "high"))) |>
+  ggplot(aes(x = share, y = domain, fill = bin)) +
+  geom_col(colour = NA) +
+  scale_fill_manual(values = rev(subject_ramp(subject_hex, 3))) +  # high bin = darkest
+  scale_x_continuous(labels = label_percent(accuracy = 1),
+                     expand = expansion(mult = c(0, 0.05))) +
+  guides(fill = "none") +                       # bins are self-evident from order
+  labs(x = "Referral share", y = NULL)
+
+# Continuous value instead of discrete bins:
+#   scale_fill_gradientn(colours = rev(subject_ramp(subject_hex)))
+```
+
+`colorspace` must be installed (`subject_ramp` calls it namespaced). If a bin legend is genuinely needed, drop the `guides(fill = "none")` and label it; usually the sort order already conveys rank.
+
 ## Thinning dense axes
 
 ```r

@@ -98,5 +98,27 @@ subject_families <- list(
   rose  = c("#f2006c", "#A02050")    # magenta + raspberry
 )
 
+# Sequential ramp anchored on a subject's identity hue — for the RANK job on a
+# SINGLE-subject figure (bars/bins shaded by value, the whole figure about one
+# subject), so the value ramp carries the same identity as the subject's
+# categorical colour. NOT for precise magnitude (use viridis — perceptual
+# uniformity beats brand identity) and NOT for multi-subject value figures (use
+# one neutral ramp there; identity stays categorical via subject_palette, or the
+# gradient and the palette fight over the same channel). The vivid identity hue
+# sits MID-ramp: the high stop is a darkened version, the low stop a desaturated
+# light tint, hue held roughly constant in HCL so lightness stays monotonic and
+# the ramp reads as ordered + CVD-safe. Returns dark -> light (dark = high), the
+# same orientation as brand_blues, so it is a drop-in replacement:
+#   scale_fill_manual(values  = subject_ramp(hex, k))          # discrete bins
+#   scale_fill_gradientn(colours = rev(subject_ramp(hex)))     # continuous
+# Needs the colorspace package; called namespaced so sourcing this file does not
+# require it — only invoking subject_ramp() does.
+subject_ramp <- function(hex, n = 5) {
+  high <- colorspace::darken(hex, 0.30, space = "HCL")
+  low  <- colorspace::lighten(colorspace::desaturate(hex, 0.55), 0.80,
+                              space = "HCL")
+  grDevices::colorRampPalette(c(high, low))(n)
+}
+
 options(ggplot2.discrete.fill   = c(brand$primary, brand$secondary),
         ggplot2.discrete.colour = c(brand$primary, brand$secondary))
