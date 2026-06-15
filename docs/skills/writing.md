@@ -134,6 +134,19 @@ Why this works:
 
 Use Claude Code (or another file-aware harness) for this — the chat web UI cannot read and annotate the actual draft cleanly.
 
+### The AI tells — a self-audit
+
+Convergence to the model's average style has a recognizable surface. If a draft carries several of these, a reader is already discounting it — they read it as *you did not think hard about this*. Audit your own prose for:
+
+- **The cliché phrasebook** (representative, not exhaustive): "it's not just X — it's Y", "more than just a [X]", "at the heart of", "stands as a testament to", "navigate the complexities of", "leverage / harness / tap into", "shed light on", "revolutionizes the industry", "game-changer / paradigm shift", "robust, scalable, seamless", "in today's rapidly evolving landscape", "a tapestry of", "delve into", "underscores the importance of", "a myriad of", "ushers in a new era of".
+- **Pet tics:** the overused "moat" (build / widen / deepen / strengthen the moat) and the reflexive em-dash. (Yes — like that one.)
+- **Three structural patterns**, harder to grep than the phrasebook:
+  1. **Exception constructions** — "not just X, it's Y", "this isn't about A, it's about B". The shape performs depth without earning it; a real claim usually doesn't need the scaffolding.
+  2. **Overgeneralizations** — "every customer wants…", "always / never / all / none". Empirical claims live in conditions and tradeoffs; sweeping language signals the writer skipped them.
+  3. **Broad strong claims** — "revolutionizes", "fundamentally redefines" — used to substitute for evidence. Scope each claim to what the analysis actually supports.
+
+**Why it matters (the empirical case):** detectably-AI work is penalized by evaluators (Reif/Larrick/Soll 2025; Raj/Berg/Seamans 2026), and over-reliance homogenizes output — more text per author, fewer distinct ideas across a field (Anderson 2024; Doshi & Hauser 2024; Moon 2025). Distinctiveness is the asset; generic confidence is not a substitute for specific reasoning. (Adapted from the MGMT430 *"Using AI without sounding like AI"* lecture; the slide-deck counterpart — *visual* tells — lives in [`slide/references/aesthetics.md`](slide/references/aesthetics.md).)
+
 ### The accountability test
 
 Before sending a draft to a coauthor or referee, ask: *"Can I defend every paragraph in this section without the LLM open?"* If the answer is no for any paragraph, that paragraph is not yet yours. Rewrite it by hand, or delete it. The 1977 IBM rule — a computer cannot be held accountable, therefore a computer cannot make the editorial decision — applies to every sentence the paper claims under your name.

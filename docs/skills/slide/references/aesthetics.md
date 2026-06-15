@@ -27,6 +27,24 @@ When in doubt, the test: would this slide look at home on a NeurIPS or Marketing
 
 ---
 
+## The AI-slop tells — what an AI-built deck looks like
+
+"Reject the AI-slop default" only bites if you can name the default. A sophisticated audience spots an AI-built deck before reading a word — so the discipline above is partly about *not* committing these. The visual signature to avoid:
+
+- **Boxes around everything.** A rounded rectangle for every concept, every example, every callout, so the whole deck reads as a grid of cards. Cards are a tool for genuinely parallel items, not a default container.
+- **The same icon vocabulary.** Flat geometric icons sitting inside little colored circles — the same five icons across every deck. An icon that doesn't carry information is decoration pretending to be structure.
+- **Symmetric three-column layouts.** Three equal cards, then three more. Visual symmetry standing in for actual hierarchy; the eye is given nothing to land on because everything is weighted equally.
+- **Decorative bars and accent lines.** Thin colored stripes under every title, full-width bars at the top. Polish without purpose.
+- **The "perfect template" look.** Everything aligns, nothing surprises, nothing argues. A deck that looks designed and reads as undifferentiated.
+
+**Self-implicating note.** Our own `.col-3` / `.col-4` card grids and any icon-in-circle motif *are* these tells when over-used. Reach for a card grid only when the content is genuinely parallel (three mechanisms, four authors); don't default every concept slide to cards + icon circles, and never use an icon where a word is clearer.
+
+**Register caveat — read-deck vs projection-deck.** Some "violations" are register choices, not mistakes. A deck built to be *read* close-up or printed as a handout (footnotes, dense two-column lists, ~13–20px type, serif book-voice — e.g. the MGMT430 *"Using AI without sounding like AI"* deck in `notes/slides/`) legitimately runs denser than this spec. Our slide brand targets *projection*: when a deck will be shown on a screen, hold "fewer, bigger words" and the §1 body tier; when it will be read, density and footnotes are fine. Decide which deck you're making before you size the type.
+
+The matching **language tells** (the AI cliché phrasebook, "moat", em-dashes, and three structural patterns) live in [`writing.md`](../../writing.md) → Movement 6. The *why* is empirical: detectably-AI work is penalized by evaluators (Reif/Larrick/Soll 2025; Raj/Berg/Seamans 2026) and over-reliance homogenizes output across a room (Anderson 2024; Doshi & Hauser 2024; Moon 2025). In a pitch, distinctiveness is the asset.
+
+---
+
 ## 1. Design system tokens
 
 These tokens are **specific to slide decks** — they do NOT mirror `docs/css/tokens.css`. The personal site has its own tokens; this file is the source of truth for the slide deck only.
