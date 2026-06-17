@@ -15,7 +15,7 @@ df |>
   labs(x = "Referral share", y = NULL)
 ```
 
-For "one bar plot per platform", export each platform as its own file and combine with `subfigure` in LaTeX — do not `facet_wrap` into a grid.
+For "one bar plot per platform", export each platform as its own standalone figure (its own LaTeX `figure` float) — do not `facet_wrap` into a grid and do not combine with `subfigure`.
 
 ## Subject-anchored rank ramp
 
@@ -101,6 +101,19 @@ scale_x_date(date_breaks = "2 months", date_labels = "%Y-%m",
 `hjust = 1` right-anchors the label so its end sits under the tick mark; `margin(t = 6)` adds breathing room between the rotated text and the axis line. If labels still feel crowded after tilting, escalate to two-row labels rather than going steeper than 30°.
 
 For numeric-year axes (`2018, 2019, …`), use `scales::pretty_breaks(n = 6)` and let ggplot pick.
+
+## Axis text — number formatting
+
+Keep tick labels short and fixed-width — format with `scales::label_*`, never raw digit strings or scientific-notation tofu (`1e+05`). Pick by what the number is (SKILL.md rule 10, "Axis text"):
+
+```r
+scale_y_continuous(labels = label_percent(accuracy = 1))            # 0.42  -> 42%
+scale_y_continuous(labels = label_dollar())                         # 1500  -> $1,500
+scale_y_continuous(labels = label_number(scale_cut = cut_short_scale()))  # 1.2e6 -> 1.2M
+scale_y_continuous(labels = label_comma())                          # 1500000 -> 1,500,000
+```
+
+`cut_short_scale()` gives k / M / bn suffixes — use it whenever values run past ~10,000 so the axis doesn't show long digit strings or `2e+05`. Axis *titles* carry the unit in parentheses (`Daily visits (thousands)`), so don't repeat it on every tick.
 
 ## Direct line annotation
 
