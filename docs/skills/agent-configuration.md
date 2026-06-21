@@ -145,6 +145,7 @@ a convention the project does not actually use>
 - When writing new analysis: produce both the code and the output it generates.
 - When proposing a method change: state which result(s) it would change before editing.
 - When uncertain about a number or citation: flag with `[TODO]` rather than guess.
+- When compiling PDFs (LaTeX, Quarto, R Markdown): always clean the build byproducts afterward (`.aux`, `.log`, `.out`, `.toc`, `.synctex.gz`, `.fls`, `.fdb_latexmk`, `.bbl`, `.blg`, `.nav`, `.snm`). Keep only the `.pdf` and its source; never commit intermediates.
 
 **General principles** (adapted from [Karpathy's LLM-coding guidelines](https://x.com/karpathy/status/2015883857489522876) — use these when a novel situation isn't covered by the rules above):
 

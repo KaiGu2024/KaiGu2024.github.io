@@ -10,6 +10,20 @@ invocation: auto
 - Starting a new project and need a scoped set of relevant papers
 - Checking whether a finding has prior literature
 - Producing a bibliography for a draft or proposal
+- Finding citations to back specific claims already written in a draft
+
+---
+
+## Decomposing Claims Before Searching
+
+When the input is a set of claims to support — a draft paragraph, an introduction, or a `brainstorm` decomposition tree ([brainstorm.md](brainstorm.md)) — do **not** search the claim wholesale. A single sentence usually bundles a fact and an interpretation, and each needs a different kind of source. Split every claim into:
+
+- **Factual statements** — empirical or descriptive assertions ("adoption rose 30% since 2019", "the median firm has 12 employees"). Each needs a citation that *establishes the fact*: a dataset paper, an empirical study, or an official statistic.
+- **Argumentative statements** — interpretive, causal, or theoretical positions ("X raises Y because Z", "this effect reflects status competition"). Each needs literature that *supports the mechanism or position*.
+
+Run one search per statement (each feeds Path A or Path B below), then attach the verified citations back to the parent claim so the draft can cite each statement precisely. The per-statement citations feed [writing.md](writing.md).
+
+**Recency over foundational.** For every statement, prefer recent literature (within 5 years) over foundational high-impact papers. Cite **at most one** foundational/seminal paper per argument — the recent work carries the support; the single foundational paper anchors lineage only. Stacking multiple seminal papers on one argument is padding, not support.
 
 ---
 
@@ -178,6 +192,8 @@ For FABRICATED entries, the output is "FABRICATED — not found in Crossref". Do
 Unless the user specifies otherwise, apply these filters:
 
 **Publication year:** last 5 years (current year − 4 through current year). Extend to 10 years only if fewer than 10 relevant papers are found within 5.
+
+> **Recency over foundational.** Prefer recent literature (within 5 years) over foundational high-impact papers. When backing a specific argument, cite **at most one** foundational/seminal paper — the recent work carries the support; the single foundational paper anchors lineage only. Stacking multiple seminal papers on one argument is padding, not support. (See "Decomposing Claims Before Searching" above.)
 
 **Journal and venue whitelist:**
 
