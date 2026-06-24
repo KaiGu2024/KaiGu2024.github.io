@@ -21,7 +21,7 @@ When the input is a set of claims to support — a draft paragraph, an introduct
 - **Factual statements** — empirical or descriptive assertions ("adoption rose 30% since 2019", "the median firm has 12 employees"). Each needs a citation that *establishes the fact*: a dataset paper, an empirical study, or an official statistic.
 - **Argumentative statements** — interpretive, causal, or theoretical positions ("X raises Y because Z", "this effect reflects status competition"). Each needs literature that *supports the mechanism or position*.
 
-Run one search per statement (each feeds Path A or Path B below), then attach the verified citations back to the parent claim so the draft can cite each statement precisely. The per-statement citations feed [writing.md](writing.md).
+Run one search per statement (each feeds Path A or Path B below), then attach the verified citations back to the parent claim so the draft can cite each statement precisely. The per-statement citations feed [paper-writing](paper-writing/references/main-text.md).
 
 **Recency over foundational.** For every statement, prefer recent literature (within 5 years) over foundational high-impact papers. Cite **at most one** foundational/seminal paper per argument — the recent work carries the support; the single foundational paper anchors lineage only. Stacking multiple seminal papers on one argument is padding, not support.
 

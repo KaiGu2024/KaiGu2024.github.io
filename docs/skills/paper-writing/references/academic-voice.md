@@ -1,14 +1,8 @@
----
-name: academic-voice
-description: Use when the user wants prose revised to match a target academic journal's voice. Produces a side-by-side diff (original vs. revised) with a one-line justification for each change. Does not change content, claims, or numbers — only voice, tense, register, and sentence structure.
-allowed-tools: Read, Edit, Write
-invocation: auto
-disable-model-invocation: true
----
+# Academic Voice — journal house-style pass
 
-Revise prose to match a target journal's house voice — third-person past tense for *JM* findings, narrative-friendly first-person allowed in *JCR* discussions, equation-heavy formality for *Marketing Science*, and so on. Polish stage; runs on a draft after [writing.md](writing.md) has already gotten the structure and content right.
+Revise prose to match a target academic journal's voice — third-person past tense for *JM* findings, narrative-friendly first-person allowed in *JCR* discussions, equation-heavy formality for *Marketing Science*, and so on. Polish stage; runs on a draft after [main-text](main-text.md) has already gotten the structure and content right.
 
-This skill is `disable-model-invocation: true` — voice revision is a delicate operation that should run only when explicitly invoked (`/academic-voice` or by name). Implicit triggering on a vague prompt like "fix this paragraph" risks unwanted style changes the user did not ask for.
+**Run this pass only when explicitly asked.** Voice revision is a delicate operation. The parent `paper-writing` skill auto-triggers for drafting, but the voice pass should *not* fire on a vague prompt like "fix this paragraph" — implicit triggering risks unwanted style changes the user did not ask for. Treat it as opt-in: invoke it by name, or when the user asks for a final pass against a specific journal.
 
 ---
 
@@ -19,7 +13,7 @@ This skill is `disable-model-invocation: true` — voice revision is a delicate 
 - Tightening a discussion section that drifted into marketing-speak or industry jargon
 - Cover letters and responses to reviewers, where house voice matters as much as in the paper
 
-Do **not** use this skill for first-draft composition — that's [writing.md](writing.md). Do not use it to fix substantive content; if the argument is unclear, that's a content problem, not a voice problem.
+Do **not** use this pass for first-draft composition — that's [main-text](main-text.md). Do not use it to fix substantive content; if the argument is unclear, that's a content problem, not a voice problem.
 
 ---
 
@@ -85,25 +79,25 @@ Print the full revised text as a single block at the end so the user can copy-pa
 
 ---
 
-## How this composes with the other writing skills
+## How this composes with the rest of `paper-writing`
 
 ```
 brainstorm → literature-review → eda → report.md artifacts
                                           ↓
-                                       writing  ← draft (structure + content)
+                                     main text  ← draft (structure + content)
                                           ↓
-                                   academic-voice  ← polish for target journal
+                                  academic voice  ← polish for target journal
                                           ↓
-                                      revision  (if R&R arrives)
+                                     revision  (if R&R arrives)
 ```
 
 Sequential, not overlapping:
 
-- [writing.md](writing.md) gets the paper *structurally and substantively* right against a generic empirical-econ template — including Movement 7's strict-traceability mode for sections (especially Methods) where claim provenance matters more than narrative flow.
-- This skill does the final pass to match the *target journal's* house voice.
-- [revision-plan.md](revision-plan.md) handles referee responses if and when the R&R arrives.
+- [main-text](main-text.md) gets the paper *structurally and substantively* right against a generic empirical-econ template — including Movement 7's strict-traceability mode for sections (especially Methods) where claim provenance matters more than narrative flow.
+- This pass does the final pass to match the *target journal's* house voice.
+- [revision-plan](../../revision-plan.md) handles referee responses if and when the R&R arrives.
 
-The discipline-generic rules in `writing.md` Movement 5 ("Active voice, first person plural", "No throat-clearing", "Concrete numbers beat vague summary") and the journal-specific rules here are not redundant — the same sentence lands differently in *JM* vs. *MS* vs. *JCR*. Apply both, in order.
+The discipline-generic rules in `main-text.md` Movement 5 ("Active voice, first person plural", "No throat-clearing", "Concrete numbers beat vague summary") and the journal-specific rules here are not redundant — the same sentence lands differently in *JM* vs. *MS* vs. *JCR*. Apply both, in order.
 
 ---
 

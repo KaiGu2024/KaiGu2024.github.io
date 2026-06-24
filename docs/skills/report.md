@@ -92,7 +92,7 @@ Flag **data differences** (time period, sample size, selection mechanism, geogra
 
 ## Paper-section Templates
 
-The Writing Pipeline above structures an *internal report*. These templates structure *paper sections* for a journal submission — a different audience and stage. Pair with [`writing`](writing.md) §Movement 7 when strict claim traceability is required (the canonical case is Methods, where one invented detail sinks credibility).
+The Writing Pipeline above structures an *internal report*. These templates structure *paper sections* for a journal submission — a different audience and stage. Pair with [`paper-writing`](paper-writing/references/main-text.md) §Movement 7 when strict claim traceability is required (the canonical case is Methods, where one invented detail sinks credibility).
 
 | Section | Slots |
 |---|---|
@@ -100,7 +100,7 @@ The Writing Pipeline above structures an *internal report*. These templates stru
 | **Results** | Descriptive stats, main findings, robustness — use §3+ Analysis Sections above for slot-level structure |
 | **Discussion** | Summary, theoretical contribution, practical implications, limitations, future research |
 
-Slots without source material become explicit `[TODO]` placeholders, never silent omissions. The discipline that enforces this — `[CITE: handle]` for references, `[TODO: number]` for absent values, `file:line` provenance for every empirical claim — is in [`writing`](writing.md) §Movement 7.
+Slots without source material become explicit `[TODO]` placeholders, never silent omissions. The discipline that enforces this — `[CITE: handle]` for references, `[TODO: number]` for absent values, `file:line` provenance for every empirical claim — is in [`paper-writing`](paper-writing/references/main-text.md) §Movement 7.
 
 ---
 

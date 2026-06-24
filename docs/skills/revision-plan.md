@@ -1,6 +1,6 @@
 ---
 name: revision-plan
-description: Use when a referee + editor letter needs to be turned into an atomic, dependency-ordered revision plan — parse atomically (one task per reviewer ask, with verbatim quote and stable task ID), classify into five buckets (argumentative / empirical robustness / measurement / theory / presentation), order via DAG, execute, and quote back verbatim in the response letter. The inverse of writing.md.
+description: Use when a referee + editor letter needs to be turned into an atomic, dependency-ordered revision plan — parse atomically (one task per reviewer ask, with verbatim quote and stable task ID), classify into five buckets (argumentative / empirical robustness / measurement / theory / presentation), order via DAG, execute, and quote back verbatim in the response letter. The inverse of paper-writing.
 allowed-tools: Read, Edit, Write, Bash
 user-invocable: true
 invocation: auto
@@ -10,7 +10,7 @@ invocation: auto
 
 The referee report has arrived. The temptation is to read it once, panic, and start re-running specifications at random. The empirical-econ revision pipeline is structured enough to resist that. This skill turns a referee+editor letter into an **atomic, dependency-ordered revision plan** that you can execute, and that the response letter can quote back to verbatim.
 
-It is the inverse of [writing.md](writing.md): writing builds the paper from artifacts; the revision plan tears the paper apart against an external skeptic and rebuilds it. For revisions large enough that scheduling pays off (10+ tasks, or when the editor's bar requires a defensible roadmap), this skill also runs a computational DAG validation via NetworkX — see the **Advanced: computational DAG validation** section at the end. The validator is adapted from Jukka Sihvonen's [strategic-revision](https://github.com/jusi-aalto/strategic-revision) Claude Code skill.
+It is the inverse of [paper-writing](paper-writing/references/main-text.md): paper-writing builds the paper from artifacts; the revision plan tears the paper apart against an external skeptic and rebuilds it. For revisions large enough that scheduling pays off (10+ tasks, or when the editor's bar requires a defensible roadmap), this skill also runs a computational DAG validation via NetworkX — see the **Advanced: computational DAG validation** section at the end. The validator is adapted from Jukka Sihvonen's [strategic-revision](https://github.com/jusi-aalto/strategic-revision) Claude Code skill.
 
 ---
 
@@ -107,7 +107,7 @@ Three rules:
 
 Group response-letter sections by reviewer (R1, R2, AE), and within each reviewer follow the order of their original letter. The reviewer reads top-to-bottom against their own letter; do not make them re-sequence.
 
-Do not let Claude write these paragraphs without your decision per task. Comment-mode editing (per [writing.md](writing.md) Movement 6) applies — draft the paragraph yourself, then ask Claude for comments on clarity and tone, not for prose.
+Do not let Claude write these paragraphs without your decision per task. Comment-mode editing (per [paper-writing](paper-writing/references/main-text.md) Movement 6) applies — draft the paragraph yourself, then ask Claude for comments on clarity and tone, not for prose.
 
 ---
 
@@ -130,7 +130,7 @@ What this skill produces, fed into the next stage:
 - An **execution-block schedule** matched to coauthor calendars.
 - A **response-letter scaffold** with one paragraph per task, structured comment / response / location.
 
-The revised manuscript is then drafted against [writing.md](writing.md); new tables and figures follow [report.md](report.md) and [visualization.md](visualization.md); the response letter is the final artifact this skill owns.
+The revised manuscript is then drafted against [paper-writing](paper-writing/SKILL.md); new tables and figures follow [report.md](report.md) and [visualization.md](visualization.md); the response letter is the final artifact this skill owns.
 
 If a referee report returns a task list that fails Movement 3 (the DAG has cycles after two passes) or Movement 5 (more than one task is "TBD" at execution start), the plan is not yet ready. Do not start re-running specifications. Stay in revision planning.
 
