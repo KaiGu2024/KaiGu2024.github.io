@@ -83,6 +83,26 @@ evidence anchor (file:line, table, or DOI) in a comment or a parallel column, th
 delete the scaffolding once verified. An appendix written this way is far cheaper to
 audit later — for the author, for a referee, and for a replicator.
 
+## Register — the appendix is publishable, not a lab notebook
+
+The appendix ships to readers and referees; it is *not* the author-facing working report
+the [`report`](../../report.md) skill produces. Everything that belongs to the making-of —
+historical edit logs, "we first tried X, then switched to Y," dated TODOs,
+reviewer-response scaffolding, choices later reversed, and the same fact restated across
+sections — is internal and must be cut. Keep only the settled state and the evidence for it.
+
+- **Reader-facing, not process-facing.** State what the data / method / result *is*, not
+  the path you took to it. The one exception: a discarded choice that is itself a robustness
+  point a referee will ask about — report it as a result, not a diary entry.
+- **Brief and precise.** Exact thresholds, units, versions, and Ns — and nothing else. No
+  motivation, no throat-clearing, no restating the main text. The appendix is *consulted,
+  not read*; brevity is a feature.
+- **One paragraph, one topic.** Each paragraph — and each section — does exactly one job:
+  construct the sample, define the variables, detail the estimator, or report one robustness
+  family. A paragraph covering two should be split; a section with no concrete job should be cut.
+- **Every section earns its role via the coverage chain.** Tie each to the main-text claim
+  it supports. A section backing no claim is an ORPHAN (Mode A's term) — drop it or fold it in.
+
 ## Style
 
 The appendix is reference material, read non-linearly and out of order. Favor:

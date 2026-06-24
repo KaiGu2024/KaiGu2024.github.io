@@ -166,6 +166,25 @@ Per-type evidence-finding (full detail in `references/statement-taxonomy.md`):
 - **Procedural-reproducibility** → check the env file / README / lockfile / seed-setting
   line actually exists and matches.
 
+**Parallelize the grounding pass (optional, for a large appendix).** Once Step 2 (the
+evidence map) and Step 3 (the typed statement list) exist, the grounding verdicts are
+independent across statements — a textbook fan-out, the way `paper-review` runs its six
+reviewers. In a **single message**, launch one `general-purpose` subagent per statement
+*type* (or per appendix *section* when one type dominates), each read-only and each handed
+only what it needs: (a) its slice of the statement list, (b) the evidence map, and (c) the
+relevant reference — `references/methodology-standards.md` for methodological statements,
+`verify-citations` / Crossref for citational ones. Each subagent returns *only* its rows, in
+the verdict-table format — `appendix location | statement | type | SUPPORTED/UNSUPPORTED/MISMATCH | evidence (file:line / table cell / DOI)` — and you, the coordinator, merge them.
+
+Two things stay single-threaded. **Coverage** (matching the required-support set to appendix
+items, the next sub-step) needs the whole picture, not a per-type slice. And the **final
+merge** catches what no single subagent can see — the same value surfacing under two types
+(a sample N is both definitional and factual), or two slices disagreeing. As in
+`paper-review`, if a subagent returns nothing or malformed output, insert a placeholder row
+(`<type> — agent returned no output`) and surface it in the report; a missing slice must be
+visible, never silently dropped and never mistaken for "all SUPPORTED." Skip the fan-out
+entirely for a short appendix — the dispatch overhead isn't worth it.
+
 ### Step 5 — Report the audit
 
 Lead with the two tables that mirror the chain: a **coverage table** (main-text demand →
@@ -235,7 +254,10 @@ each statement already knowing its evidence anchor, so the audit passes by const
    any new citation through `verify-citations` before it lands.
 7. **Format** — tables for definitions/parameters/sample-waterfalls (`tables` skill),
    self-contained captions, explicit cross-refs to the main-text equation/table each
-   section supports. Prose register follows the `paper-writing` skill.
+   section supports. Prose register follows the `paper-writing` skill. Write it as
+   publishable, reader-facing material — strip internal-report artifacts (edit logs,
+   process narration, redundancy), keep it brief, one paragraph per topic; see
+   `references/appendix-conventions.md` § Register.
 
 ## Composition with sibling skills
 
@@ -262,6 +284,10 @@ re-implementing them:
 - **One statement, one verdict.** Resist grading whole sentences — a sentence that's 80%
   right reads as "fine" and the 20% mismatch slips through. The atomic split is what
   catches the buried wrong cluster level.
+- **Fan out the grounding pass when the appendix is large.** Per-statement verdicts are
+  independent, so dispatch them across `general-purpose` subagents (see Step 4's
+  "Parallelize the grounding pass" note) — but keep coverage and the final merge
+  single-threaded, and surface any subagent that returns nothing.
 - **Stay in your lane on validity.** "Is this the right method?" is `analysis-review`'s
   job. This skill answers "does the appendix say what the code/data/literature actually
   show?"
