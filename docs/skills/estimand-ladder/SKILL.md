@@ -35,6 +35,25 @@ Pin down the slots from the user's project. If any are unstated, ask — a wrong
   - Rung 3 = **mechanical** ("*recode* all as a mother")
   - Keep the treated/comparison glosses grammatically parallel within each rung.
 
+### 1b. …or extract the slots from a paper (TeX or PDF)
+If the user points at a paper instead of describing the design, read the slots out of it. Every slot lives in the **data / sample / empirical-strategy / specification** sections and the regression equation — not the intro or results. Extraction *infers* the contrast, so this path always ends at the confirmation step below, never straight at compile.
+
+**TeX source — preferred, read it directly (no conversion).** `Grep` for the specification: `\begin{equation}`, `reg`/`areg`/`\hat`, "we estimate", "the coefficient on", `\beta`, the dependent-variable and treatment macro names, and the sample-definition sentence. TeX hands you exact variable names and the reference category, which is precisely what the slots need.
+
+**PDF only — convert to text first, then read.** Equation fidelity does not matter here (the slots are prose), so the lightest tool wins:
+```bash
+pdftotext -layout paper.pdf paper.txt   # poppler, already installed; -layout keeps columns readable
+```
+Then `Grep`/`Read` `paper.txt` for the same cues as the TeX route. Only reach for a heavier converter if `pdftotext` garbles the sections you need — e.g. `markitdown paper.pdf > paper.md` (needs `pip install 'markitdown[pdf]'`) or MinerU (the `slide` skill's route, best for layout+equation reconstruction but heavyweight). Don't install either unless the light path actually fails.
+
+**Map what you find onto the slots:**
+- treatment factor + two levels ← the key regressor and its contrast / reference category
+- conditioning factor + fixed level ← a covariate the contrast is evaluated *within* (if the paper conditions on one). If it doesn't, this is the no-conditioning-factor variant — a scaffold edit, see below.
+- unit / outcome ← the sample unit and the dependent variable
+- six glosses ← **write these yourself** from the paper's framing. The paper won't phrase them as counterfactual / factual / mechanical, so paraphrase one per rung; that register shift is your contribution, not the paper's.
+
+**Then confirm before compiling.** Show the user the filled macro block — treatment, both levels, conditioning factor + fixed level, unit, outcome, all six glosses — and let them correct it. A flipped reference category or a covariate mistaken for the treatment makes the figure confidently wrong.
+
 ### 2. Copy and edit only the macro block
 Copy the template to wherever the figure lives in the user's project (e.g. their paper's `figures/` directory), then edit **only** the block between `EDIT HERE` and `END EDIT HERE`. Everything below `DO NOT EDIT BELOW` is the scaffold — overbraces, the conditioning-expectation array, the underbraces on rung 3 — and should not be touched.
 
