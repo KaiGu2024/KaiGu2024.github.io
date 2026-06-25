@@ -1,6 +1,6 @@
 ---
 name: estimand-ladder
-description: Generate the Lundberg–Johnson–Stewart (2021, ASR) three-step "estimand ladder" figure in LaTeX — theoretical estimand → empirical estimand (under an identification design) → estimation strategy — laid out for a specific research design. Produces a compilable standalone .tex (and PDF) where the contrast is shown as potential outcomes, then conditional expectations, then fitted predictions. Use this whenever the user mentions an estimand, a theoretical or empirical estimand, the "what is your estimand" framework, a target quantity, what a regression "actually estimates," or wants a figure/diagram connecting theory → identification → estimation. The treatment factor and the conditioning factor are parameterized (the motherhood/employment example is only the default), so it adapts to any causal contrast — switch them to your own treatment, comparison level, conditioning variable, unit, and outcome. Make sure to reach for this skill even when the user just says "draw the estimand ladder," "make the estimand figure," or "lay out my estimand for the paper" without naming Lundberg et al.
+description: Generate the Lundberg–Johnson–Stewart (2021, ASR) three-step "estimand ladder" figure in LaTeX — theoretical estimand → empirical estimand (under an identification design) → estimation strategy — laid out for a specific research design. Produces a compilable standalone .tex (and PDF) where the contrast is shown as potential outcomes, then conditional expectations, then fitted predictions. Use this whenever the user mentions an estimand, a theoretical or empirical estimand, the "what is your estimand" framework, a target quantity, what a regression "actually estimates," or wants a figure/diagram connecting theory → identification → estimation. The treatment factor and the conditioning factor are parameterized (the motherhood/employment example is only the default), so it adapts to any causal contrast — switch them to your own treatment, comparison level, conditioning variable, unit, and outcome. Make sure to reach for this skill even when the user just says "draw the estimand ladder," "make the estimand figure," or "lay out my estimand for the paper" without naming Lundberg et al. It has a second mode beyond drawing the figure: INTERPRETING an estimand. Trigger it whenever the user is reading a regression coefficient, a results table, or an empirical claim and wants to know what quantity it actually identifies — "what does this coefficient really estimate," "is this the ATE or something else," "what's the estimand here," "how should I read this result," "does this regression answer my question," whether an effect is a variance-weighted average — apply the estimand-audit lens even when no figure is requested.
 allowed-tools: Read, Edit, Write, Bash
 invocation: manual
 ---
@@ -16,6 +16,13 @@ Renders the three-step figure from **Lundberg, Johnson & Stewart (2021), "What I
 | 3 | Learn from data — *select an estimation strategy* | average of **fitted predictions** $\widehat{\mathbb{E}}(Y\mid\dots)$ | statistical **evidence** |
 
 The whole point of the figure is that the *target quantity* is one thing held fixed across all three rungs; only the justification changes. Keep that invariant when adapting it.
+
+## Two modes
+
+Same framework, two jobs. Pick by what the user is doing:
+
+- **Build the ladder** — they want the figure for a specific design. Follow *The asset* → *Workflow* below.
+- **Interpret an estimand** — they're reading a regression, a results table, or a claim and want to know *what quantity it actually identifies* and whether it's the one they care about. No figure needed; go straight to *Interpreting an estimand*. Offer to draw the ladder afterward only if making the target explicit would help.
 
 ## The asset
 
@@ -90,6 +97,26 @@ The default has one treatment factor and one held-fixed conditioning factor. Com
 - **No conditioning factor** (a plain treatment contrast): drop the `\Cfac`/`\Clev` row from the `\condexp` array in the scaffold and remove the second argument from the rung-1 potential outcomes. This is a scaffold edit — flag it to the user rather than doing it silently.
 - **Continuous treatment / dose**: the two-level contrast doesn't fit cleanly; tell the user the ladder figure assumes a discrete contrast and offer to render two representative levels instead.
 - **More covariates**: the `Covariates X̄ = Observed x̄ᵢ` row already stands in for the full covariate vector; no change needed.
+
+## Interpreting an estimand (no figure)
+
+The framework's payload for reading results: **a coefficient is an *estimator*, not the quantity of interest.** Interpreting one means recovering the estimand it targets, then asking whether that's the estimand the user actually wants. Given a regression, a results table, or an empirical claim, walk the checks below — report what you find and flag the traps; never invent numbers, and say plainly when the paper/output gives you too little to judge.
+
+1. **Name the target — "whose effect, aggregated how?"** A theoretical estimand is a *unit-level quantity* averaged over a *target population*. ATE, ATT, and CATE differ only in that population/weighting. Before reading magnitude, state which one the coefficient is an average over — a number can be large for the treated and ≈0 for the population, and both are honestly "the effect."
+
+2. **Infinite-data test.** Ask: with the whole population and every potential outcome observed, what number would this compute? If you can't write it down, the target is undefined and the coefficient is interpreting *itself* (whatever the model emits) rather than answering a question. Fast triage for "is this result even about something."
+
+3. **Estimator weighting under heterogeneity** (Angrist 1998; Aronow–Samii 2016, foregrounded by the paper). OLS-with-controls does **not** return the ATE when effects vary — it returns a *variance-weighted* average that up-weights strata where treatment is most variable. Matching, IPW, and regression target *different* weighted estimands. When effects plausibly differ across segments (usually, in marketing), flag that the reported number is an implicit weighting and ask whether it matches the population the decision is about.
+
+4. **Identification gap.** The causal content lives in the assumptions bridging empirical → theoretical estimand (conditional ignorability, overlap/positivity, SUTVA/consistency), *not* in which regression was run. A perfectly estimated empirical estimand is still the wrong number if overlap fails or a confounder is uncontrolled. Interpret by naming what must be true, not by re-reading the spec.
+
+5. **Table 2 fallacy** (Westreich–Greenland 2013). Coefficients on *control* variables are not effects and must not be read as a ranked "what matters" list — each is conditioned on a different, often nonsensical, adjustment set. A garbage-can regression has no single estimand at all.
+
+6. **Descriptive estimands count too.** "The X gap" / "the loyalty premium" is also an estimand: it needs an explicit population and adjustment set or it's uninterpretable. Apply the same discipline to descriptive claims, not just causal ones.
+
+7. **Target population / transportability.** The estimand pins down *to whom the number applies*. A clean effect in the sample is silent about a different population of interest absent a transportability argument. Ask whether the estimand's population is the one the user cares about.
+
+The throughline mirrors the figure: **define the target before reading the estimate**, so the model serves the question instead of the question being reverse-engineered from whatever the model produced. (For a full results-table referee pass, this complements `analysis-review` and `paper-review`; this skill is the estimand lens specifically.)
 
 ## Sync to the active skill library
 
