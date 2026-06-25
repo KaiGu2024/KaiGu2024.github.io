@@ -1,0 +1,104 @@
+% =====================================================================
+%  ESTIMAND LADDER  —  Lundberg, Johnson & Stewart (2021), ASR
+%  "What Is Your Estimand? Defining the Target Quantity Connects
+%   Statistical Evidence to Theory."  doi:10.1177/00031224211004187
+%
+%  A three-step figure: theoretical estimand -> empirical estimand
+%  (under an identification design) -> estimation strategy.
+%
+%  TO ADAPT THIS TO YOUR DESIGN, edit only the macro block below.
+%  Everything under "DO NOT EDIT BELOW" is the fixed scaffold.
+%
+%  Compile (TinyTeX on this repo, from the file's directory):
+%    TINYTEX="/c/Users/kaizhu/AppData/Roaming/TinyTeX/bin/windows"
+%    PATH="$TINYTEX:/c/Windows/System32" "$TINYTEX/pdflatex.exe" \
+%      -interaction=nonstopmode estimand-ladder.tex
+% =====================================================================
+\documentclass[11pt]{article}
+\usepackage[paperwidth=28cm,paperheight=18.5cm,margin=1.1cm]{geometry}
+\usepackage{amsmath,amssymb}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+
+% ============================ EDIT HERE ==============================
+% --- Treatment factor: the contrast that defines the estimand -------
+\newcommand{\Tfac}{Motherhood}      % factor name (label in the conditioning bracket)
+\newcommand{\Ttreat}{Mother}        % treated level
+\newcommand{\Tctrl}{Non-mother}     % control / comparison level
+
+% --- Conditioning factor: held fixed across both arms ---------------
+\newcommand{\Cfac}{Employment}      % factor name
+\newcommand{\Clev}{Employed}        % level it is fixed at
+
+% --- Unit and outcome -----------------------------------------------
+\newcommand{\unit}{woman}           % singular unit
+\newcommand{\units}{women}          % plural unit
+\newcommand{\outcome}{Y}            % outcome symbol
+
+% --- Brace glosses (plain-English reading of each term) -------------
+%  Keep the two columns grammatically parallel; the register shifts
+%  per step: counterfactual -> factual -> mechanical.
+\newcommand{\treatPot}{if she were an employed mother}        % step 1, treated
+\newcommand{\ctrlPot}{if she were an employed non-mother}     % step 1, control
+\newcommand{\treatReal}{actually are mothers}                 % step 2, treated
+\newcommand{\ctrlReal}{actually are not mothers}              % step 2, control
+\newcommand{\treatRecode}{recode all as a mother}             % step 3, treated
+\newcommand{\ctrlRecode}{recode as not a mother}              % step 3, control
+% ========================== END EDIT HERE ===========================
+
+
+% ========================= DO NOT EDIT BELOW ========================
+% Conditioning expectation: #1 = operator (E or \widehat E), #2 = treatment level
+\newcommand{\condexp}[2]{%
+  #1\mathopen{}\left(\,\outcome \,\middle|\,
+  \begin{array}{rcl}
+    \Tfac                  & = & #2\\[2pt]
+    \Cfac                  & = & \Clev\\[2pt]
+    \text{Covariates }\bar X & = & \text{Observed }\bar x_i
+  \end{array}\right)}
+
+\begin{document}
+\large
+
+% ----------------------------- STEP 1 -------------------------------
+{\bfseries 1) Set the target.} Define a theoretical estimand.%
+\hfill Requires substantive \textbf{argument}.\\[2pt]
+Average difference in the \textbf{potential outcome} each \unit\ $i$ would realize
+\[
+\tau \;=\; \frac{1}{n}\sum_{i=1}^{n}\left(
+  \overbrace{\outcome_i(\Ttreat,\ \Clev)}^{\text{\treatPot}}
+  \;-\;
+  \overbrace{\outcome_i(\Tctrl,\ \Clev)}^{\text{\ctrlPot}}
+\right)
+\]
+
+\vspace{1.2em}
+
+% ----------------------------- STEP 2 -------------------------------
+{\bfseries 2) Link to observables.} Define an empirical estimand under a certain identification design.%
+\hfill Requires conceptual \textbf{assumptions}.\\[2pt]
+Average difference in the \textbf{realized outcomes} of \units\ with the covariates $\bar x_i$ of \units\ $i$ who
+\[
+\theta \;=\; \frac{1}{n}\sum_{i=1}^{n}\left(
+  \overbrace{\condexp{\mathbb{E}}{\Ttreat}}^{\text{\treatReal}}
+  \;-\;
+  \overbrace{\condexp{\mathbb{E}}{\Tctrl}}^{\text{\ctrlReal}}
+\right)
+\]
+
+\vspace{1.2em}
+
+% ----------------------------- STEP 3 -------------------------------
+{\bfseries 3) Learn from data.} Select an estimation strategy.%
+\hfill Requires statistical \textbf{evidence}.\\[2pt]
+Average difference in the \textbf{regression prediction} at the covariates $\bar x_i$ of \units\ $i$ if
+\[
+\underbrace{\hat\theta}_{\substack{\text{estimate of}\\\text{the estimand}}}
+ \;=\; \frac{1}{n}\sum_{i=1}^{n}\left(
+  \underbrace{\overbrace{\condexp{\widehat{\mathbb{E}}}{\Ttreat}}^{\text{\treatRecode}}}_{\text{estimated }\widehat{\outcome}_i(\Ttreat)}
+  \;-\;
+  \underbrace{\overbrace{\condexp{\widehat{\mathbb{E}}}{\Tctrl}}^{\text{\ctrlRecode}}}_{\text{estimated }\widehat{\outcome}_i(\Tctrl)}
+\right)
+\]
+
+\end{document}
