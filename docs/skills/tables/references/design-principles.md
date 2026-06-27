@@ -77,7 +77,7 @@ The reader scanning the table sees words; the reader cross-checking the model fi
 
 **White space over shading and boxes.** Don't shade, box, or color cells to create structure; let alignment and spacing do it. The one defensible use of shading is light zebra-striping in a very wide table to help the eye track a row across — and even then, say so in the notes. Never use reversed type (white on dark).
 
-**Title above, neutral, unique.** The caption sits above the table, states what the table shows without editorializing the finding ("Effect of advertising on sales," not "Advertising strongly boosts sales"), and is unique enough to cite. Notes go below, ordered: data source → cross-references → abbreviation and star definitions.
+**Title above, neutral, unique.** The caption sits above the table, states what the table shows without editorializing the finding ("Effect of advertising on sales," not "Advertising strongly boosts sales"), and is unique enough to cite. Notes go below as a **typed, bottom-anchored block**, in reading order: scope/source → cross-references → abbreviation definitions → SE/clustering key → significance legend. The last two are anchors — the parenthetical SE/clustering key is second-to-last and the star legend is dead last — because the stars are computed from those SEs, so the reader must learn what the parentheses hold before the stars mean anything. The practical consequence (the one people get wrong): a note added later is inserted *by type* above those anchors, not appended after the legend. See the SKILL.md "Notes block" section.
 
 ---
 

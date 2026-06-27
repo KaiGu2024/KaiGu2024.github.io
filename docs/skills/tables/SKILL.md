@@ -43,7 +43,7 @@ A table is read, not glanced at: it exists to let the reader find an exact numbe
 - **Align for scanning.** Right-align (or decimal-align) numbers, left-align text, header alignment matches its column. Sentence case — never Title Case or ALL CAPS.
 - **Declutter.** booktabs rules only (`\toprule` / `\midrule` / `\bottomrule`), thin and light; **no vertical rules, ever**; group rows with indented stubs and trimmed `\cmidrule(lr)`, not lines; white space over shading.
 - **One job per row block.** SEs in parentheses directly under their coefficient; demote controls to a labeled panel or an auxiliary table rather than burying the headline rows.
-- **Title above, neutral.** Notes ordered source → references → abbreviation/star definitions.
+- **Title above; notes are a typed, bottom-anchored block.** Caption above the table, neutral. The notes below are ordered by note *type*, with two fixed anchors at the foot — the significance legend on the very last line and the SE/clustering ("…in parentheses") key just above it. Additions slot in by type; they never append past those anchors. See [The Notes block](#the-notes-block) below.
 
 ---
 
@@ -57,6 +57,22 @@ A table is read, not glanced at: it exists to let the reader find an exact numbe
 | *Quarterly Journal of Economics* | Yes                    | Same as AER                      | Extra panel separator                                              |
 
 ---
+
+## The Notes block
+
+A table's notes are a **typed, ordered block, not a running log** — so the question "where does this new note go?" has a deterministic answer, and it is almost never "at the end." The foot of the block is reserved for two anchors readers expect to find there:
+
+- **Last line — the significance legend.** `*** p<0.01, ** p<0.05, * p<0.1` (per the journal's cutoffs above). It is a fixed reading key; it always sits on the very bottom line, alone.
+- **Second-to-last — the parenthetical key.** What the parentheses hold and the SE type/clustering: *"Standard errors clustered at the \<level\> in parentheses."* It precedes the legend because the stars are computed from these SEs — the reader has to know what the parentheses contain before the stars decode to anything.
+
+Everything else is inserted *above* those two anchors, in reading order:
+
+1. **Scope** — estimator, sample, unit of observation, dependent variable (if not already stated in the caption).
+2. **Specification** — fixed effects, weighting, transformations, which controls are included.
+3. **Definitions** — expand abbreviations and constructed measures (ask the user; never guess — non-negotiable rule 3).
+4. **Cross-references / source** — `Source: …`; "See Table 3 for …".
+
+So "add a note that the sample drops 2020" slots into **Scope/Specification near the top** — not after the legend. "We now cluster at the state level" **replaces the existing parenthetical key** in the second-to-last slot rather than adding a line. And a new abbreviation joins the **Definitions** group, not the bottom. When editing an existing notes block, find the anchor lines first, then insert relative to the typed groups above them — appending blindly is the common error this rule exists to prevent.
 
 ## Workflow
 
@@ -114,8 +130,11 @@ N        & ... & ... \\
 $R^2$    & ... & ... \\
 \bottomrule
 \end{tabular}
-\begin{tablenotes}
-\item \textit{Notes:} <from source / user>
+\begin{tablenotes}[flushleft]
+\small
+\item \textit{Notes:} <scope, specification, definitions, source — in reading order, from source/user>
+\item Standard errors clustered at the <level> in parentheses.        % parenthetical key — second-to-last
+\item ${}^{*}\,p<0.1$, ${}^{**}\,p<0.05$, ${}^{***}\,p<0.01$          % significance legend — ALWAYS the last line
 \end{tablenotes}
 \end{table}
 ```

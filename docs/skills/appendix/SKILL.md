@@ -113,6 +113,19 @@ the cue patterns and a worked example.
 Keep the statements in a working list (a table) — each row is one statement, its type,
 the parent sentence, and (to be filled) evidence + verdict.
 
+**Don't skip the table and figure notes.** Running prose is the easy part; the small print
+under each appendix table/figure is the densest claim source and the one most often missed —
+a clean-reading body sits above a note with the wrong cluster level or a stale star cutoff.
+Decompose every notes block the same way, expecting several types in a few lines: the
+SE/clustering key ("clustered at the firm level") → **methodological** (verify against the
+estimation call); the significance legend ("\*\*\* p<0.01…") → **methodological/definitional**
+(must match both the journal convention *and* the actual test); the sample/N line → 
+**factual-quantitative** (re-derive); "includes firm & year FE" → **methodological**;
+"Source: …" / "see Table 3" → **citational / consistency**. The tables skill documents the
+canonical bottom-anchored notes order (`../tables/SKILL.md` → "The Notes block"); use it for
+coverage too — a results table whose note lacks the SE/clustering key or the legend is a
+**COVERAGE GAP**, not just a style nit.
+
 ### Step 4 — Trace the chain: coverage, grounding, consistency
 
 Now connect the three lists — the required-support set (Step 1), the evidence map (Step
