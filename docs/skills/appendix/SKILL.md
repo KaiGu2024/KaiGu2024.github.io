@@ -141,8 +141,11 @@ main text dropped a result; note it, lightly).
 **Grounding (appendix → evidence) and consistency.** For each appendix statement, find its
 evidence and assign one of three verdicts — applied the way `verify-citations` classifies
 and the way `analysis-cleanup` refuses to silently change a number. Where a statement also
-appears in the required-support set with a value (e.g. the sample N), check the *three*
-match: main text == appendix == data.
+appears in the required-support set with a value (e.g. the sample N), check that the chain
+matches *in precedence order*: **main text == appendix == the displayed figure/table** (all
+reader-facing, must agree to the printed digit) **== the results-dir output (CSV/log)
+within rounding == raw data on re-derivation**. The tolerance widens as you move upstream —
+see the factual-quantitative rule below.
 
 - **SUPPORTED** — evidence confirms it; record the `file:line`, table cell, or DOI.
 - **UNSUPPORTED** — no evidence found; record what you searched and where. (Possibly true,
@@ -156,10 +159,25 @@ same discipline as `analysis-cleanup`'s "never silently changes a number."
 
 Per-type evidence-finding (full detail in `references/statement-taxonomy.md`):
 
-- **Factual-quantitative** → re-derive when cheap. If the data file is present, load it
-  and recompute the count/share/moment; compare to the stated value within rounding. If
-  only a log/table is present, read it and note the number is second-hand. A number with
-  no reproducible source is UNSUPPORTED.
+- **Factual-quantitative** → ground against the *most reader-facing* artifact first, then
+  upstream, with a tolerance that widens at each step:
+  1. **The displayed figure/table the prose cites** is the primary referent. Prose and the
+     figure are both what the reader sees, so they must agree **to the printed digit** — a
+     disagreement here is a real **MISMATCH** the reader could catch (the text says 0.34,
+     the plotted bar is 0.28).
+  2. **The results-dir output (CSV/log) that produced the figure** is the secondary check.
+     Here a small last-digit gap (≈0.1, or ±half the smallest displayed unit) is *display
+     rounding, not a mismatch* — the CSV may carry 0.284 while the figure rounds to 0.3.
+     Flag only when the difference exceeds display rounding, or when the figure can't be
+     traced to any results file at all.
+  3. **Re-derive from raw data only when cheap**, and treat it with the widest tolerance —
+     pipeline rounding, weighting, and package-version drift accumulate, so a small delta
+     against your own recompute is expected, not a finding.
+
+  So the verdict logic is: prose must match the displayed artifact exactly; the artifact
+  must match the results file within rounding; raw re-derivation is corroboration, not the
+  authority. A number that traces to no figure, table, or results file is UNSUPPORTED;
+  one that *contradicts* the figure it cites is MISMATCH even if some CSV happens to agree.
 - **Definitional** → find the construction line (`treated = rd_exp > 0`) or codebook row;
   SUPPORTED only when prose and code encode the *same* rule (same threshold, direction,
   population).

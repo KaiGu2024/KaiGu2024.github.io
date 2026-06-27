@@ -63,16 +63,18 @@ A table is read, not glanced at: it exists to let the reader find an exact numbe
 A table's notes are a **typed, ordered block, not a running log** — so the question "where does this new note go?" has a deterministic answer, and it is almost never "at the end." The foot of the block is reserved for two anchors readers expect to find there:
 
 - **Last line — the significance legend.** `*** p<0.01, ** p<0.05, * p<0.1` (per the journal's cutoffs above). It is a fixed reading key; it always sits on the very bottom line, alone.
-- **Second-to-last — the parenthetical key.** What the parentheses hold and the SE type/clustering: *"Standard errors clustered at the \<level\> in parentheses."* It precedes the legend because the stars are computed from these SEs — the reader has to know what the parentheses contain before the stars decode to anything.
+- **Second-to-last — the parenthetical key.** What the parentheses hold and the dispersion details: *what's in parentheses* (SE, t-stat, or CI), the *SE type* (robust / clustered / bootstrap, with reps), the *clustering level*, and the *number of clusters*. E.g. *"Robust standard errors clustered at the firm level (142 clusters) in parentheses."* It precedes the legend because the stars are computed from these SEs — the reader has to know what the parentheses contain before the stars decode to anything.
 
-Everything else is inserted *above* those two anchors, in reading order:
+Everything else is inserted *above* those two anchors, grouped by type. A complete note covers far more than stars and clustering — work down this menu and include whatever applies:
 
-1. **Scope** — estimator, sample, unit of observation, dependent variable (if not already stated in the caption).
-2. **Specification** — fixed effects, weighting, transformations, which controls are included.
-3. **Definitions** — expand abbreviations and constructed measures (ask the user; never guess — non-negotiable rule 3).
-4. **Cross-references / source** — `Source: …`; "See Table 3 for …".
+1. **Scope** — what the table reports and over what: estimator/method (OLS, 2SLS, logit, marginal effects), sample and population, time period, unit of observation, N (and any exclusions), and the dependent variable if it isn't in the caption.
+2. **Specification** — fixed-effect and control sets included, weighting (sample weights, IPW), coefficient scale/transform (logs, standardized, percentage points), winsorizing/trimming, and the baseline or DV mean that *sizes* the coefficients.
+3. **Definitions** — expand abbreviations and constructed measures; say what any reference line, cutoff, or shaded region means (ask the user; never guess — non-negotiable rule 3).
+4. **Provenance & cross-refs** — `Source: …`; "See Table 3 / column (2)"; data vintage or replication pointer.
 
 So "add a note that the sample drops 2020" slots into **Scope/Specification near the top** — not after the legend. "We now cluster at the state level" **replaces the existing parenthetical key** in the second-to-last slot rather than adding a line. And a new abbreviation joins the **Definitions** group, not the bottom. When editing an existing notes block, find the anchor lines first, then insert relative to the typed groups above them — appending blindly is the common error this rule exists to prevent.
+
+**Figures use the same note, written in the TeX caption/note.** The visualization skill keeps text *out* of the image, so a figure's "note" lives in the LaTeX float, not the PNG. Same menu as above, plus figure-specific items: what error bars or bands represent (95% CI, ±1 SE, bootstrap reps) and the SE type behind them; binning / bandwidth / kernel / smoother; what each series, color, or reference line is when not directly annotated; N and number of clusters; axis units or scale when non-obvious. See [`../visualization/SKILL.md`](../visualization/SKILL.md).
 
 ## Workflow
 
