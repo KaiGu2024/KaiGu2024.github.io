@@ -111,6 +111,29 @@ Reading 5–50 transcripts fills the main conversation context fast and the raw 
 
 ---
 
+## Explore Semantic Structure First (Optional Pre-Step)
+
+Before committing to a label set, embed the text and inspect its semantic structure — it reveals natural clusters, surfaces mislabeled categories, and tells you whether the groups you plan to annotate are even separable.
+
+```python
+from sentence_transformers import SentenceTransformer
+import umap
+import matplotlib.pyplot as plt
+
+model = SentenceTransformer("all-MiniLM-L6-v2")
+embeddings = model.encode(df["text"].to_list(), show_progress_bar=True)  # (N, 384)
+
+xy = umap.UMAP(n_components=2, random_state=42).fit_transform(embeddings)
+
+fig, ax = plt.subplots(figsize=(8, 6))
+ax.scatter(xy[:, 0], xy[:, 1], alpha=0.3, s=5)
+fig.savefig("text_umap.png", dpi=150)
+```
+
+Color the scatter by a categorical variable to check whether semantic clusters align with the groups you intend to label. If known groups do not separate in embedding space, an LLM is unlikely to separate them either — revisit the codebook before annotating.
+
+---
+
 ## Label Generation
 
 **Structured output** (recommended for downstream use):

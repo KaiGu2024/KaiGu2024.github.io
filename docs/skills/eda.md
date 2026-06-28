@@ -221,7 +221,7 @@ for col in df.select(cs.string()).columns:
 
 ## Step 3b — Text Column Exploration
 
-For datasets with text columns, see [Text-as-Data](text-as-data.md): surface inspection, embeddings + UMAP, GPT measurement (Rating / Classification / Extraction / Ranking / Discovery), and validation before scaling.
+For datasets with text columns, see [LLM Annotation](llm-annotation.md): embedding + UMAP exploration of semantic structure, LLM-based labeling with structured outputs, and validation against human labels before scaling.
 
 ---
 
