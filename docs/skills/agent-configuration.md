@@ -1,6 +1,6 @@
 ---
 name: agent-configuration
-description: Use when configuring Claude Code for a research project — installing the CLI, writing CLAUDE.md (with the research-specific Data Provenance, Citation Policy, and AI Disclosure sections), customizing the status line, managing context with /compact, and delegating to subagents. Inspects the project directory to populate CLAUDE.md sections from real evidence rather than boilerplate.
+description: Use when configuring Claude Code for a research project — installing the CLI, writing CLAUDE.md (with the research-specific Data Provenance and Citation Policy sections), keeping CLAUDE.md and README in sync as the project evolves, customizing the status line, managing context with /compact, and decomposing tasks across parallel subagents. Inspects the project directory to populate CLAUDE.md sections from real evidence rather than boilerplate.
 allowed-tools: Read, Edit, Write, Bash, Glob, Grep
 invocation: manual
 ---
@@ -63,13 +63,21 @@ Then restart the terminal and verify with `claude --version`.
 
 **Compaction survival test:** Read each line in CLAUDE.md and ask "if this disappeared after `/compact`, would the agent make a wrong decision?" If no, cut it.
 
+### Keeping CLAUDE.md and README in sync (active development)
+
+CLAUDE.md and an active-development README are two living docs with two different jobs. Keep them separate — do not let either drift into the other's role.
+
+- **CLAUDE.md — brief, current-state only, no historical logs.** It records what is true *now*: layout, constraints, conventions, the subagent inventory. It survives `/compact`, so every line costs context on every turn. Never let it accumulate a changelog or a record of what *used to be* true — when something changes, rewrite the line to the new state and move on.
+- **README.md (active development) — the detailed living doc + a dated update log.** This is where depth lives: extended rationale, design notes, and a changelog with dated entries describing what changed and why. It is *not* loaded into context automatically, so length is cheap. (This is distinct from the *replication-package* README — the public handoff — covered later in this skill.)
+
+**Sync rule.** When a change significantly alters project structure, conventions, or status, update **both**: refresh the affected current-state line(s) in CLAUDE.md, and append a dated entry to the README changelog. Minor or in-progress edits (debugging, exploratory commits, half-finished refactors) do **not** trigger an update — only changes a future session would otherwise misread.
+
 ### Research-project CLAUDE.md (mandatory sections)
 
-Generic CLAUDE.md guidance is not enough for a research project. Reproducibility, citation integrity, and AI disclosure are research-specific concerns that the model will not enforce on its own — they have to be written down. **Three sections are non-negotiable** for any dissertation, paper replication, or working-paper repo:
+Generic CLAUDE.md guidance is not enough for a research project. Reproducibility and citation integrity are research-specific concerns that the model will not enforce on its own — they have to be written down. **Two sections are non-negotiable** for any dissertation, paper replication, or working-paper repo:
 
 1. **Data Provenance.** Sources, access (license, embargoes, how to re-obtain raw data), versioning (how data versions are tracked). Research projects without data lineage become unreproducible the moment the original author leaves. If the directory has no data folder yet, leave the section as a checklist for the user to fill in — but include the heading.
 2. **Citation Policy.** Every cited paper must have a verified DOI in `references.bib`. Reference the [`literature-review`](literature-review.md) skill as the verification path — Path A (OpenAlex search → Crossref DOI verification) for indexed work, Path B (post-hoc DOI / title / author / year / venue checklist) for grey literature.
-3. **AI Disclosure policy.** Track AI-assisted commits with the `[AI]` tag in commit messages. Reference the `ai-disclosure-block` skill for end-of-pipeline disclosure generation. Even a project that does "minimal" AI use needs this section so the policy is visible to co-authors and reviewers.
 
 ### Generating a research CLAUDE.md (workflow)
 
@@ -134,10 +142,6 @@ a convention the project does not actually use>
 - Every cited paper must have a verified DOI in `references.bib`.
 - Use the [`literature-review`](literature-review.md) skill (Path B verification checklist) before committing the bibliography.
 
-## AI Disclosure
-- Track AI-assisted commits with the `[AI]` tag in commit messages.
-- For final outputs, generate a disclosure block with the `ai-disclosure-block` skill.
-
 ## Conventions for Claude Code
 
 **Operational rules** (concrete, apply every time):
@@ -145,14 +149,17 @@ a convention the project does not actually use>
 - When writing new analysis: produce both the code and the output it generates.
 - When proposing a method change: state which result(s) it would change before editing.
 - When uncertain about a number or citation: flag with `[TODO]` rather than guess.
+- When a task splits into independent subtasks: decompose it and dispatch the subtasks to subagents in parallel (one message, multiple tool calls). Do not parallelize work that shares mutable state or has a true sequential dependency.
+- When a change significantly alters structure, conventions, or status: refresh the affected current-state line(s) in CLAUDE.md (no changelog) and append a dated entry to the README update log. Skip for minor or in-progress edits.
+- At end of a completed task with a non-clean working tree: let the [`version-control`](version-control.md) skill commit and push. Tag AI-assisted commits with `[AI]` if this repo documents that policy.
 - When compiling PDFs (LaTeX, Quarto, R Markdown): always clean the build byproducts afterward (`.aux`, `.log`, `.out`, `.toc`, `.synctex.gz`, `.fls`, `.fdb_latexmk`, `.bbl`, `.blg`, `.nav`, `.snm`). Keep only the `.pdf` and its source; never commit intermediates.
 
-**General principles** (adapted from [Karpathy's LLM-coding guidelines](https://x.com/karpathy/status/2015883857489522876) — use these when a novel situation isn't covered by the rules above):
+**General principles** (adapted from [Karpathy's LLM-coding CLAUDE.md](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md) — use these when a novel situation isn't covered by the rules above). They bias toward caution over speed; for trivial tasks, use judgment.
 
-- **Think before coding.** State assumptions explicitly. If a request has multiple interpretations, present them — do not pick silently.
-- **Simplicity first.** Minimum code that answers the question. No speculative features, no abstractions for single-use scripts, no error handling for impossible inputs.
-- **Surgical changes.** Touch only what the task requires. Match the existing style. Do not refactor adjacent blocks or "improve" unrelated code. Mention dead code; do not delete it unasked.
-- **Goal-driven execution.** Convert tasks into verifiable goals before running them. Strong success criteria let the agent loop without re-asking.
+- **Think before coding.** State assumptions explicitly. If a request has multiple interpretations, present them — do not pick silently. If something is unclear, stop and name what's confusing before implementing.
+- **Simplicity first.** Minimum code that answers the question. No speculative features, no abstractions for single-use scripts, no error handling for impossible inputs. If 200 lines could be 50, rewrite it.
+- **Surgical changes.** Touch only what the task requires. Match the existing style. Do not refactor adjacent blocks or "improve" unrelated code. Mention dead code; do not delete it unasked. The test: every changed line traces directly to the user's request.
+- **Goal-driven execution.** Convert tasks into verifiable goals before running them, and state a brief plan as `[step] → verify: [check]` for multi-step work. Strong success criteria let the agent loop until verified without re-asking.
 ```
 
 **Step 4 — Diff against any existing CLAUDE.md.** Do **not** overwrite. Show a unified diff and ask the user to approve, reject, or merge per section.
@@ -357,7 +364,11 @@ Without a preservation prompt, compaction may lose the task state and force you 
 
 ---
 
-## Subagent Delegation
+## Task Decomposition and Subagent Delegation
+
+**Decompose, then parallelize.** When a task splits into independent subtasks, break it apart and dispatch the pieces to subagents in a **single message with multiple tool calls** so they run concurrently instead of one-after-another. The library already uses this pattern: the [`appendix`](appendix.md) skill fans out a parallel grounding pass over independent claims, and [`skill-creator`](skill-creator.md) launches with-skill and without-skill eval runs in the same turn so they finish together. Merge the results once they return.
+
+Do **not** parallelize subtasks that share mutable state or have a true sequential dependency (subtask B needs subtask A's output) — run those in order.
 
 Delegate to a subagent when a subtask is:
 
