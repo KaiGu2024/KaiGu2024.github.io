@@ -187,6 +187,20 @@ ggplot(es, aes(x = period, y = coef)) +
   labs(x = "Periods relative to treatment", y = "Estimated effect")
 ```
 
+**Open-circle marker — sanctioned variant.** Instead of the solid blue dot, draw a blue-ringed white circle (`shape = 21`, `fill = "white"`, `colour = brand$primary`). The white interior lets the connecting line and ribbon read *through* the marker rail, so a long monthly event study (25+ periods) stays legible where solid dots would clot into a blue stripe. Use it for single-series coefficient/event-study plots; keep the solid dot when periods are few.
+
+```r
+  geom_line(colour = brand$primary, linewidth = 2.6) +
+  geom_point(colour = brand$primary, fill = "white", shape = 21,
+             size = 7, stroke = 1.6) +
+```
+
+Two things keep it inside the skill rather than fighting it:
+
+- **This is the inverse of the multi-series marker, and deliberately so.** Multi-series lines (§5) put the colour *inside* (`fill = group`) and a white *halo* outside (`colour = "white"`) so each marker names its series and stays crisp at crossings. A single-series event study has no series to name, so the marker carries no identity — invert it (white inside, brand ring outside) to make the rail recede and let the data path show through. Don't mix the two: open ring for one series, filled-with-white-halo for many.
+- **Hold the marker-to-line ratio, then size to period count.** The white fill makes an open circle read larger than a solid dot of the same radius, so it can run a touch smaller — but keep it near the 3:1 band (rule 6): `size = 7` on a `2.6` line, `stroke` 1.4–1.6 for a ring that reads at half-column. `size = 7` is the default for a shorter event study (≤ ~15 periods); past ~20 periods the markers start to kiss where the path is steepest, so drop to `size = 6`. Don't drop below `size ≈ 6` or the ring thins to a hairline — if even 6 crowds, thin the markers (every other period) rather than shrink further.
+- **Line weight `2.6` for a long monthly event study.** Rule 6 gives two discrete weights — `2.8` sparse, `2.4` dense — but a 25+-period monthly series is the in-between case: monthly cadence (sparse) yet long enough to read busy (dense). Split the difference at `linewidth = 2.6`. Keep `colour = brand$primary` — the dusty blue is already the default single-series colour, so the line, ribbon (`fill = brand$primary`), and open-circle ring all stay one hue.
+
 ## Time trend with overlaid fits (raw + models + CI)
 
 Three weights: raw series in `brand$dark` at `linewidth = 1.0` (reference); fitted lines distinguished primarily by **linetype** (so the figure reads in grayscale), secondary by hue, at `linewidth = 2.8` (the sparse default — smooth fits carry no markers); one CI ribbon for the primary fit (`fill = "grey70", alpha = 0.25`).
