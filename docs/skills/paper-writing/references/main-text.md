@@ -206,6 +206,40 @@ The gap inventory is visible — every line that needs a number, every reference
 
 ---
 
+## Movement 8 — Terminology anchoring
+
+A draft can be structurally clean and still name its objects wrong. When a paper coins its own label for a construct the literature already names — "engagement decay" for what the field calls *churn*, "attention spillover" for *demand cannibalization* — the referee reads it as not-having-read-the-literature, and the contribution gets discounted before the result is even weighed. The fix is not to flatten every term into the nearest cliché; coining is sometimes the contribution (Movement 2's *new construct*). It is to make the choice **deliberate**: anchor to the literature's term where you are describing a known object, and reserve a coined term for where you are genuinely introducing one.
+
+This is a **polish pass**, run after the draft has structure and content, not a drafting step. It round-trips with [`literature-review`](../../literature-review.md): the skill that resolves `[CITE: handle]` strings is the same one that knows how the anchoring papers name each construct.
+
+**When to run it.** After Movement 2–4 drafting, before the [`academic-voice.md`](academic-voice.md) pass. Especially when the paper sits on top of an established literature whose vocabulary the referee will expect, or when the draft was written fast and may have drifted into ad-hoc labels.
+
+**Three steps:**
+
+1. **Extract the construct/method terms.** Scan the section for the nouns and noun phrases that name an economic object, a mechanism, a measure, or a method — the words a referee would expect to map onto a known concept. Skip ordinary prose; collect the load-bearing terms. Output a list, each with the sentence it appears in, so the term is judged in context (the same word can be load-bearing in one sentence and incidental in another).
+2. **Find the literature-anchored term for each.** Hand the list to [`literature-review`](../../literature-review.md) Path A: for each extracted term, retrieve how the anchoring papers (the ones the paper already cites, plus the canonical refs for that construct) name the same object. Some terms will map cleanly to a standard label; some will have two or three competing conventions; some will have no established anchor, which is itself the signal that the term may be a genuine coinage.
+3. **Emit a diff, never a silent rewrite.** For each term, propose: keep, or replace with the anchored term — with the citation that licenses the anchored choice and a one-line reason. The author decides. Three verdicts:
+   - **Anchor** — the draft drifted from a settled term; replace it and cite. ("'engagement decay' → *churn* [CITE: reichheld1996]; field uses *churn* for exactly this hazard.")
+   - **Choose** — two or three conventions compete; surface them with their citations and let the author pick the one whose framing fits the contribution. Do not pick silently.
+   - **Coin** — no established anchor, or the author is deliberately introducing a construct. Keep the term, but flag that it needs the explicit definition Movement 2 requires for a new construct, and that it should *not* be quietly swapped for a near-synonym elsewhere in the paper.
+
+**Output shape** — a per-term table the author reads top to bottom:
+
+```
+## Terminology anchoring
+| Draft term | Verdict | Anchored term | Licensing cite | Note |
+|---|---|---|---|---|
+| engagement decay | anchor | churn | [CITE: reichheld1996] | settled term for this hazard; draft drifted |
+| attention spillover | choose | cannibalization / demand diversion | [CITE: ...] | two conventions; pick by framing |
+| trust transfer | coin | — | — | no anchor; define it (Movement 2), don't synonym-swap later |
+```
+
+The discipline mirrors Movement 7's: the skill never silently changes the word the author chose — it surfaces the literature's term, the citation that licenses it, and the reason, then leaves the editorial decision with the author. Anchoring to a borrowed term and coining a new one are both defensible; drifting into an ad-hoc label by accident is not.
+
+This pass also feeds the `feedback_prose_restraint` discipline ("prefer literature-anchored terms") with a mechanism rather than a reminder: the anchored term comes back with a verified citation, not from model memory.
+
+---
+
 ## How `report.md` artifacts feed into the paper
 
 | Report artifact | Lands in |
