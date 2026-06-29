@@ -201,6 +201,22 @@ Two things keep it inside the skill rather than fighting it:
 - **Hold the marker-to-line ratio, then size to period count.** The white fill makes an open circle read larger than a solid dot of the same radius, so it can run a touch smaller — but keep it near the 3:1 band (rule 6): `size = 7` on a `2.6` line, `stroke` 1.4–1.6 for a ring that reads at half-column. `size = 7` is the default for a shorter event study (≤ ~15 periods); past ~20 periods the markers start to kiss where the path is steepest, so drop to `size = 6`. Don't drop below `size ≈ 6` or the ring thins to a hairline — if even 6 crowds, thin the markers (every other period) rather than shrink further.
 - **Line weight `2.6` for a long monthly event study.** Rule 6 gives two discrete weights — `2.8` sparse, `2.4` dense — but a 25+-period monthly series is the in-between case: monthly cadence (sparse) yet long enough to read busy (dense). Split the difference at `linewidth = 2.6`. Keep `colour = brand$primary` — the dusty blue is already the default single-series colour, so the line, ribbon (`fill = brand$primary`), and open-circle ring all stay one hue.
 
+**Tangent-circle look — let big markers hide the line except across gaps.** A variant of the open circle that makes the figure read as a *chain of dots* rather than a line: keep the continuous line, but size the (opaque-white-filled) circles so neighbouring circles in the flat stretches sit **tangent** — just touching — so their white fill covers the line segment between them. The line then only **peeks through where two consecutive points are far apart**, i.e. exactly where the series moves fast. No threshold, no `geom_segment`, no conditional drawing — the "few connectors" are an emergent geometric effect of the markers sitting on an always-present line.
+
+```r
+  geom_ribbon(aes(ymin = lo, ymax = hi), fill = brand$primary, alpha = 0.20) +
+  geom_line(colour = brand$primary, linewidth = 2.6) +     # KEEP — continuous, underneath
+  geom_point(colour = brand$primary, fill = "white", shape = 21,
+             size = 7, stroke = 1.4) +                      # ~tangent in flat runs at this geometry
+```
+
+What keeps this coherent:
+
+- **Opaque white fill is the mechanism.** `fill = "white"` (not a transparent fill) is what hides the line under each circle. The continuous line still exists — it is simply covered wherever two circles touch.
+- **The tangency point is geometry-driven and the window is narrow.** Tangency depends on the marker diameter relative to the x-spacing in plot units, not on the line weight. For ~25 monthly periods at a 6.2 in author width, the threshold sits at **`size ≈ 7`** (`stroke ≈ 1.4`): at `size = 6` the line still beads through the flat run; at `7` the flat run closes up and the line peeks only on the climb; by `size ≈ 9–10` the climb circles also overlap and the line stops showing **anywhere** — the effect is lost. So this is the *same* sizing region as the plain open-circle bullet above, one step past where the beads disappear — not a dramatically bigger marker. Pick by intent: `6` for beads-on-a-line, `7` for the tangent dot-chain.
+- **No ratio violation.** At `size = 7` on a `2.6` line the marker-to-line ratio is ~2.7:1 — right at rule 6's 3:1, not beyond it. Keep `stroke ≈ size/5` so the ring stays a proportionate fraction of the circle, and keep the line at `2.6` so the stub that peeks across a gap reads at the ring's weight (a deliberate connector, not a hairline).
+- **It self-adapts across panels.** With constant x-spacing the only thing separating two circles is the vertical move, so once they kiss in flat runs the line shows precisely on the steep moves — and scales to each panel's own y-range across a faceted set of outcomes (flat outcomes ≈ pure dots; big-effect outcomes show stubs on the climb). No per-panel tuning. **Tune by eye in the rendered PDF, not the RStudio pane**: nudge `size` up until flat-run neighbours just touch; if the line vanishes on the climb too, you have gone one step too far.
+
 ## Time trend with overlaid fits (raw + models + CI)
 
 Three weights: raw series in `brand$dark` at `linewidth = 1.0` (reference); fitted lines distinguished primarily by **linetype** (so the figure reads in grayscale), secondary by hue, at `linewidth = 2.8` (the sparse default — smooth fits carry no markers); one CI ribbon for the primary fit (`fill = "grey70", alpha = 0.25`).
