@@ -187,6 +187,20 @@ ggplot(es, aes(x = period, y = coef)) +
   labs(x = "Periods relative to treatment", y = "Estimated effect")
 ```
 
+**Two versions — match the CI to the connection.** The code above is the **line version**: estimates connected by a line, uncertainty as a shaded ribbon. It reads as a *continuous trajectory* and is right when the coefficient path is **smooth** (a clean pre-trend and a coherent post arc). When the path is **noisy / jagged** — coefficients zig-zagging month to month — the line turns into a sawtooth that overstates structure that is mostly sampling wobble, and a shaded band implies a continuity the data doesn't support. Switch to the **non-shaded version**: drop the connecting line and draw each CI as a vertical error-bar *line*, dots only — the classic discrete coefficient plot.
+
+```r
+  # non-shaded version: discrete coefficients, CI as error-bar lines, NO connecting line
+  geom_hline(yintercept = 0, colour = "grey55", linewidth = 1.0) +
+  geom_linerange(aes(ymin = lo, ymax = hi), colour = brand$primary, linewidth = 1.1) +
+  geom_point(colour = brand$primary, fill = "white", shape = 21, size = 6, stroke = 1.3) +
+  # (no geom_line, no geom_ribbon)   # use geom_errorbar(width = 0.4) if you want caps
+```
+
+The pairing is the rule, not a style toss-up (rule 11): **shaded ribbon ↔ connecting line** (continuous reading), **error-bar lines ↔ disconnected dots** (discrete reading). Don't cross them — a shaded band under unconnected dots asserts a smooth function you've otherwise refused to draw, and bare error bars threaded by a heavy line double-encode the path. Pick the reading first, then both elements follow.
+
+For a multi-outcome loop (one `make_es()`-style function over several outcomes), this is a per-figure author choice, not runtime branching on the data: carry a `shaded`/`line` flag in the spec table and let smooth outcomes take the line version, noisy ones the non-shaded version. The marker refinements below (open-circle, tangent-circle) apply to the **line** version.
+
 **Open-circle marker — sanctioned variant.** Instead of the solid blue dot, draw a blue-ringed white circle (`shape = 21`, `fill = "white"`, `colour = brand$primary`). The white interior lets the connecting line and ribbon read *through* the marker rail, so a long monthly event study (25+ periods) stays legible where solid dots would clot into a blue stripe. Use it for single-series coefficient/event-study plots; keep the solid dot when periods are few.
 
 ```r
