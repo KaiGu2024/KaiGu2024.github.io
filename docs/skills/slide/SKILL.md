@@ -68,9 +68,9 @@ Before generating slides, produce structured reading notes at `notes/<slug>.md` 
 
 | # | Slide | Notes |
 |---|---|---|
-| 1 | **Title** | Full title; authors + affiliations; journal + year or "Working Paper". *Optional:* one-sentence headline finding in a `.callout-result`. |
+| 1 | **Title** | Full title; authors + affiliations; journal + year or "Working Paper". *Optional bottom line:* preview the paper's **analysis structure** (the parts examined, matching the outline) in a `.callout-tip` — or a one-sentence headline finding in a `.callout-result`. Prefer the structure preview; it sets up the roadmap without spoiling the punchline. |
 | 2 | **Author Bios** | 3-column grid; circular photo + position + PhD + research interests. |
-| 3 | **Outline** | Substantive sections only — skip motivation, data, ID; bold title + one sentence each. |
+| 3 | **Outline** | Substantive **analyses** only — skip motivation, data, ID, *and* the Takeaways/Discussion coda; bold title + one sentence each. |
 | 4 | **Data & Setting** | Filtering pipeline with N and %; LLM annotation steps with warn callout. |
 | 5 | **Identification** | Challenge → strategy → assumptions to discuss. |
 | 6–N | **Results** | Reproduce original table/figure; pair with brief **Description + Analysis**. Required for PDF export — see `references/pdf-export.md`. |
@@ -78,12 +78,15 @@ Before generating slides, produce structured reading notes at `notes/<slug>.md` 
 
 Include an **Analytical Model** slide immediately before Results if the paper has a formal model.
 
+**Outline lists the analyses, and only once.** The outline (slide 3) names each *substantive analysis* — a 3–5 word label + one sentence — and skips motivation, data, identification, *and* the Takeaways/Discussion coda (the closing slide speaks for itself; the outline is analyses only). Do **not** add a separate "framing / three levers / roadmap" slide that restates those same sections; fold that framing into the outline's one-liners. One map, not two. If you catch yourself writing a slide whose bullets mirror the outline items, delete it.
+
 ### Titles
 
 Every content slide's `<h2>` follows the same brief, one-row format. The skill enforces these rules so titles don't wrap, don't drift into magazine register, and stay legible at slide pace.
 
 - **Max ~33 characters** at default `--fs-h1`. Anything longer wraps to two lines and breaks the visual rhythm of the deck.
 - **"Section: topic" colon-prefix.** The section prefix mirrors the outline (slide 3) so the audience can locate themselves; the topic is the slide's actual content. Example: `<h2><span class="h2-section">Findings:</span> main estimates</h2>`. The `.h2-section` span renders in muted italic so the topic word visually dominates.
+- **Name the role, not the finding.** The prefix is the part's *role* in the paper (which analysis / stage), and the topic is *what* is examined — never the result. Write `<span class="h2-section">Analysis 2:</span> content format choices`, not "Lever 2: richer, not more" (that leaks the finding into the title). The number and the punchline belong in the `.callout-result`, not the h2. A reader who has seen the outline should be able to predict every analysis h2 from it.
 - **No em-dash compound h2s.** "Behavioral — Engagement & Confidence" reads long and magazine-y; the colon-prefix form ("Findings: engagement & confidence") is shorter and stays in academic register.
 - **Subtitle only when needed.** A `.slide-subtitle` line below the h2 (Lora-italic, muted) is allowed for slides where the topic alone reads flat. Skip it on slides where the h2 is already self-explanatory (Title, Author Bios, Outline, single-keyword Findings slides).
 - **Single underline rule.** When a subtitle is used, it carries the bottom border instead of h2. The whole "h2 + subtitle" block reads as one title unit, then one rule separating it from content.
@@ -110,6 +113,8 @@ Every displayed equation must (a) sit inside a `.eq` block — cool-tinted backg
 `.eq` is defined in `references/aesthetics.md` §4. MathJax (loaded by the Reveal.js template via `RevealMath.MathJax3`) renders the `$$…$$` content; standard LaTeX math syntax works (`\sum`, `\mathbf{}`, `\mathbb{1}`, `\sum_{w \neq -1}`, `\begin{aligned}…\end{aligned}` for multi-line, etc.).
 
 Skip the gloss only for textbook identities ($E[Y \mid X]$) where every symbol is fully standard. Inline math (`$x$`) inside prose does not need a `.eq` wrapper — `.eq` is for display equations only.
+
+**Make math actually render.** The equation slide is usually the *only* one carrying math, so a silent MathJax miss shows up as raw `$$…$$` on exactly that slide and nowhere else. Two guards, both in the template below: (a) the `slidechanged` re-typeset hook — the initial MathJax pass can skip a stacked/animated slide, and re-typesetting the current slide on entry fixes it; (b) never put a bare `<` inside `$…$` (the HTML parser eats it as a tag) — use `\lt` / `\leq`, or keep the `<` outside math. Keep display equations narrow enough to fit 1280px; break a long definition with `\begin{aligned}` rather than letting it clip. After generating, open the deck and confirm the equation typeset — do not assume it did.
 
 ### Figure and table sourcing — tiered policy
 
@@ -258,7 +263,7 @@ The `<style>` block referenced by `<!-- paste styling block -->` below is define
       <li><strong>{{Section ≤5 words}}</strong><span>{{One sentence on finding or method}}</span></li>
       <li><strong>{{Section}}</strong><span>{{…}}</span></li>
       <li><strong>{{Section}}</strong><span>{{…}}</span></li>
-      <li class="outline-coda"><strong>Takeaways &amp; Discussion</strong><span>{{punchline + Qs}}</span></li>
+      <!-- analyses only — no Takeaways/Discussion coda in the outline -->
     </ol>
     <aside class="notes">
       <p><strong>Pacing:</strong> {{e.g., "We'll spend most of the time on §3 (ID) and §5 (mechanism); §2 is fast."}}</p>
@@ -380,11 +385,17 @@ The `<style>` block referenced by `<!-- paste styling block -->` below is define
   Reveal.initialize({
     width: 1280, height: 720,   // canvas matches the CSS section height (aesthetics.md §2); less letterboxing on wide screens
     hash: true,
+    slideNumber: 'c/t',         // page numbers, e.g. 3/14 — always on
     plugins: [RevealMath.MathJax3],
     math: { mathjax: "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" },
     keyboard: {
       78: () => document.body.classList.toggle('show-notes')  // N
     }
+  });
+  // Re-typeset math when a slide comes into view. The initial MathJax pass can
+  // miss a stacked/animated slide, leaving raw $$…$$ on the equation slide.
+  Reveal.on('slidechanged', e => {
+    if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([e.currentSlide]);
   });
 </script>
 </body>
