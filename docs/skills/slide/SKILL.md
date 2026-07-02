@@ -136,6 +136,19 @@ Skip the gloss only for textbook identities ($E[Y \mid X]$) where every symbol i
 2. **PDF only** → use MinerU output: `figures_dir/` for PNGs, `content` list for table rows.
 3. **Extraction fails** → insert `<!-- MANUAL: supply figure here -->` with a visible caveat block; tell the user which asset to provide. **Do not self-generate** a table or figure unless the user explicitly instructs it.
 
+**arXiv route (only an id known).** `curl -L https://arxiv.org/pdf/<id> -o paper.pdf`, then find each figure by its caption text and crop the region with PyMuPDF — no MinerU needed for a handful of figures:
+
+```python
+import fitz
+doc = fitz.open("paper.pdf")
+pg  = doc.load_page(PAGE-1)                          # find PAGE by: caption in pg.get_text()
+r   = pg.search_for("Figure 2: Change-Point")[0]      # caption rect; figure sits ABOVE it
+clip = fitz.Rect(78, 86, 545, r.y0-4)                 # tune to the plot box
+pg.get_pixmap(matrix=fitz.Matrix(3, 3), clip=clip).save("fig2.png")
+```
+
+Crop a single sub-panel (e.g. panel (d) of a 2×2) by clipping to that sub-caption's column/row. Verify every crop by viewing the PNG before embedding — off-by-a-panel and clipped axes are common.
+
 ### Self-contained output — embed everything in the HTML
 
 `slide/<slug>.html` must be a single self-contained file with no external asset references (no `slide/assets/`, no relative image paths).
@@ -438,6 +451,20 @@ from pathlib import Path
 for i, ln in enumerate(Path("slide/<slug>.html").read_text(encoding="utf-8").splitlines(), 1):
     print(f"{i:>5}: <<base64 line, {len(ln)} chars>>" if "base64," in ln and len(ln) > 500 else f"{i:>5}: {ln}")
 ```
+
+### Verify the rendered deck — reveal.js won't flag overflow
+
+After embedding figures or hand-building HTML (DOM trees, multi-figure columns, new callouts), screenshot the changed slides and *look* at them — layout overflow fails silently. Recurring failures: a wide figure or long inline chips run off the **right edge**; a stacked figure pair or a bottom callout drops below the 720px **fold**. Fixes: cap stacked-figure heights (two figures in one column → `max-height ~230px` each), shorten inline chip labels, or step a text-heavy slide to `.dense`. Headless Edge/Chrome:
+
+```bash
+msedge --headless=new --disable-gpu --no-sandbox --user-data-dir=<writable-tmp> \
+  --window-size=1600,900 --run-all-compositor-stages-before-draw \
+  --virtual-time-budget=9000 --screenshot=<out.png> "<file-uri>#/<slide-index>"
+```
+
+Use a window **larger** than 1280×720 so reveal scales the deck down with margin — at exactly 1280 the capture clips ~2% on the right and reads as false overflow. `--user-data-dir` must point at a writable dir or the screenshot silently writes 0 bytes. `<slide-index>` is 0-based (`#/4` = slide 5). This also confirms MathJax typeset (the equation slide renders, not raw `$$`).
+
+**The right-edge-overflow trap.** If right-column content (figures, callouts, a DOM tree) hugs or spills past the **right** edge while the **left** has a clean margin, the section is `box-sizing:content-box`: its `padding` adds *outside* the 1280 slide width, so the left padding shows but the right padding is pushed off-screen. Fix at the root — `.reveal .slides section{ box-sizing:border-box; }` — which restores symmetric margins on every slide at once. Two companions: give grid children `min-width:0` and set wide `<img>` to `width:100%` (not `width:auto`) so a wide figure fills its capped column instead of forcing the track (and the whole section) wider. Prefer these over per-slide `max-width` band-aids.
 
 ---
 
