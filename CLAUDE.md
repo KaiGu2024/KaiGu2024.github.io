@@ -37,7 +37,7 @@ website/
 
 ## Compiling the CV
 
-`cv.tex` supports a `\hideabstracts` toggle: when defined, abstracts and the forced page break before "Honors and Awards" are suppressed (short 1-page CV). When undefined, the long version with abstracts is produced (2 pages). The website ships the **short version** in `docs/assets/cv.pdf`.
+There is **one CV source**, `code/cv.tex`, and it always includes the paper abstracts (2 pages). No short/long toggle: the old `\hideabstracts` mechanism and the `cv_short.tex` wrapper were removed. The website ships this single build in `docs/assets/cv.pdf`.
 
 pdflatex is provided by TinyTeX; it is not on `PATH` and Anaconda shadows it, so always invoke with explicit path + clean `PATH`. Run from the `code/` directory so the `\input{cv.tex}` form resolves.
 
@@ -45,13 +45,6 @@ pdflatex is provided by TinyTeX; it is not on `PATH` and Anaconda shadows it, so
 TINYTEX="/c/Users/kaizhu/AppData/Roaming/TinyTeX/bin/windows"
 cd code
 
-# Short version (what the website ships)
-PATH="$TINYTEX:/c/Windows/System32" "$TINYTEX/pdflatex.exe" \
-  -interaction=nonstopmode \
-  -output-directory="../output" \
-  "\def\hideabstracts{}\input{cv.tex}"
-
-# Long version (with abstracts)
 PATH="$TINYTEX:/c/Windows/System32" "$TINYTEX/pdflatex.exe" \
   -interaction=nonstopmode \
   -output-directory="../output" \

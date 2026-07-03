@@ -18,6 +18,17 @@ mobileNav.querySelectorAll('a').forEach(a => {
   a.addEventListener('click', () => mobileNav.classList.remove('open'));
 });
 
+// Abstract disclosure — triangle toggle after a paper title reveals its abstract.
+document.querySelectorAll('.abstract-toggle').forEach(btn => {
+  const panel = document.getElementById(btn.getAttribute('aria-controls'));
+  if (!panel) return;
+  btn.addEventListener('click', () => {
+    const open = panel.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    btn.setAttribute('title', open ? 'Hide abstract' : 'Show abstract');
+  });
+});
+
 // Page-load + scroll-triggered staggered reveal.
 // Elements with .reveal-up fade up from 14px when they enter the viewport.
 // Above-the-fold elements intersect immediately on first paint, so the

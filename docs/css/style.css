@@ -295,8 +295,85 @@ h1 {
   color: var(--muted);
   margin-bottom: 0.65rem;
 }
+
+/* Abstract disclosure — triangle after the title */
+.abstract-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.32rem;
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.4rem;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  vertical-align: middle;
+  transition: color 0.15s;
+}
+.abstract-toggle:hover { color: var(--accent); }
+.abstract-toggle i {
+  font-size: 0.85em;
+  transition: transform 0.2s var(--ease-expo);
+}
+.abstract-toggle[aria-expanded="true"] i { transform: rotate(90deg); }
+.abstract-toggle-label { line-height: 1; }
+
+.paper-abstract {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s var(--ease-expo);
+}
+.paper-abstract.open { grid-template-rows: 1fr; }
+.paper-abstract-inner { overflow: hidden; }
+.paper-abstract.open .paper-abstract-inner { margin: 0.5rem 0 0.2rem; }
+.paper-abstract p {
+  font-family: 'Newsreader', Georgia, 'Iowan Old Style', serif;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: var(--text);
+  text-align: justify;
+  padding: 0.7rem 0.9rem;
+  margin: 0;
+  background: var(--card);
+  border-left: 2px solid var(--border);
+  border-radius: 0 3px 3px 0;
+}
 .paper-authors a { color: var(--muted); }
 .paper-authors a:hover { color: var(--accent); }
+
+.paper-links {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.7rem;
+}
+.paper-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: 'Lora', Georgia, serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.28rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--navy);
+  background: var(--card);
+  text-decoration: none;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.paper-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+}
+.paper-link i { font-size: 0.9em; opacity: 0.85; }
 
 .paper-tags {
   display: flex;
