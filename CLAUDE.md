@@ -112,8 +112,9 @@ Always offer the `cp` commands at end-of-edit. Never assume the user has Jekyll 
 - `paper-review/` — multi-agent referee report
 - `paper-writing/` — drafting + journal-voice polish for the main text; `references/main-text.md` (Cochrane/McCloskey template, the AI-tells self-audit, strict-traceability mode) is the default, `references/academic-voice.md` is the opt-in house-voice pass. Folds in the former flat `writing` and `academic-voice` skills. Sibling to `appendix/` (which owns the appendix/supplementary materials)
 - `appendix/` — write & audit empirical appendices; derives required support from the main text, then traces the chain main-text claim → appendix item → evidence (directory + literature), checking coverage/grounding/consistency. Decomposes each statement into typed claims (definitional / factual / methodological / citational / result / procedural)
+- `agent-configuration/` — configure Claude Code for a research project (CLAUDE.md authoring, the layered docs model, status line, `/compact`, subagents). `references/general-principles.md` holds the full role-by-role Karpathy-derived coding principles so neither the skill body nor a generated CLAUDE.md carries generic best-practice text on every turn.
 
-**Flat skills** (single `.md`): `analysis-cleanup`, `ai-disclosure-block`, `agent-configuration`, `big-data-processing`, `brainstorm`, `codebook-generator`, `eda`, `literature-review`, `llm-annotation`, `preregistration`, `replication-readme`, `report`, `revision-plan`, `skill-creator`, `username-dossier`, `verify-citations`, `version-control`, `web-access`, `web-scraping`.
+**Flat skills** (single `.md`): `analysis-cleanup`, `ai-disclosure-block`, `big-data-processing`, `brainstorm`, `codebook-generator`, `eda`, `literature-review`, `llm-annotation`, `preregistration`, `replication-readme`, `report`, `revision-plan`, `skill-creator`, `username-dossier`, `verify-citations`, `version-control`, `web-access`, `web-scraping`.
 
 ---
 

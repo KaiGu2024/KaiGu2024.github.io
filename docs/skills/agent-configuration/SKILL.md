@@ -1,6 +1,6 @@
 ---
 name: agent-configuration
-description: Use when configuring Claude Code for a research project — installing the CLI, writing CLAUDE.md (with the research-specific Data Provenance and Citation Policy sections), keeping CLAUDE.md and README in sync as the project evolves, customizing the status line, managing context with /compact, and decomposing tasks across parallel subagents. Inspects the project directory to populate CLAUDE.md sections from real evidence rather than boilerplate.
+description: Use when configuring Claude Code for a research project — installing the CLI, writing CLAUDE.md (with the research-specific Data Provenance and Citation Policy sections), organizing project documentation into layers (agent-instruction files, README, a stable docs/ reference, an evolving notes/ wiki), keeping the agent-instruction file and README in sync as the project evolves, customizing the status line, managing context with /compact, and decomposing tasks across parallel subagents. Inspects the project directory to populate CLAUDE.md sections from real evidence rather than boilerplate.
 allowed-tools: Read, Edit, Write, Bash, Glob, Grep
 invocation: manual
 ---
@@ -63,12 +63,52 @@ Then restart the terminal and verify with `claude --version`.
 
 **Compaction survival test:** Read each line in CLAUDE.md and ask "if this disappeared after `/compact`, would the agent make a wrong decision?" If no, cut it.
 
+### Where documentation lives — the layers, and CLAUDE.md's place in them
+
+CLAUDE.md does not exist in isolation. A mature research project is organized into **five execution layers**, and CLAUDE.md is the layer that governs the other four rather than storing content itself.
+
+| Layer | Holds | Rule |
+|---|---|---|
+| `code/` | Scripts, named in run order and keyed to a fact/analysis (`01_ingest.py`, `02_localization.R`) | One file per pipeline stage |
+| `data/` | `raw/` (immutable source) + `processed/` | **Never edit `raw/` — read only** |
+| `docs/` | Stable reference specs | Change only when design/schema/method changes |
+| `notes/` | The living wiki | Changes every session |
+| `output/` | Tables + figures (decomposed by fact/analysis), reports, the paper | Regenerable from `code/` + `data/` |
+
+The confusing part is always the **documentation roles**, because four things look like "documentation" but do four different jobs. The distinction that keeps them from bleeding into each other: **two are *content* (they hold knowledge); two are *front doors* (they orient a reader and route into the content).** They split on two axes — content vs. orientation, and within each, by stability or by audience.
+
+| Role | Kind | Audience | Changes | Answers |
+|---|---|---|---|---|
+| `CLAUDE.md` / `AGENTS.md` | Front door | The **agent** | When layout / constraints / conventions change | "How do I *operate* in this repo?" |
+| `README.md` (root) | Front door | **Humans** | When onboarding facts change | "What *is* this and how do I start?" |
+| `docs/` | Content — **stable reference** | Human + agent | Only when the design / schema / method actually changes | "What *exactly* is X?" |
+| `notes/` | Content — **living wiki** | Agent (+ human) | Every session | "What do we *think* / what's next?" |
+
+**The load-bearing rule: front doors are not content bodies.** CLAUDE.md and README are thin. They point *into* `docs/` and `notes/`; they never accumulate the knowledge that belongs there. When you are tempted to explain a method inside CLAUDE.md, write it in `docs/methodology/` and link; when you want to record what changed, append to `notes/log.md`. A front door that grows a knowledge base has stopped being a front door.
+
+- **`CLAUDE.md` / `AGENTS.md` — the agent's operating manual + router.** (Both filenames name the same role; use whichever the toolchain expects, and don't maintain two.) It carries the behavioral rules, the tool constraints, the subagent inventory, and pointers to where content lives (`notes/index.md`, the `docs/` subfolders). It is loaded every session and survives `/compact`, so every line costs context on every turn — hence "thin." Crucially, it is the only place that can carry the **maintenance discipline** for the wiki, because those rules have to fire on every turn and survive compaction (see below).
+- **`README.md` (root) — the human front door.** The GitHub landing page. What the project is, how to get set up, where things are, how to run. Orientation for a collaborator or future self — not for the agent (that is CLAUDE.md's job) and not a place for specs (that is `docs/`). Distinct from the *replication-package* README (the public handoff artifact covered later in this skill).
+- **`docs/` — the stable reference manual.** Neutral, declarative, specification-style ("3,150 rows × 37 columns"). Four subfolders, each a documentation type: `design/` (the experiment/design spec, frozen before analysis — "what we set out to do and why"), `methodology/` (the how, at replicator detail), `technical/` (`data_dictionary.md`, `code_architecture.md`, `visualization_style_guide.md`), `references/` (external immutable material — parallels `notes/sources/`).
+- **`notes/` — the living wiki.** A file-based knowledge base in plain Markdown with YAML frontmatter and Obsidian `[[wiki-links]]`, maintained across sessions. Argument-and-commentary voice ("the big implication"). Four load-bearing pages: `index.md` (master catalog — search here first), `overview.md` (the evolving thesis + Open Work checklist), `log.md` (chronological history), `methodology/decisions.md` (choices + rationale). Layered subfolders (`sources/` immutable, `concepts/`, `entities/`, `findings/`, `literature/`, `methodology/`, `paper/`). Organizing principles: **single source of truth per fact** (a number lives on one `findings` page and is *linked*, never copied — which is why log entries are thin pointers, not restatements), and **cross-linking over hierarchy**.
+
+**Two configurations — where the running history lives.** The line most projects get wrong is *where the log goes*, and it depends on whether a `notes/` wiki exists:
+
+- **Lightweight project (no wiki).** README does double duty: human front door **plus** a dated changelog. CLAUDE.md is the agent manual. This is the two-document setup the next section describes.
+- **Full research project (with wiki).** The running history moves into the wiki: chronology to `notes/log.md`, rationale to `notes/methodology/decisions.md`, the evolving thesis to `notes/overview.md`. README then shrinks back to pure orientation, and CLAUDE.md gains the wiki-maintenance rules. Do not keep a second changelog in README once `notes/log.md` exists — that violates single-source-of-truth.
+
+**The maintenance contract (why it must live in CLAUDE.md).** A wiki decays without discipline, and the discipline is stated in `notes/index.md` — but the *trigger to follow it* has to survive `/compact` and fire every turn, so it belongs in CLAUDE.md as operational rules. Put these two verbatim:
+
+- **Append to the log.** After each meaningful operation, append one entry to `notes/log.md` in a fixed, grep-parseable format — `## [YYYY-MM-DD] operation | description` — with typed operations (`ingest`, `lint`, `strategy`, …) so history is queryable (`grep "^## \[" notes/log.md | tail -10`). The entry *links* to the phase plan and to `[[decisions#...]]`; it does not restate them.
+- **Lint periodically.** Every so often, sweep the wiki for orphan pages, stale claims, and missing cross-references, and fix or flag them. Record the sweep as a `lint` log entry.
+
+Both are just two more bullets in the CLAUDE.md "Operational rules" block (see the generator below).
+
 ### Keeping CLAUDE.md and README in sync (active development)
 
 CLAUDE.md and an active-development README are two living docs with two different jobs. Keep them separate — do not let either drift into the other's role.
 
 - **CLAUDE.md — brief, current-state only, no historical logs.** It records what is true *now*: layout, constraints, conventions, the subagent inventory. It survives `/compact`, so every line costs context on every turn. Never let it accumulate a changelog or a record of what *used to be* true — when something changes, rewrite the line to the new state and move on.
-- **README.md (active development) — the detailed living doc + a dated update log.** This is where depth lives: extended rationale, design notes, and a changelog with dated entries describing what changed and why. It is *not* loaded into context automatically, so length is cheap. (This is distinct from the *replication-package* README — the public handoff — covered later in this skill.)
+- **README.md (active development) — the detailed living doc + a dated update log.** This is where depth lives: extended rationale, design notes, and a changelog with dated entries describing what changed and why. It is *not* loaded into context automatically, so length is cheap. (This is distinct from the *replication-package* README — the public handoff — covered later in this skill.) **Caveat — this is the lightweight configuration** (no `notes/` wiki). Once a `notes/` wiki exists, the changelog moves to `notes/log.md` and the rationale to `notes/methodology/decisions.md`; README then shrinks to pure human orientation and the sync rule below runs against `notes/log.md` instead. See "Where documentation lives" above.
 
 **Sync rule.** When a change significantly alters project structure, conventions, or status, update **both**: refresh the affected current-state line(s) in CLAUDE.md, and append a dated entry to the README changelog. Minor or in-progress edits (debugging, exploratory commits, half-finished refactors) do **not** trigger an update — only changes a future session would otherwise misread.
 
@@ -77,7 +117,7 @@ CLAUDE.md and an active-development README are two living docs with two differen
 Generic CLAUDE.md guidance is not enough for a research project. Reproducibility and citation integrity are research-specific concerns that the model will not enforce on its own — they have to be written down. **Two sections are non-negotiable** for any dissertation, paper replication, or working-paper repo:
 
 1. **Data Provenance.** Sources, access (license, embargoes, how to re-obtain raw data), versioning (how data versions are tracked). Research projects without data lineage become unreproducible the moment the original author leaves. If the directory has no data folder yet, leave the section as a checklist for the user to fill in — but include the heading.
-2. **Citation Policy.** Every cited paper must have a verified DOI in `references.bib`. Reference the [`literature-review`](literature-review.md) skill as the verification path — Path A (OpenAlex search → Crossref DOI verification) for indexed work, Path B (post-hoc DOI / title / author / year / venue checklist) for grey literature.
+2. **Citation Policy.** Every cited paper must have a verified DOI in `references.bib`. Reference the [`literature-review`](../literature-review.md) skill as the verification path — Path A (OpenAlex search → Crossref DOI verification) for indexed work, Path B (post-hoc DOI / title / author / year / venue checklist) for grey literature.
 
 ### Generating a research CLAUDE.md (workflow)
 
@@ -140,7 +180,7 @@ a convention the project does not actually use>
 
 ## Citation Policy
 - Every cited paper must have a verified DOI in `references.bib`.
-- Use the [`literature-review`](literature-review.md) skill (Path B verification checklist) before committing the bibliography.
+- Use the [`literature-review`](../literature-review.md) skill (Path B verification checklist) before committing the bibliography.
 
 ## Conventions for Claude Code
 
@@ -150,11 +190,14 @@ a convention the project does not actually use>
 - When proposing a method change: state which result(s) it would change before editing.
 - When uncertain about a number or citation: flag with `[TODO]` rather than guess.
 - When a task splits into independent subtasks: decompose it and dispatch the subtasks to subagents in parallel (one message, multiple tool calls). Do not parallelize work that shares mutable state or has a true sequential dependency.
-- When a change significantly alters structure, conventions, or status: refresh the affected current-state line(s) in CLAUDE.md (no changelog) and append a dated entry to the README update log. Skip for minor or in-progress edits.
-- At end of a completed task with a non-clean working tree: let the [`version-control`](version-control.md) skill commit and push. Tag AI-assisted commits with `[AI]` if this repo documents that policy.
+- When a change significantly alters structure, conventions, or status: refresh the affected current-state line(s) in CLAUDE.md (no changelog) and append a dated entry to the running log (`notes/log.md` if a wiki exists, else the README update log). Skip for minor or in-progress edits.
+- After each meaningful operation: append one entry to `notes/log.md` as `## [YYYY-MM-DD] operation | description` (typed operation: `ingest` / `lint` / `strategy` / …); link to the phase plan and `[[decisions#...]]` rather than restating them. (Omit this rule if the project has no `notes/` wiki.)
+- Periodically: lint the wiki — sweep for orphan pages, stale claims, and missing cross-references; fix or flag, and record the sweep as a `lint` log entry. (Omit if no wiki.)
+- Single source of truth per fact: a number lives on one page and is linked, never copied. Never restate a result or a decision in a second location — link to it.
+- At end of a completed task with a non-clean working tree: let the [`version-control`](../version-control.md) skill commit and push. Tag AI-assisted commits with `[AI]` if this repo documents that policy.
 - When compiling PDFs (LaTeX, Quarto, R Markdown): always clean the build byproducts afterward (`.aux`, `.log`, `.out`, `.toc`, `.synctex.gz`, `.fls`, `.fdb_latexmk`, `.bbl`, `.blg`, `.nav`, `.snm`). Keep only the `.pdf` and its source; never commit intermediates.
 
-**General principles** (adapted from [Karpathy's LLM-coding CLAUDE.md](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md) — use these when a novel situation isn't covered by the rules above). They bias toward caution over speed; for trivial tasks, use judgment.
+**General principles** (*optional* — condensed from [Karpathy's LLM-coding CLAUDE.md](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md); use when a novel situation isn't covered by the rules above). The model already knows these, so they earn their every-turn context cost only when a team wants them stated as enforced house rules. Keep the four one-liners or drop the block; do not paste the full source in — it bloats a file that loads on every turn. They bias toward caution over speed; for trivial tasks, use judgment.
 
 - **Think before coding.** State assumptions explicitly. If a request has multiple interpretations, present them — do not pick silently. If something is unclear, stop and name what's confusing before implementing.
 - **Simplicity first.** Minimum code that answers the question. No speculative features, no abstractions for single-use scripts, no error handling for impossible inputs. If 200 lines could be 50, rewrite it.
@@ -166,6 +209,7 @@ a convention the project does not actually use>
 
 ### Notes for extending
 
+- **General principles — full source.** The four one-liners in the template are a deliberate compression. The full role-by-role version (Think Before Coding / Simplicity First / Surgical Changes / Goal-Driven Execution, with the rationale and the "working if…" test) lives in `references/general-principles.md`. Read it when deciding *whether* to include the block in a given project, or when expanding a principle into a concrete house rule. It stays out of both this skill's body and the generated CLAUDE.md so neither carries generic best-practice text that loads on every turn.
 - **Per-language profiles.** Factor language-specific convention blocks into `profiles/<lang>.md` files (R, Python, Stata, Julia). Loaded as Level-3 resources only when the language is present — keeps the main file short.
 - **Multi-machine projects.** Add a section noting machine-specific paths (HPC vs. laptop) when the project runs in both places.
 
@@ -366,7 +410,7 @@ Without a preservation prompt, compaction may lose the task state and force you 
 
 ## Task Decomposition and Subagent Delegation
 
-**Decompose, then parallelize.** When a task splits into independent subtasks, break it apart and dispatch the pieces to subagents in a **single message with multiple tool calls** so they run concurrently instead of one-after-another. The library already uses this pattern: the [`appendix`](appendix.md) skill fans out a parallel grounding pass over independent claims, and [`skill-creator`](skill-creator.md) launches with-skill and without-skill eval runs in the same turn so they finish together. Merge the results once they return.
+**Decompose, then parallelize.** When a task splits into independent subtasks, break it apart and dispatch the pieces to subagents in a **single message with multiple tool calls** so they run concurrently instead of one-after-another. The library already uses this pattern: the [`appendix`](../appendix/SKILL.md) skill fans out a parallel grounding pass over independent claims, and [`skill-creator`](../skill-creator.md) launches with-skill and without-skill eval runs in the same turn so they finish together. Merge the results once they return.
 
 Do **not** parallelize subtasks that share mutable state or have a true sequential dependency (subtask B needs subtask A's output) — run those in order.
 
@@ -417,7 +461,7 @@ Every skill in `docs/skills/` declares an `invocation:` field in its frontmatter
 
 ## Automated Version Control
 
-The [`version-control`](version-control.md) skill auto-fires when end-of-task is signaled and the working tree is non-clean. It infers the repo's commit-message style from the last 10 commits, runs project-specific build hooks (e.g., the CV rebuild when `code/cv.tex` changes), commits, and pushes. You do not re-state which files belong, what the message should say, or whether the build artifact is current.
+The [`version-control`](../version-control.md) skill auto-fires when end-of-task is signaled and the working tree is non-clean. It infers the repo's commit-message style from the last 10 commits, runs project-specific build hooks (e.g., the CV rebuild when `code/cv.tex` changes), commits, and pushes. You do not re-state which files belong, what the message should say, or whether the build artifact is current.
 
 **Why a skill, not a `Stop` hook.** A hook would fire after every assistant turn, but most turns are not commit-worthy — debugging steps, exploratory edits, half-finished refactors. A skill defers to model judgment about *whether* this is a good checkpoint, while remaining trivial to invoke explicitly when you want it ("commit this", "save", "push").
 

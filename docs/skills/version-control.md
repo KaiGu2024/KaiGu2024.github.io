@@ -165,5 +165,5 @@ Do not produce a multi-paragraph summary of what was committed. The diff is on d
 
 ## Cross-references
 
-- [`agent-configuration`](agent-configuration.md) §Automated Version Control — wiring, per-project tuning, and the rationale for skill-vs-hook.
+- [`agent-configuration`](agent-configuration/SKILL.md) §Automated Version Control — wiring, per-project tuning, and the rationale for skill-vs-hook.
 - [`ai-disclosure-block`](ai-disclosure-block.md) — when the target project requires `[AI]` subject tags or end-of-pipeline AI-use disclosure.
