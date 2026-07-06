@@ -108,6 +108,9 @@
           <a href="mailto:kai.gu@studbocconi.it" title="Email">
             <i class="fa-solid fa-envelope"></i> kai.gu@studbocconi.it
           </a>
+          <a href="https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=7907844" target="_blank" title="SSRN">
+            <i class="fa-solid fa-scroll"></i> SSRN
+          </a>
           <a href="assets/cv.pdf" target="_blank" title="CV">
             <i class="fa-solid fa-file-lines"></i> CV
           </a>
@@ -210,96 +213,16 @@
         <!-- AGENT SKILLS -->
         <section id="skills" class="reveal-up">
           <h2>Agent Skills</h2>
-          <p class="about-bio" style="margin-bottom:1.75rem; font-size:0.88rem;">Skill modules for agent-assisted research workflows. Each skill ships a Markdown file an agent can fetch and execute.</p>
 
-          <div class="skills-list">
-
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name"><i class="fa-solid fa-gears skill-icon"></i> Agent Configuration</span>
-                <span class="skill-badge skill-available">Available</span>
-              </div>
-              <p class="skill-desc">Configuring Claude Code for a research project &mdash; installing the CLI, writing CLAUDE.md with mandatory research sections (Data Provenance, Citation Policy, AI Disclosure), customizing the status line, managing context with <code>/compact</code>, and delegating to subagents.</p>
-              <div class="skill-footer">
-                <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" class="skill-source">Claude Code Documentation</a>
-                <a href="skills/agent-configuration" class="skill-file">Skill file &rarr;</a>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name"><i class="fa-solid fa-spider skill-icon"></i> Web Scraping</span>
-                <span class="skill-badge skill-available">Available</span>
-              </div>
-              <p class="skill-desc">Collecting data from the web or social platforms. Prefers structured contracts (JSON API &gt; XML &gt; CSV &gt; HTML + Playwright) over layout-dependent formats. Covers rate limits, retries, auth, pagination, and the legal/ethical guardrails (robots.txt, ToS).</p>
-              <div class="skill-footer">
-                <a href="https://realpython.com/python-web-scraping-practical-introduction/" target="_blank" class="skill-source">Real Python tutorial</a>
-                <a href="skills/web-scraping" class="skill-file">Skill file &rarr;</a>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name"><i class="fa-solid fa-book-open skill-icon"></i> Literature Review</span>
-                <span class="skill-badge skill-available">Available</span>
-              </div>
-              <p class="skill-desc">Two paths to a verified bibliography: Path A (OpenAlex search &rarr; Crossref DOI verification) for indexed work, Path B (web search &rarr; post-hoc DOI/title/author/year/venue checklist) for grey literature. Drops unverified entries; never returns citations from model memory.</p>
-              <div class="skill-footer">
-                <a href="https://openalex.org/" target="_blank" class="skill-source">OpenAlex API</a>
-                <a href="skills/literature-review" class="skill-file">Skill file &rarr;</a>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name"><i class="fa-solid fa-database skill-icon"></i> Big-Data Processing</span>
-                <span class="skill-badge skill-available">Available</span>
-              </div>
-              <p class="skill-desc">Datasets too large for Pandas. Polars by default for in-memory work; DuckDB once raw size hits tens of GB or RAM becomes the bottleneck. Lazy query planning, Arrow zero-copy interop between the two, caching strategies for expensive computations.</p>
-              <div class="skill-footer">
-                <a href="https://docs.pola.rs/" target="_blank" class="skill-source">Polars Documentation</a>
-                <a href="skills/big-data-processing" class="skill-file">Skill file &rarr;</a>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name"><i class="fa-solid fa-tag skill-icon"></i> LLM Annotation</span>
-                <span class="skill-badge skill-available">Available</span>
-              </div>
-              <p class="skill-desc">Generating and integrating data labels via LLMs for research workflows. Structured Pydantic outputs, batch processing, validation against a human gold-set, agreement metrics (Cohen's &kappa;, F1), uncertainty quantification. For when human labels are slow or expensive.</p>
-              <div class="skill-footer">
-                <a href="https://arxiv.org/abs/2402.13446" target="_blank" class="skill-source">LLM4Annotation &mdash; Tan et al., EMNLP 2024</a>
-                <a href="skills/llm-annotation" class="skill-file">Skill file &rarr;</a>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name"><i class="fa-solid fa-chart-bar skill-icon"></i> Visualization</span>
-                <span class="skill-badge skill-available">Available</span>
-              </div>
-              <p class="skill-desc">Publication-ready figures in R + ggplot2. Cleveland-McGill perceptual ranking; Monet/Hokusai brand palette (dusty-blue + sage canonical pair, crimson accent); 600 DPI output. Direct annotation over legends; sort categorical axes by value; plot differences, not raw.</p>
-              <div class="skill-footer">
-                <a href="https://socviz.co/" target="_blank" class="skill-source">Data Visualization &mdash; Healy</a>
-                <a href="https://yiqingxu.org/teachings/resources/data_visual.pdf" target="_blank" class="skill-source" style="margin-left:0.5rem">Xu slides</a>
-                <a href="skills/visualization/SKILL" class="skill-file">Skill file &rarr;</a>
-              </div>
-            </div>
-
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name"><i class="fa-solid fa-display skill-icon"></i> Slide Generation</span>
-                <span class="skill-badge skill-available">Available</span>
-              </div>
-              <p class="skill-desc">Reading-group slides from a paper PDF or TeX source. TeX route reads source directly; PDF-only route runs MinerU extraction. Default output is Reveal.js HTML; PDF export via Decktape on request. Aesthetic aligned with the Monet/Hokusai brand.</p>
-              <div class="skill-footer">
-                <a href="https://revealjs.com/" target="_blank" class="skill-source">Reveal.js Documentation</a>
-                <a href="skills/slide/SKILL" class="skill-file">Skill file &rarr;</a>
-              </div>
-            </div>
-
-          </div>
+          <ul class="compact-list">
+            <li><strong><a href="skills/agent-configuration/SKILL">Agent Configuration</a></strong> &mdash; configuring Claude Code for a research project.</li>
+            <li><strong><a href="skills/web-scraping">Web Scraping</a></strong> &mdash; structured web and social data collection.</li>
+            <li><strong><a href="skills/literature-review">Literature Review</a></strong> &mdash; verified bibliographies via OpenAlex and Crossref.</li>
+            <li><strong><a href="skills/big-data-processing">Big-Data Processing</a></strong> &mdash; Polars and DuckDB for data too large for Pandas.</li>
+            <li><strong><a href="skills/llm-annotation">LLM Annotation</a></strong> &mdash; LLM data labels validated against a human gold-set.</li>
+            <li><strong><a href="skills/visualization/SKILL">Visualization</a></strong> &mdash; publication figures in R + ggplot2.</li>
+            <li><strong><a href="skills/slide/SKILL">Slide Generation</a></strong> &mdash; Reveal.js reading-group decks from a paper.</li>
+          </ul>
         </section>
 
         <!-- CV -->
