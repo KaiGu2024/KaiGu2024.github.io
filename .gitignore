@@ -2,3 +2,6 @@ output/*.aux
 output/*.log
 output/*.out
 output/*.synctex.gz
+
+# Local learning-materials library — copyrighted PDFs, not for the public Pages repo
+materials/
