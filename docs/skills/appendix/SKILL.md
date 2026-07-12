@@ -1,6 +1,6 @@
 ---
 name: appendix
-description: Use when writing or auditing the appendix / online appendix / supplementary materials of an empirical paper or thesis — variable-definition tables, sample-construction details, method and identification descriptions, robustness tables, and reproducibility notes. Derives what the appendix must contain FROM the main text (which main-text claims need deferred support), then traces a three-link chain — main-text claim → appendix item → evidence in the project directory (data, code, output, logs, codebook) and literature — checking coverage (does the appendix back every main-text claim that needs it), grounding (does every appendix statement trace to real evidence), and consistency (do the numbers match across text, appendix, and data). Decomposes every statement into a typed claim (definitional / factual-quantitative / methodological / citational / result-robustness / procedural) and classifies each as SUPPORTED / UNSUPPORTED / MISMATCH. Make sure to use this skill whenever the user mentions an appendix, online appendix, or supplementary materials, asks to "check my appendix", "does my appendix match the paper/code/data", "what should go in my appendix", wants a data or variable-definitions appendix drafted, or wants appendix claims verified — even if they don't say the word "verify". Never silently rewrites a number; flags mismatches for the user to resolve.
+description: Use when writing or auditing the appendix / online appendix / supplementary materials of an empirical paper or thesis — variable-definition tables, sample-construction details, method and identification descriptions, robustness tables, and reproducibility notes. Derives what the appendix must contain FROM the main text (which main-text claims need deferred support), then traces a three-link chain — main-text claim → appendix item → evidence in the project directory (data, code, output, logs, codebook) and literature — checking coverage (does the appendix back every main-text claim that needs it), grounding (does every appendix statement trace to real evidence), cross-artifact consistency (do the numbers match across text, appendix, and data), and internal self-consistency (does the main text agree with itself and the appendix agree with itself — a document that contradicts itself is flagged even when neither copy is anchored in the data). Decomposes every statement into a typed claim (definitional / factual-quantitative / methodological / citational / result-robustness / procedural) and classifies each as SUPPORTED / UNSUPPORTED / MISMATCH. Make sure to use this skill whenever the user mentions an appendix, online appendix, or supplementary materials, asks to "check my appendix", "does my appendix match the paper/code/data", "what should go in my appendix", wants a data or variable-definitions appendix drafted, or wants appendix claims verified — even if they don't say the word "verify". Never silently rewrites a number; flags mismatches for the user to resolve.
 allowed-tools: Read, Glob, Grep, Bash, Edit, Write
 invocation: manual
 ---
@@ -18,14 +18,23 @@ appendix item. That is the **chain** this skill builds and checks:
 main-text claim  →  appendix item  →  evidence (project directory + literature)
 ```
 
-Three things can break along that chain, and the skill checks all three:
+Three things break *along* that chain and a fourth breaks *within* a node — the skill
+checks all four:
 
 - **Coverage** (main-text → appendix): does the appendix actually back every main-text
   claim that needs deferred support? A promised-but-absent first stage is a *coverage gap*.
 - **Grounding** (appendix → evidence): does every appendix statement trace to something
   real — a line of code, a data value, a produced table, a verifiable citation?
-- **Consistency** (main-text ↔ appendix ↔ data): does the sample N in the abstract equal
-  the N in the data appendix equal the N the build script actually produces?
+- **Consistency, cross-artifact** (main-text ↔ appendix ↔ data): does the sample N in the
+  abstract equal the N in the data appendix equal the N the build script actually produces?
+- **Consistency, internal** (main text ↔ itself; appendix ↔ itself): does a document
+  contradict *itself* before you even leave it — the abstract's N = 4,213 against §3's
+  N = 4,198, a construct defined one way in §2 and another in App. A? An internal
+  contradiction is a finding **regardless of what the data says**: it stands even when the
+  external anchor is missing, because two statements of one quantity that disagree cannot
+  both be right. And it applies to the main text as much as the appendix — since the
+  appendix is judged *against* the main text, a main text at war with itself leaves no
+  single target for the appendix to match.
 
 The unit of work, throughout, is borrowed from `literature-review`'s claim-decomposition:
 **a sentence is not the unit of truth.** A single sentence — in the main text or the
@@ -67,7 +76,13 @@ appendix backing, each tagged with the appendix section that *should* hold it, a
 the specific value/claim to later check for consistency (e.g. "abstract says N = 4,213").
 Explicit "see Appendix X" pointers are the easy ones; the valuable catches are the
 *implicit* demands — a method named in §3 with no assumption discussion anywhere, a
-number in a main-text table never reconstructed. (`references/empirical-exemplars.md`
+number in a main-text table never reconstructed.
+
+While reading the main text, also record every place a single quantity or definition
+**recurs within it** — the sample N in the abstract, §3, and Table 1; a construct defined
+in §2 and re-used in §5 — with each location and value. This is the raw material for the
+internal-consistency check in Step 4: the main text must agree with itself before the
+appendix can be asked to match it. (`references/empirical-exemplars.md`
 shows, per method family, the categories of support a top-journal main text implies.)
 
 ### Step 2 — Survey the directory: build the evidence map
@@ -126,10 +141,25 @@ canonical bottom-anchored notes order (`../tables/SKILL.md` → "The Notes block
 coverage too — a results table whose note lacks the SE/clustering key or the legend is a
 **COVERAGE GAP**, not just a style nit.
 
-### Step 4 — Trace the chain: coverage, grounding, consistency
+### Step 4 — Trace the chain: coverage, grounding, consistency (cross-artifact + internal)
 
 Now connect the three lists — the required-support set (Step 1), the evidence map (Step
 2), and the appendix statements (Step 3) — along the chain.
+
+**Internal consistency (each document against itself).** Do this first, because it is cheap
+and needs no evidence. Take the recurring quantities and definitions collected in Step 1
+(main text) and Step 3 (appendix) and compare each occurrence to the others *within the same
+document*: the abstract's N against §3's N against the main-text table's N; the appendix's
+own §A.2 sample count against its §C.1 note; a construct defined twice. Two statements of one
+quantity that disagree are an **INTERNAL MISMATCH** — and this verdict is independent of the
+external evidence. It stands even when both occurrences are UNSUPPORTED (nothing anchors
+either 4,213 or 4,198, yet they cannot both be the sample size), and it is the error the
+chain checks structurally miss: grounding each copy against evidence only surfaces the
+conflict if *both* copies happen to trace cleanly, so a self-inconsistent document with a
+missing anchor sails through as "two UNSUPPORTED rows" unless you compare the copies to each
+other. Run the check on the **main text too**, not only the appendix: a main text that
+disagrees with itself has no single value for the appendix (or the data) to be checked
+against, so resolve it before the cross-artifact pass can even be stated.
 
 **Coverage (main-text → appendix).** Walk the required-support set and match each item to
 an appendix statement that backs it. An unmatched item is a **COVERAGE GAP**: the main
@@ -207,10 +237,12 @@ relevant reference — `references/methodology-standards.md` for methodological 
 `verify-citations` / Crossref for citational ones. Each subagent returns *only* its rows, in
 the verdict-table format — `appendix location | statement | type | SUPPORTED/UNSUPPORTED/MISMATCH | evidence (file:line / table cell / DOI)` — and you, the coordinator, merge them.
 
-Two things stay single-threaded. **Coverage** (matching the required-support set to appendix
-items, the next sub-step) needs the whole picture, not a per-type slice. And the **final
-merge** catches what no single subagent can see — the same value surfacing under two types
-(a sample N is both definitional and factual), or two slices disagreeing. As in
+Three things stay single-threaded. **Coverage** (matching the required-support set to appendix
+items, the next sub-step) needs the whole picture, not a per-type slice. **Internal consistency**
+(comparing every recurrence of a quantity or definition within a document) is cross-statement by
+nature, so no per-statement subagent — each holding only its own slice — can see the conflict. And
+the **final merge** catches what no single subagent can see — the same value surfacing under two
+types (a sample N is both definitional and factual), or two slices disagreeing. As in
 `paper-review`, if a subagent returns nothing or malformed output, insert a placeholder row
 (`<type> — agent returned no output`) and surface it in the report; a missing slice must be
 visible, never silently dropped and never mistaken for "all SUPPORTED." Skip the fan-out
@@ -228,6 +260,7 @@ for the summary line.
 
 **Main-text claims needing support:** R  |  **Covered:** C  |  **Coverage gaps:** G
 **Appendix statements checked:** N  |  **Supported:** S  |  **Unsupported:** U  |  **Mismatch:** M
+**Internal conflicts:** main text: Im  |  appendix: Ia
 Evidence map: <data dir> · <analysis scripts> · <output dir> · <codebook?> · <env record?>
 
 ## Coverage — does the appendix back what the main text needs? (main text → appendix)
@@ -246,10 +279,18 @@ Evidence map: <data dir> · <analysis scripts> · <output dir> · <codebook?> ·
 | 4 | §A.3 | "active user" = ≥1 login / 28 days | definitional | SUPPORTED | active flag, clean.py:120 |
 | 5 | §C.1 | robust to 1% winsorization | result | UNSUPPORTED | no winsorized table found in output/ |
 
+## Internal consistency — does each document agree with itself? (main text ↔ itself, appendix ↔ itself)
+| # | Document | Quantity / definition | Occurrence A (location → value) | Occurrence B (location → value) | Verdict |
+|---|---|---|---|---|---|
+| 1 | main text | sample N | abstract → 4,213 | §3.1 Table 1 → 4,198 | INTERNAL MISMATCH |
+| 2 | main↔appendix | "active user" | §2 → ≥1 login / 28 days | §A.3 → ≥1 login / 30 days | INTERNAL MISMATCH |
+| 3 | appendix | winsorization level | §A.4 → 1% | §C.1 note → 5% | INTERNAL MISMATCH |
+
 ## Coverage gaps (main text promises/needs support the appendix lacks)
 - §3 instruments with judge leniency but no appendix first stage / exclusion discussion (see methodology-standards.md: judge-IV standards).
 
 ## Mismatches to resolve (author decides)
+- Main text internal: abstract says N = 4,213; §3.1 Table 1 says 4,198 — resolve before the appendix can be checked against either.
 - §A.2: prose says 4,213; recomputed 4,198 — stale draft, or different sample than build_panel.R?
 - §B.1: prose says firm-level clustering; code uses industry — which is intended?
 
@@ -259,7 +300,8 @@ Evidence map: <data dir> · <analysis scripts> · <output dir> · <codebook?> ·
 ```
 
 Win condition: every required-support item COVERED, every appendix statement SUPPORTED,
-all values consistent — empty coverage gaps, mismatches, and grounding gaps.
+each document self-consistent, all values consistent across the chain — empty coverage
+gaps, internal conflicts, mismatches, and grounding gaps.
 
 ## Mode B — Author an appendix
 
@@ -280,7 +322,10 @@ each statement already knowing its evidence anchor, so the audit passes by const
 4. **Survey the directory (Step 2 above)** so you write from real artifacts, not memory.
 5. **Anchor as you write** — beside each statement, note the `file:line` / table / DOI it
    rests on (a parallel column or comment), then verify it the moment it's written using
-   the Step 4 machinery. Delete the scaffolding once green.
+   the Step 4 machinery. Delete the scaffolding once green. When you re-state a value or
+   definition the main text already gives, copy it from the anchored source rather than
+   re-typing it — that's how the internal-consistency check passes by construction instead
+   of by luck.
 6. **Cite methods to current standards** from `references/methodology-standards.md`; run
    any new citation through `verify-citations` before it lands.
 7. **Format** — tables for definitions/parameters/sample-waterfalls (`tables` skill),
@@ -315,6 +360,12 @@ re-implementing them:
 - **One statement, one verdict.** Resist grading whole sentences — a sentence that's 80%
   right reads as "fine" and the 20% mismatch slips through. The atomic split is what
   catches the buried wrong cluster level.
+- **Check each document against itself, not only against the others.** A quantity or
+  definition repeated within the main text (or within the appendix) must agree with its own
+  other occurrences; that's an INTERNAL MISMATCH on its own terms, independent of the data
+  and independent of whether either copy is otherwise SUPPORTED. And run it on the main text,
+  not just the appendix — the appendix is judged *against* the main text, so a main text that
+  disagrees with itself has to be resolved first or there is no single target to match.
 - **Fan out the grounding pass when the appendix is large.** Per-statement verdicts are
   independent, so dispatch them across `general-purpose` subagents (see Step 4's
   "Parallelize the grounding pass" note) — but keep coverage and the final merge
