@@ -145,6 +145,18 @@ Convergence to the model's average style has a recognizable surface. If a draft 
   2. **Overgeneralizations** — "every customer wants…", "always / never / all / none". Empirical claims live in conditions and tradeoffs; sweeping language signals the writer skipped them.
   3. **Broad strong claims** — "revolutionizes", "fundamentally redefines" — used to substitute for evidence. Scope each claim to what the analysis actually supports.
 
+**Verb strength ≤ evidence strength.** The greppable form of the "broad strong claims" tell: no verb outruns the evidence behind it. Empirical work *shows*, *provides evidence*, *is consistent with* — it does not *prove*, *demonstrate*, *establish*, *confirm*, or *guarantee* a universal truth. Watch the same list plus "significantly" used with no test or number attached. Downgrade the verb, or attach the number and test that would license the stronger one ("*prove* our method is better" → "improves held-out accuracy by 4–7 points over the strongest prior estimate, significant at p < 0.01").
+
+**Preserve — the over-correction failure mode.** The audit above is one-directional: it removes tells. Run it too hard and you introduce the opposite defect — flattening the calibrated hedging that scholarship *requires*. Turning "the results suggest X" into "the results show X" does not de-AI the prose; it manufactures an over-claim. Before deleting, check that you are not stripping a legitimate construct:
+
+  - **Evidence-tied hedging is correct and stays.** "suggests", "is consistent with", "we hypothesize that", "may indicate", "appears to" — keep them whenever the claim is genuinely uncertain. A calibrated verb is not a tell.
+  - **Passive voice is fine when the actor is irrelevant** — "samples were normalized to total protein." Recast passives only where naming the agent adds information (Movement 5's active-voice rule targets *those*, not all passives).
+  - **First-person plural "we" is standard** — do not rewrite to avoid it.
+  - **Semicolons and an occasional triple** are fine in moderation; only the em-dash is removed outright.
+  - **Definitions, named methods/metrics, symbols, equations, and every number and citation stay verbatim.**
+
+  The two disciplines run together: remove the tells, but never at the cost of a verb that was correctly calibrated to its evidence.
+
 **Why it matters (the empirical case):** detectably-AI work is penalized by evaluators (Reif/Larrick/Soll 2025; Raj/Berg/Seamans 2026), and over-reliance homogenizes output — more text per author, fewer distinct ideas across a field (Anderson 2024; Doshi & Hauser 2024; Moon 2025). Distinctiveness is the asset; generic confidence is not a substitute for specific reasoning. (Adapted from the MGMT430 *"Using AI without sounding like AI"* lecture; the slide-deck counterpart — *visual* tells — lives in [`slide/references/aesthetics.md`](../../slide/references/aesthetics.md).)
 
 ### The accountability test
