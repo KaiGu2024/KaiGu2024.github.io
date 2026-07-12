@@ -1,6 +1,6 @@
 ---
 name: slide
-description: Use when generating Reveal.js reading-group slides from a paper PDF or TeX source — TeX route reads source directly; PDF-only route runs MinerU extraction first, then proceeds. Default output slide/<slug>.html; PDF export via Decktape only on explicit request. Blue-white academic aesthetic (Plus Jakarta Sans, navy primary, electric-blue accent, white paper) — intentionally distinct from the personal-site Hokusai/Lora brand so decks read as conference-house slides, not magazine-paper.
+description: Use when generating Reveal.js slides from a paper PDF or TeX source. Two modes via a named arg — `report` (default) presents someone else's work for a reading group / class; `own` presents the user's own work (job-talk / conference / seminar). TeX route reads source directly; PDF-only route runs MinerU extraction first, then proceeds. Default output slide/<slug>.html; PDF export via Decktape only on explicit request. Blue-white academic aesthetic (Plus Jakarta Sans, navy primary, electric-blue accent, white paper) — intentionally distinct from the personal-site Hokusai/Lora brand so decks read as conference-house slides, not magazine-paper.
 allowed-tools: Read, Edit, Write, Bash
 user-invocable: true
 invocation: auto
@@ -11,6 +11,7 @@ Output paths:
 - `slide/<slug>.pdf` — exported from the HTML via Decktape, **on request only** (see `references/pdf-export.md`).
 
 Reference files:
+- `references/own-work.md` — **read first in `own` mode.** The own-work skeleton (motivation sequence, research-question slide, Contributions + Conclusion close), the web-sourcing pipeline for external motivation assets, and presenter-voice speaker notes. Not needed in the default `report` mode.
 - `references/aesthetics.md` — full slide-deck styling spec (palette, fonts, layouts, callouts, animation, speaker-notes overlay). Blue-white academic; intentionally distinct from the personal-site brand. Read this before writing the `<style>` block in the Reveal.js template — the template references tokens defined there.
 - `references/speaker-notes.md` — per-slide content guide for the `<aside class="notes">` script (press N at presentation time). Read this when populating notes; the "what goes in the title-slide note" rules and the skip-notes exceptions live there.
 - `references/pdf-export.md` — Decktape command, splitting rules, audit checklist. Read only when the user explicitly asks for a PDF.
@@ -28,6 +29,19 @@ PDF only             →  MinerU extraction    → reading notes → Reveal.js s
 - **PDF only**: run MinerU (Step 1) to produce markdown, structured tables, and figure PNGs.
 
 Generate slides only when explicitly requested. Default to Reveal.js HTML; use Beamer (`slide/<slug>.tex`) only if TeX is requested. Export to PDF only when asked — see `references/pdf-export.md`.
+
+---
+
+## Modes — `report` (default) vs `own`
+
+The deck's *structure* depends on whose work it presents. A named arg selects it; `report` is the default when none is given.
+
+| Arg | Presents | Skeleton | Assets |
+|---|---|---|---|
+| `report` (default) | **Someone else's** work — reading group, class, discussant slot | The 7-slide skeleton in Step 3 (Title → Author Bios → Outline → Data → ID → Results → Takeaways & Discussion). Discussant stance. | Reproduce the paper's own tables/figures. **Never self-generate** or web-source assets (see "Figure and table sourcing"). |
+| `own` | **The user's own** work — job talk, conference, seminar | The own-work skeleton in `references/own-work.md`: **no Author Bios**; a **motivating-example sequence before the outline**; closes on **Contributions + Conclusion**, not discussion questions. Presenter stance. | Same paper-asset rules for results, **plus** external figures/stats/headlines are allowed *for the motivation slides only*, web-sourced and attributed. |
+
+**In `own` mode, read `references/own-work.md` before Step 3** — it supplies the skeleton, the web-sourcing pipeline, and the presenter-voice note guidance that override the `report` defaults below. Everything else — the aesthetic (`references/aesthetics.md`), self-contained base64 embedding, the base64-edit discipline (`.tmp_edit/`), the press-N speaker-notes overlay, equation glosses, and PDF export — is **shared across both modes** and unchanged.
 
 ---
 
@@ -64,7 +78,9 @@ Before generating slides, produce structured reading notes at `notes/<slug>.md` 
 
 ## Step 3 — Slide Structure (12–16 slides)
 
-### The 7-slide skeleton
+**Mode note.** The 7-slide skeleton below is the **`report`** (default) structure. In **`own`** mode, replace it with the own-work skeleton in `references/own-work.md` (no Author Bios, a motivation sequence before the outline, Contributions + Conclusion close) — but the Titles, Dense-slides, Equations, sourcing, self-contained-output, Identification, and Speaker-notes subsections that follow apply to *both* modes.
+
+### The 7-slide skeleton (`report` mode)
 
 | # | Slide | Notes |
 |---|---|---|

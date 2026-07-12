@@ -286,6 +286,34 @@ Named column grids — wrap slide content in the appropriate div:
   border: var(--border); border-radius: var(--radius-sm); box-shadow: var(--shadow-xs);
 }
 
+/* Hero statistic — the "it's happening" motivation slide (own-work mode).
+   One oversized number + short label; carries the scale of the problem when a
+   chart would be busier than it's worth. Number in electric accent, rationed
+   to this one moment; keep at most one .stat-hero per slide. Cool brand only —
+   no warm tone, no crimson. */
+.stat-hero {
+  text-align: center; margin: var(--sp-6) auto;
+}
+.stat-hero .num {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: clamp(4rem, 12vw, 8rem); line-height: 1.0;
+  letter-spacing: -0.03em; color: var(--c-accent);
+}
+.stat-hero .label {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: var(--fs-h3); color: var(--c-ink-soft);
+  margin-top: var(--sp-3); max-width: 22ch; margin-inline: auto;
+}
+
+/* Source caption — attribution line under a web-sourced external asset
+   (own-work motivation slides). Small, muted, non-competing. Attribution is
+   required on every web-sourced figure/stat; see references/own-work.md. */
+.source-caption {
+  font-family: var(--font-body); font-size: var(--fs-small);
+  color: var(--c-ink-mute); font-style: italic;
+  margin-top: var(--sp-2);
+}
+
 /* Tables */
 .reveal table {
   width: 100%; border-collapse: collapse;

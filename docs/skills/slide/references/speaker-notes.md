@@ -16,6 +16,8 @@ If the slide already has bullets, don't restate them. The bullets are for the au
 
 ## What to write, per slide type
 
+The table below is written for **`report` mode** — a discussant appraising someone else's paper. In **`own` mode** (`references/own-work.md`) the voice inverts: notes anticipate the objection *and carry your answer*, the motivation slides hold the hook and the stakes, and the Author-Bios / discussion-questions rows do not apply (those slides don't exist in `own` mode). See `own-work.md` → "Speaker notes — presenter voice".
+
 | Slide | Note content |
 |---|---|
 | **Title** | (1) the 1-sentence hook — a concrete example or stat that lands the motivation in the first 20 seconds; (2) why *this* paper / why *this* audience cares; (3) where the talk is going (preview the punchline). |
