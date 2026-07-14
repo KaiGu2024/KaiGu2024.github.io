@@ -4,6 +4,7 @@ description: Use when a referee + editor letter needs to be turned into an atomi
 allowed-tools: Read, Edit, Write, Bash
 user-invocable: true
 invocation: auto
+disable-model-invocation: true
 ---
 
 # Revision Plan

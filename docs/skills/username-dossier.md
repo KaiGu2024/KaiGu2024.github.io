@@ -3,6 +3,7 @@ name: username-dossier
 description: Use when the user wants to collect an OSINT dossier on a person by username — checking which sites a handle is registered on, gathering public profile data, and producing a structured report. Triggers on phrases like "find accounts for username X", "check where this handle is registered", "OSINT lookup for @handle", "what sites is X on". Wraps the Maigret CLI; produces a markdown dossier, never a database dump.
 allowed-tools: Read, Edit, Write, Bash
 invocation: confirm
+disable-model-invocation: true
 ---
 
 # Username Dossier (Maigret wrapper)

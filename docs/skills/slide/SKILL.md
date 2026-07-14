@@ -4,6 +4,7 @@ description: Use when generating Reveal.js slides from a paper PDF or TeX source
 allowed-tools: Read, Edit, Write, Bash
 user-invocable: true
 invocation: auto
+disable-model-invocation: true
 ---
 
 Output paths:
