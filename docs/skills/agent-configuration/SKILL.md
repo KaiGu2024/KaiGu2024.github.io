@@ -3,6 +3,7 @@ name: agent-configuration
 description: Use when configuring Claude Code for a research project — installing the CLI, writing CLAUDE.md (with the research-specific Data Provenance and Citation Policy sections), organizing project documentation into layers (agent-instruction files, README, a stable docs/ reference, an evolving notes/ wiki), keeping the agent-instruction file and README in sync as the project evolves, customizing the status line, managing context with /compact, and decomposing tasks across parallel subagents. Inspects the project directory to populate CLAUDE.md sections from real evidence rather than boilerplate.
 allowed-tools: Read, Edit, Write, Bash, Glob, Grep
 invocation: manual
+disable-model-invocation: true
 ---
 
 ## Installation (Windows)
@@ -65,43 +66,9 @@ Then restart the terminal and verify with `claude --version`.
 
 ### Where documentation lives — the layers, and CLAUDE.md's place in them
 
-CLAUDE.md does not exist in isolation. A mature research project is organized into **five execution layers**, and CLAUDE.md is the layer that governs the other four rather than storing content itself.
+A mature research project organizes into five execution layers (`code/`, `data/`, `docs/`, `notes/`, `output/`), and CLAUDE.md is the layer that governs the other four rather than storing content itself. The full model — the five-layer and documentation-roles tables, the front-door-vs-content distinction, the two logging configurations (with / without a `notes/` wiki), and the wiki maintenance contract that must live in CLAUDE.md — is in `references/docs-layers.md`. Read it when scaffolding a full research-project structure.
 
-| Layer | Holds | Rule |
-|---|---|---|
-| `code/` | Scripts, named in run order and keyed to a fact/analysis (`01_ingest.py`, `02_localization.R`) | One file per pipeline stage |
-| `data/` | `raw/` (immutable source) + `processed/` | **Never edit `raw/` — read only** |
-| `docs/` | Stable reference specs | Change only when design/schema/method changes |
-| `notes/` | The living wiki | Changes every session |
-| `output/` | Tables + figures (decomposed by fact/analysis), reports, the paper | Regenerable from `code/` + `data/` |
-
-The confusing part is always the **documentation roles**, because four things look like "documentation" but do four different jobs. The distinction that keeps them from bleeding into each other: **two are *content* (they hold knowledge); two are *front doors* (they orient a reader and route into the content).** They split on two axes — content vs. orientation, and within each, by stability or by audience.
-
-| Role | Kind | Audience | Changes | Answers |
-|---|---|---|---|---|
-| `CLAUDE.md` / `AGENTS.md` | Front door | The **agent** | When layout / constraints / conventions change | "How do I *operate* in this repo?" |
-| `README.md` (root) | Front door | **Humans** | When onboarding facts change | "What *is* this and how do I start?" |
-| `docs/` | Content — **stable reference** | Human + agent | Only when the design / schema / method actually changes | "What *exactly* is X?" |
-| `notes/` | Content — **living wiki** | Agent (+ human) | Every session | "What do we *think* / what's next?" |
-
-**The load-bearing rule: front doors are not content bodies.** CLAUDE.md and README are thin. They point *into* `docs/` and `notes/`; they never accumulate the knowledge that belongs there. When you are tempted to explain a method inside CLAUDE.md, write it in `docs/methodology/` and link; when you want to record what changed, append to `notes/log.md`. A front door that grows a knowledge base has stopped being a front door.
-
-- **`CLAUDE.md` / `AGENTS.md` — the agent's operating manual + router.** (Both filenames name the same role; use whichever the toolchain expects, and don't maintain two.) It carries the behavioral rules, the tool constraints, the subagent inventory, and pointers to where content lives (`notes/index.md`, the `docs/` subfolders). It is loaded every session and survives `/compact`, so every line costs context on every turn — hence "thin." Crucially, it is the only place that can carry the **maintenance discipline** for the wiki, because those rules have to fire on every turn and survive compaction (see below).
-- **`README.md` (root) — the human front door.** The GitHub landing page. What the project is, how to get set up, where things are, how to run. Orientation for a collaborator or future self — not for the agent (that is CLAUDE.md's job) and not a place for specs (that is `docs/`). Distinct from the *replication-package* README (the public handoff artifact covered later in this skill).
-- **`docs/` — the stable reference manual.** Neutral, declarative, specification-style ("3,150 rows × 37 columns"). Four subfolders, each a documentation type: `design/` (the experiment/design spec, frozen before analysis — "what we set out to do and why"), `methodology/` (the how, at replicator detail), `technical/` (`data_dictionary.md`, `code_architecture.md`, `visualization_style_guide.md`), `references/` (external immutable material — parallels `notes/sources/`).
-- **`notes/` — the living wiki.** A file-based knowledge base in plain Markdown with YAML frontmatter and Obsidian `[[wiki-links]]`, maintained across sessions. Argument-and-commentary voice ("the big implication"). Four load-bearing pages: `index.md` (master catalog — search here first), `overview.md` (the evolving thesis + Open Work checklist), `log.md` (chronological history), `methodology/decisions.md` (choices + rationale). Layered subfolders (`sources/` immutable, `concepts/`, `entities/`, `findings/`, `literature/`, `methodology/`, `paper/`). Organizing principles: **single source of truth per fact** (a number lives on one `findings` page and is *linked*, never copied — which is why log entries are thin pointers, not restatements), and **cross-linking over hierarchy**.
-
-**Two configurations — where the running history lives.** The line most projects get wrong is *where the log goes*, and it depends on whether a `notes/` wiki exists:
-
-- **Lightweight project (no wiki).** README does double duty: human front door **plus** a dated changelog. CLAUDE.md is the agent manual. This is the two-document setup the next section describes.
-- **Full research project (with wiki).** The running history moves into the wiki: chronology to `notes/log.md`, rationale to `notes/methodology/decisions.md`, the evolving thesis to `notes/overview.md`. README then shrinks back to pure orientation, and CLAUDE.md gains the wiki-maintenance rules. Do not keep a second changelog in README once `notes/log.md` exists — that violates single-source-of-truth.
-
-**The maintenance contract (why it must live in CLAUDE.md).** A wiki decays without discipline, and the discipline is stated in `notes/index.md` — but the *trigger to follow it* has to survive `/compact` and fire every turn, so it belongs in CLAUDE.md as operational rules. Put these two verbatim:
-
-- **Append to the log.** After each meaningful operation, append one entry to `notes/log.md` in a fixed, grep-parseable format — `## [YYYY-MM-DD] operation | description` — with typed operations (`ingest`, `lint`, `strategy`, …) so history is queryable (`grep "^## \[" notes/log.md | tail -10`). The entry *links* to the phase plan and to `[[decisions#...]]`; it does not restate them.
-- **Lint periodically.** Every so often, sweep the wiki for orphan pages, stale claims, and missing cross-references, and fix or flag them. Record the sweep as a `lint` log entry.
-
-Both are just two more bullets in the CLAUDE.md "Operational rules" block (see the generator below).
+The one load-bearing rule to hold here: **front doors (CLAUDE.md, README) are thin routers, not content bodies.** They point into `docs/` and `notes/`; when tempted to explain a method inside CLAUDE.md, write it in `docs/` and link.
 
 ### Keeping CLAUDE.md and README in sync (active development)
 
@@ -215,126 +182,7 @@ a convention the project does not actually use>
 
 ### Generating a replication-package README (handoff to public)
 
-The CLAUDE.md above is for **active development**. The replication-package **README.md** is for the **public handoff** — a reviewer or future replicator should be able to clone the repo and run the pipeline end-to-end. Different audience, different discipline.
-
-Use this when preparing a replication package for a paper submission, JoP / Code Ocean upload, or dissertation appendix. For a project still under active development, use the CLAUDE.md generator above instead.
-
-#### Non-negotiable rules
-
-1. **Every command in the README must be one a reviewer can run verbatim** (no placeholders without an explicit `<...>` and instructions for what to substitute).
-2. **Every input file referenced must exist in the package or be accompanied by access instructions.**
-3. **Software versions must be pinned.** "R 4.4" is acceptable; "R" alone is not.
-4. **The Outputs section must list every figure and table the package produces, keyed to the paper.**
-
-#### Workflow
-
-```
-Inspect package → Identify run order → Identify outputs → Emit README → Emit TODO list
-```
-
-**Step 1 — Inspect the package.**
-
-```bash
-ls -la
-fd -e R -e py -e do -e jl -e qmd -e Rmd | head -20
-ls Makefile master.do _quarto.yml run_all.py 2>/dev/null
-ls renv.lock requirements.txt environment.yml conda-lock.yml Pipfile.lock 2>/dev/null
-ls -d data raw_data data/raw data/processed 2>/dev/null
-```
-
-Capture: language(s), entrypoint(s), lock file(s), data folder structure, presence of `figures/` and `tables/` output folders.
-
-**Step 2 — Identify the run order.** Read the entrypoint (Makefile / `master.do` / `_quarto.yml` / driver script) and extract the canonical sequence. If there is no entrypoint, walk the data flow manually.
-
-**Step 3 — Identify the outputs.** Find every script that writes to `figures/`, `tables/`, or equivalent. Record: filename, the script that produces it, and (if findable) the figure/table number in the paper. If the paper-to-output mapping is not in the code, leave a TODO for the user.
-
-**Step 4 — Emit the README.** Use this template (skip sections that do not apply, but keep the headings as scaffolding so the user knows what is missing):
-
-```markdown
-# Replication Package: <Paper Title>
-
-**Authors:** <names>
-**Last updated:** <date>
-
-## Overview
-<one paragraph: what the paper does, what this package replicates>
-
-## Software Requirements
-- <Language> <version>, with the following packages: <list, or "see lock file">
-- <Other tools: pdflatex, GNU make, Stata 18, etc.>
-
-Reproducibility tested on: <OS / hardware>.
-
-## Data
-| File | Source | Access | License |
-|---|---|---|---|
-| `data/raw/...` | <provenance> | <how to obtain> | <license / restrictions> |
-
-If any data file cannot be redistributed, the table makes that explicit.
-
-## Directory Layout
-<tree -L 2, with one-line description per top-level dir>
-
-## How to Reproduce
-\```bash
-# 1. Install dependencies
-<command, derived from lock file>
-
-# 2. Run the full pipeline
-<command, derived from entrypoint>
-\```
-
-Approximate runtime: <hours/minutes on what hardware>.
-
-## Outputs
-| File | Script | Paper reference |
-|---|---|---|
-| `figures/fig1.pdf` | `scripts/02_descriptive.R` | Figure 1 |
-| `tables/tab1.tex` | `scripts/03_main_results.R` | Table 1 |
-
-## AI Disclosure
-<populated from the ai-disclosure-block skill, or TODO>
-
-## Citation
-<BibTeX block for the paper>
-
-## License
-<MIT / CC-BY-4.0 / etc. for the code; data may differ>
-
-## Contact
-<email / GitHub issues link>
-```
-
-**Step 5 — Emit a TODO list.** After writing the README, print every section that contains a `<...>` placeholder or `TODO`. The user fills these by hand — the goal is to make the gaps visible, not paper over them.
-
-#### Notes for extending
-
-- **Language-specific install blocks.** Factor `install/r.md`, `install/py.md`, `install/stata.md` as Level-3 resources and load only the relevant ones.
-- **Figure-to-paper map.** If the paper exists as a `.tex` file in the package, parse `\caption{...}` blocks to auto-fill the paper-reference column.
-
-```markdown
-# Project: [Name]
-
-## Layout
-- `data/raw/`       — immutable source files, never overwrite
-- `data/cleaned/`   — outputs of cleaning scripts
-- `code/`           — all scripts; one file per pipeline stage
-- `writing/`        — draft text, LaTeX source
-
-## Constraints
-- Never edit files in `data/raw/`
-- Compile with: [exact compile command]
-- Output figures to `output/figures/`
-
-## Subagents
-- `data-loader` — pulls and harmonizes raw files into `data/cleaned/`.
-  Re-state in every brief: "do not look in `..` or modify anything in `data/raw/`".
-- `figure-builder` — produces figures in `output/figures/`.
-  Re-state in every brief: "house style is Kieran Healy; one chart per file; never write outside `output/figures/`".
-
-## Verification
-- Run `make test` to check pipeline end-to-end
-```
+The CLAUDE.md above is for **active development**. A replication-package **README** is a different deliverable — the public handoff, where a reviewer clones the repo and runs the pipeline end-to-end. That workflow (inspect package -> run order -> outputs -> emit README + TODO, under the rules that every command be runnable verbatim, every version pinned, and every output keyed to a paper figure/table) is its own skill: use the `replication-readme` skill. Don't duplicate it here.
 
 ---
 
@@ -437,27 +285,18 @@ Constraints: [Any rules from CLAUDE.md that apply]
 
 ## Skill Invocation Contract
 
-Every skill in `docs/skills/` declares an `invocation:` field in its frontmatter. It controls when Claude is allowed to fire the skill:
+Claude Code decides whether Claude may **auto-fire** a skill from two frontmatter fields the loader actually reads:
 
-| Value | Behavior |
+| Field | Effect |
 |---|---|
-| **`auto`** | Fires whenever the description matches user intent. No confirmation. Default for skills with no side effects (drafting, analysis, reading, formatting). |
-| **`confirm`** | Fires when the description matches *and* asks one yes/no before acting. Required for skills with side effects: commits, external writes, paid LLM calls. |
-| **`manual`** | Never auto-fires on description match alone. Runs only when the user types the skill name explicitly (`/skill-name`, "use the X skill", or directly references the skill). For heavyweight or one-shot setup skills. |
+| `disable-model-invocation: true` | Claude never auto-fires the skill; it runs only when the user invokes it (`/skill-name`). Its description also drops out of the always-on context listing, so it costs zero until invoked. Use for heavyweight or one-shot setup skills, and anything with side effects you want to time yourself. |
+| `user-invocable: false` | Hidden from the `/` menu; only Claude can invoke it. Use for background knowledge that isn't a meaningful user action. |
 
-**Caveat — convention, not infrastructure.** Claude Code's skill loader does not enforce this field. Claude reads it and respects it. If a skill marked `confirm` fires without confirmation, that is a bug in Claude's behavior, not the loader's.
+With neither field, the default holds: Claude may auto-fire on description match, and the one-line description loads every session. To control this from settings without editing a skill's file, use `skillOverrides` in `settings.json` (states: `on` / `name-only` / `user-invocable-only` / `off`).
 
-**Current assignments:**
+**Legacy `invocation:` field.** Some older skills in this library carry `invocation: auto | confirm | manual`. The loader does **not** read it — it is a home-grown convention that predates `disable-model-invocation:` and is advisory only. To make a skill manual-only, set `disable-model-invocation: true`; treat any lingering `invocation:` value as a comment and drop it once the real field is set.
 
-- **`manual`** — `agent-configuration` (one-shot setup), `paper-review` (6-agent run, expensive)
-- **`confirm`** — `version-control`, `ai-disclosure-block`, `analysis-cleanup`, `llm-annotation`, `web-scraping` (each has commits, external writes, or paid API calls)
-- **`auto`** — everything else (drafting, analysis, reading, formatting)
-
-**Default if missing:** `auto`. Matches current loader behavior so older skills without the field keep working.
-
-**Relationship to `user-invocable: true`.** A few skills (`ai-disclosure-block`, `revision-plan`, `slide`) carry a legacy `user-invocable: true` field. The two fields are complementary — `user-invocable` exposes the skill for direct invocation; `invocation:` controls Claude's auto-fire decision. A skill can be both `user-invocable: true` and `invocation: auto` (most permissive). Eventually consider consolidating to one field; no urgency.
-
----
+**Current manual-only skills** (`disable-model-invocation: true`): everything in the library except `visualization`, `tables`, `paper-writing`, and `version-control`, which stay auto-firing.
 
 ## Automated Version Control
 
