@@ -8,11 +8,11 @@ CLAUDE.md does not exist in isolation. A mature research project is organized in
 
 | Layer | Holds | Rule |
 |---|---|---|
-| `code/` | Scripts, named in run order and keyed to a fact/analysis (`01_ingest.py`, `02_localization.R`) | One file per pipeline stage |
+| `code/` | Preprocessing, crawling, ingestion, and other input-preparation scripts | Name scripts in run order and key them to the substantive analysis (`01_ingest.py`, `02_localization.R`) |
 | `data/` | `raw/` (immutable source) + `processed/` | **Never edit `raw/` — read only** |
 | `docs/` | Stable reference specs | Change only when design/schema/method changes |
 | `notes/` | The living wiki | Changes every session |
-| `output/` | Tables + figures (decomposed by fact/analysis), reports, the paper | Regenerable from `code/` + `data/` |
+| `output/` | Derived results, including `output/code/` result-generating scripts and `output/data/` smaller processed data or reproducibility caches, plus tables, figures, reports, and the paper | `output/code/` and `output/data/` must be regenerable or traceable from `code/` + `data/`; outputs are decomposed by fact/analysis |
 
 The confusing part is always the **documentation roles**, because four things look like "documentation" but do four different jobs. The distinction that keeps them from bleeding into each other: **two are *content* (they hold knowledge); two are *front doors* (they orient a reader and route into the content).** They split on two axes — content vs. orientation, and within each, by stability or by audience.
 

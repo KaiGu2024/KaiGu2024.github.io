@@ -65,10 +65,23 @@ Then restart the terminal and verify with `claude --version`.
 
 ### Where documentation lives — the layers, and CLAUDE.md's place in them
 
-A mature research project organizes into five execution layers (`code/`, `data/`, `docs/`, `notes/`, `output/`), and CLAUDE.md is the layer that governs the other four rather than storing content itself. The full model — the five-layer and documentation-roles tables, the front-door-vs-content distinction, the two logging configurations (with / without a `notes/` wiki), and the wiki maintenance contract that must live in CLAUDE.md — is in `references/docs-layers.md`. Read it when scaffolding a full research-project structure.
+A mature research project organizes into five execution layers (`code/`, `data/`, `docs/`, `notes/`, `output/`), and CLAUDE.md is the layer that governs the other four rather than storing content itself. `code/` is for preprocessing and crawling; result-generating scripts used to reproduce outputs belong under `output/code/`; smaller processed data and reproducibility caches belong under `output/data/`; `data/` is mainly for raw data and processed data that remains large. The full model — the five-layer and documentation-roles tables, the analysis naming convention, the front-door-vs-content distinction, the two logging configurations (with / without a `notes/` wiki), and the wiki maintenance contract that must live in CLAUDE.md — is in `references/docs-layers.md`. Read it when scaffolding a full research-project structure.
 
 The one load-bearing rule to hold here: **front doors (CLAUDE.md, README) are thin routers, not content bodies.** They point into `docs/` and `notes/`; when tempted to explain a method inside CLAUDE.md, write it in `docs/` and link.
 
+### Analysis naming and output conventions
+
+When several analyses address the same substantive topic, use the listing number as the analysis name (for example, `01_localization`, `02_localization`) rather than inventing unrelated names. Keep the number and name consistent across the analysis script, output files, notes, and documentation so a reader can identify the complete unit from any layer.
+
+Use the directory split below when scaffolding or auditing a research project:
+
+- `code/`: preprocessing, crawling, ingestion, and other scripts that prepare inputs;
+- `output/code/`: result-generating scripts that produce tables, figures, reports, or other outputs and are required for reproducibility;
+- `data/`: mainly raw data, plus processed data that remains large or is treated as a primary project input;
+- `output/data/`: smaller processed data, intermediate artifacts, or caches that are shipped or retained to reproduce outputs;
+- `output/`: derived results, with scripts in `output/code/` and reproducibility data in `output/data/`.
+
+Do not duplicate a preprocessing script in `output/code/`. A result-generating script should consume a named input, record its provenance, and write a predictable output keyed to the same numbered analysis name.
 ### Keeping CLAUDE.md and README in sync (active development)
 
 CLAUDE.md and an active-development README are two living docs with two different jobs. Keep them separate — do not let either drift into the other's role.
@@ -152,7 +165,7 @@ a convention the project does not actually use>
 
 **Operational rules** (concrete, apply every time):
 
-- When writing new analysis: produce both the code and the output it generates.
+- When writing new analysis: use the numbered substantive analysis name consistently; put preprocessing/crawling in `code/`, result-generating reproducibility scripts in `output/code/`, and their smaller processed inputs or caches in `output/data/`; produce both the code and the output it generates.
 - When proposing a method change: state which result(s) it would change before editing.
 - When uncertain about a number or citation: flag with `[TODO]` rather than guess.
 - When a task splits into independent subtasks: decompose it and dispatch the subtasks to subagents in parallel (one message, multiple tool calls). Do not parallelize work that shares mutable state or has a true sequential dependency.
