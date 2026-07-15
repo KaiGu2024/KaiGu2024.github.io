@@ -3,7 +3,6 @@ name: preregistration
 description: Use when the user is preparing to preregister an experiment, observational study, or analysis plan and wants a draft preregistration document scaffolded out. Walks the user through the standard fields (hypotheses, design, analysis plan, exclusion criteria) with prompts; produces a markdown draft compatible with OSF, AsPredicted, or a journal's pre-analysis plan format.
 allowed-tools: Read, Bash
 invocation: auto
-disable-model-invocation: true
 ---
 
 Scaffold a draft preregistration document — hypotheses, design, analysis plan, exclusion criteria — in a format compatible with OSF, AsPredicted, or a journal's pre-analysis plan. The skill produces a draft; the user submits the actual preregistration.

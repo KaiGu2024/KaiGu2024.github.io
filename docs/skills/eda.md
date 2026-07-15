@@ -3,7 +3,6 @@ name: eda
 description: Use when the user has a new dataset and wants systematic exploratory analysis before modeling — load → inspect → summary table → clean → univariate → bivariate → temporal/group → document, in Polars by default. Surfaces problems, surprises, and structure; never confirms hypotheses. For datasets > 1 GB or when lazy evaluation is needed, hand off to big-data-processing.
 allowed-tools: Read, Edit, Write, Bash
 invocation: auto
-disable-model-invocation: true
 ---
 
 For datasets > 1 GB or when lazy evaluation / caching is needed, see [Big-Data Processing](big-data-processing.md).

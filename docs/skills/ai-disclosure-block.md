@@ -4,7 +4,6 @@ description: Use when the user is preparing a paper, thesis, or replication pack
 allowed-tools: Read, Bash, Glob, Grep
 user-invocable: true
 invocation: confirm
-disable-model-invocation: true
 ---
 
 Generate the AI-use disclosure block that increasingly many journals require, populated from real evidence in the project rather than boilerplate.

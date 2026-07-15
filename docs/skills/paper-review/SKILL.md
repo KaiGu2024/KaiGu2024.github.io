@@ -3,7 +3,6 @@ name: paper-review
 description: Run a 6-agent pre-submission referee report for an academic paper targeting a specified journal
 allowed-tools: Read, Bash, Glob, Grep
 invocation: manual
-disable-model-invocation: true
 ---
 
 You are coordinating a rigorous pre-submission review of an academic economics paper. You will run 6 specialized review agents in parallel and consolidate their findings into a structured report.

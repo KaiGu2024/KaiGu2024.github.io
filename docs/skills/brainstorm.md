@@ -3,7 +3,6 @@ name: brainstorm
 description: Use when the user has a vague research topic and needs to sharpen it into a question — produces one wedge sentence, a labeled contribution type (sharp prediction / question-meets-data / conceptual reframe), and a decomposition tree of three to five sub-questions, each tied to a candidate identification strategy. Output feeds literature-review and eda; without it both are unfocused.
 allowed-tools: Read
 invocation: auto
-disable-model-invocation: true
 ---
 
 # Brainstorm

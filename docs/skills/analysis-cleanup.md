@@ -3,7 +3,6 @@ name: analysis-cleanup
 description: Use when the user wants an analysis script refactored (renamed variables, deduplicated logic, split into functions) WITHOUT changing any of the outputs the script produces. Snapshots all outputs before refactoring, applies changes, re-runs, and diffs — if any output changes, the refactor is rejected. Never silently changes a number.
 allowed-tools: Read, Edit, Bash, Glob
 invocation: confirm
-disable-model-invocation: true
 ---
 
 Refactor an analysis script — rename variables, deduplicate logic, split into functions — **without changing any of the numbers it produces**. The discipline is enforced by snapshot-and-diff: outputs before == outputs after, or the refactor is rejected.

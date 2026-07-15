@@ -3,7 +3,6 @@ name: agent-configuration
 description: Use when configuring Claude Code for a research project — installing the CLI, writing CLAUDE.md (with the research-specific Data Provenance and Citation Policy sections), organizing project documentation into layers (agent-instruction files, README, a stable docs/ reference, an evolving notes/ wiki), keeping the agent-instruction file and README in sync as the project evolves, customizing the status line, managing context with /compact, and decomposing tasks across parallel subagents. Inspects the project directory to populate CLAUDE.md sections from real evidence rather than boilerplate.
 allowed-tools: Read, Edit, Write, Bash, Glob, Grep
 invocation: manual
-disable-model-invocation: true
 ---
 
 ## Installation (Windows)
@@ -296,7 +295,7 @@ With neither field, the default holds: Claude may auto-fire on description match
 
 **Legacy `invocation:` field.** Some older skills in this library carry `invocation: auto | confirm | manual`. The loader does **not** read it — it is a home-grown convention that predates `disable-model-invocation:` and is advisory only. To make a skill manual-only, set `disable-model-invocation: true`; treat any lingering `invocation:` value as a comment and drop it once the real field is set.
 
-**Current manual-only skills** (`disable-model-invocation: true`): everything in the library except `visualization`, `tables`, `paper-writing`, and `version-control`, which stay auto-firing.
+**Current manual-only skills** (`disable-model-invocation: true`): none — the library was briefly locked to manual-only for all non-core skills, then reopened to auto-firing on description match. Re-apply the field to individual skills if a specific one turns out to need gating (heavyweight setup, side effects you want to time yourself).
 
 ## Automated Version Control
 
