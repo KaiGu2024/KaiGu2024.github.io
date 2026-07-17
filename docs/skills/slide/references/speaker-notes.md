@@ -8,9 +8,9 @@ The styling for the overlay lives in `aesthetics.md` §7. The CSS scopes the vis
 
 ## The rule
 
-Notes are a **script**, not a recap of what's already on the slide. Read what's on the slide; *write what you'd add*. 30–60 seconds of speaking. Three short paragraphs or 3–5 bullets, never more than fits the panel without scrolling (≈38vh).
+Notes are **brief speaking cues**, not a script or a recap of the slide. Read what's on the slide; *write what you'd add*. Use mainly keywords and short sentences. Each row should convey one distinct layer of the slide's message, so the presenter can scan the notes quickly.
 
-If the slide already has bullets, don't restate them. The bullets are for the audience; the notes are for you.
+Use 3–5 rows when possible, and never more than fits the panel without scrolling (≤38vh). Typical layers are: **Hook / context**, **question or claim**, **evidence**, **interpretation / implication**, **caveat or transition**. Do not force every layer onto every slide. If the slide already has bullets, don't restate them; add framing, emphasis, interpretation, or pushback.
 
 ---
 
@@ -34,7 +34,7 @@ The table below is written for **`report` mode** — a discussant appraising som
 
 ## Markup
 
-Markup-light HTML — `<p>`, `<ul><li>`, `<strong>` for the words you most want your eye to catch when glancing down. No tables, no images, no callouts (the overlay is itself the callout).
+Markup-light HTML — use one `<p>` per message layer, with a short `<strong>` label. No tables, images, or callouts (the overlay is itself the callout).
 
 ```html
 <section>
@@ -43,9 +43,9 @@ Markup-light HTML — `<p>`, `<ul><li>`, `<strong>` for the words you most want 
   <h3>Description</h3>
   <ul><li><strong>Magnitude</strong>: +3.2 pp, 95% CI [2.1, 4.3]</li></ul>
   <aside class="notes">
-    <p><strong>Read aloud:</strong> 3.2 percentage points off a 12-point base — about a 27% lift.</p>
-    <p><strong>Point at:</strong> the pre-period — flat, no anticipation. The kink is sharp at week 0.</p>
-    <p><strong>Pushback to expect:</strong> the CI widens after week 4 because the panel thins. Authors handle it with a balanced-panel robustness in Table A5 (mention only if asked).</p>
+    <p><strong>Magnitude:</strong> +3.2 pp off a 12-point base — about a 27% lift.</p>
+    <p><strong>Visual:</strong> Flat pre-period; sharp kink at week 0.</p>
+    <p><strong>Caveat:</strong> Wider CI after week 4 as the panel thins; balanced-panel robustness in Table A5.</p>
   </aside>
 </section>
 ```

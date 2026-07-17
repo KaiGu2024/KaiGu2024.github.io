@@ -226,7 +226,7 @@ Slide layout: three `<h3>` blocks — *Challenge* → *Strategy* → *Assumption
 
 ### Speaker notes — press N
 
-Every `<section>` gets an `<aside class="notes">` holding the script for that slide. Press `N` at presentation time for an in-window overlay (the keybind is wired in the init script in the template below). Reveal.js's built-in "S" key still opens the dual-monitor speaker view from the same source.
+Every `<section>` gets an `<aside class="notes">` holding brief cue rows for that slide. Each row conveys one layer of the message (for example: context, claim, evidence, implication, caveat, or transition); use mainly keywords and short sentences, not paragraphs. Press `N` at presentation time for an in-window overlay (the keybind is wired in the init script in the template below). Reveal.js's built-in "S" key still opens the dual-monitor speaker view from the same source.
 
 What to write per slide — the title-slide hook, the data-slide pushback to expect, the results-slide read-aloud number, and the skip-notes exceptions — lives in `references/speaker-notes.md`. Read that file before populating notes.
 
