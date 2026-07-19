@@ -1,6 +1,8 @@
-# Speaker Notes — what to write per slide
+# Reveal.js speaker notes (`report` mode)
 
-Every `<section>` in the deck gets an `<aside class="notes">` element holding the **script you would say aloud** for that slide. At presentation time, press `N` to surface a cream overlay anchored to the bottom of the screen showing the current slide's notes; press `N` again to dismiss. The keybind (Reveal.js init script in `SKILL.md`) overrides Reveal's default N-as-next-slide. Reveal's built-in "S" key still opens the dual-monitor speaker view from the same `<aside class="notes">` source.
+This file applies only to the Reveal.js `report` mode for reading other people's papers. In `own` mode, use `own-work.md`: every Beamer frame requires natural spoken prose in `\note{...}`, with no skip exceptions.
+
+Every `<section>` in a report-mode deck gets an `<aside class="notes">` element holding the **script you would say aloud** for that slide. At presentation time, press `N` to surface a cream overlay anchored to the bottom of the screen showing the current slide's notes; press `N` again to dismiss. The keybind (Reveal.js init script in `reading-other-papers.md`) overrides Reveal's default N-as-next-slide. Reveal's built-in "S" key still opens the dual-monitor speaker view from the same `<aside class="notes">` source.
 
 The styling for the overlay lives in `aesthetics.md` §7. The CSS scopes the visible panel to `section.present`, so only the current slide's notes appear when N is toggled — exactly what you want mid-talk.
 
@@ -16,7 +18,7 @@ Use 3–5 rows when possible, and never more than fits the panel without scrolli
 
 ## What to write, per slide type
 
-The table below is written for **`report` mode** — a discussant appraising someone else's paper. In **`own` mode** (`references/own-work.md`) the voice inverts: notes anticipate the objection *and carry your answer*, the motivation slides hold the hook and the stakes, and the Author-Bios / discussion-questions rows do not apply (those slides don't exist in `own` mode). See `own-work.md` → "Speaker notes — presenter voice".
+The table below is for a discussant appraising someone else's paper.
 
 | Slide | Note content |
 |---|---|
@@ -52,7 +54,7 @@ Markup-light HTML — use one `<p>` per message layer, with a short `<strong>` l
 
 ---
 
-## When to skip notes
+## When to skip report-mode notes
 
 A few slide types are fine without an `<aside class="notes">`:
 

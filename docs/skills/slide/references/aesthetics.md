@@ -2,7 +2,7 @@
 
 **Blue-white academic clean** — Plus Jakarta Sans on white, academic-blue primary and accent. This is the slide-deck brand, intentionally *different* from the personal-site Hokusai/Lora brand. Reading-group decks want a quieter conference-house register (think NeurIPS / ICML / Marketing Science author slides), not the magazine-paper warmth the personal site uses.
 
-Read this file before populating the `<style>` block in the Reveal.js template (`SKILL.md` → "Reveal.js template"). Sections 1–6 below are pasted into the template's `<style>` tag verbatim and in order.
+Read this file before populating the `<style>` block in the Reveal.js template (`reading-other-papers.md` → "Reveal.js document contract"). Sections 1–6 below are pasted into the template's `<style>` tag verbatim and in order.
 
 ---
 
@@ -389,7 +389,7 @@ Named column grids — wrap slide content in the appropriate div:
 | Three mechanisms / panels | `.col-3` |
 | Figure + table + interpretation | `.col-6-6` row; `.callout-result` *below* the row, never inside |
 
-Photos for `.author-card` are square-cropped to 1:1 and resized to ~150px before base64-embedding. See the photo-pipeline snippet in `SKILL.md` under "Author Bios slide".
+Photos for `.author-card` are square-cropped to 1:1 and resized to ~150px before base64-embedding. See `reading-other-papers.md` under "Figures, tables, and author photos."
 
 ---
 
@@ -427,7 +427,7 @@ Three semantic variants — colors kept cool / muted:
 }
 ```
 
-Usage: `.callout-warn` for LLM quality concerns and identification threats; `.callout-result` for headline findings; `.callout-tip` for methodological notes; `.eq` for any displayed equation that needs visual separation from prose (always pair with a `.gloss` list — see SKILL.md §"Equations get a symbol gloss").
+Usage: `.callout-warn` for LLM quality concerns and identification threats; `.callout-result` for headline findings; `.callout-tip` for methodological notes; `.eq` for any displayed equation that needs visual separation from prose (always pair with a `.gloss` list — see `reading-other-papers.md` under "Equations").
 
 ---
 
@@ -523,4 +523,4 @@ body.show-notes .reveal aside.notes strong { color: var(--c-primary); font-weigh
 body.show-notes .reveal aside.notes ul { padding-left: var(--sp-5); margin: var(--sp-2) 0; }
 ```
 
-The keybinding itself lives in the Reveal.js init script — see `SKILL.md` → "Reveal.js template". It overrides Reveal's default N-as-next-slide binding through the `keyboard` config map (`78: () => document.body.classList.toggle('show-notes')`), so Space and → still advance the deck while N is repurposed for the notes overlay.
+The keybinding itself lives in the Reveal.js init script — see `reading-other-papers.md` → "Reveal.js document contract". It overrides Reveal's default N-as-next-slide binding through the `keyboard` config map (`78: () => document.body.classList.toggle('show-notes')`), so Space and → still advance the deck while N is repurposed for the notes overlay.

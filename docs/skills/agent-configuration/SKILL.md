@@ -1,46 +1,7 @@
 ---
 name: agent-configuration
-description: Use when configuring Claude Code for a research project — installing the CLI, writing CLAUDE.md (with the research-specific Data Provenance and Citation Policy sections), organizing project documentation into layers (agent-instruction files, README, a stable docs/ reference, an evolving notes/ wiki), keeping the agent-instruction file and README in sync as the project evolves, customizing the status line, managing context with /compact, and decomposing tasks across parallel subagents. Inspects the project directory to populate CLAUDE.md sections from real evidence rather than boilerplate.
+description: Use when configuring an agent for a research project — writing CLAUDE.md or AGENTS.md with research-specific Data Provenance and Citation Policy sections, organizing project documentation into stable and evolving layers, keeping agent and human front doors in sync, defining reproducibility and analysis conventions, and decomposing work across subagents. Inspects the project directory to populate instructions from real evidence rather than boilerplate.
 allowed-tools: Read, Edit, Write, Bash, Glob, Grep
-invocation: manual
----
-
-## Installation (Windows)
-
-**Prerequisites — Git for Windows:**
-
-Claude Code's installer requires Git for Windows (provides the Unix tools it depends on).
-
-1. Download from https://git-scm.com/download/win and run the installer.
-2. On the *Adjusting your PATH* screen, select **"Git from the command line and also from 3rd-party software"** (the default).
-3. Complete the install, then open a new PowerShell window.
-
-**Install Claude Code:**
-
-```powershell
-irm https://claude.ai/install.ps1 | iex
-```
-
-This handles PATH registration automatically. Verify with `claude --version`.
-
-**Fallback (if you prefer npm):**
-
-```powershell
-npm install -g @anthropic-ai/claude-code
-```
-
-If `claude` is not found after install, add the npm bin dir to PATH:
-
-```powershell
-$npmBin = "$(npm config get prefix)"
-$current = [Environment]::GetEnvironmentVariable("Path", "User")
-if ($current -notlike "*$npmBin*") {
-    [Environment]::SetEnvironmentVariable("Path", "$current;$npmBin", "User")
-}
-```
-
-Then restart the terminal and verify with `claude --version`.
-
 ---
 
 ## CLAUDE.md
@@ -166,6 +127,7 @@ a convention the project does not actually use>
 **Operational rules** (concrete, apply every time):
 
 - When writing new analysis: use the numbered substantive analysis name consistently; put preprocessing/crawling in `code/`, result-generating reproducibility scripts in `output/code/`, and their smaller processed inputs or caches in `output/data/`; produce both the code and the output it generates.
+- For established estimation or prediction methods (for example, DID, CS-DID, FECT, and DML): default to an existing, maintained R package with documented methodology and a pinned version rather than hand-coding the estimator in Python. Implement a custom estimator only when the user explicitly requests it or no suitable package supports the required specification; document the reason and verify it by matching an established implementation on benchmark data or recovering known simulation truth.
 - When proposing a method change: state which result(s) it would change before editing.
 - When uncertain about a number or citation: flag with `[TODO]` rather than guess.
 - When a task splits into independent subtasks: decompose it and dispatch the subtasks to subagents in parallel (one message, multiple tool calls). Do not parallelize work that shares mutable state or has a true sequential dependency.
@@ -196,78 +158,6 @@ a convention the project does not actually use>
 
 The CLAUDE.md above is for **active development**. A replication-package **README** is a different deliverable — the public handoff, where a reviewer clones the repo and runs the pipeline end-to-end. That workflow (inspect package -> run order -> outputs -> emit README + TODO, under the rules that every command be runnable verbatim, every version pinned, and every output keyed to a paper figure/table) is its own skill: use the `replication-readme` skill. Don't duplicate it here.
 
----
-
-## Custom Status Line
-
-The status line appears at the bottom of the Claude Code terminal and shows live session state. It runs as a script that Claude Code polls — you describe what you want and the agent writes and wires the script for you.
-
-**Initial prompt (paste into a fresh session):**
-
-```
-Please create a custom status line for Claude Code. I want it
-to show my context-window usage as a horizontal progress bar
-followed by the exact percentage as a number. The bar should
-be colored based on usage:
-
-  - green when usage is below 50%
-  - yellow when usage is between 50% and 70%
-  - red when usage is above 70%
-
-Also show the model name on the left and the cost so far on
-the right. When you are done, write the script, wire it into
-~/.claude/settings.json, and tell me where you saved it so I
-can open it later.
-```
-
-**Iteration prompts (one line each, same session):**
-
-```
-Make the bar twice as long.
-```
-
-```
-Add an emoji for each zone (✅ / 🟡 / 🚨).
-```
-
-```
-Show the git branch at the right instead of cost.
-```
-
-```
-Use a darker shade of yellow — the current one is hard to read.
-```
-
-Each request is one line. You do not need to touch the script yourself — the agent edits and re-wires it each time.
-
-**Rule of thumb:** Include context-window usage in every long research session. When it hits ~70%, plan a `/compact` or delegate remaining work to a subagent.
-
----
-
-## Context Management
-
-The context window fills as the session grows. When it reaches capacity, responses degrade silently before erroring.
-
-**Signs of context pressure:**
-
-- Agent stops following rules it followed earlier
-- Responses become shorter and less specific
-- The agent "forgets" files or constraints it previously knew
-
-**`/compact` — when and how:**
-
-Run `/compact` before context pressure causes degradation (~70–80% usage). Always include a preservation prompt:
-
-```
-/compact Preserve: (1) the current task and what's done vs. remaining,
-(2) all rules from CLAUDE.md, (3) the output file paths agreed on.
-Do not summarize code that hasn't changed.
-```
-
-Without a preservation prompt, compaction may lose the task state and force you to re-explain the situation.
-
----
-
 ## Task Decomposition and Subagent Delegation
 
 **Decompose, then parallelize.** When a task splits into independent subtasks, break it apart and dispatch the pieces to subagents in a **single message with multiple tool calls** so they run concurrently instead of one-after-another. The library already uses this pattern: the [`appendix`](../appendix/SKILL.md) skill fans out a parallel grounding pass over independent claims, and [`skill-creator`](../skill-creator.md) launches with-skill and without-skill eval runs in the same turn so they finish together. Merge the results once they return.
@@ -292,23 +182,6 @@ Constraints: [Any rules from CLAUDE.md that apply]
 ```
 
 **When not to delegate:** If the subtask needs information that only exists in the current conversation (live variable values, intermediate results held in memory), keep it in the main session.
-
----
-
-## Skill Invocation Contract
-
-Claude Code decides whether Claude may **auto-fire** a skill from two frontmatter fields the loader actually reads:
-
-| Field | Effect |
-|---|---|
-| `disable-model-invocation: true` | Claude never auto-fires the skill; it runs only when the user invokes it (`/skill-name`). Its description also drops out of the always-on context listing, so it costs zero until invoked. Use for heavyweight or one-shot setup skills, and anything with side effects you want to time yourself. |
-| `user-invocable: false` | Hidden from the `/` menu; only Claude can invoke it. Use for background knowledge that isn't a meaningful user action. |
-
-With neither field, the default holds: Claude may auto-fire on description match, and the one-line description loads every session. To control this from settings without editing a skill's file, use `skillOverrides` in `settings.json` (states: `on` / `name-only` / `user-invocable-only` / `off`).
-
-**Legacy `invocation:` field.** Some older skills in this library carry `invocation: auto | confirm | manual`. The loader does **not** read it — it is a home-grown convention that predates `disable-model-invocation:` and is advisory only. To make a skill manual-only, set `disable-model-invocation: true`; treat any lingering `invocation:` value as a comment and drop it once the real field is set.
-
-**Current manual-only skills** (`disable-model-invocation: true`): none — the library was briefly locked to manual-only for all non-core skills, then reopened to auto-firing on description match. Re-apply the field to individual skills if a specific one turns out to need gating (heavyweight setup, side effects you want to time yourself).
 
 ## Automated Version Control
 
