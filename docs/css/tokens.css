@@ -10,32 +10,28 @@
    ========================================================================== */
 
 :root {
-  /* ---- Monet / Hokusai palette ---------------------------------------- */
-  --c-primary:      #2E4A75;  /* Hokusai-Prussian deep — headings, nav name */
-  --c-primary-soft: #EFE6D2;  /* warm cream — soft fills */
-  --c-accent:       #A03830;  /* Hokusai crimson — single high-emphasis */
-  --c-warn:         #C9824D;  /* Hokusai ochre — warn */
-  --c-mint:         #9CAF88;  /* Monet sage — tip */
+  /* ---- Light beige with powder-blue highlights ---------------------- */
+  --c-primary:      #2E4A75;
+  --c-primary-soft: #F7EEE5;
+  --c-accent:       #5E9FC6;
+  --c-warn:         #C9824D;
+  --c-mint:         #9CAF88;
   --c-ink:          #1A1A1A;
   --c-ink-soft:     #4A4A4A;
   --c-ink-mute:     #8A8A8A;
   --c-paper:        #FFFFFF;
-  --c-paper-warm:   #EFE6D2;
-  --c-line:         #D4CDB8;
+  --c-paper-warm:   #FBF8F4;
+  --c-line:         #E6DDD2;
 
-  /* ---- Site aliases ---------------------------------------------------
-     Site palette = warm-beige paper + Hokusai-crimson accent. Same
-     accent red as the slide deck and the visualization brand palette
-     (--c-accent: #A03830) — one accent red across all three surfaces.
-     --navy is near-black ink, not the Hokusai-Prussian blue. */
-  --navy:         #1a1a1a;
-  --accent:       #A03830;  /* Hokusai crimson — matches slides + figures */
-  --accent-hover: #7d2a23;  /* darker crimson */
-  --text:         #2c2624;
-  --muted:        #7a706b;
-  --border:       #d4c9bc;
-  --bg:           #e8e0d5;
-  --card:         #f7f2ec;
+  /* ---- Site aliases --------------------------------------------------- */
+  --navy:         #1A1A1A;
+  --accent:       #5E9FC6;
+  --accent-hover: #417FAD;
+  --text:         #2C2624;
+  --muted:        #7A706B;
+  --border:       #E6DDD2;
+  --bg:           #FBF8F4;
+  --card:         #FFFDFB;
 
   /* ---- Typography ----------------------------------------------------- */
   --font-display: 'Lora', Georgia, 'Times New Roman', serif;

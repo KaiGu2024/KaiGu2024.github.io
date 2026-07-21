@@ -44,7 +44,7 @@ a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 #navbar {
   position: sticky;
   top: 0;
-  background: rgba(232, 224, 213, 0.97);
+  background: rgba(251, 248, 244, 0.97);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
   z-index: 100;
@@ -128,8 +128,8 @@ main {
 
 .layout {
   display: grid;
-  grid-template-columns: 185px 1fr;
-  gap: 3.5rem;
+  grid-template-columns: 250px minmax(0, 1fr);
+  gap: 4rem;
   align-items: start;
 }
 
@@ -173,8 +173,8 @@ h2 {
 
 .about-photo img,
 .photo-placeholder {
-  width: 140px;
-  height: 140px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   object-fit: cover;
   display: block;
@@ -185,7 +185,7 @@ h2 {
   background: var(--navy);
   color: #faf7f4;
   font-family: 'Lora', Georgia, serif;
-  font-size: 1.75rem;
+  font-size: 2.15rem;
   font-weight: 600;
   display: flex;
   align-items: center;
@@ -195,7 +195,7 @@ h2 {
 
 h1 {
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: 1.45rem;
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--navy);
@@ -204,14 +204,15 @@ h1 {
 }
 
 .name-cn {
-  font-weight: 500;
-  color: var(--muted);
+  font-family: KaiTi, STKaiti, "Kaiti SC", "BiauKai", serif;
+  font-weight: 700;
+  color: var(--navy);
   font-size: 0.95em;
   margin-left: 0.2em;
 }
 
 .name-phonetic {
-  font-size: 0.78rem;
+  font-size: 0.9rem;
   color: var(--muted);
   font-family: 'Lora', serif;
   font-style: italic;
@@ -221,10 +222,10 @@ h1 {
 
 .about-title {
   font-family: 'Newsreader', Georgia, 'Iowan Old Style', serif;
-  font-size: 0.78rem;
-  color: var(--muted);
+  font-size: 0.95rem;
+  color: var(--navy);
   margin-bottom: 1rem;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.6;
 }
 
@@ -237,23 +238,38 @@ h1 {
 
 .about-links {
   display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
+  justify-content: center;
+  gap: 1.1rem;
   margin-top: 1.35rem;
 }
 
 .about-links a {
-  font-family: 'Lora', Georgia, serif;
-  font-size: 0.78rem;
-  font-weight: 500;
   color: var(--navy);
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  justify-content: center;
+  font-size: 1.25rem;
+  line-height: 1;
   text-decoration: none;
   transition: color 0.15s;
 }
 .about-links a:hover { color: var(--accent); text-decoration: none; }
+.about-links a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 
 /* ==============================
    Research Section
