@@ -29,10 +29,8 @@ document.querySelectorAll('.abstract-toggle').forEach(btn => {
   });
 });
 
-// Page-load + scroll-triggered staggered reveal.
+// Page-load + scroll-triggered reveal.
 // Elements with .reveal-up fade up from 14px when they enter the viewport.
-// Above-the-fold elements intersect immediately on first paint, so the
-// CSS --reveal-delay cascade plays out as a single orchestrated reveal.
 const revealEls = document.querySelectorAll('.reveal-up');
 if ('IntersectionObserver' in window && revealEls.length) {
   const io = new IntersectionObserver((entries, observer) => {

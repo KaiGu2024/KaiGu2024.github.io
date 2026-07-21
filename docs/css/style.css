@@ -295,6 +295,53 @@ h1 {
 }
 .paper:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 
+.paper-featured {
+  display: grid;
+  grid-template-columns: 225px minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.paper-figure {
+  position: relative;
+  width: 100%;
+  min-height: 0;
+  margin: 0;
+}
+
+.paper-figure a {
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  box-shadow: var(--shadow-xs);
+  line-height: 0;
+  text-decoration: none;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+
+.paper-figure a:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+
+.paper-figure img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.paper-copy { min-width: 0; }
+
+.paper-featured > .paper-abstract {
+  grid-column: 1 / -1;
+}
+
 .paper-title {
   font-family: 'Lora', serif;
   font-size: 1rem;
@@ -303,6 +350,15 @@ h1 {
   color: var(--navy);
   margin-bottom: 0.4rem;
   line-height: 1.45;
+}
+
+.paper-title-link {
+  color: inherit;
+  text-decoration: none;
+}
+.paper-title-link:hover {
+  color: var(--accent);
+  text-decoration: none;
 }
 
 .paper-authors {
@@ -410,17 +466,6 @@ h1 {
 .tag-wip { background: #ede8e2; color: #5c4a3a; }
 .tag-presented { background: #e8f0e8; color: #2d6040; }
 
-.paper-venues {
-  font-family: 'Newsreader', Georgia, 'Iowan Old Style', serif;
-  font-size: 0.78rem;
-  color: var(--muted);
-  display: flex;
-  align-items: flex-start;
-  gap: 0.45rem;
-  line-height: 1.6;
-}
-.paper-venues i { margin-top: 0.2rem; flex-shrink: 0; }
-
 /* ==============================
    CV Section
    ============================== */
@@ -509,6 +554,16 @@ footer {
 
   .nav-links { display: none; }
   .nav-toggle { display: block; }
+
+  .paper-figure {
+    width: min(100%, 280px);
+    aspect-ratio: 8 / 5;
+  }
+
+  .paper-featured {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 
   .cv-embed iframe { height: 450px; }
 }
@@ -767,7 +822,6 @@ footer {
   transform: translateY(14px);
   transition: opacity 0.55s var(--ease-expo),
               transform 0.55s var(--ease-expo);
-  transition-delay: var(--reveal-delay, 0s);
   will-change: opacity, transform;
 }
 .reveal-up.visible {
