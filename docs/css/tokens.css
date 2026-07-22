@@ -10,6 +10,7 @@
    ========================================================================== */
 
 :root {
+  color-scheme: light;
   /* ---- Light beige with powder-blue highlights ---------------------- */
   --c-primary:      #2E4A75;
   --c-primary-soft: #F7EEE5;
