@@ -1,6 +1,7 @@
 ---
 name: paper-writing
-description: Use when drafting or polishing any main-text section of an empirical economics / marketing paper — abstract, introduction, framing, contribution paragraph, results, mechanism, discussion, conclusion — or when adapting finished prose to a target journal's house voice. Triggers on "draft this section", "rewrite my intro", "help me with this paper", "what should I say about X in §3", "summarize this for an abstract", explicit section names, and "match this to JM/MS/JCR voice". Top-journal template (AER, QJE, Econometrica, JPE, Marketing Science): five-sentence abstracts, contribution-first introductions, results that lead with the number. Consumes artifacts from report.md; the inverse of revision-plan.md. For the appendix / online appendix / supplementary materials, use the separate appendix skill.
+description: >-
+  Use when drafting or polishing any main-text section of an empirical economics / marketing paper — abstract, introduction, framing, contribution paragraph, results, mechanism, discussion, conclusion — or when adapting finished prose to a target journal's house voice. Triggers on "draft this section", "rewrite my intro", "help me with this paper", "what should I say about X in §3", "summarize this for an abstract", explicit section names, and "match this to JM/MS/JCR voice". Top-journal template (AER, QJE, Econometrica, JPE, Marketing Science): five-sentence abstracts, contribution-first introductions, results that lead with the number. Consumes artifacts from report.md; the inverse of revision-plan.md. For the appendix / online appendix / supplementary materials, use the separate appendix skill.
 allowed-tools: Read, Edit, Write
 user-invocable: true
 invocation: auto

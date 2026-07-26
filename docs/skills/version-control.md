@@ -1,6 +1,7 @@
 ---
 name: version-control
-description: Use when the user signals end-of-task and a non-clean working tree exists — explicit verbs ("commit", "push", "save", "snapshot", "back this up", "ship it") or completion phrases ("done", "looks good") after a round of edits with files modified. Inspects what changed, infers the repo's commit-message style from recent history (informal lowercase by default; conventional commits if the repo already uses them), runs project-specific build hooks (e.g., the CV rebuild when `code/cv.tex` is staged), commits, and pushes to the current branch. Honors the git-safety rules from the system prompt: never `git add -A`, never `--no-verify`, never `--amend` after a hook failure, never force-push to `main`.
+description: >-
+  Use when the user signals end-of-task and a non-clean working tree exists — explicit verbs ("commit", "push", "save", "snapshot", "back this up", "ship it") or completion phrases ("done", "looks good") after a round of edits with files modified. Inspects what changed, infers the repo's commit-message style from recent history (informal lowercase by default; conventional commits if the repo already uses them), runs project-specific build hooks (e.g., the CV rebuild when `code/cv.tex` is staged), commits, and pushes to the current branch. Honors the git-safety rules from the system prompt: never `git add -A`, never `--no-verify`, never `--amend` after a hook failure, never force-push to `main`.
 allowed-tools: Bash, Read
 invocation: confirm
 ---
