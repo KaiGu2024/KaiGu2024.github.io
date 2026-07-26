@@ -1,5 +1,7 @@
 ---
 name: literature-review
+title: Literature Review
+permalink: /skills/literature-review/
 description: Use when the user asks for a literature review, citation search, or annotated bibliography — Path A (OpenAlex search → Crossref DOI verification) for indexed work, Path B (web search → post-hoc DOI/title/author/year/venue checklist) for grey literature. Drops unverified entries rather than "fixing" them; never returns citations from model memory.
 allowed-tools: Read, Bash, WebFetch, WebSearch
 invocation: auto

@@ -1,5 +1,7 @@
 ---
 name: agent-configuration
+title: Agent Configuration
+permalink: /skills/agent-configuration/
 description: Use when configuring an agent for a research project — writing CLAUDE.md or AGENTS.md with research-specific Data Provenance and Citation Policy sections, organizing project documentation into stable and evolving layers, keeping agent and human front doors in sync, defining reproducibility and analysis conventions, and decomposing work across subagents. Inspects the project directory to populate instructions from real evidence rather than boilerplate.
 allowed-tools: Read, Edit, Write, Bash, Glob, Grep
 ---

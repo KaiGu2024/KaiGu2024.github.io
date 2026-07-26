@@ -1,0 +1,8 @@
+title: Kai Gu
+description: Research, teaching, and agent skills by Kai Gu.
+
+defaults:
+  - scope:
+      path: "skills"
+    values:
+      layout: skill

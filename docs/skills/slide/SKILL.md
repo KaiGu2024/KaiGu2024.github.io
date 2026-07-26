@@ -1,5 +1,7 @@
 ---
 name: slide
+title: Slide Generation
+permalink: /skills/slide/
 description: Generate academic slide decks from a paper PDF or TeX source. Use `report` mode (default) for someone else's work in Reveal.js HTML, or `own` mode for the user's job talk, conference, or seminar presentation in LaTeX Beamer with compiled PDF and natural speaker notes on every slide. Extract a PDF with MinerU only when TeX source is unavailable.
 ---
 
