@@ -1,6 +1,15 @@
 title: Kai Gu
 description: Research, teaching, and agent skills by Kai Gu.
 
+exclude:
+  - skills/agent-configuration/references
+  - skills/appendix/references
+  - skills/paper-review/agents
+  - skills/paper-writing/references
+  - skills/slide/references
+  - skills/tables/references
+  - skills/visualization/references
+
 defaults:
   - scope:
       path: "skills"
