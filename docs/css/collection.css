@@ -1,11 +1,11 @@
 /* Blue-and-white academic collection pages.
    Shared by Resources and CV; derived from the reading-group index. */
 :root {
-  --collection-primary: #1d3a6e;
-  --collection-primary-soft: #eef3fb;
-  --collection-accent: #0046ad;
-  --collection-ink: #0a1422;
-  --collection-ink-soft: #3b4554;
+  --collection-primary: #1a1a1a;
+  --collection-primary-soft: #f7eee5;
+  --collection-accent: #5e9fc6;
+  --collection-ink: #1a1a1a;
+  --collection-ink-soft: #2c2624;
   --collection-ink-mute: #7a8392;
   --collection-bg: #fbf8f4;
   --collection-paper: #fffdfb;
@@ -31,8 +31,12 @@ body.collection-page {
   -webkit-font-smoothing: antialiased;
 }
 
-.collection-page a { color: var(--collection-primary); text-decoration: none; }
-.collection-page a:hover { color: var(--collection-accent); }
+.collection-page main a,
+.collection-page .collection-footer a { color: var(--collection-primary); text-decoration: none; }
+.collection-page main a:hover,
+.collection-page .collection-footer a:hover { color: var(--collection-accent); }
+
+.collection-page main { max-width: none; margin: 0; padding: 0; }
 
 .collection-header,
 .collection-hero,

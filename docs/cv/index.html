@@ -12,14 +12,28 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/tokens.css">
+  <link rel="stylesheet" href="../css/style.css">
   <link rel="stylesheet" href="../css/collection.css">
 </head>
 <body class="collection-page">
-  <header class="collection-header">
-    <a href="../">Kai Gu</a>
-    <span class="sep">/</span>
-    <span>Curriculum Vitae</span>
-  </header>
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a class="nav-name" href="../" aria-label="Kai Gu home">Kai Gu</a>
+      <ul class="nav-links">
+        <li><a href="../#research">Research</a></li>
+        <li><a href="../resources/">Resources</a></li>
+        <li><a class="active" href="./" aria-current="page">CV</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+    </div>
+    <ul class="nav-mobile">
+      <li><a href="../#research">Research</a></li>
+      <li><a href="../resources/">Resources</a></li>
+      <li><a href="./" aria-current="page">CV</a></li>
+    </ul>
+  </nav>
+  <div id="progress-bar"></div>
 
   <main>
     <section class="collection-hero">
@@ -36,5 +50,6 @@
   </main>
 
   <footer class="collection-footer">&copy; 2026 Kai Gu &middot; <a href="mailto:kai.gu@phd.unibocconi.it">kai.gu@phd.unibocconi.it</a></footer>
+  <script src="../js/main.js"></script>
 </body>
 </html>
