@@ -44,7 +44,7 @@ a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 #navbar {
   position: sticky;
   top: 0;
-  background: rgba(251, 248, 244, 0.97);
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
   z-index: 100;
@@ -258,7 +258,7 @@ h2 {
 
 .photo-placeholder {
   background: var(--navy);
-  color: #faf7f4;
+  color: #FFFFFF;
   font-family: 'Lora', Georgia, serif;
   font-size: 2.15rem;
   font-weight: 600;
@@ -282,7 +282,7 @@ h1 {
   /* Prefer locally available KaiTi; use downloaded Xingcao if it is absent. */
   font-family: KaiTi, STKaiti, "Kaiti SC", "BiauKai", 'Zhi Mang Xing', cursive;
   font-weight: 700;
-  color: #1A1A1A;
+  color: var(--navy);
   font-size: 1.38rem;
   line-height: 1;
   margin-left: 0.2em;
@@ -540,8 +540,8 @@ h1 {
   border-radius: 2px;
   font-variant: small-caps;
 }
-.tag-wip { background: #ede8e2; color: #5c4a3a; }
-.tag-presented { background: #e8f0e8; color: #2d6040; }
+.tag-wip { background: #eef3fb; color: #1d3a6e; }
+.tag-presented { background: #e6efff; color: #0046ad; }
 
 /* ==============================
    CV Section
@@ -551,7 +551,7 @@ h1 {
   align-items: center;
   gap: 0.5rem;
   background: var(--navy);
-  color: #faf7f4;
+  color: #FFFFFF;
   font-family: 'Lora', Georgia, serif;
   font-size: 0.78rem;
   font-weight: 600;
@@ -561,7 +561,7 @@ h1 {
   letter-spacing: 0.03em;
   transition: background 0.15s;
 }
-.cv-button:hover { background: var(--accent); color: #faf7f4; text-decoration: none; }
+.cv-button:hover { background: var(--accent); color: #FFFFFF; text-decoration: none; }
 
 .cv-updated {
   font-family: 'Newsreader', Georgia, 'Iowan Old Style', serif;
@@ -847,8 +847,8 @@ footer {
   white-space: nowrap;
   flex-shrink: 0;
 }
-.skill-available { background: #e4f0e6; color: #1e5c2e; }
-.skill-build     { background: #ede8e2; color: #6a5040; }
+.skill-available { background: #e6efff; color: #0046ad; }
+.skill-build     { background: #eef3fb; color: #1d3a6e; }
 
 .skill-desc {
   font-size: 0.88rem;

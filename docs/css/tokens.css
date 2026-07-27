@@ -11,28 +11,28 @@
 
 :root {
   color-scheme: light;
-  /* ---- Light beige with powder-blue highlights ---------------------- */
-  --c-primary:      #2E4A75;
-  --c-primary-soft: #F7EEE5;
-  --c-accent:       #5E9FC6;
-  --c-warn:         #C9824D;
-  --c-mint:         #9CAF88;
-  --c-ink:          #1A1A1A;
-  --c-ink-soft:     #4A4A4A;
-  --c-ink-mute:     #8A8A8A;
+  /* ---- White with the Reading Group navy palette ------------------- */
+  --c-primary:      #1D3A6E;
+  --c-primary-soft: #EEF3FB;
+  --c-accent:       #0046AD;
+  --c-warn:         #8A6D24;
+  --c-mint:         #0E6E5A;
+  --c-ink:          #0A1422;
+  --c-ink-soft:     #20252C;
+  --c-ink-mute:     #7A8392;
   --c-paper:        #FFFFFF;
-  --c-paper-warm:   #FBF8F4;
-  --c-line:         #E6DDD2;
+  --c-paper-warm:   #FFFFFF;
+  --c-line:         #D8DEE8;
 
   /* ---- Site aliases --------------------------------------------------- */
-  --navy:         #1A1A1A;
-  --accent:       #5E9FC6;
-  --accent-hover: #417FAD;
-  --text:         #2C2624;
-  --muted:        #7A706B;
-  --border:       #E6DDD2;
-  --bg:           #FBF8F4;
-  --card:         #FFFDFB;
+  --navy:         #1D3A6E;
+  --accent:       #0046AD;
+  --accent-hover: #1D3A6E;
+  --text:         #20252C;
+  --muted:        #7A8392;
+  --border:       #D8DEE8;
+  --bg:           #FFFFFF;
+  --card:         #FFFFFF;
 
   /* ---- Typography ----------------------------------------------------- */
   --font-display: 'Lora', Georgia, 'Times New Roman', serif;

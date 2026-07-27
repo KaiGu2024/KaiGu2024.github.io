@@ -1,14 +1,14 @@
-/* Blue-and-white academic collection pages.
+/* White pages with the Reading Group navy palette.
    Shared by Resources and CV; derived from the reading-group index. */
 :root {
-  --collection-primary: #1a1a1a;
-  --collection-primary-soft: #f7eee5;
-  --collection-accent: #5e9fc6;
-  --collection-ink: #1a1a1a;
-  --collection-ink-soft: #2c2624;
+  --collection-primary: #1d3a6e;
+  --collection-primary-soft: #eef3fb;
+  --collection-accent: #0046ad;
+  --collection-ink: #0a1422;
+  --collection-ink-soft: #20252c;
   --collection-ink-mute: #7a8392;
-  --collection-bg: #fbf8f4;
-  --collection-paper: #fffdfb;
+  --collection-bg: #ffffff;
+  --collection-paper: #ffffff;
   --collection-line: #d8dee8;
   --collection-display: 'Lora', Georgia, 'Times New Roman', serif;
   --collection-body: 'Newsreader', Georgia, 'Iowan Old Style', serif;
