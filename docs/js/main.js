@@ -10,12 +10,16 @@ window.addEventListener('scroll', () => {
 const toggle = document.querySelector('.nav-toggle');
 const mobileNav = document.querySelector('.nav-mobile');
 toggle.addEventListener('click', () => {
-  mobileNav.classList.toggle('open');
+  const open = mobileNav.classList.toggle('open');
+  toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
 });
 
 // Close mobile nav on link click
 mobileNav.querySelectorAll('a').forEach(a => {
-  a.addEventListener('click', () => mobileNav.classList.remove('open'));
+  a.addEventListener('click', () => {
+    mobileNav.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  });
 });
 
 // Abstract disclosure — triangle toggle after a paper title reveals its abstract.
