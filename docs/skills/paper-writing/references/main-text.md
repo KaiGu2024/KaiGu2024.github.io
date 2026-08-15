@@ -61,13 +61,13 @@ Each sentence is doing exactly one job. Nothing decorates.
 
 For structural papers, follow DellaVigna's order: present moments → identification logic → estimates → welfare counterfactuals. Reduced-form moments come first because they anchor the model in a fact the reader can see.
 
-Each results subsection follows the [report.md](../../report.md) Description / Takeaway split. Description is what the table or figure shows; Takeaway is what we conclude.
+Each results subsection begins with the artifact supplied by [report.md](../../report.md): a subquestion heading, compact empirical setup, main figure or table, and direct description of what it shows. Paper prose then adds the interpretation required for the paper's argument.
 
 **Interpreting the numbers — three moves the award papers share:**
 
 - **Repeat the headline number verbatim.** The single most important magnitude should appear identically in the abstract, the introduction, and the conclusion — same figure, same framing. A number the reader meets three times is the number they leave with. Drifting it (13% here, "about 13" there, "roughly an eighth" later) tells the reader you don't trust it.
 - **Handle nulls without over-claiming.** A failure to reject is not evidence of equivalence. Say "we cannot detect a difference; the estimate is consistent with effects between −x and +y," and attribute the silence to power or remaining uncertainty — never "there is no effect." Bound what the null rules out rather than declaring zero.
-- **End the interpretation on a one-line verdict.** After the Description / Takeaway split, distill the section's conclusion into a single quotable sentence — the "this is a data problem, not a model problem" move. The verdict is what gets quoted in the referee report and the seminar; write it deliberately rather than leaving the reader to compose it.
+- **End the interpretation on a one-line verdict.** After presenting the evidence, distill the section's conclusion into a single quotable sentence — the "this is a data problem, not a model problem" move. The verdict is what gets quoted in the referee report and the seminar; write it deliberately rather than leaving the reader to compose it.
 
 ---
 
@@ -258,7 +258,7 @@ This pass also feeds the `feedback_prose_restraint` discipline ("prefer literatu
 |---|---|
 | §1 Data & Sample | Para 2 of intro + Data section + Abstract sentence 2 |
 | §2 Definitions | Measurement section (brief in body, full in appendix) |
-| §3+ Analyses | Results subsections; Description / Takeaway split preserved |
+| §3 Findings | Results subsections; empirical setup, figure/table, and description preserved |
 | §Heterogeneity | Its own Heterogeneity section |
 | §Benchmark | Discussion / Comparison subsection before the conclusion |
 | §Limitations | The honest-limits paragraph in the conclusion |

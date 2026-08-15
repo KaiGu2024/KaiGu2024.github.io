@@ -1,6 +1,65 @@
 # Recipes
 
-Copy-pasteable code for common figures. Assumes `theme_pub()` and the `brand` palette from SKILL.md §4 are loaded. All sizes follow SKILL.md §1.6 (oversized for half-column print).
+Copy-pasteable code for common figures. Assumes the shared `theme_pub.R` helpers and `brand` palette from SKILL.md §4 are loaded. All sizes follow SKILL.md §1.6 (oversized for half-column print).
+
+## Contents
+
+1. [Figure specification, paired export, and QA](#figure-specification-paired-export-and-qa)
+2. [Sorting categorical axes](#sorting-categorical-axes)
+3. [Subject-anchored rank ramp](#subject-anchored-rank-ramp)
+4. [Thinning dense axes](#thinning-dense-axes)
+5. [Date axes](#date-axes--format-and-cadence)
+6. [Axis number formatting](#axis-text--number-formatting)
+7. [Direct line annotation](#direct-line-annotation)
+8. [Multi-series lines](#multi-series-lines--redundant-shape-per-series)
+9. [Coefficient and event-study plots](#coefficient--event-study-plot)
+10. [Time trends with model fits](#time-trend-with-overlaid-fits-raw--models--ci)
+11. [Designed event lines](#designed-event-line)
+12. [Layer-and-highlight](#layer-and-highlight--focal-series-in-crimson-all-series-labeled)
+13. [Distribution comparisons](#distribution-comparisons-ridge-plot)
+
+## Figure specification, paired export, and QA
+
+Declare export geometry and intended placement width before constructing the plot. `figure_spec()` blocks export/placement mismatches above 10%; `save_figure()` writes a publication PDF and a white-background `-qa.png` with the same dimensions and aspect ratio. Saving does not certify the layout: open the QA image at placement size and inspect the rebuilt report PDF when TeX is the destination.
+
+```r
+spec <- figure_spec(
+  stem = "figures/fig_referral_share",
+  width = 4.5, height = 3.3,
+  placement_width = 4.5
+)
+
+p <- ggplot(df, aes(x = source, y = share)) +
+  geom_col(fill = brand$primary) +
+  labs_pub(x = "Referral source category",
+           y = "Average referral share (%)")
+
+paths <- save_figure(p, spec)
+# Open paths[["qa_png"]] with an image-viewing tool at 4.5 in.
+```
+
+`labs_pub()` wraps x titles at 32 characters and y titles at 26 by default; override `x_width` or `y_width` only when the rendered artifact shows a better break. For right-side direct labels, reserve both kinds of space:
+
+```r
+p +
+  scale_x_continuous(expand = expansion(mult = c(0.02, 0.18))) +
+  theme_pub(gutter = "right")
+```
+
+The scale expansion creates a data-space label rail; the gutter profile adds device-edge clearance. Neither replaces opening and inspecting the saved artifact.
+
+For a single-panel TeX figure, place the PDF at the declared physical width:
+
+```latex
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=4.5in]{fig_referral_share.pdf}
+  \caption{Headline finding. Source, sample, and model details live here.}
+  \label{fig:referral-share}
+\end{figure}
+```
+
+Inspect the rebuilt report PDF. Generate every report panel as its own script and PDF/PNG pair. Combine panels in LaTeX under one figure number only when they jointly establish one argument and use compatible units, populations, and denominators; otherwise place them in separate floats. Keep panel subtitles, letters, and the shared caption in LaTeX rather than baking them into the image files.
 
 ## Sorting categorical axes
 
@@ -15,7 +74,7 @@ df |>
   labs(x = "Referral share", y = NULL)
 ```
 
-For "one bar plot per platform", export each platform as its own standalone figure (its own LaTeX `figure` float) — do not `facet_wrap` into a grid and do not combine with `subfigure`.
+For "one bar plot per platform," export each platform panel independently. Combine them in LaTeX only if the platform panels jointly establish one comparison using compatible units, populations, and denominators; otherwise use separate figure floats. Use `facet_wrap()` only when the facets constitute one small-multiple encoding over a shared variable rather than separately authored report panels.
 
 ## Subject-anchored rank ramp
 
@@ -129,7 +188,8 @@ ggplot(df, aes(x = year, y = outcome, colour = group)) +
   ) +
   scale_y_continuous(labels = label_percent(accuracy = 1)) +
   scale_x_continuous(expand = expansion(mult = c(0.02, 0.15))) +
-  labs(x = "Year", y = "Outcome")
+  labs_pub(x = "Calendar year", y = "Average outcome value (%)") +
+  theme_pub(gutter = "right")
 ```
 
 ## Multi-series lines — redundant shape per series
@@ -152,7 +212,8 @@ ggplot(df, aes(x = month, y = value, colour = group)) +
   scale_fill_manual(values   = pal) +
   scale_shape_manual(values  = brand_shapes) +
   scale_x_continuous(expand = expansion(mult = c(0.02, 0.15))) +
-  labs(x = "Month", y = "Value (units)")
+  labs_pub(x = "Calendar month", y = "Average outcome value (units)") +
+  theme_pub(gutter = "right")
 ```
 
 The white `colour` on `geom_point` haloes each filled marker so it stays crisp sitting on its own line and at crossings. Endpoint labels (rule 4) still name every series — the shape is a redundant aid, not a substitute for the label.
@@ -259,7 +320,8 @@ ggplot(df, aes(x = year, y = value)) +
     segment.colour = NA, size = 8
   ) +
   scale_x_continuous(expand = expansion(mult = c(0.02, 0.15))) +
-  labs(x = "Year", y = "Value (units)")
+  labs_pub(x = "Calendar year", y = "Average outcome value (units)") +
+  theme_pub(gutter = "right")
 ```
 
 ## Designed event line
@@ -347,12 +409,13 @@ ggplot(df, aes(x = week, y = visits, group = platform)) +
   ) +
   scale_colour_identity() +    # use the literal hex / "grey50" from the column
   scale_x_continuous(expand = expansion(mult = c(0.02, 0.18))) +
-  labs(x = "Week", y = "Visits")
+  labs_pub(x = "Observation week", y = "Weekly platform visits (thousands)") +
+  theme_pub(gutter = "right")
 ```
 
 For two focal series, give each a distinct accent (`brand$primary` and `brand$accent`) with its label matching its line; the rest stay grey80 / grey50.
 
-**If the focal subject recurs across your figures** (the same platform / source highlighted in figure after figure), don't use crimson — give that subject one fixed colour from `subject_palette` (`theme_pub.R`) and reuse that exact colour every time, so the highlight reads identically across the paper (SKILL.md §5, "Locked subject identity"). When a figure highlights two or more subjects at once, take each from a different `subject_families` group (never two blues) so they separate by hue. Crimson stays the default for a one-off highlight whose subject won't reappear.
+**If the focal subject recurs across your figures** (the same platform / source highlighted in figure after figure), don't use crimson — give that subject one fixed colour from `subject_palette` (`theme_pub.R`) and reuse that exact colour every time, so the highlight reads identically across the paper (see `palettes.md` → "Locked subject identity"). When a figure highlights two or more subjects at once, take each from a different `subject_families` group (never two blues) so they separate by hue. Crimson stays the default for a one-off highlight whose subject won't reappear.
 
 **Converging-endpoints variant — vertical labels.** When line endpoints crowd into a narrow vertical band at the right edge (5+ platforms all near the same value), horizontal labels with `direction = "y"` repel start stacking with connector lines — messy. Switch to vertical labels at each endpoint: `angle = 90, hjust = 0` makes each label hang upward from its line's endpoint (readable bottom-to-top, head tilts LEFT), and `direction = "x"` spaces them apart horizontally just past the right edge. The whole label rail stays one row tall.
 
@@ -366,10 +429,11 @@ geom_text_repel(
   segment.colour = NA
 ) +
 coord_cartesian(clip = "off") +     # let the labels run past the panel top if needed
-scale_x_continuous(expand = expansion(mult = c(0.02, 0.20)))
+scale_x_continuous(expand = expansion(mult = c(0.02, 0.20))) +
+theme_pub(gutter = "right")
 ```
 
-Pad `plot.margin = margin(t = 30, ...)` and/or expand the right side further (`mult = c(0.02, 0.25)`) if the rotated labels are long enough to extend above the data region.
+If the rotated labels extend above the data region, combine the right gutter with a targeted top-margin override (`theme_pub(gutter = "right") + theme(plot.margin = margin(t = 54, r = 72, b = 12, l = 14))`) and/or expand the right side further (`mult = c(0.02, 0.25)`).
 
 ## Distribution comparisons (ridge plot)
 

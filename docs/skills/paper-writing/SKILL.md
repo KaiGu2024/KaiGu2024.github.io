@@ -17,6 +17,13 @@ Turning verified analysis into a paper's **main text**, then matching that prose
 
 Sequence: draft against `main-text.md` first (structure + content), then run the `academic-voice.md` pass last (voice for the target venue). The two rule sets are not redundant — the same sentence lands differently in *JM* vs. *MS* vs. *JCR*.
 
+## TeX Build and Cleanup
+
+- After every edit to a `.tex` file, immediately compile the affected document before making further writing edits or reporting completion.
+- Use the document's documented build command. For context reports, run `pdflatex -interaction=nonstopmode -halt-on-error <file>.tex` twice from that report directory.
+- If a TeX compiler is unavailable or the build fails, report the source/PDF mismatch explicitly and do not present the PDF as current.
+- After a successful build, remove only that document's generated intermediates: `.aux`, `.bbl`, `.bcf`, `.blg`, `.fdb_latexmk`, `.fls`, `.lof`, `.log`, `.lot`, `.out`, `.run.xml`, `.synctex.gz`, and `.toc`. Keep the `.tex` source and final `.pdf`. Retain the affected `.log` only while diagnosing a failed build.
+
 ## How this fits the other skills
 
 ```

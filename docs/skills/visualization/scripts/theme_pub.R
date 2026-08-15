@@ -15,14 +15,46 @@
 
 library(ggplot2)
 
-theme_pub <- function() {
+wrap_axis_title <- function(label, width) {
+  if (is.null(label) || !is.character(label)) return(label)
+
+  vapply(
+    label,
+    function(value) paste(strwrap(value, width = width), collapse = "\n"),
+    character(1),
+    USE.NAMES = FALSE
+  )
+}
+
+# Wrap titles before they reach the device. Defaults reflect the narrower
+# usable span of a rotated y title at common manuscript placements.
+labs_pub <- function(x = NULL, y = NULL, x_width = 32, y_width = 26) {
+  ggplot2::labs(
+    x = wrap_axis_title(x, x_width),
+    y = wrap_axis_title(y, y_width)
+  )
+}
+
+theme_pub <- function(gutter = c("none", "right", "left", "top", "bottom")) {
+  gutter <- match.arg(gutter)
+  plot_margins <- switch(
+    gutter,
+    none   = c(t = 18, r = 22, b = 12, l = 14),
+    right  = c(t = 18, r = 72, b = 12, l = 14),
+    left   = c(t = 18, r = 22, b = 12, l = 54),
+    top    = c(t = 54, r = 22, b = 12, l = 14),
+    bottom = c(t = 18, r = 22, b = 48, l = 14)
+  )
+
   theme_minimal(base_family = "Newsreader") +
     theme(
       # Axis titles in Lora (display weight); explicit margins keep them off
-      # the tick labels (SKILL.md rule 13.2).
+      # the tick labels (SKILL.md rule 13 repair order).
       axis.title.x     = element_text(family = "Lora", size = 28,
+                                      lineheight = 0.95,
                                       margin = margin(t = 12)),
       axis.title.y     = element_text(family = "Lora", size = 28,
+                                      lineheight = 0.95,
                                       margin = margin(r = 12)),
       axis.text.x      = element_text(size = 24, margin = margin(t = 4)),
       axis.text.y      = element_text(size = 24, margin = margin(r = 4)),
@@ -40,13 +72,81 @@ theme_pub <- function() {
       strip.text       = element_text(family = "Lora", size = 24,
                                       face = "bold",
                                       margin = margin(b = 8)),
-      # Outer padding so axis titles and end-of-axis tick labels don't crop
-      # at the figure boundary (rule 13.1, 13.5, 13.6).
-      plot.margin      = margin(t = 18, r = 22, b = 12, l = 14),
+      # Outer padding profiles keep axis chrome and off-panel annotations away
+      # from the device boundary (rule 13 acceptance gate).
+      plot.margin      = margin(
+        t = unname(plot_margins["t"]),
+        r = unname(plot_margins["r"]),
+        b = unname(plot_margins["b"]),
+        l = unname(plot_margins["l"])
+      ),
       legend.position  = "none"   # direct annotation by default (rule 4)
     )
 }
 theme_set(theme_pub())
+
+# Declare geometry before constructing a plot. Placement width uses the same
+# physical unit as export width (inches) and may differ by at most 10%.
+figure_spec <- function(stem, width, height, placement_width) {
+  numeric_values <- c(width = width, height = height,
+                      placement_width = placement_width)
+  if (length(stem) != 1L || !is.character(stem) || !nzchar(stem)) {
+    stop("`stem` must be one non-empty path without a file extension.",
+         call. = FALSE)
+  }
+  if (grepl("\\.(pdf|png)$", stem, ignore.case = TRUE)) {
+    stop("`stem` must not include a .pdf or .png extension.", call. = FALSE)
+  }
+  if (any(lengths(list(width, height, placement_width)) != 1L) ||
+      !is.numeric(numeric_values) || any(!is.finite(numeric_values)) ||
+      any(numeric_values <= 0)) {
+    stop("`width`, `height`, and `placement_width` must be positive numbers.",
+         call. = FALSE)
+  }
+
+  scale_delta <- abs(width - placement_width) / placement_width
+  if (scale_delta > 0.10 + sqrt(.Machine$double.eps)) {
+    stop(sprintf(
+      "Export width %.2f and placement width %.2f differ by %.1f%%; maximum is 10%%.",
+      width, placement_width, 100 * scale_delta
+    ), call. = FALSE)
+  }
+
+  structure(
+    list(stem = stem, width = width, height = height,
+         placement_width = placement_width),
+    class = "figure_spec"
+  )
+}
+
+# Save the publication PDF and a white-background PNG QA copy with identical
+# dimensions. Opening and accepting the rendered artifact remains a blocking
+# manual step; this helper cannot certify layout quality.
+save_figure <- function(plot, spec, dpi = 600) {
+  if (!inherits(spec, "figure_spec")) {
+    stop("`spec` must come from figure_spec().", call. = FALSE)
+  }
+
+  output_dir <- dirname(spec$stem)
+  dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
+  paths <- c(
+    pdf = paste0(spec$stem, ".pdf"),
+    qa_png = paste0(spec$stem, "-qa.png")
+  )
+
+  ggplot2::ggsave(
+    paths[["pdf"]], plot = plot,
+    width = spec$width, height = spec$height, units = "in",
+    device = grDevices::cairo_pdf, bg = "white"
+  )
+  ggplot2::ggsave(
+    paths[["qa_png"]], plot = plot,
+    width = spec$width, height = spec$height, units = "in",
+    dpi = dpi, bg = "white"
+  )
+
+  invisible(paths)
+}
 
 # Brand palette — Monet Water Lilies + Hokusai crimson. Same hex serves as
 # fill or stroke; tint with scales::alpha().
@@ -76,8 +176,8 @@ brand_shapes <- c(21, 24, 22, 23, 25)
 # it is a flat pool of 8 candidates, ordered by aesthetics. When a figure
 # colours more than one subject, pick from DIFFERENT families (see below) so the
 # subjects separate by hue, never two members of the same family in one figure.
-# Which subject gets which colour is project-specific (SKILL.md §5, "Locked
-# subject identity") — assign once per project and reuse so the key never drifts.
+# Which subject gets which colour is project-specific (references/palettes.md,
+# "Locked subject identity") — assign once per project and reuse it everywhere.
 subject_palette <- c(
   "#2251FF",  # blue
   "#E3120B",  # red
