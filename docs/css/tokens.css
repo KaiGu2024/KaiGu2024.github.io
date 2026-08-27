@@ -21,7 +21,7 @@
   --c-ink-soft:     #20252C;
   --c-ink-mute:     #7A8392;
   --c-paper:        #FFFFFF;
-  --c-paper-warm:   #FFFFFF;
+  --c-paper-warm:   #FAF8F3;
   --c-line:         #D8DEE8;
 
   /* ---- Site aliases --------------------------------------------------- */
@@ -31,7 +31,7 @@
   --text:         #20252C;
   --muted:        #7A8392;
   --border:       #D8DEE8;
-  --bg:           #FFFFFF;
+  --bg:           #FAF8F3;
   --card:         #FFFFFF;
 
   /* ---- Typography ----------------------------------------------------- */
