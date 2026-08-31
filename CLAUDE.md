@@ -98,6 +98,10 @@ The skill files in `docs/skills/` are simultaneously (a) documentation rendered 
 # Single-file skill
 cp docs/skills/<name>.md ~/.claude/skills/<name>/SKILL.md
 
+# Single-file report skill with optional references
+cp docs/skills/report.md ~/.claude/skills/report/SKILL.md
+cp docs/skills/report/references/*.md ~/.claude/skills/report/references/
+
 # Folder-skill (with references/)
 cp docs/skills/<name>/SKILL.md ~/.claude/skills/<name>/SKILL.md
 cp docs/skills/<name>/references/*.md ~/.claude/skills/<name>/references/
@@ -114,7 +118,7 @@ Always offer the `cp` commands at end-of-edit. Never assume the user has Jekyll 
 - `appendix/` — write & audit empirical appendices; derives required support from the main text, then traces the chain main-text claim → appendix item → evidence (directory + literature), checking coverage/grounding/consistency. Decomposes each statement into typed claims (definitional / factual / methodological / citational / result / procedural)
 - `agent-configuration/` — configure Claude Code for a research project (CLAUDE.md authoring, the layered docs model, status line, `/compact`, subagents). `references/general-principles.md` holds the full role-by-role Karpathy-derived coding principles so neither the skill body nor a generated CLAUDE.md carries generic best-practice text on every turn.
 
-**Flat skills** (single `.md`): `analysis-cleanup`, `ai-disclosure-block`, `big-data-processing`, `brainstorm`, `codebook-generator`, `eda`, `literature-review`, `llm-annotation`, `preregistration`, `replication-readme`, `report`, `revision-plan`, `skill-creator`, `username-dossier`, `verify-citations`, `version-control`, `web-access`, `web-scraping`.
+**Flat skills** (single `.md`): `analysis-cleanup`, `ai-disclosure-block`, `big-data-processing`, `brainstorm`, `codebook-generator`, `eda`, `literature-review`, `llm-annotation`, `preregistration`, `replication-readme`, `report` (with optional sidecar references under `report/references/`), `revision-plan`, `skill-creator`, `username-dossier`, `verify-citations`, `version-control`, `web-access`, `web-scraping`.
 
 ---
 

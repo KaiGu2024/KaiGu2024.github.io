@@ -1,8 +1,7 @@
 ---
 name: report
-description: Use when writing up the result of an analysis, modeling run, or data exploration into a structured deliverable — triggers on "summarize the findings", "write this up", "give me the executive summary", "draft the writeup", "report what we found", as well as explicit "report" requests. Quick Template (Definition / Description / Takeaway) for single-step outputs; Writing Pipeline (Abstract / Data & Sample / Definitions / Findings / Heterogeneity / Benchmark / Limitations) for multi-section reports. Includes the pre-report validity check (analysis review) that should run before §3 Findings is drafted.
+description: Use when writing up the result of an analysis, modeling run, or data exploration into a structured deliverable — triggers on "summarize the findings", "write this up", "give me the executive summary", "draft the writeup", "report what we found", as well as explicit "report" requests. Quick Template (Definition / Description / Takeaway) for single-step outputs; Writing Pipeline (Abstract / Data & Sample / Definitions / Findings / Heterogeneity / Benchmark / Limitations) for multi-section reports. Optional modules cover empirical-code validity audits and industry benchmarks.
 allowed-tools: Read, Edit, Write
-invocation: auto
 ---
 
 ## Quick Template
@@ -14,6 +13,11 @@ invocation: auto
 ```
 
 Use the Quick Template for single-step skill outputs (a scraping run, an annotation batch, an EDA). Use the Writing Pipeline below for multi-section analysis reports.
+
+Keep the core pipeline applicable across report types. Load specialized checks only when relevant:
+
+- For an empirical report backed by analysis code, use the optional [empirical validity audit](report/references/empirical-validity.md) before drafting §3 Findings.
+- For an industry benchmark, consult the optional [benchmark sources](report/references/benchmark-sources.md).
 
 ---
 
@@ -29,22 +33,22 @@ Write last, place first.
 
 **Abstract funnel:** Organize the abstract in this order:
 
-1. **Motivation:** Open with the real-world phenomenon and its central tension (economic when relevant).
-2. **Research object:** In one short sentence, state what the report studies, where, and in relation to its core explanatory dimensions. Prefer *“This report studies X on Y in relation to A, B, and C”* over a list of every subquestion; let the findings reveal the detailed structure.
+1. **Motivation:** Open with the main real-world phenomenon or headline finding and its central tension (economic when relevant). Deliver information rather than a definition, disclaimer, or design history.
+2. **Research object:** In one short sentence, state what the report measures—for example, supply, coverage, quality, demand, or usage—where, and in relation to its core explanatory dimensions. Prefer *“This report studies X on Y in relation to A, B, and C”* over a list of every subquestion; let the findings reveal the detailed structure.
 3. **Data scope:** State the data source, observation period, population or unit, and essential dataset counts. Counts that define the sample belong here, not among the findings.
 4. **Findings:** When there are several, write *“We find N things:”* and number them **(1)** through **(N)**. Each finding should answer a substantive question, stand on its own, and include a headline magnitude when available. Use one brief sentence per substantive section; a report with N core questions should normally have N corresponding findings. Do not present a data limitation as an extra finding.
 5. **Significance:** Close with what this report or module adds to the whole paper’s argument.
 
 **Abstract clarity test:** Use technical terms selectively. Keep a specialized term when it names a necessary empirical construct, but define it in plain language on first use. Avoid unexplained compound labels such as “zero-inclusive frame,” “risk set,” or “left-censored stock”: replace them with the underlying population, time limitation, or measurement rule, or immediately gloss the term. Remove internal shorthand when it adds no precision.
 
-Keep it brief and use plain language. Cap at 250 words total. Put operational caveats in a data footnote when they qualify a measure without changing the report’s headline. Reserve the abstract for limitations that change the headline interpretation; do not end with a long non-identification disclaimer.
+Keep it brief and use plain language. Cap at 250 words total and devote most of the space to the principal quantified findings and their interpretation. Omit process narration—source transitions, alternative filters, internal code systems, thresholds, and superseded designs—unless it is essential to understand a headline result. Put operational caveats in a data footnote when they qualify a measure without changing the report’s headline. Reserve the abstract for limitations that change the headline interpretation; do not end with a long non-identification disclaimer.
 
 ### §1 Data & Sample
 
 Present the sample as a sequence:
 
 1. **Full universe:** State the substantive population and inclusion rule directly. Do not use an internal label such as “U2 frame” or “risk set” without immediately explaining who or what it includes.
-2. **Observation rule:** State the data source, collection period, pull date, unit of observation, matching rule, and N-funnel (N at each filtering step).
+2. **Observation rule:** State the data source, collection period, pull date, unit of observation, denominator, matching rule, important filters, and N-funnel (N at each filtering step). When applicable, show a simple sequence: full universe → source or match intersection → substantive threshold → primary sample. Define each filter once, apply stage counts sequentially, and explain major attrition. Translate material filters from code into substantive inclusion rules: state who or what remains, the exact threshold when meaningful, and why the restriction matters. Do not narrate conditions that are only computational safeguards or are logically implied by prior filters; keep them in code if needed. Verify that identifiers are unique at the intended unit and that joins or crosswalks have the intended mapping; report exceptions that affect interpretation.
 3. **Observed subsets:** Move from the full universe to each observed subset and final sample. State which analyses use each subset and why.
 
 **Analysis-layer map:** When a report has multiple analytical layers with different samples or units, add one compact table after the sample sequence:
@@ -57,7 +61,7 @@ Use the table to show which evidence supports each analysis, not to inventory al
 
 **Observed zeros:** Define what a zero means under the collection rule. Distinguish *“no matched record was found”* from the stronger claim that the platform offers no support.
 
-**Data objects and measures:** Name conceptually different objects separately rather than grouping them under a broad label. For example, a Hugging Face dataset listing is a tagged repository, whereas OPUS parallel text is an external count of aligned translated text; they are not interchangeable measures of “training data.” Define nonstandard terms in plain language at first use (for example, *dedicated translation model*, *OPUS parallel text*, *repository-language edge*, or *listed dataset*), with the full metric definition in §2.
+**Data objects and measures:** Introduce unfamiliar data sources, acronyms, and technical labels at first mention; say what each source directly measures, spell out acronyms, and link to the primary source when useful. Name conceptually different objects separately rather than grouping them under a broad label. For example, a Hugging Face dataset listing is a tagged repository, whereas OPUS parallel text is an external count of aligned translated text; they are not interchangeable measures of “training data.” Define nonstandard terms in plain language at first use (for example, *dedicated translation model*, *OPUS parallel text*, *repository-language edge*, or *listed dataset*), with the full metric definition in §2.
 
 **Takeaway:** State the sample's coverage, selection concerns, and whether it can support a claim of representativeness. Keep collection limitations only when they materially change what a zero, count, or estimate means; put qualifying operational details in a data footnote.
 
@@ -84,12 +88,12 @@ Organize Findings by subquestion:
 
 ```text
 3. Findings
-   3.1 {Subquestion 1}
-   3.2 {Subquestion 2}
-   3.3 {Subquestion 3}
+   3.1 {Message-bearing answer to subquestion 1}
+   3.2 {Message-bearing answer to subquestion 2}
+   3.3 {Message-bearing answer to subquestion 3}
 ```
 
-The subsection title states the subquestion; do not restate it in the prose. Within each subsection, use this sequence:
+Give each core subquestion one subsection. During planning, a neutral subquestion may serve as a placeholder; in the finished report, replace it with a concise answer that names the subject, outcome, and empirical pattern. Report null or mixed patterns honestly, use causal language only when the design supports it, and keep samples, specifications, and estimators out of the heading. Do not restate the title in the prose. Within each subsection, use this sequence:
 
 1. **Empirical setup:** In one compact paragraph, state the method and only the choices needed to read the result: the analysis-specific sample if it differs from §1, unit of observation, outcome and explanatory variables, specification, controls or fixed effects, and uncertainty method. Explain why a different subset is used.
 2. **Exhibit lead:** Introduce each figure or table with the finding it establishes; do not leave readers to infer why it appears.
@@ -100,10 +104,11 @@ Back-reference §2 for any self-defined or uncommon metric on every appearance. 
 
 #### Exhibit discipline
 
-- Write the subsection's logical claims before selecting exhibits. Assign each principal claim one primary figure or table; add another only when it supplies distinct evidence. Every exhibit must answer the subsection question and support a substantive takeaway. Remove exhibits that add only peripheral description.
+- Write the subsection's logical claims before selecting exhibits. Assign each principal claim one primary figure or table; add another only when it supplies distinct evidence. Every exhibit must answer the subsection question and support a substantive takeaway. Give its title a clear subject and empirical message, calibrated to descriptive, associational, or causal evidence. Remove exhibits that add only peripheral description.
 - Disclose units in three complementary layers: use the axis label or table heading for the metric and aggregation; the LaTeX caption or panel subtitle for the population or analytical object; and the note for what one observation represents, the universe, denominator, sample size or missing-data coverage, and exclusions. For example: axis **Median parameters per foundation model**; panel subtitle **Foundations adopted for low-market languages**; note **Unit: one registry-recognized foundation model; 25 of 27 adopted foundations have measured parameter counts.** Do not repeat the same text across all three layers.
 - For comparable panels, generate each panel independently and combine them under one figure number only when they jointly establish one argument and use compatible units, populations, denominators, and scales. Otherwise use separate figure floats.
 - Before accepting an exhibit, verify that the code's aggregation level, axis or column heading, LaTeX caption or panel subtitle, prose, and note all describe the same unit. Never alternate casually among units such as languages, repositories, models, and foundation models.
+- Audit the meaning of every visual mark: distinguish observed from fitted values, levels from differences, and uncertainty from descriptive spread in the legend, note, or caption. Check that lines, points, shading, intervals, and labels match those meanings.
 - After compiling the report under **TeX Build and Cleanup**, inspect each figure in the compiled document; labels that work in a standalone file may be clipped or unreadable after scaling.
 - When dropping an analysis, remove its prose, definitions used only by that analysis, code that generates it, generated output files, and cross-references—not merely its LaTeX input.
 
@@ -133,7 +138,7 @@ Notes: This figure/table shows [outcome] for [population and period]; one observ
 
 ### §N Benchmark (if applicable)
 
-**Analysis:** comparison table against prior work on the same measure — 1 highly relevant source is enough; add more only if they materially differ in sample or method. See the [Benchmark reference](#benchmark-reference) section below for sources by measure type.
+**Analysis:** comparison table against prior work on the same measure — 1 highly relevant source is enough; add more only if they materially differ in sample or method. For industry comparisons, consult the optional [benchmark sources](report/references/benchmark-sources.md).
 
 | Source         | Measure | Value | Time period | Sample |
 | -------------- | ------- | ----- | ----------- | ------ |
@@ -173,86 +178,12 @@ Slots without source material become explicit `[TODO]` placeholders, never silen
 
 ---
 
-## Pre-report Validity Check (analysis review)
-
-Before §3 Findings is drafted, the underlying script needs a **research-validity audit** — not a style review. A report that documents an invalid pipeline is worse than no report. This step catches the failures that linters cannot: silent N drops, leakage between train and test, type coercion that produces NAs, mismatches between the stated design and what the code actually does.
-
-### When to run
-
-- Before first internal circulation of the report
-- Before any submission (working paper, journal, replication package)
-- After any non-trivial change to the data pipeline (new merge, new filter, new sample restriction)
-
-### Severity levels
-
-Every flagged issue must point to a specific `file:line` and carry one of three severities. Vague comments ("the cleaning could be cleaner") are not allowed.
-
-| Severity | Meaning |
-|---|---|
-| **CRITICAL** | Changes the substantive result. Must be fixed before the report is circulated. |
-| **WARNING** | Likely a mistake but does not change the headline result. Fix or justify in §N Limitations. |
-| **NOTE** | Worth knowing; usually a documentation or hygiene item. |
-
-### Mandatory checks
-
-| Check | What to look for |
-|---|---|
-| **Silent N drops** | `drop_na()` / `na.omit()` / `dropna()` without an explicit `count_before == count_after` log |
-| **Train/test leakage** | Feature engineering on the full dataset before the split |
-| **Coerced types** | `as.numeric(x)` on character columns producing NAs without warning |
-| **Filter logic** | `&` vs `&&`, `==` vs `<-` typos, off-by-one date filters |
-| **Outlier rules** | Any `x > threshold` filter that depends on the **outcome** variable |
-| **Replication seed** | `set.seed(...)` before any sampling / random split / bootstrap |
-| **Cluster SE** | Standard errors clustered at the level the design implies |
-| **Multiple comparisons** | If many tests are run, are corrections applied (or pre-registered as exploratory)? |
-| **Path hard-coding** | Paths that only work on the author's machine |
-
-### Cross-check against stated design
-
-If a study description, design memo, or pre-registration exists, compare it line-by-line against the code:
-
-- Sample inclusion criteria match?
-- Outcome variable matches the pre-registered one?
-- Covariates listed in the design are all in the model?
-- The pre-registered analysis (e.g. DID with two-way fixed effects) is the one actually run?
-
-Any mismatch → CRITICAL.
-
-### Report-the-review format
-
-```
-# Analysis Review — <project>
-
-**Files audited:** N  |  **CRITICAL:** A  |  **WARNING:** B  |  **NOTE:** C
-
-## CRITICAL
-- `analysis.R:184` — Train/test leakage: scaling fit on full data before split. Result: out-of-sample fit overstated.
-
-## WARNING
-- `data_clean.R:42` — 1,247 rows silently dropped at `drop_na(income)`. If income is MAR not MCAR, this biases the sample.
-
-## NOTE
-- `model.R:16` — `set.seed(42)` is set at file top but `bootstrap()` re-seeds each call; consider standardizing.
-
-## Checks performed
-[every check from the table with status: PASS / FAIL / SKIPPED-with-reason]
-```
-
-Never say "looks fine" without listing what was checked. **Absence of evidence is not evidence of absence** — if a check could not be performed (e.g. data is gitignored), say so explicitly rather than skip silently.
-
-### Notes for extending
-
-- **Language-specific checkers.** Add R-specific checks (factor level handling, `data.table` reference semantics) in `checks/r.md`; Python in `checks/py.md`. Loaded only when the relevant language appears.
-- **Pre-registration parsing.** Auto-extract cross-check items from an OSF preregistration JSON so the design-vs-code comparison runs without manual transcription.
-- **Subagent pattern (`context: fork`).** This is the canonical case for forking a subagent. Reading a full pipeline spans 10–30 files of code that is irrelevant to the conversation that called the skill — the verbose file-reading would otherwise blow the main context. The subagent reads the files, runs the checks, returns the compact report above; the main conversation never sees the raw code.
-
----
-
 ## Conventions
 
 Write brief and to the point — remove word, sentence, or section that adds length without adding new information.
 
-- **Scope** — state what is *not* covered: *"organic CTR only; paid and direct excluded."*
+- **One job** — make each paragraph advance one coherent claim and each table or figure supply one distinct piece of evidence. Split unrelated claims; remove duplicated exhibits and process narration.
+- **Current design** — describe the implemented design and findings directly. Mention superseded versions only when the comparison is substantively useful.
 - **Abstract integrity** — every abstract claim maps to a section.
 - **Technical terms** — do not remove a term solely because it is specialized. Keep it when it names a necessary empirical construct, but define it in the same sentence in ordinary language. Remove internal shorthand with no common use when it adds no precision. After one reading, a reader outside the field should be able to state what is counted, who is included, and why the distinction matters.
 - **Scale consistency** — flag when effect sizes across analyses are on different scales (pp vs. log-odds vs. standardized).
@@ -262,24 +193,7 @@ Write brief and to the point — remove word, sentence, or section that adds len
 - **Practical significance** — report effect sizes; state whether the result clears a meaningful threshold.
 - **Confirmatory vs. exploratory** — label post-hoc findings explicitly; the same data cannot generate and test a hypothesis.
 - **Flag threats** — name the main concern.
+- **Explicit grammar** — attach modifiers to the object they describe. When several clauses concern the same outcome, name that outcome as the grammatical subject.
 - **List structure** — organize analysis as a bulleted or numbered list; avoid prose paragraphs where a list suffices. Use prose when a list would fragment the argument.
 - **Highlight keywords** — write in normal phrases and sentences, but bold key terms, numbers, and conclusions: "**Video** posts average **8.3%** engagement vs. **2.2%** for text — a **3.8× gap**."
 - **Arrow for logic** — use → to show reasoning chains: "high churn → low LTV → unprofitable segment."
-
----
-
-## Benchmark Reference
-
-Industry sources by measure type:
-
-| Measure type                 | Sources                                                                               |
-| ---------------------------- | ------------------------------------------------------------------------------------- |
-| Web traffic, CTR, engagement | SimilarWeb, SEMrush, Comscore, Adobe Analytics Benchmarks                             |
-| Search behavior              | Google Search Console industry benchmarks, SparkToro                                  |
-| News / media consumption     | Reuters Institute Digital News Report, Pew Research Center, Nielsen                   |
-| E-commerce, conversion       | Salesforce State of Commerce, Adobe Commerce Report, eMarketer / Insider Intelligence |
-| Social media                 | Sprout Social Benchmarks, Hootsuite Digital Report, DataReportal                      |
-| Email marketing              | Mailchimp Industry Benchmarks, HubSpot Marketing Report                               |
-| App / mobile                 | App Annie (data.ai), Sensor Tower, Apptopia                                           |
-| Advertising                  | IAB Internet Advertising Revenue Report, Statista, WARC                               |
-| General aggregator           | Statista, Gartner, Forrester, McKinsey Global Institute                               |
