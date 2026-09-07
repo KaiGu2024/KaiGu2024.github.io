@@ -126,4 +126,4 @@ If the only evidence is "I asked Claude one question once," do not generate a di
 ## Notes for extending
 
 - **Per-author disclosures.** When co-authors used AI to different extents, generate a per-author table rather than a single project-wide block.
-- **Linked verification.** Auto-link to the pre-report validity check (see [report.md](report.md) → Pre-report Validity Check) and the literature-review DOI verification log (see [literature-review.md](literature-review.md) → Path B checklist) in the replication package, so reviewers can audit the validation claims rather than take them on faith.
+- **Linked verification.** Auto-link to the pre-report validity check (see [report](report/SKILL.md) → Pre-report Validity Check) and the literature-review DOI verification log (see [literature-review.md](literature-review.md) → Path B checklist) in the replication package, so reviewers can audit the validation claims rather than take them on faith.

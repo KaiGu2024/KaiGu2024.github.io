@@ -279,7 +279,7 @@ This applies at every filtering stage: after venue triage, after relevance triag
 
 ## Report
 
-Output uses the Quick Template — three labeled lines, **Definition** / **Description** / **Takeaway**. (For multi-section writeups, see [report.md](report.md).)
+Output uses the Quick Template — three labeled lines, **Definition** / **Description** / **Takeaway**. (For multi-section writeups, see [report](report/SKILL.md).)
 
 **Definition (measure):** N papers found; N retained after triage; N verified clean; hallucination rate (unverified / total).  
 **Analyses:** Path used (API / web-search); databases searched (OpenAlex, Crossref, Google Scholar); verification method applied.  

@@ -216,4 +216,4 @@ Use the paired-export and TeX-placement examples in [recipes.md](references/reci
 
 ## 8. Cross-references
 
-For regression / descriptive tables (journal star cutoffs, booktabs, never-change-a-number), see [tables/SKILL.md](../tables/SKILL.md). When reporting findings back to the user, [report.md](../report.md) carries the deliverable template — figures here are the artifact, the report explains them.
+For regression / descriptive tables (journal star cutoffs, booktabs, never-change-a-number), see [tables/SKILL.md](../tables/SKILL.md). When reporting findings back to the user, [report](../report/SKILL.md) carries the deliverable template — figures here are the artifact, the report explains them.

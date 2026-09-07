@@ -15,3 +15,8 @@ defaults:
       path: "skills"
     values:
       layout: skill
+  - scope:
+      path: "skills/paper-reading/SKILL.md"
+    values:
+      title: Paper Reading
+      permalink: /skills/paper-reading/

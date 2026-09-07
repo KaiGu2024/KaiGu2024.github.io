@@ -6,7 +6,7 @@ invocation: auto
 ---
 Format a regression or descriptive table — the figure's sibling artifact — for publication. The discipline is narrower than for figures: tables have one job (display numbers exactly), so the rules are about **formatting and presentation**, never re-running the model.
 
-For figures, see [../visualization/SKILL.md](../visualization/SKILL.md). For the validity audit that should run before any table is drafted, see [../report.md](../report.md) → Pre-report Validity Check.
+For figures, see [../visualization/SKILL.md](../visualization/SKILL.md). For the validity audit that should run before any table is drafted, see [report](../report/SKILL.md) → Pre-report Validity Check.
 
 For the design rationale behind the "Design principles" checklist below — why labels beat symbols, why comparisons go down columns, the two-digit rule, alignment, and decluttering — see [references/design-principles.md](references/design-principles.md). It collects the standard sources (Schwabish, Gelman, Ehrenberg, Keith Head, booktabs).
 
@@ -152,7 +152,7 @@ $R^2$    & ... & ... \\
 
 ## Report
 
-Output uses the Quick Template — three labeled lines, **Definition** / **Description** / **Takeaway**. (For multi-section writeups, see [../report.md](../report.md).)
+Output uses the Quick Template — three labeled lines, **Definition** / **Description** / **Takeaway**. (For multi-section writeups, see [report](../report/SKILL.md).)
 
 **Definition (measure):** Tables produced (count, target journal, output paths); whether all coefficients survived validation; whether the notes line came from source or user; which design-pass changes were made (relabels, re-ordering, decimal harmonization).
 **Analyses:** Journal-specific rules applied (star cutoffs, SE placement, R² reporting); design rules applied; deviations from the source format that required user confirmation.

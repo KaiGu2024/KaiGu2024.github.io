@@ -35,7 +35,7 @@ A 26-task plan from a typical R&R is not unusual.
 Five buckets. Each routes to a different work stream and a different reviewer expectation.
 
 - **Argumentative.** Framing, contribution claim, positioning vs. literature, scope of conclusion. Cheap to type, expensive to think — these often require returning to [brainstorm.md](brainstorm.md) and re-validating the wedge.
-- **Empirical robustness.** Re-estimate on alternative sample, alternative measure, alternative specification, placebo, falsification. The largest bucket in most R&Rs. Each task points back to a [report.md](report.md) §Analyses entry — extend the table, add a panel, or write a new appendix table.
+- **Empirical robustness.** Re-estimate on alternative sample, alternative measure, alternative specification, placebo, falsification. The largest bucket in most R&Rs. Each task points back to a [report](report/SKILL.md) §Analyses entry — extend the table, add a panel, or write a new appendix table.
 - **Structural.** Re-organize sections, move material to appendix, split a table, combine sections. Cheap once decided; expensive to undo. Decide late.
 - **Clarification.** Reword a definition, expand a footnote, clarify the sample, clarify a variable. Often the reviewer's actual concern is hiding behind a "clarification" ask — read carefully before classifying.
 - **Editorial.** Typos, citations, formatting, table notes. Last block. Do not interleave with substantive work — interruptions are the largest cost in revision.
@@ -130,7 +130,7 @@ What this skill produces, fed into the next stage:
 - An **execution-block schedule** matched to coauthor calendars.
 - A **response-letter scaffold** with one paragraph per task, structured comment / response / location.
 
-The revised manuscript is then drafted against [paper-writing](paper-writing/SKILL.md); new tables and figures follow [report.md](report.md) and [visualization.md](visualization.md); the response letter is the final artifact this skill owns.
+The revised manuscript is then drafted against [paper-writing](paper-writing/SKILL.md); new tables and figures follow [report](report/SKILL.md) and [visualization.md](visualization.md); the response letter is the final artifact this skill owns.
 
 If a referee report returns a task list that fails Movement 3 (the DAG has cycles after two passes) or Movement 5 (more than one task is "TBD" at execution start), the plan is not yet ready. Do not start re-running specifications. Stay in revision planning.
 

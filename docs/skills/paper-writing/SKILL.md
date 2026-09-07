@@ -36,7 +36,7 @@ brainstorm → literature-review → eda → report.md artifacts
                                      revision-plan   (if R&R arrives)
 ```
 
-- [`report`](../report.md) packages results into the artifacts this skill consumes; the artifact → section mapping is in `references/main-text.md`.
+- [`report`](../report/SKILL.md) packages results into the artifacts this skill consumes; the artifact → section mapping is in `references/main-text.md`.
 - [`literature-review`](../literature-review.md) Path A resolves `[CITE: handle]` placeholders into verified DOIs.
 - [`appendix`](../appendix/SKILL.md) is the **separate** skill for the appendix / online appendix / supplementary materials — it derives required support from this main text and audits it against code and data. Drafting prose for an appendix still follows `references/main-text.md` register, but the appendix skill owns its structure and verification.
 - [`revision-plan`](../revision-plan.md) handles the referee+editor letter when the R&R arrives — the inverse of this skill.

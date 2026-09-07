@@ -86,7 +86,7 @@ audit later — for the author, for a referee, and for a replicator.
 ## Register — the appendix is publishable, not a lab notebook
 
 The appendix ships to readers and referees; it is *not* the author-facing working report
-the [`report`](../../report.md) skill produces. Everything that belongs to the making-of —
+the [`report`](../../report/SKILL.md) skill produces. Everything that belongs to the making-of —
 historical edit logs, "we first tried X, then switched to Y," dated TODOs,
 reviewer-response scaffolding, choices later reversed, and the same fact restated across
 sections — is internal and must be cut. Keep only the settled state and the evidence for it.

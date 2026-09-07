@@ -1,6 +1,6 @@
 # Main Text — drafting the paper
 
-Academic writing is **contribution display**, not exposition. The reader is a busy referee skimming on a train, and the introduction has three pages to convince them the paper is worth the rest of their attention. This skill consumes the artifacts that [report.md](../../report.md) produces and turns them into the abstract, introduction, results, and conclusion of a paper.
+Academic writing is **contribution display**, not exposition. The reader is a busy referee skimming on a train, and the introduction has three pages to convince them the paper is worth the rest of their attention. This skill consumes the artifacts that [report](../../report/SKILL.md) produces and turns them into the abstract, introduction, results, and conclusion of a paper.
 
 The dominant template across top empirical-economics journals — AER, QJE, Econometrica, JPE, Marketing Science — is consistent enough to learn by pattern. What follows is that pattern, with the rules that make it work.
 
@@ -55,13 +55,13 @@ Each sentence is doing exactly one job. Nothing decorates.
 1. **Headline figure.** One figure that captures the main result. Often a comparison: treatment vs. control over time, NJ vs. PA employment, a mobility heatmap, a binscatter against the wedge variable. The reader who sees only the figure should leave with the right belief. See [visualization.md](../../visualization.md) for execution.
 2. **Main table.** Headline regression. Point estimate, standard error, sample, controls, fixed effects. State both economic and statistical significance. Pair every estimate with uncertainty (95% CI or SE — never alone).
 3. **Mechanism tests.** Two to three. Pre-specified — state the prediction *before* the test. If A is the channel, B should appear in subsample C. Report the prediction direction in the text and the result in the table.
-4. **Heterogeneity.** Theoretically motivated cuts; cite which mechanism predicts which cut. Lifts directly from [report.md](../../report.md) §Heterogeneity.
+4. **Heterogeneity.** Theoretically motivated cuts; cite which mechanism predicts which cut. Lifts directly from [report](../../report/SKILL.md) §Heterogeneity.
 5. **Robustness.** Alternative samples, measures, specifications, placebo, falsification. One robustness table is usually enough; the rest goes to the appendix. Robustness should be exhausting to write — that is the point.
-6. **Comparison with prior estimates.** Explicit, with the table from [report.md](../../report.md) §Benchmark. Where estimates differ, name the most plausible reconciliation: data difference (sample, period), measure difference, or method difference.
+6. **Comparison with prior estimates.** Explicit, with the table from [report](../../report/SKILL.md) §Benchmark. Where estimates differ, name the most plausible reconciliation: data difference (sample, period), measure difference, or method difference.
 
 For structural papers, follow DellaVigna's order: present moments → identification logic → estimates → welfare counterfactuals. Reduced-form moments come first because they anchor the model in a fact the reader can see.
 
-Each results subsection begins with the artifact supplied by [report.md](../../report.md): a subquestion heading, compact empirical setup, main figure or table, and direct description of what it shows. Paper prose then adds the interpretation required for the paper's argument.
+Each results subsection begins with the artifact supplied by [report](../../report/SKILL.md): a subquestion heading, compact empirical setup, main figure or table, and direct description of what it shows. Paper prose then adds the interpretation required for the paper's argument.
 
 **Interpreting the numbers — three moves the award papers share:**
 
@@ -82,7 +82,7 @@ Short. The temptation is to repeat the introduction; resist. The recurring four-
 
 McCloskey: don't pad. Cochrane: short conclusions are fine. Two pages is more than enough — even the longest award conclusions run only a handful of paragraphs.
 
-The honest-limits paragraph is seeded by [report.md](../../report.md) §Limitations: name the threat to validity that would most change the conclusion if addressed, and suggest the next study.
+The honest-limits paragraph is seeded by [report](../../report/SKILL.md) §Limitations: name the threat to validity that would most change the conclusion if addressed, and suggest the next study.
 
 ---
 
@@ -96,8 +96,8 @@ Distilled from McCloskey's *Economical Writing* and Cochrane's *Writing Tips*:
 - **Active voice, first person plural.** "We estimate" beats "It is estimated."
 - **One sentence, one idea.** Shorter sentences read faster and survive translation.
 - **No throat-clearing.** Cut "It is well known that…", "Recently…", "An important question is…", "In this paper, we will…".
-- **Bold key terms, numbers, conclusions.** Matches the [report.md](../../report.md) convention.
-- **Use → for logic chains.** "high churn → low LTV → unprofitable segment." Matches [report.md](../../report.md).
+- **Bold key terms, numbers, conclusions.** Matches the [report](../../report/SKILL.md) convention.
+- **Use → for logic chains.** "high churn → low LTV → unprofitable segment." Matches [report](../../report/SKILL.md).
 - **Write early, revise late.** Varian: writing is part of thinking, so start before the analysis is finished. McCloskey: every revision pass should remove words.
 - **Audience: the busy referee.** Imagine them on a train, with thirty minutes, deciding among reject / R&R / accept. Write so they can decide on the abstract and intro alone.
 - **Offload the banal, protect the important.** Boilerplate emails, regression-table summaries, section roadmaps, and reference-list cleanup are safe targets for LLM assistance. The wedge sentence, the framing, the contribution paragraphs, and the limits paragraph are not.
@@ -192,7 +192,7 @@ The accountability test from Movement 6 — *"can I defend every paragraph witho
 identify section + inputs → load template → map inputs to slots → draft → emit TODO/CITE checklist
 ```
 
-Section templates (Methods / Results / Discussion slots) live in [`report`](../../report.md) §Paper-section Templates. Map each slot to the input that supplies it; slots with no source become `[TODO]` markers, never silent omissions.
+Section templates (Methods / Results / Discussion slots) live in [`report`](../../report/SKILL.md) §Paper-section Templates. Map each slot to the input that supplies it; slots with no source become `[TODO]` markers, never silent omissions.
 
 **Inline source attribution** — flag the source as the finding is stated:
 
@@ -263,7 +263,7 @@ This pass also feeds the `feedback_prose_restraint` discipline ("prefer literatu
 | §Benchmark | Discussion / Comparison subsection before the conclusion |
 | §Limitations | The honest-limits paragraph in the conclusion |
 
-The flow: [brainstorm.md](../../brainstorm.md) produces a question → [literature-review.md](../../literature-review.md) and [eda.md](../../eda.md) verify it → empirical work produces results → [report.md](../../report.md) packages results into structured artifacts → this skill turns those artifacts into a paper (switch to Movement 7's strict-traceability mode for sections where claim provenance matters more than narrative flow) → [academic-voice.md](academic-voice.md) does the final voice pass for the target journal → [revision-plan.md](../../revision-plan.md) handles the R&R if it arrives.
+The flow: [brainstorm.md](../../brainstorm.md) produces a question → [literature-review.md](../../literature-review.md) and [eda.md](../../eda.md) verify it → empirical work produces results → [report](../../report/SKILL.md) packages results into structured artifacts → this skill turns those artifacts into a paper (switch to Movement 7's strict-traceability mode for sections where claim provenance matters more than narrative flow) → [academic-voice.md](academic-voice.md) does the final voice pass for the target journal → [revision-plan.md](../../revision-plan.md) handles the R&R if it arrives.
 
 ---
 

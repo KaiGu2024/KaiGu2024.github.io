@@ -16,8 +16,8 @@ Use the Quick Template for single-step skill outputs (a scraping run, an annotat
 
 Keep the core pipeline applicable across report types. Load specialized checks only when relevant:
 
-- For an empirical report backed by analysis code, use the optional [empirical validity audit](report/references/empirical-validity.md) before drafting §3 Findings.
-- For an industry benchmark, consult the optional [benchmark sources](report/references/benchmark-sources.md).
+- For an empirical report backed by analysis code, use the optional [empirical validity audit](references/empirical-validity.md) before drafting §3 Findings.
+- For an industry benchmark, consult the optional [benchmark sources](references/benchmark-sources.md).
 
 ---
 
@@ -138,7 +138,7 @@ Notes: This figure/table shows [outcome] for [population and period]; one observ
 
 ### §N Benchmark (if applicable)
 
-**Analysis:** comparison table against prior work on the same measure — 1 highly relevant source is enough; add more only if they materially differ in sample or method. For industry comparisons, consult the optional [benchmark sources](report/references/benchmark-sources.md).
+**Analysis:** comparison table against prior work on the same measure — 1 highly relevant source is enough; add more only if they materially differ in sample or method. For industry comparisons, consult the optional [benchmark sources](references/benchmark-sources.md).
 
 | Source         | Measure | Value | Time period | Sample |
 | -------------- | ------- | ----- | ----------- | ------ |
@@ -157,7 +157,7 @@ Flag **data differences** (time period, sample size, selection mechanism, geogra
 
 ## Paper-section Templates
 
-The Writing Pipeline above structures an *internal report*. These templates structure *paper sections* for a journal submission — a different audience and stage. Pair with [`paper-writing`](paper-writing/references/main-text.md) §Movement 7 when strict claim traceability is required (the canonical case is Methods, where one invented detail sinks credibility).
+The Writing Pipeline above structures an *internal report*. These templates structure *paper sections* for a journal submission — a different audience and stage. Pair with [`paper-writing`](../paper-writing/references/main-text.md) §Movement 7 when strict claim traceability is required (the canonical case is Methods, where one invented detail sinks credibility).
 
 | Section | Slots |
 |---|---|
@@ -165,7 +165,7 @@ The Writing Pipeline above structures an *internal report*. These templates stru
 | **Results** | Descriptive stats, main findings, robustness — use §3 Findings above for slot-level structure |
 | **Discussion** | Summary, theoretical contribution, practical implications, limitations, future research |
 
-Slots without source material become explicit `[TODO]` placeholders, never silent omissions. The discipline that enforces this — `[CITE: handle]` for references, `[TODO: number]` for absent values, `file:line` provenance for every empirical claim — is in [`paper-writing`](paper-writing/references/main-text.md) §Movement 7.
+Slots without source material become explicit `[TODO]` placeholders, never silent omissions. The discipline that enforces this — `[CITE: handle]` for references, `[TODO: number]` for absent values, `file:line` provenance for every empirical claim — is in [`paper-writing`](../paper-writing/references/main-text.md) §Movement 7.
 
 ---
 
