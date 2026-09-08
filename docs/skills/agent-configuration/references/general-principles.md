@@ -1,23 +1,23 @@
 # General principles — the full source
 
 This is the long form of the **General principles** block that the `agent-configuration`
-skill can emit into a research CLAUDE.md. It is adapted from
+skill can emit into a research AGENTS.md. It is adapted from
 [Karpathy's LLM-coding CLAUDE.md](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md)
 (multica-ai/andrej-karpathy-skills), which is itself general behavioral guidance meant to be
 merged with project-specific instructions.
 
 It is kept **here**, in the skill's `references/`, rather than in the skill body or in the
-generated CLAUDE.md, for one reason: a research CLAUDE.md loads on **every turn** and survives
-`/compact`, so it must not carry generic best-practice text the model already knows. The skill
+generated AGENTS.md, for one reason: AGENTS.md provides persistent project guidance, so it should not carry generic
+best-practice text the model already knows. The skill
 therefore emits at most four condensed one-liners; this file holds the reasoning behind them for
 when you are deciding whether to include the block or expanding a principle into a concrete rule.
 
-## Should this block go into a project's CLAUDE.md at all?
+## Should this block go into a project's AGENTS.md at all?
 
 Default: **only the four one-liners, and only if the team wants them enforced as visible house
 rules.** Otherwise drop the block. The value is never novelty (the model has these internalized)
 — it is making the standard explicit so a reviewer can point at it. Never paste the full text
-below into a generated CLAUDE.md; that trades permanent every-turn context for prose the model
+below into a generated AGENTS.md; that trades permanent every-turn context for prose the model
 does not need. If a project wants the full rationale on hand, link to this file or the upstream
 URL rather than inlining it.
 
@@ -58,23 +58,23 @@ features, no abstractions for single-use scripts, no error handling for impossib
 
 ## 3. Surgical Changes
 
-**Touch only what you must. Clean up only your own mess.**
+**Keep changes focused and clean up obsolete task artifacts when useful.**
 
 When editing existing code:
 - Don't "improve" adjacent code, comments, or formatting.
 - Don't refactor things that aren't broken.
 - Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it — don't delete it.
+- Preserve unrelated code; remove task-related dead code when its obsolescence is clear.
 
 When your changes create orphans:
 - Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
+- Existing temporary or process files may be removed when confirmed stale and unused by active work. Preserve research evidence and reproducibility artifacts.
 
 The test: every changed line should trace directly to the user's request.
 
 *Condensed line:* **Surgical changes.** Touch only what the task requires. Match the existing
-style. Do not refactor adjacent blocks or "improve" unrelated code. Mention dead code; do not
-delete it unasked. The test: every changed line traces directly to the user's request.
+style. Avoid unrelated refactors. Remove confirmed obsolete process files and task-related
+dead code when useful; preserve unrelated work. The test: every changed line traces directly to the user's request.
 
 ## 4. Goal-Driven Execution
 
