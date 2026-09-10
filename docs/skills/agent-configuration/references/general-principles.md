@@ -14,7 +14,7 @@ when you are deciding whether to include the block or expanding a principle into
 
 ## Should this block go into a project's AGENTS.md at all?
 
-Default: **only the four one-liners, and only if the team wants them enforced as visible house
+Default: **only the four one-liners, and only if the team wants them stated as visible house
 rules.** Otherwise drop the block. The value is never novelty (the model has these internalized)
 — it is making the standard explicit so a reviewer can point at it. Never paste the full text
 below into a generated AGENTS.md; that trades permanent every-turn context for prose the model
@@ -58,7 +58,7 @@ features, no abstractions for single-use scripts, no error handling for impossib
 
 ## 3. Surgical Changes
 
-**Keep changes focused and clean up obsolete task artifacts when useful.**
+**Keep changes focused and preserve files outside the authorized edit.**
 
 When editing existing code:
 - Don't "improve" adjacent code, comments, or formatting.
@@ -68,13 +68,13 @@ When editing existing code:
 
 When your changes create orphans:
 - Remove imports/variables/functions that YOUR changes made unused.
-- Existing temporary or process files may be removed when confirmed stale and unused by active work. Preserve research evidence and reproducibility artifacts.
+- File cleanup follows the project's **Protected files and cleanup** section and the [source-protection procedure](source-protection.md). Being stale, unused, untracked, or regenerable is insufficient authorization to delete a file.
 
 The test: every changed line should trace directly to the user's request.
 
 *Condensed line:* **Surgical changes.** Touch only what the task requires. Match the existing
-style. Avoid unrelated refactors. Remove confirmed obsolete process files and task-related
-dead code when useful; preserve unrelated work. The test: every changed line traces directly to the user's request.
+style. Avoid unrelated refactors. Remove task-related dead code when useful; file cleanup
+follows **Protected files and cleanup**. Preserve unrelated work. The test: every changed line traces directly to the user's request.
 
 ## 4. Goal-Driven Execution
 

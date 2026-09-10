@@ -12,7 +12,9 @@ AGENTS.md does not exist in isolation. A mature research project is organized in
 | `data/` | `raw/` (immutable source) + `processed/` | **Never edit `raw/` — read only** |
 | `docs/` | Stable reference specs | Change only when design/schema/method changes |
 | `notes/` | The living wiki | Changes every session |
-| `output/` | Derived results, including `output/code/` result-generating scripts and `output/data/` smaller processed data or reproducibility caches, plus tables, figures, reports, and the paper | `output/code/` and `output/data/` must be regenerable or traceable from `code/` + `data/`; outputs are decomposed by fact/analysis |
+| `output/` | Results and supporting sources: `output/code/` result-generating scripts, `output/data/` smaller processed data or reproducibility caches, tables, figures, reports, and manuscript sources | Preserve scripts, manuscripts, retained data, and final outputs; document provenance and decompose results by fact/analysis |
+
+**Location does not establish disposability.** `output/paper/ms/`, `output/code/`, and retained `output/data/` may contain authoritative work. Even regenerable outputs can be required for replication or submission. Keep disposable build files in a separately identified build root and apply the [source-protection procedure](source-protection.md); neither `output`, `temp`, nor `build` in a path authorizes deletion.
 
 The confusing part is always the **documentation roles**, because four things look like "documentation" but do four different jobs. The distinction that keeps them from bleeding into each other: **two are *content* (they hold knowledge); two are *front doors* (they orient a reader and route into the content).** They split on two axes — content vs. orientation, and within each, by stability or by audience.
 

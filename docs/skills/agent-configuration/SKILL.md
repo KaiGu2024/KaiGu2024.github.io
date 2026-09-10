@@ -2,7 +2,7 @@
 name: agent-configuration
 title: Agent Configuration
 permalink: /skills/agent-configuration/
-description: Use when configuring an agent for a research project — writing AGENTS.md with research-specific Data Provenance and Citation Policy sections, organizing project documentation into stable and evolving layers, keeping agent and human front doors in sync, defining reproducibility and analysis conventions, and decomposing work across subagents. Inspects the project directory to populate instructions from real evidence rather than boilerplate.
+description: Use when configuring an agent for a research project — writing AGENTS.md with data provenance, citation policy, and source-protection rules; defining safe build cleanup; organizing project documentation; keeping agent and human front doors in sync; defining reproducibility and analysis conventions; and decomposing work across subagents. Inspects the project directory to populate instructions from real evidence rather than boilerplate.
 allowed-tools: Read, Edit, Write, Bash, Glob, Grep
 ---
 
@@ -15,6 +15,7 @@ allowed-tools: Read, Edit, Write, Bash, Glob, Grep
 - Project layout (which directories hold what)
 - Non-obvious conventions (naming and output locations)
 - Verification commands (how to test that the code/analysis is correct)
+- Protected source paths, approved build roots, and limits on cleanup
 - Subagent inventory, if used: names, purposes, and relevant project context to include in task briefs.
 
 **What does not belong:**
@@ -22,8 +23,9 @@ allowed-tools: Read, Edit, Write, Bash, Glob, Grep
 - Things derivable from the code (don't describe what the code already says)
 - Temporary task state (use task notes or a separate scratchpad)
 - Generic best practices (the model already knows these)
-- Blanket tool restrictions or machine-specific compiler/path overrides; keep setup details in environment or build configuration and link to them when useful
-- Blanket bans on deleting stale process files; allow routine cleanup once files are confirmed obsolete and no active process depends on them
+- Tool preferences without a project-specific reason, or machine-specific compiler/path overrides; keep setup details in environment or build configuration and link to them when useful
+
+Source-protection and deletion limits belong in AGENTS.md even when they prohibit a whole class of cleanup commands. Do not weaken them into generic advice to clean up stale files. Written instructions guide behavior; they do not establish filesystem permissions.
 
 **Compaction survival test:** Read each line in AGENTS.md and ask "if this disappeared after a context reset, would the agent make a wrong decision?" If no, cut it.
 
@@ -43,7 +45,7 @@ Use the directory split below when scaffolding or auditing a research project:
 - `output/code/`: result-generating scripts that produce tables, figures, reports, or other outputs and are required for reproducibility;
 - `data/`: mainly raw data, plus processed data that remains large or is treated as a primary project input;
 - `output/data/`: smaller processed data, intermediate artifacts, or caches that are shipped or retained to reproduce outputs;
-- `output/`: derived results, with scripts in `output/code/` and reproducibility data in `output/data/`.
+- `output/`: results and their supporting sources, with scripts in `output/code/` and reproducibility data in `output/data/`. Manuscripts, scripts, and retained data here remain protected; the directory name does not authorize cleanup.
 
 Do not duplicate a preprocessing script in `output/code/`. A result-generating script should consume a named input, record its provenance, and write a predictable output keyed to the same numbered analysis name.
 ### Keeping AGENTS.md and README in sync (active development)
@@ -57,10 +59,11 @@ AGENTS.md and an active-development README are two living docs with two differen
 
 ### Research-project AGENTS.md (mandatory sections)
 
-Generic AGENTS.md guidance is not enough for a research project. Reproducibility and citation integrity are research-specific concerns that the model will not enforce on its own — they have to be written down. **Two sections are non-negotiable** for any dissertation, paper replication, or working-paper repo:
+Generic AGENTS.md guidance is not enough for a research project. Reproducibility, citation integrity, and preservation of authoritative files need explicit project guidance. **Three sections are non-negotiable** for any dissertation, paper replication, or working-paper repo:
 
 1. **Data Provenance.** Sources, access (license, embargoes, how to re-obtain raw data), versioning (how data versions are tracked). Research projects without data lineage become unreproducible the moment the original author leaves. If the directory has no data folder yet, leave the section as a checklist for the user to fill in — but include the heading.
 2. **Citation Policy.** Every cited paper must have a verified DOI in `references.bib`. Reference the [`literature-review`](../literature-review.md) skill as the verification path — Path A (OpenAlex search → Crossref DOI verification) for indexed work, Path B (post-hoc DOI / title / author / year / venue checklist) for grey literature.
+3. **Protected files and cleanup.** Identify authoritative sources, retained outputs, approved build roots, the cleanup procedure, and recovery arrangements. Default unknown files to preserved. Read `references/source-protection.md` ([view reference](https://github.com/KaiGu2024/KaiGu2024.github.io/blob/main/docs/skills/agent-configuration/references/source-protection.md)) when creating or revising this section. Keep the essential limits directly in AGENTS.md; put the tailored procedure in project documentation and link to it. Record whether sandbox/OS protection is configured and tested; never imply that generating this section locks directories.
 
 ### Generating a research AGENTS.md (workflow)
 
@@ -85,6 +88,8 @@ test -f AGENTS.md && head -200 AGENTS.md
 ```
 
 Capture: dominant language, data folder location (if any), pipeline entrypoint, presence of pre-commit / CI / Quarto, any existing AGENTS.md.
+
+Also inspect source/manuscript locations, retained outputs, build and cleanup commands, and any existing protection or recovery configuration. Identify whether build files share a directory with sources. Record unknown build roots, manifests, permissions, or backups as unverified; do not invent them or run cleanup during inspection.
 
 **Step 2 — Ask up to 2 questions.** Only what cannot be inferred:
 
@@ -125,6 +130,14 @@ a convention the project does not actually use>
 - Every cited paper must have a verified DOI in `references.bib`.
 - Use the [`literature-review`](../literature-review.md) skill (Path B verification checklist) before committing the bibliography.
 
+## Protected files and cleanup
+- Protected: <observed manuscript, bibliography, image, data, script, and retained-output paths>; unknown files are preserved. Protect `.tex`, `.bib`, `.bbl`, `.sty`, `.cls`, and paper images/data/PDFs by default, including those under `output/`.
+- Build roots and cleanup procedure: <verified roots and project-document link; if absent, no cleanup is configured>. Filesystem protection and recovery: <configuration/backup location and verification status, or unverified>.
+- Cleanup starts with a dry-run listing the absolute build root, each candidate's full path, deletion reason, and regeneration evidence. Execute only after explicit approval of that exact list; reuse approval only while its scope and file/path state remain unchanged.
+- Delete only ordinary auxiliary files confirmed generated by that build inside its approved root and unused by active processes. Never delete directories, recursively delete trees, sweep the project by extension, or use repository cleaning/bulk rollback as build cleanup.
+- Check the root, every path ancestor, and every candidate before execution. Stop on junctions, symlinks, other reparse points, path escape, changed state, unknown file types, or inspection errors. Never follow links for cleanup.
+- A deletion failure ends cleanup: preserve and report the original error. Do not switch shells/implementations, elevate, change permissions, or expand writable roots to retry. If safety cannot be established, keep the temporary files.
+
 ## Conventions for Codex
 
 **Operational rules** (concrete, apply every time):
@@ -139,13 +152,13 @@ a convention the project does not actually use>
 - Periodically: lint the wiki — sweep for orphan pages, stale claims, and missing cross-references; fix or flag, and record the sweep as a `lint` log entry. (Omit if no wiki.)
 - Single source of truth per fact: a number lives on one page and is linked, never copied. Never restate a result or a decision in a second location — link to it.
 - At end of a completed task with a non-clean working tree: let the [`version-control`](../version-control.md) skill commit and push. Tag AI-assisted commits with `[AI]` if this repo documents that policy.
-- Clean up obsolete temporary files, stale process files, and disposable build byproducts when useful to the task. Confirm they are no longer in use and preserve source files, research evidence, and artifacts needed for reproducibility.
+- Follow **Protected files and cleanup** for temporary/build artifacts. Finishing a task, successful compilation, or a request to commit does not authorize deleting files or directories.
 
-**General principles** (*optional* — condensed from [Karpathy's LLM-coding CLAUDE.md](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md); use when a novel situation isn't covered by the rules above). The model already knows these, so they earn their every-turn context cost only when a team wants them stated as enforced house rules. Keep the four one-liners or drop the block; do not paste the full source in — it bloats a file that loads on every turn. They bias toward caution over speed; for trivial tasks, use judgment.
+**General principles** (*optional* — condensed from [Karpathy's LLM-coding CLAUDE.md](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md); use when a novel situation isn't covered by the rules above). The model already knows these, so they earn their every-turn context cost only when a team wants them stated as visible house rules. Keep the four one-liners or drop the block; do not paste the full source in — it bloats a file that loads on every turn. They bias toward caution over speed; for trivial tasks, use judgment.
 
 - **Think before coding.** State assumptions explicitly. If a request has multiple interpretations, present them — do not pick silently. If something is unclear, stop and name what's confusing before implementing.
 - **Simplicity first.** Minimum code that answers the question. No speculative features, no abstractions for single-use scripts, no error handling for impossible inputs. If 200 lines could be 50, rewrite it.
-- **Surgical changes.** Touch only what the task requires. Match the existing style. Do not refactor adjacent blocks or "improve" unrelated code. Remove confirmed obsolete process files and task-related dead code when useful; preserve unrelated work. The test: every changed line traces directly to the user's request.
+- **Surgical changes.** Touch only what the task requires. Match the existing style. Do not refactor adjacent blocks or "improve" unrelated code. Remove task-related dead code when useful; file cleanup follows **Protected files and cleanup**. Preserve unrelated work. The test: every changed line traces directly to the user's request.
 - **Goal-driven execution.** Convert tasks into verifiable goals before running them, and state a brief plan as `[step] → verify: [check]` for multi-step work. Strong success criteria let the agent loop until verified without re-asking.
 ```
 

@@ -5,7 +5,7 @@
 Personal academic website for Kai Gu (PhD student in Marketing, Bocconi University), hosted on GitHub Pages at `kaigu.github.io`. The repo has three concerns, in order of weight:
 
 1. **The website itself** — `docs/` is the Jekyll publishing root. Bio, papers, CV, reading group, skill library, learning materials.
-2. **A published Claude Code skill library** — `docs/skills/` doubles as on-site documentation and the user's own active skills. Skills are synced manually to `~/.claude/skills/<name>/SKILL.md`.
+2. **A published agent skill library** — `docs/skills/` doubles as on-site documentation and the user's own active skills. Skills are synced manually to `~/.claude/skills/` and `~/.codex/skills/` where installed.
 3. **Reading-group Reveal.js decks** — `docs/reading_group/<session>/` produced via the `slide` skill, brand-aligned (blue-white academic), with embedded base64 figures and the press-N speaker-notes overlay.
 
 This is NOT a research replication package; the research-specific Data Provenance / Citation Policy / AI Disclosure sections are intentionally omitted.
@@ -90,7 +90,7 @@ Two visual brands live in this repo. They are *cousins* (both quiet, both reject
 
 ## Skill library — `docs/skills/`
 
-The skill files in `docs/skills/` are simultaneously (a) documentation rendered by Jekyll on the site and (b) the user's active Claude Code skills. They are kept in sync by **manual `cp`**, not a symlink (the symlink path needs Windows admin which is gated).
+The skill files in `docs/skills/` are simultaneously (a) documentation rendered by Jekyll on the site and (b) the user's active agent skills. They are kept in sync by explicit file copies, not symlinks. For skills installed in both Claude Code and Codex, sync the entrypoint and supporting references to both locations and verify matching content.
 
 **Sync workflow.** After editing any `docs/skills/<name>.md` (or `docs/skills/<name>/SKILL.md` for folder-skills):
 
@@ -107,7 +107,7 @@ cp docs/skills/<name>/SKILL.md ~/.claude/skills/<name>/SKILL.md
 cp docs/skills/<name>/references/*.md ~/.claude/skills/<name>/references/
 ```
 
-Always offer the `cp` commands at end-of-edit. Never assume the user has Jekyll preview running; they read changes on the actual site after push.
+The same layout applies under `~/.codex/skills/`. Copy explicit files without deleting destination directories or unrelated resources. When the user requests sync, perform it and verify the copies; otherwise offer the copy commands at end-of-edit. Never assume the user has Jekyll preview running; they read changes on the actual site after push.
 
 **Folder-skills** (`SKILL.md` with optional supporting resources):
 - `paper-reading/` — Markdown reading notes from a research article; adapts the slide report-mode content map, with source locators and critical discussion. No supporting files required.
@@ -118,7 +118,7 @@ Always offer the `cp` commands at end-of-edit. Never assume the user has Jekyll 
 - `paper-review/` — multi-agent referee report
 - `paper-writing/` — drafting + journal-voice polish for the main text; `references/main-text.md` (Cochrane/McCloskey template, the AI-tells self-audit, strict-traceability mode) is the default, `references/academic-voice.md` is the opt-in house-voice pass. Folds in the former flat `writing` and `academic-voice` skills. Sibling to `appendix/` (which owns the appendix/supplementary materials)
 - `appendix/` — write & audit empirical appendices; derives required support from the main text, then traces the chain main-text claim → appendix item → evidence (directory + literature), checking coverage/grounding/consistency. Decomposes each statement into typed claims (definitional / factual / methodological / citational / result / procedural)
-- `agent-configuration/` — configure Claude Code for a research project (CLAUDE.md authoring, the layered docs model, status line, `/compact`, subagents). `references/general-principles.md` holds the full role-by-role Karpathy-derived coding principles so neither the skill body nor a generated CLAUDE.md carries generic best-practice text on every turn.
+- `agent-configuration/` — configure Codex for a research project (AGENTS.md authoring, documentation layers, reproducibility, source protection, and subagents). `references/source-protection.md` defines build-cleanup boundaries and distinguishes instructions from verified filesystem protection. `references/general-principles.md` holds the expanded coding principles outside the skill entrypoint.
 
 **Flat skills** (single `.md`): `analysis-cleanup`, `ai-disclosure-block`, `big-data-processing`, `brainstorm`, `codebook-generator`, `eda`, `literature-review`, `llm-annotation`, `preregistration`, `replication-readme`, `revision-plan`, `skill-creator`, `username-dossier`, `verify-citations`, `version-control`, `web-access`, `web-scraping`.
 
