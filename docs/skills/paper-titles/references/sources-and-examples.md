@@ -1,9 +1,22 @@
 # Sources and published title examples
 
-Compiled and checked on **2026-09-14**. This record separates source material,
-verified publication facts, and this skill's editorial interpretation. The core
-examples have journal issue dates in **2020–2025**. They are a purposive teaching
+Original compilation checked on **2026-09-14**; framing and department examples
+extended on **2026-09-15** using the author's supplied revision package. This record
+separates source material, verified publication facts, and editorial interpretation.
+The original examples have issue dates in **2020–2025**. The department supplement
+adds an older 2014 example and two 2026 publications. This is a purposive teaching
 sample, not a systematic review or a ranking of titles.
+
+## Contents
+
+- [Repository provenance](#what-was-integrated-from-the-requested-repositories)
+- [Conceptual grounding](#conceptual-grounding-for-problematization)
+- [Finding, insight, and stakes](#finding-insight-and-stakes)
+- [Economics examples](#economics-examples)
+- [Management and marketing examples](#management-and-marketing-examples)
+- [Department calibration and added examples](#department-calibration-and-added-examples)
+- [Historical recognition](#evidence-of-influence-or-recognition)
+- [Maintenance](#maintaining-the-reference)
 
 ## What was integrated from the requested repositories
 
@@ -71,9 +84,30 @@ locate a paper's motivating tension. It does not infer that every good title mus
 challenge a theory, or that this article establishes an effect of title wording on
 citations. This older conceptual source supplements the recent title examples.
 
+## Finding, insight, and stakes
+
+The added framing workflow and paired-term technique are editorial procedures;
+the papers below illustrate how titles function, not how much particular words
+increase attention. The author's revision package supplied the finding–insight–stakes
+procedure, comparison of substantive framings, abstraction-level checks, positive
+rewrites of bland titles, and evaluation cases. The author's follow-up supplied
+the similar-word/different-concept and alliteration technique. Neither addition
+has been shown to improve reader response in a comparative study.
+
+Adam M. Grant and Timothy G. Pollock (2011), “Publishing in AMJ—Part 3: Setting
+the Hook,” *Academy of Management Journal* 54(5), 873–879.
+[Published editorial hosted at UPF](https://www.upf.edu/documents/4086724/4090051/FTE-SettingTheHook.pdf/0915f653-c0e5-9d42-d4e1-65f6f386f491),
+DOI `10.5465/amj.2011.4000`.
+
+The opening argument on pp. 873–874 connects research importance, the existing
+conversation, and what readers will learn. Those passages were checked on
+2026-09-15. The three-step titling procedure adapts that framing logic; it is not
+a title-generation algorithm tested by the editorial. Alongside Alvesson and
+Sandberg, it motivates finding a consequential distinction before choosing words.
+
 ## Economics examples
 
-Titles, authors, and substantive summaries below were checked against publisher
+Titles, authors, and substantive summaries for original examples 1–11 were checked against publisher
 records or published copies hosted by the authors; article metadata was also
 cross-checked against Crossref. Title footnote markers are omitted. **Title reading** is our
 interpretation of the wording, not a claim about the authors' intentions. Read each
@@ -185,7 +219,9 @@ Tesary Lin. **Marketing Science, 2022**, 41(4), 663–681.
 - **Paper:** Combines an experiment and a structural model to distinguish preferences
   for privacy itself from preferences arising from consequences of disclosure.
 - **Title reading:** A consequential distinction supplies the intellectual interest;
-  no slogan or question mark is necessary.
+  no slogan or question mark is necessary. The matching opening of *intrinsic* and
+  *instrumental* also illustrates the paired-term technique: the conceptual
+  difference supplies the interest, while similar wording gives it a memorable form.
 - **Boundary:** “Valuing” reflects a measurement contribution. It does not promise
   one universal monetary value of privacy across settings and people.
 
@@ -242,10 +278,91 @@ Jeremy Yang, Dean Eckles, Paramveer Dhillon, and Sinan Aral.
   long-run success. Inferences require the assumptions linking earlier information
   to later outcomes.
 
+## Department calibration and added examples
+
+Checked against publisher abstracts, bibliographic records, and acceptance
+statements on **2026-09-15**. Department labels describe the publication route of
+these specific papers; they are not inferred from AI or platform keywords.
+
+The [official Management Science departmental statement](https://pubsonline.informs.org/page/mnsc/editorial-statement)
+places digital technology's design, adoption, use, and impacts within Information
+Systems, with managerial and theoretical implications. This scope motivates the
+questions in [journal calibration](journal-calibration.md); it prescribes no title
+formula. That reference's positioning routes are editorial judgments.
+
+| Example | Department recorded in the publisher's acceptance statement |
+|---|---|
+| 9, Trust and Disintermediation | Information systems. |
+| 11, Targeting for Long-Term Outcomes | Marketing. |
+| 12, Information Seeding | Information systems. |
+| 13, Recommender Systems and Consumer Fragmentation | Information systems. |
+| 14, Monetizing Platforms | Information systems. |
+| 15, The Rapid Adoption of Generative AI | Business strategy. |
+
+The [trust article](https://pubsonline.informs.org/doi/abs/10.1287/mnsc.2020.3583)
+and [targeting article](https://pubsonline.informs.org/doi/10.1287/mnsc.2023.4881)
+provide the acceptance statements for examples 9 and 11. The remaining records
+are linked with each added example below.
+
+### 12. Information Seeding and Knowledge Production in Online Communities: Evidence from OpenStreetMap
+
+Abhishek Nagaraj. **Management Science, 2021**, 67(8), 4908–4934;
+first online January 14, 2021.
+[Publisher record and abstract](https://pubsonline.informs.org/doi/10.1287/mnsc.2020.3764).
+
+- **Paper:** Examines subsequent knowledge contribution and contributor activity
+  after an information-seeding intervention in OpenStreetMap.
+- **Title reading:** A general production relationship leads; the platform name
+  identifies the empirical setting without replacing the question.
+- **Boundary:** Providing information does not imply a universal effect on later
+  contributions. A new title needs the paper's own evidence about that relationship.
+
+### 13. Will the Global Village Fracture Into Tribes? Recommender Systems and Their Effects on Consumer Fragmentation
+
+Kartik Hosanagar, Daniel Fleder, Dokyun Lee, and Andreas Buja.
+**Management Science, 2014**, 60(4), 805–823; first online November 22, 2013.
+[Publisher record and abstract](https://pubsonline.informs.org/doi/10.1287/mnsc.2013.1808).
+
+- **Paper:** Studies whether personalized recommendations fragment consumers,
+  finding increased commonality in the setting examined.
+- **Title reading:** An answerable question about collective outcomes makes the
+  problem visible; the subtitle names the technology and outcome.
+- **Boundary:** The older example illustrates a rhetorical function, not current
+  title frequencies. Individual outcomes alone would not support its collective
+  promise; its cultural metaphor is not a ready-made hook for another paper.
+
+### 14. Monetizing Platforms: An Empirical Analysis of Supply and Demand Responses to Entry Costs in Two-Sided Markets
+
+Kai Zhu, Qiaoni Shi, and Shrabastee Banerjee.
+**Management Science, 2026**, 72(3), 2380–2397; first online July 28, 2025.
+[Publisher record and abstract](https://pubsonline.informs.org/doi/abs/10.1287/mnsc.2023.01390).
+
+- **Paper:** Studies creator entry costs in Goodreads Giveaways and responses on
+  both sides of its marketplace.
+- **Title reading:** A managerial action leads; the subtitle explains the
+  instrument, market structure, and response. The length serves those functions.
+- **Boundary:** The broad market language is earned by the actual analysis of
+  both sides, not by changing the platform's name to an abstract label.
+
+### 15. The Rapid Adoption of Generative AI
+
+Alexander Bick, Adam Blandin, and David J. Deming.
+**Management Science, 2026**, Articles in Advance, published January 20, 2026.
+[Publisher record and abstract](https://pubsonline.informs.org/doi/abs/10.1287/mnsc.2025.02523).
+No issue or page range was assigned in the record inspected on September 15, 2026.
+
+- **Paper:** Uses repeated representative US surveys to describe adoption and
+  intensity of use, including comparisons with earlier technology diffusion.
+- **Title reading:** A descriptive quantity and a benchmarked pace of change
+  identify a contribution without a paradox.
+- **Boundary:** Reported time savings are not automatically an identified
+  productivity effect. The AI topic does not make this an IS-department example.
+
 ## Evidence of influence or recognition
 
-These signals justify including recognized work alongside newer, instructive
-examples. Awards recognize papers, and citations reflect attention within a database;
+Retained as historical provenance for the original request for influential examples;
+these snapshots are not inputs to title selection and were not refreshed in this
+revision. Awards recognize papers, and citations reflect attention within a database;
 neither demonstrates that the wording of a title caused its reception.
 
 | Example | Verified signal | Source |

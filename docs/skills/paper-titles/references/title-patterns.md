@@ -1,192 +1,350 @@
 # Title patterns and worked examples
 
-Read this reference when the initial candidates feel generic, the target journal
-changes, or the author wants a more engaging title without changing the claim.
-Patterns are prompts for judgment, not fill-in requirements.
+Use after choosing the substantive framing, not as a replacement for that choice.
+The worked briefs and proposed titles below are invented instructional cases, not published titles,
+real findings, or evidence that a title performs better.
 
-## Make the problem visible
+## Contents
 
-Start from a concrete tension sentence in working context:
+1. Structures and their promises
+2. Build a portfolio instead of a synonym list
+3. Improve accurate but weak titles
+4. Calibrate strong wording to actual evidence
+5. Similar words, different concepts
+6. Finish the wording
 
-> An actor expects or seeks [benefit], but [opposing force or constraint] complicates
-> it; this paper establishes or investigates [bounded contribution].
+## 1. Structures and their promises
 
-Use a different framing when the contribution is a distinction or measurement:
-
-> We usually discuss [combined object], but distinguishing [component A] from
-> [component B] changes [theoretical interpretation or decision].
-
-The expectation must come from the supplied paper, a verified source, or an explicitly
-labeled intuition. Do not invent “conventional wisdom” to manufacture surprise.
-The recommended title can express only the central relationship; the accompanying
-rationale can explain the tension that would otherwise make it too long.
-
-| Title skeleton | What earns its place | What would invalidate it |
+| Structure | Function | Failure to avoid |
 |---|---|---|
-| `[X] and [Y]` | The relationship or distinction is itself informative. | The paper is about a different outcome or only a peripheral relationship. |
-| `[Intervention] [changes outcome] in [scope]` | A supported main result and meaningful boundary. | An associational design dressed up with a causal verb. |
-| `[Benefit] at the Cost of [Cost]` | Evidence for both consequences and their connection. | A speculative cost, unrelated outcomes, or an unsupported net-welfare inference. |
-| `When [X] [does Y]` | A supported condition under which the relationship changes. | A single average effect with no analysis of conditions. |
-| `[Puzzle]? [Substantive object and relation]` | A question that the paper's design can actually address. | A provocative question the paper cannot answer. |
-| `[Concrete hook]: [Contribution and scope]` | The hook identifies the puzzle; the subtitle identifies the paper. | The hook works equally well for dozens of unrelated papers. |
-| `[Task] under [Constraint]` | Solving or characterizing the constraint is the contribution. | A routine constraint or a method used only incidentally. |
-| `[Quantity]: Evidence from [Setting/design]` | The setting or design is informative enough to justify the subtitle. | “Evidence from” becomes decoration or implies an experiment that did not occur. |
+| `[Object] and [relationship or outcome]` | Makes the central intellectual relationship visible. | Three fashionable nouns with no recognizable question. |
+| `[Intervention] [finding] in [scope]` | Gives a supported answer immediately. | Association presented as an intervention effect. |
+| `[Outcome A], [Outcome B]: [phenomenon and scope]` | Expresses a substantive contrast without necessarily claiming sacrifice. | A sign contrast misrepresented as a causal tradeoff. |
+| `[Benefit] at the Cost of [Cost]` | Foregrounds a demonstrated tension between objectives. | Imputing opportunity cost, displacement, or welfare loss. |
+| `[Question]? [object or setting]` | Introduces an answerable puzzle. | Sensational allegations laundered through a question mark. |
+| `When [relationship]: [scope or model]` | Highlights a consequential condition. | Suggesting characterized boundaries when only an average is known. |
+| `[Concrete hook]: [contribution and scope]` | Divides memorable problem and substantive identification. | A generic hook, decorative pun, or subtitle that changes the topic. |
+| `[Task] under [constraint]` | Makes a decision or methods problem recognizable. | Advertising a routine analytical tool as the contribution. |
+| `Distinguishing [A] from [B] in [domain]` | Names a consequential conceptual or measurement distinction. | A distinction with no payoff beyond relabeling. |
+| `[X] Is Not [Y]` | Foregrounds a consequential distinction between concepts readers might conflate. | Implying incompatibility or no relationship when the paper establishes only non-equivalence. |
+| `[X] Without [Y]` | Foregrounds decoupling or the possibility of X without a presumed prerequisite Y. | Turning less Y, an insignificant estimate, or unmeasured Y into absence of Y. |
+| `[Phenomenon]: Evidence from [setting or design]` | Connects a general question to its empirical basis. | Removing the only informative part into a generic subtitle. |
+| `[Process or interpretation] in [organizational setting]` | Suits situated qualitative and process contributions. | Forcing fieldwork into unsupported average-effect language. |
 
-Do not use every skeleton for every paper. A replication, descriptive contribution,
-conceptual interpretation, or methods result may be best served by a straightforward
-title that identifies its precise task.
+"Why" and "how" can be appropriate for explanatory theory, developed qualitative
+accounts, and supported mechanisms. They are not reserved for randomized studies.
+They are inappropriate when the paper provides only a pattern with speculative
+explanations. "When" is also not mechanically prohibited in descriptive phrasing;
+judge the condition it reasonably leads the reader to expect.
 
-## Journal calibration without imitation
+## 2. Build a portfolio instead of a synonym list
 
-These lenses are this skill's editorial synthesis of the
-[verified examples](sources-and-examples.md), not statistical estimates of house style
-or statements of submission policy.
+For a deep request, vary the research promise before varying form. Compare:
 
-| Audience | A useful first version | What to check in a more distinctive version |
+**Finding-led:** What happened, or what the paper establishes.
+**Concept-led:** Which distinction or relationship changes understanding.
+**Problem-led:** Which puzzle, conflict, or constraint the paper resolves.
+**Task-led:** What can now be measured, designed, or decided.
+**Setting-led:** What an important institutional episode or empirical domain reveals.
+
+Use only families supported by the manuscript. Then compare wording within the
+strongest family. A colon, a question mark, and a synonym do not turn one family
+into three.
+
+For the same evidence, first hold the framing constant while testing wording; then
+hold the evidence constant while comparing framings. This helps an author see
+whether disagreement concerns style or the paper's identity.
+
+## 3. Improve accurate but weak titles
+
+Overstatement is not the only failure. A skill must also improve titles that are
+accurate but too generic, too literal, or centered on the wrong contribution.
+
+### Case A: A constraint is more informative than a tool name
+
+**Brief:** A paper develops an estimator of customer retention effects when
+outcomes mature after the firm must make a targeting decision. It proves conditions
+for identification using short-run surrogates and evaluates the policy.
+
+Accurate but weak: **"A Statistical Method for Customer Data."**
+
+Task-led: **"Targeting Retention Before Outcomes Mature."**
+
+More technical: **"Learning Retention Policies from Short-Run Surrogates."**
+
+The task and time constraint explain why the method matters. The second version
+retains the central identification device for a methods-oriented audience. Neither
+needs a paradox, a metaphor, or an unsupported universal improvement claim.
+
+### Case B: Find the empirical question beyond an identity
+
+**Brief:** In observational data from a collaborative archive, assisted entries
+contain more source-matched material but fewer verified additions absent from the
+reference source. Labor inputs and displacement are not observed.
+
+Accurate but weak: **"Text Similarity in Assisted Archive Entries."**
+
+Finding-led: **"More Reuse, Fewer Additions: Automated Drafting in Collaborative Archives."**
+
+Concept-led: **"Source-Based Assistance and Knowledge Enrichment in Collaborative Archives."**
+
+The finding-led version conveys composition; the concept-led version invites a
+conversation about contribution beyond supplied material. Neither claims no
+additions, no value, or reduced total archive knowledge. Keep "source-relative"
+explicit in the explanation of enrichment.
+
+### Case C: A qualitative process need not become an effect estimate
+
+**Brief:** Ethnographic observations in three lending teams document how employees
+retain formal accountability while negotiating discretion around algorithmic advice.
+The paper develops a process account, not an average causal effect.
+
+Accurate but weak: **"Algorithm Use in Three Lending Teams."**
+
+Process-led: **"Negotiating Discretion under Algorithmic Advice: Accountability in Lending Teams."**
+
+The broader words are earned by the fieldwork and process development. This is not
+permission to claim algorithms universally eliminate discretion or cause misconduct.
+
+### Case D: Measurement can carry the interest
+
+**Brief:** A study benchmarks text-based innovation measures against independently
+coded product changes and shows that marketing-language novelty is not the same
+object as product innovation.
+
+Accurate but weak: **"Using NLP to Study Innovation."**
+
+Distinction-led: **"Measuring Innovation or Novel Language? Evidence from Product Descriptions."**
+
+This is a methods-oriented title because measurement validity is central, not
+because the researchers used NLP. The paper must actually assess the two objects;
+a new embedding model alone would not support the promise.
+
+### Case E: An important descriptive finding needs no reversal
+
+**Brief:** Repeated representative surveys document adoption and intensity of a
+new workplace tool, with comparisons across occupations. They do not identify its
+productivity effect or establish a surprising historical diffusion benchmark.
+
+Accurate but weak: **"A Survey of New Technology."**
+
+Stronger: **"Adoption and Use of AI Assistance across Occupations."**
+
+Do not manufacture "The Adoption Paradox" or add "Rapid" without a benchmark.
+The descriptive quantities are the contribution.
+
+## 4. Calibrate strong wording to actual evidence
+
+### Case F: A causal result should remain direct
+
+**Brief:** A randomized trust badge raises hiring and subsequent off-platform
+transactions in a freelance marketplace. Net profit and welfare are not measured.
+
+Overclaim: **"The Dark Side of Trust: How Reputation Destroys Platforms."**
+
+Direct: **"Trust Badges Increase Hiring and Off-Platform Transactions."**
+
+Concept-led: **"Trust and Off-Platform Trade in a Freelance Marketplace."**
+
+There is no reason to replace the supported causal claim with "may be associated
+with." But two causal effects do not establish that total profit declines.
+
+### Case G: A useful association need not become a causal story
+
+**Brief:** A cross-sectional survey relates unpredictable schedules to self-reported
+worker well-being without an exogenous source of schedule variation.
+
+Overclaim: **"Scheduling Flexibility Destroys Worker Well-Being."**
+
+Faithful: **"Schedule Unpredictability and Self-Reported Worker Well-Being."**
+
+The issue can concern the relationship between scheduling arrangements and workers'
+experiences. It cannot become evidence about employers' motives, which were not
+studied. "Flexibility" and "unpredictability" should not be treated as synonyms.
+
+### Case H: Separate uncertainty from evidence of a negligible effect
+
+**Brief 1:** A reminder trial estimates completion effects imprecisely; the interval
+includes substantively meaningful gains and losses.
+
+Faithful: **"Reminders and Training Completion: A Randomized Trial."**
+
+**Brief 2:** A preregistered equivalence analysis rules out effects outside a
+specified, substantively justified small margin for the same outcome and population.
+
+Available with that evidence: **"Small Effects of Reminders on Training Completion."**
+
+"Why Reminders Fail" is not supported by either brief without an explanation of
+failure. Do not impose the cautious wording for Brief 1 on Brief 2 automatically.
+
+### Case I: A subgroup difference requires the contrast
+
+**Brief:** Sales assistance improves conversion for new salespeople. The estimate
+for experienced staff is smaller; a supported interaction establishes the difference.
+
+Direct: **"AI Sales Assistance Raises Conversion More for New Salespeople."**
+
+Concept-led: **"Experience and the Returns to AI Sales Assistance."**
+
+Without the supported contrast, a significant estimate in one group and a
+nonsignificant one in another is insufficient. Neither version establishes job
+replacement, acquired skills, or long-run learning.
+
+### Case J: A conditional theorem can support a strong title
+
+**Brief:** A platform model characterizes information and participation conditions
+under which improved matching information reduces equilibrium seller entry.
+
+Plain: **"Information, Matching, and Entry in Platform Markets."**
+
+Conditional: **"When Better Information Discourages Entry: A Model of Platform Markets."**
+
+The second title is strong but conditional. Do not weaken a proved comparative
+static into an empirical association or demand an experiment. Do not generalize
+seller entry to every dimension of competition.
+
+### Case K: Design-stage ideas remain open
+
+**Brief:** An author plans to study personalized rankings and small-seller visibility;
+no data or identification strategy have been selected.
+
+Provisional: **"Personalized Rankings and Small-Seller Visibility."**
+
+Question-led: **"Who Gets Seen? Personalized Rankings and Small-Seller Visibility."**
+
+Neither promises a direction or experimental design. A stronger result title must
+wait for the research, not for more assertive language.
+
+## 5. Similar words, different concepts
+
+Look for terms that resemble one another in spelling, sound, rhythm, or initial
+letters while naming a consequential distinction. **Nature and nurture** is the
+user's example: the resemblance helps foreground two different influences.
+Alliteration means repeated initial sounds; a shared initial letter is a visual
+echo and does not always produce the same sound. Neither device by itself
+establishes an empirical tension.
+
+Start with the concepts the paper actually develops. Then look for a compact pair
+among their established names. Do not start with a letter and search for new
+constructs to make it fit.
+
+### Constructs before wording
+
+For each central construct, try a small vocabulary ladder:
+**operational measure → substantive interpretation → higher-level concept**.
+For theoretical or conceptual work, begin with the defined object rather than
+inventing a measure. This is a word-selection aid, distinct from the
+setting–phenomenon–conversation map used to position the whole paper.
+Choose the highest level whose ordinary meaning remains supported and informative,
+not automatically the most abstract term.
+
+For example, a count of independently verified statements absent from a reference
+source can support **source-relative additions** and, with a justified definition,
+**knowledge enrichment**. It does not by itself support **creativity** or
+world-first discovery. Reject an attractive term if it imports an unmeasured
+audience response, mechanism, causal effect, or welfare judgment.
+
+Once the substantive relationship is clear, optionally search for symmetry in
+sound, grammar, or meaning. Beyond alliteration, consider assonance (repeated vowel
+sounds), rhyme, grammatical parallelism, antithesis, repetition, or reversal.
+These are alternatives to explore, not a checklist every title must satisfy.
+Antithesis needs a supported contrast; reversing the same words can imply a reverse
+direction or reciprocal relationship that also needs support. Sound symmetry does
+not establish scientific symmetry—or require the paper to contain a conflict.
+
+Apply a rhetorical-word test to any word chosen partly for memorability:
+
+> In this paper, [word] corresponds to [measured, theorized, or qualitatively established object].
+
+If that sentence cannot be completed defensibly, replace the word. Apply the test
+to hooks and subtitles as well as paired terms. Sound correspondence is a bonus;
+semantic correspondence is necessary.
+
+### Candidate pairs
+
+| Pair to consider | Distinction that could matter | When the pair belongs in a title |
 |---|---|---|
-| AER | Name the economic relationship, policy problem, or welfare quantity. | A familiar hook should expose a testable explanation and retain field search terms. |
-| QJE | Make the phenomenon or explanatory connection legible across economics. | Brevity should not turn a local result into a claim about an entire economy. |
-| Management Science | Name the organizational decision, incentive conflict, intervention, or analytical task. | A managerial tension needs actual evidence or a model, not a generic “paradox.” |
-| Marketing Science | Identify the consumer/firm problem, measurement target, market mechanism, or decision criterion. | Distinguish sales from profit, targeting from effectiveness, and behavior from welfare. |
+| Nature and nurture | Inherited characteristics and environmental influences. | The paper examines both influences or their relationship; the pair need not imply mutually exclusive explanations. |
+| Prediction and prescription | Forecasting outcomes and choosing actions to improve them. | The paper examines why predictive performance does or does not support good decisions. |
+| Adoption and adaptation | Taking up a technology and changing practices around it. | The paper develops both processes or distinguishes uptake from subsequent organizational adjustment. |
+| Personalization and polarization | Tailoring content and the separation of positions or groups. | Both are actually studied; content differences, concentration, or satisfaction alone do not establish polarization. |
 
-Across these journals, the examples include descriptive, question, contrast, and
-subtitle structures. Treat the bundled sample as illustrative. If a user wants close
-calibration to a specialty, inspect a few recent, comparable papers from that
-specialty instead of guessing a journal-wide rule. Keep the contribution constant
-when comparing venues.
+These are vocabulary prompts, not ready-made claims or interchangeable labels.
+The published privacy-preferences example in [sources and examples](sources-and-examples.md)
+offers another useful pair: **intrinsic and instrumental**. Their substantive
+distinction carries the contribution; the matching opening sound reinforces it.
 
-## Make the wording memorable
+### Turn a pair into a title
 
-Use concrete actors, actions, and objects when they make the question easier to
-recognize. A title about sellers' visibility gives a reader more to picture than a
-generic title about digital transformation. Keep established technical terms when
-they identify the contribution more precisely than an everyday substitute.
+1. Define each term in one sentence using the manuscript's own concepts. State what
+   readers would miss by collapsing them.
+2. Identify the relationship the paper studies: distinction, interaction, competing
+   explanations, complementarity, divergence, or a transition. A distinction can
+   matter without being a conflict or a zero-sum tradeoff.
+3. Choose the connector deliberately. **And** accommodates coexistence or interaction;
+   **or** asks the paper to distinguish alternatives; **versus** emphasizes a
+   comparison without itself proving exclusivity or a tradeoff; **from ... to ...**
+   promises a transition. **Is not** distinguishes concepts; **without** asserts
+   decoupling or absence in the stated scope, not merely a reduction. **At the cost
+   of** requires a supported sacrifice relation, not just opposite-signed outcomes.
+   A one-word change can change the research promise.
+4. Add a setting, outcome, or task if the pair alone leaves the paper unidentified.
+   Compare the result with a plain version using the same evidence.
+5. Use the rhetorical-word test above, then read the title with the literal
+   definitions substituted. If the tension disappears, the phrase may be only
+   wordplay. If the definitions reveal an unmeasured concept or a stronger
+   relationship, revise the pair or its connector.
 
-Try parallel phrasing when the paper connects two movements or consequences. The
-paired movements in the labor-share example make its explanatory connection easy
-to remember. Use a short hook to introduce a specific puzzle, then let the subtitle
-locate the research. A hook should create curiosity about an answer the paper can
-supply; it should not conceal what the paper studies.
+### Positive cases
 
-Test wordplay and idioms against the intended international audience. Keep them
-when their meaning is accessible and substantively apt. If explaining the joke
-takes longer than explaining the research tension, try a more direct formulation.
-Likewise, name a new construct only when the paper defines and develops it; an
-evocative label by itself is not a conceptual contribution.
+**Synthetic brief:** A marketing paper shows that forecasting who will purchase
+and estimating whose purchase a promotion changes imply different targeting
+decisions. It benchmarks both approaches against randomized promotion responses.
 
-## Worked examples
+Plain: **"Forecasting Purchases and Choosing Promotion Targets."**
 
-All briefs and proposed titles below are invented instructional examples. They are
-not published papers, factual findings, or evidence for a title's effectiveness.
+Paired: **"Prediction and Prescription in Promotion Targeting."**
 
-### 1. A causal tradeoff, with a platform boundary
+Question: **"Prediction or Prescription? Choosing Whom to Target with Promotions."**
 
-**Brief:** A randomized trust badge in an online freelance marketplace increases
-hiring and increases subsequent off-platform transactions. The paper does not measure
-the platform's net profit or total welfare.
+The question concerns which task should guide the decision, not whether prediction
+and prescription can coexist. Both terms are earned by the supplied comparison.
+A study that only forecasts purchases would need a different title.
 
-**Weak:** “The Dark Side of Trust: How Reputation Destroys Platforms.”
+**Synthetic brief:** Organizational fieldwork distinguishes installing an algorithmic
+advice tool from changing roles and routines around it. It develops how these two
+processes interact; no temporal sequence is established.
 
-**Stronger:** “Trust Badges Increase Hiring and Off-Platform Transactions.”
+Paired: **"Adoption and Adaptation: Reorganizing Work around Algorithmic Advice."**
 
-**Alternative:** “Trust and Off-Platform Trade: Evidence from a Freelance Marketplace.”
+"From Adoption to Adaptation" would additionally suggest a sequence. "Adoption
+versus Adaptation" could invite an opposition the account does not develop. The
+ordinary connector can be the strongest choice.
 
-The first revision makes both measured consequences visible. The second foregrounds
-the platform's tradeoff but needs the subtitle to identify the setting. Neither can
-claim platform failure, losses in net profit, or a welfare reduction. If the paper
-does not establish both effects, neither tradeoff title is warranted.
+For a personalization experiment measuring purchasing but no political attitudes,
+group separation, or polarization outcome, **"Personalization and Polarization"**
+would introduce a different paper. **"Personalization and Purchasing"** might be a
+faithful alliterative starting point; sharpen its contribution using the actual
+result. Do not discard the accurate option merely because another pair sounds better.
 
-### 2. An important association, without a causal upgrade
+## 6. Finish the wording
 
-**Brief:** A cross-sectional survey finds that workers with more unpredictable
-schedules report lower well-being. There is no exogenous source of variation.
+Prefer a clear relationship over abstract noun stacking. "Technology, Governance,
+Diversity, and Digital Transformation" is not made distinctive by adding "AI."
 
-**Weak:** “Unpredictable Schedules Destroy Worker Well-Being.”
+A hook need not be unique in the world to be useful, but a near-copy of a famous
+paper's distinctive wording can obscure the new contribution. Borrow the function,
+not the catchphrase. Common technical phrases are not failures of originality.
 
-**Stronger:** “Schedule Unpredictability and Self-Reported Worker Well-Being.”
+Use parallel phrases when they improve comprehension, not to imply equal effect
+sizes, symmetric consequences, mutual exclusivity, or a zero-sum relationship.
+"Fewer" is not "none," "different" is not "worse," and "new to the source" is
+not "new to the world."
 
-**More explicit:** “Schedule Unpredictability Is Associated with Lower Self-Reported Well-Being.”
+Read a candidate aloud. Check pronouns, noun attachment, implicit comparisons,
+and idioms for an international audience. Prefer shorter wording only when the
+principal promise, recognition terms, and essential scope survive the deletion.
 
-The substantive problem is whether employers' scheduling flexibility coincides with
-worker costs. That motivation does not identify causality. Do not call the first
-revision a mechanism study simply because “and” is neutral, or call the second a
-test of employer incentives if those incentives were not examined.
-
-### 3. An imprecise null, with a consequential outcome
-
-**Brief:** A randomized reminder trial among vocational trainees produces a training
-completion estimate whose interval includes meaningful positive and negative effects.
-No equivalence test establishes a negligible effect.
-
-**Weak:** “Why Reminders Fail to Improve Training.”
-
-**Stronger:** “Reminders and Training Completion: A Randomized Trial among Vocational Trainees.”
-
-**Question variant:** “Can Reminders Improve Training Completion among Vocational Trainees?”
-
-The question variant needs an explanation that this study provides an uncertain
-answer. Neither “fail” nor an untested explanation belongs in a result title. A
-precisely estimated negligible effect could justify different wording, with its
-outcome and setting preserved.
-
-### 4. A supported subgroup contrast, without exaggerating it
-
-**Brief:** A randomized sales-assistance tool improves conversion for new salespeople;
-the estimated effect for experienced salespeople is small. The paper establishes a
-difference in effects, but does not measure job loss or long-run skill acquisition.
-
-**Weak:** “AI Replaces Experience.”
-
-**Stronger:** “AI Sales Assistance Raises Conversion More for New Salespeople.”
-
-**Broader variant:** “Experience and the Returns to AI Sales Assistance.”
-
-The first title is available only because the between-group contrast is supported.
-Without that comparison, use an outcome-focused descriptive title. Do not translate
-short-run performance differences into a claim about replacement or learning.
-
-### 5. A theoretical tension, with conditional comparative statics
-
-**Brief:** A theoretical platform model shows that additional information improves
-matching but can reduce equilibrium seller entry under specified information and
-participation conditions. There is no empirical test.
-
-**Weak:** “Transparency Kills Competition.”
-
-**Stronger:** “Information, Matching, and Entry in Platform Markets.”
-
-**Sharper variant:** “When Better Information Discourages Entry: A Model of Platform Markets.”
-
-The sharper version needs the paper to characterize the relevant conditions. “A
-Model” makes the status of the result clear; “entry” preserves the modeled outcome
-instead of promoting it to all dimensions of competition.
-
-### 6. A design-stage paper, without invented results
-
-**Brief:** A researcher plans to study how personalized rankings affect small sellers'
-visibility. The data and identification strategy have not yet been chosen.
-
-**Weak:** “Personalization Marginalizes Small Sellers: Experimental Evidence.”
-
-**Provisional:** “Personalized Rankings and Small-Seller Visibility.”
-
-**Question variant:** “Who Gets Seen? Personalized Rankings and Small-Seller Visibility.”
-
-Both versions identify the allocation problem without promising its sign or an
-experiment. Revisit the title when the design and findings establish the contribution.
-
-## Final editing tests
-
-- **Reader expectation:** In one sentence, what study would someone expect from this
-  title alone? Compare it with the supplied evidence.
-- **Substitution:** If a hook survives replacing the central topic with an unrelated
-  one, it may be decorative. Replace it with the actual puzzle or remove it.
-- **Deletion:** Remove one clause or modifier. Keep it removed unless meaning,
-  searchability, or necessary scope is lost.
-- **Centrality:** If the title's claim disappeared from the paper, would its main
-  contribution disappear? If not, a secondary finding may have taken over the title.
-- **Read aloud:** Prefer words a colleague could understand and remember after hearing
-  the title once. Resolve ambiguity before adding stylistic polish.
-
-These are editorial checks. They do not measure actual clicks, citations, acceptance,
-or the probability that a particular audience will find the paper interesting.
+A good final shortlist contains real choices. If every alternative offers the
+same framing in the same grammatical structure, return to the framing step rather
+than generating another batch of synonyms.

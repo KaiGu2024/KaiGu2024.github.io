@@ -1,0 +1,470 @@
+{
+  "schema_version": "1.0",
+  "skill_name": "paper-titles",
+  "authored_on": "2026-09-14",
+  "status": "Authored test cases; comparative model evaluation not run.",
+  "case_type": "Synthetic except the explicit publisher-metadata fixture in PT21.",
+  "split_note": "The inherited development/reserved split is retained for organization. All supplied cases were inspected during this revision; none is an unseen holdout.",
+  "grading": "Use evals/README.md. No exact-title answer key and no automatic keyword-based quality score.",
+  "cases": [
+    {
+      "id": "PT01",
+      "focus": "Composition versus efficiency; substantive diversity",
+      "split": "development",
+      "user_request": "Brainstorm six strong titles for an IS paper. Recommend one and explain the framing choices.",
+      "supplied_brief": "A historical archive compares entries made using source-based automated drafts with independently prepared entries. Conditional observational comparisons show more source-matched statements but fewer independently verified statements absent from the reference source. Work time, displacement of other entries, total deduplicated archive information, and reader value are not measured.",
+      "expected_behaviors": [
+        "Provide six options with identifiable differences in emphasis, not six copies of the same contrast.",
+        "Include a plain relationship title and at least one specific contrast or problem-oriented title.",
+        "Explain source-relative additions without turning the response into a generic methods critique."
+      ],
+      "disallowed_inferences": [
+        "Measured labor efficiency or creativity.",
+        "A causal loss of aggregate knowledge, no additions, or an optimal deployment policy."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist."
+    },
+    {
+      "id": "PT02",
+      "focus": "Supported causal conflict",
+      "split": "development",
+      "user_request": "Improve the title: A Platform Trust Paradox.",
+      "supplied_brief": "A randomized badge intervention on a services marketplace increases completed bookings and subsequent transactions outside the marketplace. Both are central outcomes. Total profit and welfare are unmeasured.",
+      "expected_behaviors": [
+        "Make the incentive conflict or both outcomes recognizable.",
+        "Allow supported causal wording instead of mandatory hedges.",
+        "Offer a clear recommendation rather than treating every title as equally good."
+      ],
+      "disallowed_inferences": [
+        "Platform destruction, lower total profit, lower total welfare.",
+        "Insisting no causal language is permitted."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist."
+    },
+    {
+      "id": "PT03",
+      "focus": "Method centrality and a meaningful constraint",
+      "split": "development",
+      "user_request": "Give a concise, informative title for a quantitative marketing methods paper.",
+      "supplied_brief": "The paper introduces an estimator that identifies consumer substitution patterns from censored assortment logs under stated assumptions. It proves identification, evaluates finite-sample performance, and benchmarks against established estimators. Recovering substitution despite missing availability information is the main contribution.",
+      "expected_behaviors": [
+        "Foreground the inference task or missing-information constraint.",
+        "Keep a methods-led option available.",
+        "Do not require a managerial paradox."
+      ],
+      "disallowed_inferences": [
+        "Merely naming a novel algorithm with no task.",
+        "A universally superior estimator outside tested or proved conditions."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist."
+    },
+    {
+      "id": "PT04",
+      "focus": "Routine NLP is not a methods contribution",
+      "split": "development",
+      "user_request": "Make the title sound innovative and emphasize our NLP and two-million-record dataset.",
+      "supplied_brief": "The paper applies an existing sentiment classifier without modifying or newly validating it. Two million marketplace reviews reveal an observational difference between first-time and repeat purchasers. The primary contribution is the documented behavioral pattern, not the classifier or sample construction.",
+      "expected_behaviors": [
+        "Use the behavior or relationship as the principal promise.",
+        "Explain why scale and NLP need not lead the title.",
+        "Retain a useful title rather than simply refusing the requested emphasis."
+      ],
+      "disallowed_inferences": [
+        "A new NLP method, ground-truth accuracy, representativeness, or causal identification created by sample size."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist."
+    },
+    {
+      "id": "PT05",
+      "focus": "Qualitative explanatory contribution",
+      "split": "development",
+      "user_request": "Give three titles for an organizational study of algorithmic management.",
+      "supplied_brief": "Eighteen months of ethnography at two warehouses support a process account of workers informally renegotiating task assignments while supervisors retain formal accountability. The manuscript develops the relationship between discretion and accountability, not average productivity effects.",
+      "expected_behaviors": [
+        "Recognize the developed process and central conceptual relationship.",
+        "Allow explanatory process language with situated scope.",
+        "Provide genuinely different emphasis where supported."
+      ],
+      "disallowed_inferences": [
+        "Universally lower autonomy, causal productivity effects, or displacement of all managers.",
+        "Downgrading the developed qualitative explanation to a mere correlation."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist."
+    },
+    {
+      "id": "PT06",
+      "focus": "Conditional theory is not an observational estimate",
+      "split": "development",
+      "user_request": "Give a strong title for this theoretical platform paper.",
+      "supplied_brief": "A two-sided-market model proves that increasing recommendation precision improves consumer matching but reduces seller entry when a characterized concentration condition holds. The paper derives the threshold and equilibrium mechanism; there is no empirical dataset.",
+      "expected_behaviors": [
+        "Permit a direct conditional comparative-static title.",
+        "Keep the modeled outcome and relevant boundary intelligible.",
+        "Do not insist on randomized evidence for a proved model result."
+      ],
+      "disallowed_inferences": [
+        "All transparency always reduces all forms of competition.",
+        "Calling the theorem an empirical association."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist."
+    },
+    {
+      "id": "PT07",
+      "focus": "Design-stage uncertainty",
+      "split": "development",
+      "user_request": "Suggest a memorable working title for my project.",
+      "supplied_brief": "The author plans to study whether AI-based search changes small publishers’ referral traffic. No data have been collected and no identification strategy or direction of effect has been established.",
+      "expected_behaviors": [
+        "Offer provisional relationship or question titles.",
+        "Make the allocation or referral question recognizable."
+      ],
+      "disallowed_inferences": [
+        "Invented negative traffic effects, an experiment, ecosystem collapse, or measured welfare."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist."
+    },
+    {
+      "id": "PT08",
+      "focus": "Imprecise null",
+      "split": "development",
+      "user_request": "Improve: Why Renewal Reminders Fail.",
+      "supplied_brief": "A randomized subscription-renewal experiment estimates an effect of 0.2 percentage points with a 95% interval from -5 to +6 percentage points. Effects of that size would matter. No equivalence analysis or behavioral mechanism is established.",
+      "expected_behaviors": [
+        "Use a relationship, intervention, or question title that does not announce failure.",
+        "Identify imprecision briefly when explaining the revision."
+      ],
+      "disallowed_inferences": [
+        "No effect, negligible effect, or an established explanation of failure."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist.",
+      "paired_case": "PT09"
+    },
+    {
+      "id": "PT09",
+      "focus": "Well-supported negligible effect",
+      "split": "development",
+      "user_request": "Improve: Renewal Reminders and Subscriptions.",
+      "supplied_brief": "A preregistered renewal-reminder experiment estimates an effect of 0.2 percentage points with an interval wholly inside a justified equivalence margin of -1 to +1 percentage points. The equivalence analysis supports effects smaller than that substantive threshold in the studied population. There is no mechanism evidence.",
+      "expected_behaviors": [
+        "Allow a bounded small-effect title when it fits the contribution.",
+        "Do not mechanically use the same uncertainty framing as for an imprecise estimate."
+      ],
+      "disallowed_inferences": [
+        "Exactly zero effect in all populations or an explanation of failure."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist.",
+      "paired_case": "PT08"
+    },
+    {
+      "id": "PT10",
+      "focus": "Subgroup p-values do not establish effect differences",
+      "split": "development",
+      "user_request": "Can we title this AI Helps Novices More?",
+      "supplied_brief": "In a randomized assistance study the novice estimate is positive and significant, while the expert estimate is positive but not significant. The interaction estimate is imprecise and does not establish a difference between groups.",
+      "expected_behaviors": [
+        "Reject the claimed between-group conclusion and offer a faithful alternative.",
+        "Explain the contrast issue without claiming the subgroup effects are equal."
+      ],
+      "disallowed_inferences": [
+        "A supported novice advantage based solely on different significance levels.",
+        "Evidence that effects are identical."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist.",
+      "paired_case": "PT11"
+    },
+    {
+      "id": "PT11",
+      "focus": "Supported heterogeneous causal effects",
+      "split": "development",
+      "user_request": "Can we title this AI Helps Novices More?",
+      "supplied_brief": "In a randomized assistance study both novice and expert effects on task completion are positive. A prespecified interaction and its interval establish a larger effect for novices. Learning, wage gains, and job replacement are not measured.",
+      "expected_behaviors": [
+        "Allow a direct title naming the supported differential benefit.",
+        "Prefer the actual performance outcome over an ambiguous claim about all benefits."
+      ],
+      "disallowed_inferences": [
+        "Replacement of expertise, learning gains, or equalizing wages.",
+        "Insisting a heterogeneity title is impermissible despite the supplied contrast."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist.",
+      "paired_case": "PT10"
+    },
+    {
+      "id": "PT12",
+      "focus": "Association wording",
+      "split": "development",
+      "user_request": "Give one recommended title and one alternative.",
+      "supplied_brief": "Across self-selected retailers, stores using automated ordering report fewer stockouts. The evidence is a cross-sectional survey with controls. No instrument, experiment, or quasi-experimental adoption comparison exists.",
+      "expected_behaviors": [
+        "Use wording appropriate to a relationship between ordering practice and stockouts.",
+        "Preserve the useful substantive result."
+      ],
+      "disallowed_inferences": [
+        "Automated ordering causes a stockout reduction."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist.",
+      "paired_case": "PT13"
+    },
+    {
+      "id": "PT13",
+      "focus": "Causal wording when earned",
+      "split": "development",
+      "user_request": "Give one recommended title and one alternative.",
+      "supplied_brief": "Retail stores were randomly assigned to automated ordering or existing practice. Recorded stockouts fall under automated ordering, with a precise prespecified treatment comparison. Profit is not measured.",
+      "expected_behaviors": [
+        "Allow or prefer a direct supported causal result title.",
+        "Keep the stockout outcome distinct from profit."
+      ],
+      "disallowed_inferences": [
+        "Refusing causal language merely because the paper is empirical.",
+        "Claiming higher total profit."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist.",
+      "paired_case": "PT12"
+    },
+    {
+      "id": "PT14",
+      "focus": "Setting, phenomenon, and generalization",
+      "split": "reserved",
+      "user_request": "Is this a Discord paper or a community-governance paper? Show the difference through title options.",
+      "supplied_brief": "The study evaluates a randomized change in moderation appeal visibility across several Discord communities, measuring participation and subsequent rule compliance. Governance decision rights are explicitly theorized. No other platform is observed.",
+      "expected_behaviors": [
+        "Offer setting-led and phenomenon-led framings using the same evidence.",
+        "Allow a governance framing because the decision and outcomes are central.",
+        "Retain enough empirical scope to avoid a universal cross-platform claim."
+      ],
+      "disallowed_inferences": [
+        "Requiring evidence from every platform before any broader phenomenon label can be used.",
+        "Pretending the study identifies the effect on all online communities."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist."
+    },
+    {
+      "id": "PT15",
+      "focus": "Reference set and count-versus-share integrity",
+      "split": "reserved",
+      "user_request": "Make a title that foregrounds the important informational result.",
+      "supplied_brief": "A study of regional product catalogs finds fewer locally specific statements per catalog under automated adaptation, but a larger local share among all statements absent from the source catalog. Novel means absent from the paired source, not absent from other catalogs. Comparisons are observational.",
+      "expected_behaviors": [
+        "Keep absolute counts separate from shares.",
+        "Keep novelty relative to the source.",
+        "Use a recognizable content or adaptation relationship instead of a global-cultural-loss headline."
+      ],
+      "disallowed_inferences": [
+        "A lower local share, globally original discoveries, or cultural erasure."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist."
+    },
+    {
+      "id": "PT16",
+      "focus": "Avoid a manufactured empirical puzzle",
+      "split": "reserved",
+      "user_request": "Make our finding sound surprising enough for a top journal.",
+      "supplied_brief": "The only analysis counts exact duplicates introduced by copying source records into a target database. A deduplicated union does not grow when the added records are exact duplicates. There is no analysis of human contribution, altered behavior, new information, access value, or a new deduplication method.",
+      "expected_behaviors": [
+        "State that the requested empirical surprise is not established by the supplied identity.",
+        "Still offer a precise descriptive title if useful.",
+        "Identify the missing substantive question without pretending the paper already answers it."
+      ],
+      "disallowed_inferences": [
+        "A new behavioral theory, efficiency loss, displaced contribution, or a general automation paradox."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist."
+    },
+    {
+      "id": "PT17",
+      "focus": "Portfolio quality under an explicit count",
+      "split": "reserved",
+      "user_request": "Brainstorm eight titles, group them by substantive emphasis, and recommend one.",
+      "supplied_brief": "A study of subscription design combines a field experiment and a model. A lower upfront fee increases initial subscriptions but reduces paid renewals; analysis establishes that the composition of entering customers accounts for the renewal difference. The design and model support an acquisition-versus-retention evaluation, but total lifetime profits are not estimated.",
+      "expected_behaviors": [
+        "Provide eight options with distinct acquisition/retention, selection, or design framings and transparent wording variants where needed.",
+        "Include at least one plain descriptive title.",
+        "Identify an actual best option rather than eight interchangeable endorsements."
+      ],
+      "disallowed_inferences": [
+        "Profit destruction, welfare loss, or eight near-identical More X Less Y titles."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist."
+    },
+    {
+      "id": "PT18",
+      "focus": "Minimal output contract",
+      "split": "reserved",
+      "user_request": "Give exactly one title, nothing else.",
+      "supplied_brief": "A validated new measurement method distinguishes promotional attention from actual purchases in advertising logs when both are often merged in a platform dashboard. The benchmark comparison is the main contribution.",
+      "expected_behaviors": [
+        "Return exactly one title without rationale, headings, or alternatives.",
+        "Name the measurement distinction or task."
+      ],
+      "disallowed_inferences": [
+        "A full framing memo, invented causal advertising effects, or unsupported profit claims."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist."
+    },
+    {
+      "id": "PT19",
+      "focus": "Shortening without losing scope",
+      "split": "reserved",
+      "user_request": "Shorten this to no more than twelve words: Intrinsic Privacy Preferences and Expected Financial Losses from Sharing Demographic Information.",
+      "supplied_brief": "The paper separately estimates preferences for privacy itself and anticipated economic losses from disclosure using an experiment and a structural model. Both preference components are central.",
+      "expected_behaviors": [
+        "Preserve the two-component distinction within twelve words.",
+        "Use established conceptual terms where they efficiently identify the distinction."
+      ],
+      "disallowed_inferences": [
+        "One undifferentiated universal privacy value.",
+        "Deleting the distinction solely to produce a slogan."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist."
+    },
+    {
+      "id": "PT20",
+      "focus": "Resistance to unsupported dramatic framing",
+      "split": "reserved",
+      "user_request": "Make it much more provocative. Use destroys, crisis, or dark side.",
+      "supplied_brief": "A correlational study shows that managers who use a scheduling dashboard make more frequent schedule revisions. It measures neither worker well-being nor organizational performance. Its contribution is documenting scheduling volatility and characterizing variation across workplaces.",
+      "expected_behaviors": [
+        "Provide sharper faithful alternatives instead of complying with an unsupported allegation.",
+        "Explain the substantive issue briefly; do not make the response only a refusal."
+      ],
+      "disallowed_inferences": [
+        "Destroyed well-being, a crisis of management, or established organizational harm."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist."
+    },
+    {
+      "id": "PT21",
+      "focus": "Department calibration versus keyword matching",
+      "split": "reserved",
+      "user_request": "Use these sources to explain which examples support a Management Science IS title style.",
+      "supplied_brief": "Provided source records: the trust/disintermediation and information-seeding papers explicitly identify information systems in their acceptance information. The long-term-targeting paper identifies marketing. The rapid-AI-adoption survey identifies business strategy. Their titles use varied structures. These records do not estimate title-performance effects.",
+      "expected_behaviors": [
+        "Distinguish verified IS examples from useful adjacent-department examples.",
+        "Treat stylistic recommendations as judgments, not journal rules.",
+        "Do not claim every AI or platform paper was accepted by IS."
+      ],
+      "disallowed_inferences": [
+        "A mandatory title formula, an inferred IS classification from topic, or title-caused publication success."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist."
+    },
+    {
+      "id": "PT22",
+      "focus": "Missing manuscript",
+      "split": "reserved",
+      "user_request": "Give the best title for the paper I mentioned earlier; the file is not available in this test.",
+      "supplied_brief": "No manuscript, abstract, research summary, or prior-paper context is supplied.",
+      "expected_behaviors": [
+        "Ask for the minimal necessary paper information.",
+        "Do not claim to have read a missing paper.",
+        "Do not invent specific results or a title that depends on them."
+      ],
+      "disallowed_inferences": [
+        "Assuming the paper is the archive example from this skill.",
+        "Inventing a large dataset, treatment, or finding."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist."
+    },
+    {
+      "id": "PT23",
+      "focus": "Out-of-scope trigger",
+      "split": "reserved",
+      "user_request": "Write chapter titles for my fantasy novel about a sea voyage.",
+      "supplied_brief": "This is creative fiction, not a research-paper title request.",
+      "expected_behaviors": [
+        "Do not apply the research-paper evidence/framing workflow.",
+        "A host evaluating skill discovery should not select paper-titles for this task."
+      ],
+      "disallowed_inferences": [
+        "Demanding identification, methodological evidence, or a target academic journal for fictional chapter titles."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist."
+    },
+    {
+      "id": "PT24",
+      "focus": "Replication without compulsory surprise",
+      "split": "reserved",
+      "user_request": "Suggest a credible title for a replication with no surprising reversal.",
+      "supplied_brief": "The paper preregisters a direct replication of a choice-overload experiment using the original protocol in a new, explicitly defined consumer population. The estimated effect is compatible with the original; the contribution is the independent replication and boundary assessment. No new mechanism is tested.",
+      "expected_behaviors": [
+        "Make replication and the phenomenon legible.",
+        "Preserve its scientific contribution without manufacturing a paradox.",
+        "Offer an informative title rather than saying the paper lacks a contribution because it confirms the prior result."
+      ],
+      "disallowed_inferences": [
+        "A universal confirmation, overturning the literature, a new mechanism, or the absence of all boundary conditions."
+      ],
+      "evaluation_note": "Assess substantive meaning, not exact wording or a keyword blacklist."
+    },
+    {
+      "id": "PT25",
+      "focus": "Similar terms with a consequential difference",
+      "user_request": "Give three memorable titles, including a pair of similar-sounding concepts, and recommend one.",
+      "supplied_brief": "A marketing paper distinguishes forecasting purchase propensity from choosing customers whose purchases a promotion changes. It benchmarks prediction-based and treatment-effect-based targeting against a randomized promotion experiment. It develops prediction and prescription as distinct decision tasks. Profit and welfare are not measured.",
+      "expected_behaviors": [
+        "Use the supported prediction/prescription distinction in at least one option.",
+        "Keep the promotion-targeting task recognizable.",
+        "Do not treat the two tasks as necessarily mutually exclusive."
+      ],
+      "disallowed_inferences": [
+        "Improved total profit or welfare.",
+        "A causal targeting conclusion drawn solely from forecasting accuracy."
+      ],
+      "split": "development",
+      "evaluation_note": "Assess meanings and the implied relationship; no exact-title answer key."
+    },
+    {
+      "id": "PT26",
+      "focus": "Alliteration cannot introduce an unmeasured construct",
+      "user_request": "Make the title memorable with alliteration. I like Personalization and Polarization.",
+      "supplied_brief": "A randomized product-ranking experiment measures purchase conversion and finds an increase from personalization. It measures no political attitudes, group separation, polarization, or long-term outcomes.",
+      "expected_behaviors": [
+        "Explain briefly why the proposed pair does not fit.",
+        "Offer a memorable title grounded in personalization and the measured purchase result.",
+        "Keep direct causal wording available."
+      ],
+      "disallowed_inferences": [
+        "Measured polarization or social fragmentation.",
+        "Abandoning the requested titling task after rejecting the suggested pair."
+      ],
+      "split": "development",
+      "evaluation_note": "Assess meanings and the implied relationship; no exact-title answer key."
+    },
+    {
+      "id": "PT27",
+      "focus": "Connector choice for adoption/adaptation",
+      "user_request": "Improve Algorithm Use in Lending Teams with a memorable paired-concept title. Give one recommendation and explain the connector.",
+      "supplied_brief": "Ethnography in three lending teams distinguishes uptake of algorithmic advice from changes in roles and routines around that advice. The manuscript develops interacting adoption and adaptation processes. It establishes neither a temporal sequence nor mutual exclusivity.",
+      "expected_behaviors": [
+        "Recognize adoption and adaptation as supported concepts.",
+        "Use a connector consistent with interacting processes.",
+        "Keep the organizational object or setting visible."
+      ],
+      "disallowed_inferences": [
+        "A progression from adoption to adaptation.",
+        "A proved conflict or a necessary choice between the processes."
+      ],
+      "split": "development",
+      "evaluation_note": "Assess meanings and the implied relationship; no exact-title answer key."
+    },
+    {
+      "id": "PT28",
+      "focus": "Nature/nurture without a false dichotomy",
+      "user_request": "Give two title options using the nature/nurture idea for this social science paper.",
+      "supplied_brief": "A study of educational attainment examines measured inherited characteristics alongside home-environment measures and develops their interaction. Both influences matter in its analysis. It does not establish an exclusive explanation, exact causal contribution shares, or universal determinism.",
+      "expected_behaviors": [
+        "Make nature and nurture or their interaction legible.",
+        "Keep the educational outcome recognizable.",
+        "Prefer coexistence or interaction wording over a forced either/or question."
+      ],
+      "disallowed_inferences": [
+        "An exclusively genetic or exclusively environmental explanation.",
+        "Universal determinism or precisely identified causal shares."
+      ],
+      "split": "development",
+      "evaluation_note": "Assess meanings and the implied relationship; no exact-title answer key."
+    }
+  ],
+  "updated_on": "2026-09-15"
+}
