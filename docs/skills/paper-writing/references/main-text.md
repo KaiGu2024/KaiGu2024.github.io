@@ -2,27 +2,51 @@
 
 Academic writing is **contribution display**, not exposition. The reader is a busy referee skimming on a train, and the introduction has three pages to convince them the paper is worth the rest of their attention. This skill consumes the artifacts that [report](../../report/SKILL.md) produces and turns them into the abstract, introduction, results, and conclusion of a paper.
 
-The dominant template across top empirical-economics journals — AER, QJE, Econometrica, JPE, Marketing Science — is consistent enough to learn by pattern. What follows is that pattern, with the rules that make it work.
+The following is an adaptable writing framework for empirical economics, management, information systems, and marketing. Its rhetorical moves are not universal journal requirements. Match the paper's contribution, the author's requested scope, and the target venue's verified constraints.
 
 ---
 
 ## Movement 1 — Abstract
 
-Five sentences, ~150 words, written last and placed first.
+### Compress the argument, not the paper
 
-1. **Question + significance.** What we ask, why it matters. No philosophy. No "Recently…". No "It is well known that…".
-2. **Data + method.** N, source, identifying variation. Concrete: name the dataset and the strategy.
-3. **Main result with magnitude.** The number. Direction, size, precision. One or two sentences.
-4. **Mechanism or heterogeneity.** Where the effect comes from, or where it concentrates.
-5. **Implication or contribution.** What the field now knows that it didn't.
+Treat the abstract as the paper's intellectual argument in miniature, not one sentence per manuscript section. Finalize it after the findings and framing stabilize; an earlier working abstract can help clarify the argument.
 
-Cochrane: "start with what you do… start with the main result." McCloskey's thirty-five rules collapse into one: every word earns its place. Cut throat-clearing, cut warmups, cut philosophical preamble.
+Use the author's supplied word budget. For submission-ready work, verify the target journal's current abstract limit and format from official author guidance; flag any conflict with the requested budget. If no venue or budget is given, produce a concise draft without claiming a universal limit. If guidance cannot be accessed, state that the limit is unverified and proceed with a clearly provisional budget. Do not impose five sentences or 150 words unless explicitly required.
 
-**Annotated example** (synthetic, in the style of Card-Krueger):
+These are **five rhetorical moves, not five mandatory sentences**. Combine, reorder, or omit conditional moves when the argument warrants it:
 
-> *We test whether minimum-wage increases reduce employment in low-wage retail.* `[Q + significance]` *Using New Jersey's 1992 wage hike with eastern Pennsylvania as a control, we surveyed 410 fast-food restaurants before and after the policy.* `[Data + method]` *Employment in New Jersey rose by **13 percent** relative to Pennsylvania, contrary to the textbook prediction of a 1–3 percent decline.* `[Result with magnitude]` *The increase concentrates in stores that were paying close to the old minimum and is not driven by changes in store openings or hours.* `[Mechanism]` *The findings reject the standard competitive-market model for this segment of the labor market.* `[Implication]`
+1. **Problem and tension.** Make the substantive question, unresolved distinction, puzzle, constraint, or decision legible. Prefer the paper's specific problem to an opening about a technology's growing importance. Do not invent a paradox or opposing effects for a paper whose contribution does not require them.
+2. **Empirical object.** Identify the setting, comparison, and design needed to understand what the evidence represents. Include scale when informative; compress secondary sample sizes, estimator names, implementation details, and validation steps unless these are central contributions. Retain what distinguishes descriptive, causal, and model-based evidence.
+3. **Central finding.** State the substantive pattern before or together with a selective quantitative anchor. Organize around the conceptual result, not the order of tables. Give the unit and comparison needed to interpret a magnitude, and retain uncertainty when it changes the takeaway; do not pack in every estimate or silently turn imprecision into certainty.
+4. **Interpretation and informative extensions.** Include a boundary condition, mechanism, characterization, institutional comparison, or simulation only when it materially changes the headline's interpretation. Heterogeneity is not automatically a mechanism; model-implied outcomes are not observed effects. Omit this move if unsupported or unnecessary.
+5. **Significance.** Name what readers should now distinguish, believe, evaluate, or decide differently. "Provides new insights" or "has important implications" is insufficient unless the precise object follows. A measured distinction can warrant a new evaluation question without establishing a welfare ranking or policy prescription.
 
-Notice what is not there: no claim that employment is important, no history of the minimum-wage debate, no assertion that the question is "long-standing".
+The contrast with Results prose is deliberate: **abstract = substantive pattern → selective quantitative anchor → interpretation; Results subsection = question → finding/estimate with decisive evidence → interpretation.** Neither requires a bare number as the opening words.
+
+### Select evidence by its job
+
+Before compressing, classify the available findings internally. This is a priority guide, not a quota or an instruction to manufacture missing analyses.
+
+| Role | Abstract treatment |
+|---|---|
+| Headline | State the central finding or decomposition directly. |
+| Explanatory | Include supported evidence needed to understand why, where, or for whom the headline holds; distinguish a tested mechanism from an interpretation. |
+| Interpretive extension | Include selectively if it changes the theoretical or managerial takeaway. |
+| Corroborative | Usually fold into the headline clause, preserving any different sample or measurement scope. |
+| Robustness | Usually omit from the abstract; retain when it materially qualifies credibility or is itself the contribution. |
+
+Assign roles by the paper's claim, not by method name. A simulation can be the headline in a model-based paper; validation can be central in a measurement paper. Use a deletion test: if removing an analysis leaves the central interpretation unchanged, it probably does not need its own abstract sentence. Material contradictory evidence is not disposable "robustness."
+
+### Decomposition before a masking aggregate
+
+When the contribution is that an aggregate masks opposing components, foreground those components and explain the net outcome as their consequence. Do not automatically headline the aggregate merely because it has the largest or most familiar number. Conversely, do not bury an aggregate that is the author's actual central question.
+
+An accounting identity such as `Y = A + B` requires compatible units, populations, and definitions, with exhaustive, nonoverlapping components. Estimated component changes need the same estimand and compatible estimation to reconcile; do not add estimates from different samples or specifications. Conceptual contrasts such as quantity versus quality are not automatically additive identities, and opposing movements alone do not identify a causal tradeoff.
+
+**Hypothetical illustration, not a reported study:** suppose a common-sample accounting decomposition attributes a 6-unit increase in total content to 8 more transferred units and 2 fewer source-relative additions. "More content contains more transfer but fewer additions beyond the source" conveys the tension before the magnitudes. Whether that is an improvement requires a separate evaluation criterion; "source-relative additions" does not mean verified knowledge or world-first novelty.
+
+Apply the local construct lock in Movement 8 before drafting, then the evidence hierarchy here, then the substantive-compression rules in Movement 5. Deliver the requested abstract, not the internal planning apparatus, unless the author asks for it.
 
 ---
 
@@ -32,7 +56,7 @@ The Cochrane structure dominates top-5 empirical economics. Cap at three pages. 
 
 - **Para 1 — The question.** What we ask. Four to six sentences. Forbidden openings: importance of the field, history of the debate, philosophical motivations, lit summary. Across recent award-winning empirical papers the dominant opening is *not* the bare question — it is the **status-quo mechanism the paper disrupts**: the prior equilibrium, arrangement, or received belief you will show is breaking ("the conventional wisdom is X; we challenge it"). That is the default. The wedge tension from [brainstorm.md](../../brainstorm.md) is the second option; opening with the bare question itself is the lean exception, not the rule. The status-quo opening is not throat-clearing when the mechanism *is* the economic object: describing how the system worked is what makes the disruption legible, and it should resolve into the question by the end of the paragraph, not linger. If the paper hinges on a **new construct**, define it precisely in the opening rather than assuming the reader shares your meaning, and consider a single conceptual schematic — an architecture or mechanism diagram contrasting the old and new regimes, *not* a results figure — placed in the introduction. This is the one figure that belongs before Movement 3.
 - **Para 2 — What we do.** The data, the method, the source of variation. Concrete: name the dataset, the sample, the time period, the identifying assumption. After this paragraph the reader should know whether the strategy is RCT, DiD, RD, IV, synthetic control, or structural.
-- **Paras 3–4 — What we find.** Headline number first. Direction, magnitude, precision. Then the secondary findings that earn their seat in the abstract. Don't tease — give the answer. But mind *where*: the **abstract** leads with the magnitude; the **introduction** delivers it here, after the setup (typically the third to fifth paragraph), not in the opening line. Award-winning intros lead with the tension and reach the number once the question and design are on the table — the result lands mid-intro, not in Para 1.
+- **Paras 3–4 — What we find.** State the substantive headline with its decisive magnitude and uncertainty, then the secondary findings needed to interpret it. Don't tease — give the answer. The abstract compresses this pattern with selective evidence; the introduction has room to explain the comparison and design before the estimates. Paragraph positions are a useful scaffold, not a requirement to delay an otherwise clear result.
 - **Paras 5–6 — Why it's hard, how we solve it.** What threatens identification, why your strategy clears the threat, and what residual concerns the reader is permitted to keep. Be honest; the reviewer's first instinct is to find the assumption you skipped.
 - **Paras 7–8 — Mechanism and interpretation.** What the estimate means structurally. Link reduced form to economic content. If you have a structural model, this is where it enters.
 - **Paras 9–10 — Contribution to literature.** Two to four strands. Each one short paragraph. State exactly what is new — *not* "we add to the literature on X" (vague), but "in contrast to Smith (2018), who finds Y in setting Z, we find ¬Y in setting Z′ because…". This is where the literature review lives. Cochrane's rule: never put the lit review *before* your contribution. The contribution itself can be organized three ways, all common in award papers: as the **two-to-four literature strands** above; **split by audience** (a "conceptually… / practically…" or "policy… / methodological…" pair); or as an **enumerated list** ("we make three contributions: First… Second… Third…"). Pick one and commit. Then **bound the claim** in one sentence: state what the paper does *not* assert (e.g. "we measure a change in observable behavior, not consumer welfare"). Naming the contribution's limit pre-empts the referee's first overreach objection and reads as confidence, not retreat — an unbounded claim invites the reader to find the boundary for you.
@@ -52,20 +76,34 @@ Each sentence is doing exactly one job. Nothing decorates.
 
 "Tell, don't dump." The empirical-econ norm is that *something* carries the punchline and the rest carries the precision — but it is not always a figure. Across award papers the punchline is carried by a figure, by a **single headline number repeated verbatim**, or by one decisive table about as often as by a plot. Lead with whichever the reader will remember; let tables carry the precision behind it.
 
-1. **Headline figure.** One figure that captures the main result. Often a comparison: treatment vs. control over time, NJ vs. PA employment, a mobility heatmap, a binscatter against the wedge variable. The reader who sees only the figure should leave with the right belief. See [visualization.md](../../visualization.md) for execution.
+**Build the argument from the paper's promise.** Before drafting or reorganizing Results, read the title, abstract, conceptual framework, and methods. Identify the questions these sections promise to answer and map each to the evidence that answers it. Order subsections by how those answers build on one another; script numbers and existing figure order do not determine the storyline. Flag a promised answer that lacks evidence rather than filling the gap with interpretation.
+
+**Open with an argumentative roadmap.** Put a short paragraph directly below the Results heading explaining how the findings build on one another and why that sequence answers the paper's questions. For example, a knowledge-expansion paper might establish expansion → separate transfer from enrichment → characterize the enrichment shortfall → examine integration-related change → illustrate allocation implications. This is a project example, not a universal template. The roadmap should explain the progression of the argument rather than merely list analyses.
+
+Use the following evidence components where they advance that argument; they are not a mandatory subsection order. Use Movement 1's evidence hierarchy to place explanatory, corroborative, and robustness material; none becomes a coequal headline just because it has a separate table:
+
+1. **Headline display.** A figure or decisive table that captures the main result. Often a comparison: treatment vs. control over time, NJ vs. PA employment, a mobility heatmap, a binscatter against the wedge variable. The reader who sees only the display should leave with the right belief. Choose the format around the comparison: a curve can show two outcomes across allocation choices, a table supports exact lookup, and stacked bars can show total volume and composition together. When revising, assess whether simplifying or refining the existing design communicates the comparison better before replacing it with a more elaborate one. See [visualization](../../visualization/SKILL.md) for execution.
 2. **Main table.** Headline regression. Point estimate, standard error, sample, controls, fixed effects. State both economic and statistical significance. Pair every estimate with uncertainty (95% CI or SE — never alone).
 3. **Mechanism tests.** Two to three. Pre-specified — state the prediction *before* the test. If A is the channel, B should appear in subsample C. Report the prediction direction in the text and the result in the table.
-4. **Heterogeneity.** Theoretically motivated cuts; cite which mechanism predicts which cut. Lifts directly from [report](../../report/SKILL.md) §Heterogeneity.
+4. **Heterogeneity.** Theoretically motivated cuts; cite the theory or mechanism that predicts each cut. Lifts directly from [report](../../report/SKILL.md) §Heterogeneity. Interpret in three layers: the observed pattern; any accounting or composition explanation supported by the design; and cautiously labeled substantive explanations supported by existing evidence. For language differences, for example, distinguish measured source composition from possible editorial practices. A plausible explanation is not a tested mechanism; state what the evidence can distinguish and keep unresolved explanations tentative.
 5. **Robustness.** Alternative samples, measures, specifications, placebo, falsification. One robustness table is usually enough; the rest goes to the appendix. Robustness should be exhausting to write — that is the point.
 6. **Comparison with prior estimates.** Explicit, with the table from [report](../../report/SKILL.md) §Benchmark. Where estimates differ, name the most plausible reconciliation: data difference (sample, period), measure difference, or method difference.
 
 For structural papers, follow DellaVigna's order: present moments → identification logic → estimates → welfare counterfactuals. Reduced-form moments come first because they anchor the model in a fact the reader can see.
 
-Each results subsection begins with the artifact supplied by [report](../../report/SKILL.md): a subquestion heading, compact empirical setup, main figure or table, and direct description of what it shows. Paper prose then adds the interpretation required for the paper's argument.
+Each results subsection begins with the artifact supplied by [report](../../report/SKILL.md): a subquestion heading, compact empirical setup, main figure or table, and direct description of what it shows. Paper prose then adds the interpretation required for the paper's argument and connects the answer to the next subquestion.
+
+**Give every main-text display a distinct job.** Ask: "What does the reader understand from this display that the preceding evidence does not establish?" Move redundant tables and exhaustive breakdowns to the appendix. Conversely, give a central construct, such as knowledge stock, visible evidence in a main-text display when the argument depends on it; prose alone should not carry its empirical support. One display can support several connected constructs without requiring a separate figure for each.
+
+**Explain relationships between measures and estimates.** When outcomes are linked by an accounting identity, distinguish what each measure means, whether its model is estimated separately, and which coefficient relationships follow mechanically from the identity under the actual estimator. Check identical samples, regressors, weights, and compatible outcome scales before claiming such a relationship; an identity among levels does not automatically imply the same relationship among coefficients from transformed or nonlinear models. Explain any resulting redundancy in the estimates so the reader does not mistake a mechanical relationship for independent corroboration. Definitions alone do not settle these questions.
+
+**Resolve confusion where it arises.** Give terms such as "comparable," "assisted," and "priority-based" an operational meaning at first use in the relevant result, with a methods cross-reference for full construction. State what is held comparable, the numerator and denominator of a percentage, and how the reported value was selected. If an allocation simulation reports a matched comparison, explain the matching rule and the selected scenario or point. Calling a simulation "illustrative" does not explain how its headline percentage was obtained.
+
+**Simplify presentation while retaining construction and uncertainty.** Keep plot labels short, essential estimation details in the caption, and interpretation in the text. If bars are constructed as a benchmark plus an estimated coefficient, explain the benchmark and addition in the caption even if "adjusted" is removed from the label. Check confidence intervals at the intended display size: intervals may be present but visually tiny, which should be explained rather than mistaken for missing uncertainty or exaggerated graphically. Identify what intervals or bands represent and distinguish statistical uncertainty from deterministic variation across scenarios. If statistical uncertainty is unavailable, state that limitation; a scenario range does not substitute for a confidence interval.
 
 **Interpreting the numbers — three moves the award papers share:**
 
-- **Repeat the headline number verbatim.** The single most important magnitude should appear identically in the abstract, the introduction, and the conclusion — same figure, same framing. A number the reader meets three times is the number they leave with. Drifting it (13% here, "about 13" there, "roughly an eighth" later) tells the reader you don't trust it.
+- **Keep repeated magnitudes consistent.** When an estimate recurs across abstract, introduction, and conclusion, preserve its value, unit, comparison, scope, and precision convention. Do not force the same number into every section or suppress central component estimates to manufacture one memorable statistic. If rounding differs for readability, make the approximation explicit and ensure it does not change the interpretation.
 - **Handle nulls without over-claiming.** A failure to reject is not evidence of equivalence. Say "we cannot detect a difference; the estimate is consistent with effects between −x and +y," and attribute the silence to power or remaining uncertainty — never "there is no effect." Bound what the null rules out rather than declaring zero.
 - **End the interpretation on a one-line verdict.** After presenting the evidence, distill the section's conclusion into a single quotable sentence — the "this is a data problem, not a model problem" move. The verdict is what gets quoted in the referee report and the seminar; write it deliberately rather than leaving the reader to compose it.
 
@@ -75,10 +113,10 @@ Each results subsection begins with the artifact supplied by [report](../../repo
 
 Short. The temptation is to repeat the introduction; resist. The recurring four-part shape across award papers is: **restate → implications → limitations → labeled speculation.**
 
-- **Restate the finding in one sentence** — the central reframing, re-asserting the headline number verbatim (Movement 3) and any "first to…" claim.
+- **Restate the finding in one sentence** — the central reframing, with a quantitative anchor only if useful. Repeated estimates must stay consistent (Movement 3); repeat a priority claim only if it is verified and important to the contribution.
 - **Implications, often split by audience.** When a finding lands on more than one constituency, address them in turn rather than in one blur — a paragraph (or labeled sub-paragraph) per stakeholder: publishers / advertisers / regulators; researchers / industry; theory / practice. The split shows you know who pays for the result, and it pre-empts "what does this mean for X?"
 - **Acknowledge the dominant limit honestly.** Don't fish for praise — the reader can tell. Award papers frame limitations three ways, and the framing matters: (1) an **explicit, sometimes numbered list** owning specific design choices; (2) a **data-availability constraint** — "we observe desktop, not cross-device" — which reads as scope, not flaw; (3) **woven-in caveats** at the point each result is stated. Owning the limit as scope-or-data beats confessing it as failure; either beats hiding it.
-- **Speculate with the word *speculative* attached** — Cochrane allows speculation if it is labeled. The strongest closing move is **speculative elevation**: tie the specific finding up to the broader principle it illuminates (a classic critique, a reusable framework, the next regime), explicitly flagged as speculation. End on the bigger idea, not a summary.
+- **Close on the specific change in understanding or decision making.** What distinction, belief, evaluation criterion, or managerial choice changes because of the evidence? "Offers important implications" and "provides a new way to evaluate" need an immediate, concrete object. Broader speculation is optional and must be explicitly labeled; do not require an unsupported leap merely to end on a bigger idea.
 
 McCloskey: don't pad. Cochrane: short conclusions are fine. Two pages is more than enough — even the longest award conclusions run only a handful of paragraphs.
 
@@ -90,9 +128,9 @@ The honest-limits paragraph is seeded by [report](../../report/SKILL.md) §Limit
 
 Distilled from McCloskey's *Economical Writing* and Cochrane's *Writing Tips*:
 
-- **Lead with the result, not the motivation.** The reader wants to know what they will learn before deciding whether to read it.
+- **Make the substantive result easy to find.** Give enough problem and comparison context for the result to mean something; in abstracts, select quantitative anchors rather than opening automatically with a number.
 - **Concrete numbers beat vague summary.** "N = 14,203, 47 duplicates removed, 0.3% missingness on the outcome" beats "the dataset was cleaned."
-- **Pair every estimate with uncertainty.** SE or 95% CI alongside a point estimate. Bare numbers are unreadable.
+- **Report uncertainty where estimates are presented and defended.** Results text and tables should supply SEs, intervals, or appropriate uncertainty measures. A short abstract need not repeat every SE, but must retain uncertainty that changes its conclusion, especially for nulls or imprecise contrasts. Never invent missing precision.
 - **Active voice, first person plural.** "We estimate" beats "It is estimated."
 - **One sentence, one idea.** Shorter sentences read faster and survive translation.
 - **No throat-clearing.** Cut "It is well known that…", "Recently…", "An important question is…", "In this paper, we will…".
@@ -101,6 +139,18 @@ Distilled from McCloskey's *Economical Writing* and Cochrane's *Writing Tips*:
 - **Write early, revise late.** Varian: writing is part of thinking, so start before the analysis is finished. McCloskey: every revision pass should remove words.
 - **Audience: the busy referee.** Imagine them on a train, with thirty minutes, deciding among reject / R&R / accept. Write so they can decide on the abstract and intro alone.
 - **Offload the banal, protect the important.** Boilerplate emails, regression-table summaries, section roadmaps, and reference-list cleanup are safe targets for LLM assistance. The wedge sentence, the framing, the contribution paragraphs, and the limits paragraph are not.
+
+### Substantive compression and local qualification
+
+Translate methods into messages without translating away evidentiary boundaries. Keep the comparison, population or subsample, time window, measurement definition, and inferential status wherever omitting them would change a reasonable reader's interpretation.
+
+- **Combine corroboration into a substantive clause.** In a hypothetical content study, replace "The fact analysis corroborates the sentence analysis" with "The more-transfer, fewer-additions pattern also appears in fact-level measures in the four-edition subsample," if both patterns are actually supported. "In the fact sample" suffices only if that sample's restricted scope is already clear; an abstract must stand alone.
+- **Preserve numerators and denominators.** Fewer local facts can coexist with a larger share among remaining additions. Say both if central, and identify the denominator. Do not turn a rising share into a rising count or substitute a compositional shift for an absolute gain.
+- **Qualify at the claim.** Prefer "is associated with," "a descriptive comparison around the service integration," "model-implied," or "under the assumed deployment scenario" to an overstrong claim followed by a corrective disclaimer. A separate limitations sentence remains appropriate when the boundary governs the whole paper and cannot be made clear locally. Preserve causal language when the design genuinely warrants it; local qualification does not mean blanket hedging.
+- **Do not upgrade the event.** An optional service integration is not necessarily a generic technology advance, mandatory adoption, or exposure to improved technology. Preserve what actually changed and who could be exposed. An estimator label alone does not license a causal interpretation.
+- **Keep simulations conditional.** "Under the assumed substitution scenario, deployment reduces independent additions" retains what "the simulation has managerial implications" leaves empty. Use only the outcome and assumptions actually supported; do not present modeled deployment consequences as observed platform behavior.
+
+Compress wording and secondary detail, not the identity or strength of the claim. Unknown definitions and missing evidence need a focused question or a visible placeholder, not an elegant invented bridge.
 
 ---
 
@@ -135,6 +185,8 @@ Why this works:
 Use Claude Code (or another file-aware harness) for this — the chat web UI cannot read and annotate the actual draft cleanly.
 
 ### The AI tells — a self-audit
+
+Start with substance, not a phrase blacklist. For every abstract sentence, ask: **does it tell the reader something about the phenomenon, evidence, or contribution, or merely announce what an analysis or section does?** "The simulation provides managerial implications" names a rhetorical job, not a finding. "Under the modeled scenarios, outcomes depend on whether assistance supplements or replaces independent production" earns its space only if those scenarios and outcomes are supported. Apply Movement 5's compression rules to replace empty analysis inventories. Ordinary transitions such as "Taken together" are not defects when followed by a precise, warranted inference.
 
 Convergence to the model's average style has a recognizable surface. If a draft carries several of these, a reader is already discounting it — they read it as *you did not think hard about this*. Audit your own prose for:
 
@@ -218,11 +270,25 @@ The gap inventory is visible — every line that needs a number, every reference
 
 ---
 
-## Movement 8 — Terminology anchoring
+## Movement 8 — Construct lock and terminology anchoring
+
+### Within-paper construct lock
+
+Before drafting or compressing the abstract and introduction, map the central terms from the supplied paper, especially those in its title and headline contribution:
+
+`term → exact meaning → allowed shorthand → misleading near-synonyms`
+
+Keep this map internal for a small edit; show only unresolved definitions or consequential choices. Reserve each load-bearing term for its defined construct across the title, abstract, and introduction, and check that Results and the conclusion use it consistently. A stylish synonym must not change the measured object, reference set, or theoretical claim. Literature familiarity alone cannot guarantee within-paper consistency.
+
+For illustration only, a paper might define *expansion* as growth in target content, *transfer* as source information represented in the target, and *enrichment* as additions relative to that source. In that paper, casually calling transfer "expansion" would blur the title's distinction; calling enrichment "new knowledge" would add truth and novelty claims not supplied by a source comparison. Derive the actual map from the manuscript, not this example. A phrase such as *knowledge stock* requires its own explicit definition and accounting boundary, not an assumed synonym for total content.
+
+If title and body definitions conflict, flag the conflict rather than silently choosing the catchier meaning. Proposed renaming is an author decision; propagate an approved choice consistently. For title generation itself, use the separate paper-titles skill when available.
+
+### Literature anchoring
 
 A draft can be structurally clean and still name its objects wrong. When a paper coins its own label for a construct the literature already names — "engagement decay" for what the field calls *churn*, "attention spillover" for *demand cannibalization* — the referee reads it as not-having-read-the-literature, and the contribution gets discounted before the result is even weighed. The fix is not to flatten every term into the nearest cliché; coining is sometimes the contribution (Movement 2's *new construct*). It is to make the choice **deliberate**: anchor to the literature's term where you are describing a known object, and reserve a coined term for where you are genuinely introducing one.
 
-This is a **polish pass**, run after the draft has structure and content, not a drafting step. It round-trips with [`literature-review`](../../literature-review.md): the skill that resolves `[CITE: handle]` strings is the same one that knows how the anchoring papers name each construct.
+Literature anchoring is a **polish pass**, run after the draft has structure and content; the local construct lock above starts before drafting and does not require a new literature search. The anchoring pass round-trips with [`literature-review`](../../literature-review.md): the skill that resolves `[CITE: handle]` strings is the same one that knows how the anchoring papers name each construct.
 
 **When to run it.** After Movement 2–4 drafting, before the [`academic-voice.md`](academic-voice.md) pass. Especially when the paper sits on top of an established literature whose vocabulary the referee will expect, or when the draft was written fast and may have drifted into ad-hoc labels.
 
@@ -256,7 +322,7 @@ This pass also feeds the `feedback_prose_restraint` discipline ("prefer literatu
 
 | Report artifact | Lands in |
 |---|---|
-| §1 Data & Sample | Para 2 of intro + Data section + Abstract sentence 2 |
+| §1 Data & Sample | Intro's empirical setup + Data section + Abstract's empirical-object move |
 | §2 Definitions | Measurement section (brief in body, full in appendix) |
 | §3 Findings | Results subsections; empirical setup, figure/table, and description preserved |
 | §Heterogeneity | Its own Heterogeneity section |
