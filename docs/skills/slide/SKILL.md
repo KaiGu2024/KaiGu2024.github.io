@@ -18,6 +18,8 @@ Generate slides only when explicitly requested. Select `report` when the user do
 
 Follow the selected mode reference as authoritative. Do not combine skeletons, notes conventions, asset handling, or output formats across modes unless the user explicitly requests a hybrid.
 
+In both modes, read `references/talk-delivery.md` before drafting notes. It covers opening hooks, spoken explanations, objections, closing, and pacing; the mode reference determines whether to write full prose or brief cues.
+
 ## Acquire the paper
 
 Prefer source in this order:

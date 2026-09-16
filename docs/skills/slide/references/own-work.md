@@ -11,6 +11,7 @@ Use this as the single authoritative reference for an `own` deck. It governs bot
 - [Notes by block](#notes-by-block)
 - [Files and assets](#files-and-assets)
 - [Beamer document](#beamer-document)
+- [Title-slide typography](#title-slide-typography)
 - [Frames and notes](#frames-and-notes)
 - [Compilation](#compilation)
 - [Verification](#verification)
@@ -37,7 +38,7 @@ The number of slides inside a block may vary, but do not reorder or silently omi
 | **Context** | 1–3 slides | Explain only the institutional, market, or theoretical details needed to understand the design and interpret the effect. End with the variation or comparison that makes the study possible. |
 | **Data & Research Design** | 1–3 slides | Name the data, sample, period, unit, outcome, treatment, identification logic, key assumption, and most relevant diagnostic. Integrate identification here rather than inserting a new top-level block. |
 | **Results** | 3–7 slides | Lead with the main estimate, then mechanism or heterogeneity, then the decisive robustness or scope result. One finding per slide; show the number, uncertainty, benchmark, and interpretation. |
-| **Conclusion** | 1 slide | Restate the same headline magnitude, state two or three contributions, name the dominant scope condition honestly, and end on the implication rather than an open-question list. |
+| **Conclusion** | 1 slide | Show the opening question, the answer with the same headline magnitude, and the implication. Explain the contribution and dominant scope condition in the spoken notes; end on the implication rather than an open-question list. |
 
 Use section-divider frames sparingly. If one is necessary for a long talk, it belongs inside the corresponding block and still requires a note. Do not use a divider to create an extra Outline section.
 
@@ -55,6 +56,8 @@ Prefer one clean chart, headline, document, or photograph over a montage. If no 
 ## Spoken notes
 
 Write notes as language the author could actually say aloud. Use complete sentences and short paragraphs, usually 60–120 words or roughly 30–60 seconds per frame. The title note may be shorter. Do not use labels such as “Hook,” “Claim,” “Caveat,” or “Transition,” and do not write telegraphic fragments.
+
+Apply [talk-delivery.md](talk-delivery.md) when choosing what to say and budgeting time. The usual note length is a starting point; expand the explanation of a central result or shorten a transition to match the rehearsed block budget.
 
 Each note should do three things smoothly:
 
@@ -114,6 +117,8 @@ Start from this minimal system and adapt content, not the delivery format. Keep 
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{amsmath,mathtools}
+\usepackage{mathpazo}
+\usefonttheme{professionalfonts}
 \usepackage{booktabs,tabularx}
 \usepackage{graphicx}
 \usepackage{xcolor}
@@ -129,6 +134,22 @@ Start from this minimal system and adapt content, not the delivery format. Keep 
 \setbeamercolor{structure}{fg=DeckBlue}
 \setbeamercolor{alerted text}{fg=DeckBlue}
 \setbeamerfont{frametitle}{series=\bfseries,size=\Large}
+\setbeamerfont{title}{family=\rmfamily,series=\bfseries,size=\LARGE}
+\setbeamerfont{subtitle}{family=\rmfamily,series=\bfseries,size=\Large}
+\setbeamerfont{author}{family=\rmfamily,size=\normalsize}
+\setbeamertemplate{title page}{%
+  \centering
+  {\usebeamerfont{title}\mbox{\inserttitle}\par}
+  \ifx\insertsubtitle\empty\else
+    \vspace{0.35em}
+    {\usebeamerfont{subtitle}\mbox{\insertsubtitle}\par}
+  \fi
+  \vspace{1.4em}
+  {\usebeamerfont{author}\insertauthor\par}
+  \vspace{0.4em}
+  {\usebeamerfont{institute}\insertinstitute\par}
+  \vspace{0.8em}
+  {\usebeamerfont{date}\insertdate\par}}
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{itemize item}{\color{DeckBlue}\small$\blacksquare$}
 \setbeamertemplate{footline}{%
@@ -145,7 +166,8 @@ Start from this minimal system and adapt content, not the delivery format. Keep 
   \setbeameroption{hide notes}
 \fi
 
-\title{<Paper title>}
+\title{<Main title>}
+\subtitle{<Subtitle>}
 \author{<Authors>}
 \institute{<Affiliations>}
 \date{<Venue or status, date>}
@@ -165,6 +187,12 @@ Start from this minimal system and adapt content, not the delivery format. Keep 
 Use one claim per frame. Keep frame titles short and informative. Prefer a full-width figure or a simple two-column composition. Avoid tiny multi-panel plots, ornamental card grids, automatic section-divider frames, and overlays that turn one logical slide into several PDF pages. Put useful backup frames after `\appendix` and write notes for them too.
 
 Put a plain-language symbol gloss below every displayed equation. Keep only the equation required for the argument. For canonical designs, explain the identifying assumption and diagnostic rather than spending a full frame on a familiar regression equation.
+
+## Title-slide typography
+
+Center the title horizontally. Place the main title on the first line and the subtitle on the second, with a deliberate break and balanced spacing. Use bold Palatino through `mathpazo`, matching the manuscript's font family, and center the author block beneath it. The template explicitly selects `\rmfamily` for both title lines so Beamer's default sans-serif font does not override Palatino.
+
+Keep each title line unbroken: use separate `\title{...}` and `\subtitle{...}` fields and the template's `\mbox` wrappers. If the paper has no subtitle, omit `\subtitle` rather than inventing one. Measure and visually inspect both lines at the intended slide size. If either overflows, adjust its font size locally while keeping it readable; if necessary, agree on a shorter display title. Do not silently wrap a title line or scale the entire frame. Keep more space between the subtitle and author block than between the two title lines.
 
 ## Frames and notes
 
@@ -219,6 +247,7 @@ Do not replace a failed local compile with an unverified `.tex` handoff. Report 
 
 2. Search the log for `Overfull` boxes, missing files, undefined control sequences, and unresolved references. Fix them rather than shrinking an entire deck.
 3. Confirm the PDF page count matches the intended slide count. Overlays can silently create extra pages.
-4. Render representative pages—including the densest data slide, every distinct results layout, and the conclusion—to images and inspect them. Check clipping, minimum type size, source visibility, table legibility, and figure labels.
+4. Render representative pages—including the title, densest data slide, every distinct results layout, and conclusion—to images and inspect them. Check clipping, minimum type size, source visibility, table legibility, and figure labels. On the title slide, verify bold Palatino, horizontal centering, two unbroken title lines when a subtitle exists, balanced spacing, and the centered author block.
 5. Read the notes from beginning to end without looking at the slides. They should sound like one coherent talk. Revise abrupt openings, repeated transitions, unexplained terms, unsupported numbers, and paragraphs that merely recite visible bullets.
 6. Verify that the same headline magnitude appears verbatim in the preview, main result, conclusion, and corresponding notes.
+7. Check the block-level time budget, interruption allowance, backup-slide references, and route to the conclusion against `talk-delivery.md`. Distinguish estimated timing from an actual timed rehearsal.

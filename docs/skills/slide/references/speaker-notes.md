@@ -2,7 +2,7 @@
 
 This file applies only to the Reveal.js `report` mode for reading other people's papers. In `own` mode, use `own-work.md`: every Beamer frame requires natural spoken prose in `\note{...}`, with no skip exceptions.
 
-Every `<section>` in a report-mode deck gets an `<aside class="notes">` element holding the **script you would say aloud** for that slide. At presentation time, press `N` to surface a cream overlay anchored to the bottom of the screen showing the current slide's notes; press `N` again to dismiss. The keybind (Reveal.js init script in `reading-other-papers.md`) overrides Reveal's default N-as-next-slide. Reveal's built-in "S" key still opens the dual-monitor speaker view from the same `<aside class="notes">` source.
+Except for the skip cases below, each `<section>` in a report-mode deck gets an `<aside class="notes">` element holding **brief speaking cues** for that slide. At presentation time, press `N` to surface a cream overlay anchored to the bottom of the screen showing the current slide's notes; press `N` again to dismiss. The keybind (Reveal.js init script in `reading-other-papers.md`) overrides Reveal's default N-as-next-slide. Reveal's built-in "S" key still opens the dual-monitor speaker view from the same `<aside class="notes">` source.
 
 The styling for the overlay lives in `aesthetics.md` §7. The CSS scopes the visible panel to `section.present`, so only the current slide's notes appear when N is toggled — exactly what you want mid-talk.
 
@@ -11,6 +11,8 @@ The styling for the overlay lives in `aesthetics.md` §7. The CSS scopes the vis
 ## The rule
 
 Notes are **brief speaking cues**, not a script or a recap of the slide. Read what's on the slide; *write what you'd add*. Use mainly keywords and short sentences. Each row should convey one distinct layer of the slide's message, so the presenter can scan the notes quickly.
+
+Apply [talk-delivery.md](talk-delivery.md) for the opening, spoken interpretation, objections, closing, and time budget. Phrase claims as an appraisal of the authors' evidence. Keep detailed pacing plans and optional Q&A answers in `notes/<slug>.md`; only short reminders belong in the overlay.
 
 Use 3–5 rows when possible, and never more than fits the panel without scrolling (≤38vh). Typical layers are: **Hook / context**, **question or claim**, **evidence**, **interpretation / implication**, **caveat or transition**. Do not force every layer onto every slide. If the slide already has bullets, don't restate them; add framing, emphasis, interpretation, or pushback.
 
