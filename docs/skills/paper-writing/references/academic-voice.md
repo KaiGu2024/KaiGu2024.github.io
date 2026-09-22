@@ -1,6 +1,6 @@
 # Academic Voice — calibrated prose and journal adaptation
 
-Use the calibrated defaults below for academic prose within `paper-writing`. They reflect the author's preferences supplied in working notes, not verified journal requirements. [main-text](main-text.md) owns section structure and substantive development; this reference owns register, clarity, compression, and evidence-preserving revision.
+Use the calibrated defaults below for academic prose within `paper-writing`. They combine the author's stated preferences with editorial lessons from an [audit of three empirical papers](academic-voice-three-paper-audit.md), not verified journal requirements. Read that audit when checking the evidence behind a rule or calibrating against these exemplars. [main-text](main-text.md) owns section structure and substantive development; this reference owns register, clarity, compression, and evidence-preserving revision.
 
 **The separate journal-voice pass remains opt-in:** run it when explicitly requested or when the author asks to adapt finished prose to a journal. Naming a target venue during drafting sets the audience; it does not automatically request a separate voice report.
 
@@ -14,7 +14,7 @@ Infer the audience, genre, and editing scope from the request and material. Ask 
 
 - **Write for academics studying related questions.** Retain familiar disciplinary terms; explain the comparison or mechanism specific to this argument. Familiar methods do not need textbook introductions. Keep formal detail where precision depends on it.
 - **Compress while preserving inference.** Combine related propositions and remove repeated setup. Retain the short logical bridge the reader needs; add explanation where its absence would force an important inference. Vary sentence length with purpose instead of imposing uniformly short sentences or dense noun phrases.
-- **Choose subjects that clarify agency.** Prefer natural impersonal subjects where they carry the meaning: the analysis, estimates, or relevant actors. This does not require passive voice. Keep “I” or “we” when responsibility, authorship, or an authorial choice is clearer that way; retain a useful passive when the actor is irrelevant.
+- **Choose subjects by their argumentative role.** The author's preference for natural impersonal subjects is not a journal convention or a quota. Use relevant actors for behavior, estimates or evidence for empirical patterns, prior researchers for attributed claims, and “I” or “we” for author actions, findings, and interpretive judgments. Preserve a useful passive when the actor is irrelevant. The three exemplars mix these subjects; do not erase authorial agency merely to sound formal.
 - **Make signposting earn its space.** Use a research question, preview, transition, or main-finding statement when it helps readers follow the argument. Scale it to the passage; do not require a headline number in every paragraph, equal numbers of questions and findings, or a triumphant ending.
 - **Preserve purposeful individuality.** Allow a useful analogy, occasional conversational sentence, or dry aside. Do not manufacture personality, copy an exemplar's catchphrases, or flatten deliberate stylistic choices.
 - **Edit for precision, function, and rhythm.** The author has supplied no blacklist of disliked words or punctuation. Evaluate qualifiers and transitions in context rather than treating them as automatic AI tells.
@@ -25,9 +25,15 @@ The current request overrides these defaults, including audience, register, auth
 
 Privately identify the claim, why it matters to this reader, the comparison or mechanism that makes it intelligible, and the available evidence. Give each paragraph a coherent argumentative job. Use the relevant section moves in [main-text](main-text.md); do not impose a fixed introduction arc on every passage.
 
-Make transitions express an actual relationship: cause, qualification, contrast, dependency, or implication. Keep construct names and referents stable; use pronouns only where their referents are clear. Introduce an inferential obstacle or comparison before a procedure when its purpose would otherwise be obscure.
+Make transitions express an actual relationship: cause, qualification, contrast, dependency, or implication. Keep construct names and referents stable; use pronouns only where their referents are clear. Carry a relevant term or finding from one sentence into the next when it helps the reader follow the inference. Repetition of a central construct is useful continuity; substitute synonyms only when meaning remains exact.
 
-Interpret findings in relation to the question. Use a meaningful magnitude or benchmark when supplied and useful. Explain a figure's consequential pattern rather than touring its features. Distinguish per-item from aggregate effects, averages from tails, levels from changes, and percentages from percentage points.
+Let sentence structure show the relationship between claims. Use parallel grammar for comparable groups or methods; put a finding and its consequential contrast close together. A longer sentence can hold a result with its condition or concession, followed by a short interpretation. Split it when multiple comparisons, denominators, or qualifications become hard to track, not because it exceeds a fixed length.
+
+Introduce an inferential obstacle or comparison before a procedure when its purpose would otherwise be obscure. Explain unfamiliar technical terms through the process or contrast that gives them meaning, then use the precise term consistently. Formal voice does not require extra equations or jargon. A brief intuition or hypothetical illustration can help if clearly identified and consistent with the formal statement; never supply invented empirical evidence.
+
+Interpret findings in relation to the question. Put the substantive comparison where readers can find it, attach decisive evidence and a table or figure locator, and explain what the contrast establishes when warranted. Orient readers to an unfamiliar display only as much as necessary. Use a meaningful magnitude or benchmark when supplied and useful; state both the size and its comparison base when needed. Distinguish per-item from aggregate effects, averages from tails, levels from changes, and percentages from percentage points.
+
+Allow the same finding to recur at different levels of detail: a compressed introduction preview, an evidence-bearing results passage, and a conclusion about its implications can each serve a distinct purpose. Remove repetition within a passage that adds no new relation, evidence, or interpretation; do not remove cross-section continuity mechanically.
 
 During a voice-only pass, flag an absent inferential link or unsupported interpretation outside the revised prose. Supplying new reasoning belongs to a substantive revision, even when it makes the passage sound smoother.
 
@@ -36,6 +42,8 @@ During a voice-only pass, flag an absent inferential link or unsupported interpr
 Keep claims, numbers, units, denominators, dates, comparison groups, citations, equation labels, and uncertainty attached to their original support. Preserve LaTeX commands, cross-references, and bibliographic keys. Retain central construct terms under main-text's construct lock.
 
 Do not turn association into causation, a model implication into an observed effect, or an imprecise estimate into evidence of no effect. A changed estimand, omitted qualification, new interpretation, or reversed comparison is substantive. A voice-only pass must flag such problems rather than silently repair them. Do not replace an author's belief with “the data suggest” unless the original claim already has that evidentiary basis.
+
+**Calibrate confidence at the claim.** State a supported finding directly; distinguish an interpretation consistent with it, a conjectured explanation, and an extrapolation beyond the observed setting. Attach uncertainty to the inference it qualifies rather than weakening every sentence. Author-centered language can help identify a judgment as such, but “we find” does not itself establish identification and “suggests” does not repair an unsupported claim. Preserve population, period, measurement, and design limits beside claims whose scope depends on them.
 
 Missing evidence does not warrant decorative precision. Preserve an honest qualitative statement when sufficient. Identify an essential gap outside the proposed final prose; use marked placeholders only for a requested scaffold or unfinished draft. Never invent a citation or section reference to make a revision appear supported.
 
