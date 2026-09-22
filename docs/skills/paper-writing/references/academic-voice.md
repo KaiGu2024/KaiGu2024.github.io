@@ -1,108 +1,51 @@
-# Academic Voice — journal house-style pass
+# Academic Voice — calibrated prose and journal adaptation
 
-Revise prose to match a target academic journal's voice — third-person past tense for *JM* findings, narrative-friendly first-person allowed in *JCR* discussions, equation-heavy formality for *Marketing Science*, and so on. Polish stage; runs on a draft after [main-text](main-text.md) has already gotten the structure and content right.
+Use the calibrated defaults below for academic prose within `paper-writing`. They reflect the author's preferences supplied in working notes, not verified journal requirements. [main-text](main-text.md) owns section structure and substantive development; this reference owns register, clarity, compression, and evidence-preserving revision.
 
-**Run this pass only when explicitly asked.** Voice revision is a delicate operation. The parent `paper-writing` skill auto-triggers for drafting, but the voice pass should *not* fire on a vague prompt like "fix this paragraph" — implicit triggering risks unwanted style changes the user did not ask for. Treat it as opt-in: invoke it by name, or when the user asks for a final pass against a specific journal.
+**The separate journal-voice pass remains opt-in:** run it when explicitly requested or when the author asks to adapt finished prose to a journal. Naming a target venue during drafting sets the audience; it does not automatically request a separate voice report.
 
----
+## Match the requested task
 
-## When to Use
+For a **draft**, build from the supplied facts and purpose using the relevant main-text guidance. For a **rewrite**, improve the prose within the authorized scope. For **critique**, identify consequential problems with local examples without replacing the text. For an **outline**, arrange claims and the evidence each requires without inventing findings. Keep proofreading narrow.
 
-- Final pass on a draft before submission to a specific journal
-- Adapting a paper rejected at *JM* for resubmission to *MS* (or vice versa)
-- Tightening a discussion section that drifted into marketing-speak or industry jargon
-- Cover letters and responses to reviewers, where house voice matters as much as in the paper
+Infer the audience, genre, and editing scope from the request and material. Ask only when missing information would materially change the result. Keep papers, cover letters, and referee responses in their respective registers. These preferences do not expand the skill into a general correspondence workflow.
 
-Do **not** use this pass for first-draft composition — that's [main-text](main-text.md). Do not use it to fix substantive content; if the argument is unclear, that's a content problem, not a voice problem.
+## Calibrated defaults
 
----
+- **Write for academics studying related questions.** Retain familiar disciplinary terms; explain the comparison or mechanism specific to this argument. Familiar methods do not need textbook introductions. Keep formal detail where precision depends on it.
+- **Compress while preserving inference.** Combine related propositions and remove repeated setup. Retain the short logical bridge the reader needs; add explanation where its absence would force an important inference. Vary sentence length with purpose instead of imposing uniformly short sentences or dense noun phrases.
+- **Choose subjects that clarify agency.** Prefer natural impersonal subjects where they carry the meaning: the analysis, estimates, or relevant actors. This does not require passive voice. Keep “I” or “we” when responsibility, authorship, or an authorial choice is clearer that way; retain a useful passive when the actor is irrelevant.
+- **Make signposting earn its space.** Use a research question, preview, transition, or main-finding statement when it helps readers follow the argument. Scale it to the passage; do not require a headline number in every paragraph, equal numbers of questions and findings, or a triumphant ending.
+- **Preserve purposeful individuality.** Allow a useful analogy, occasional conversational sentence, or dry aside. Do not manufacture personality, copy an exemplar's catchphrases, or flatten deliberate stylistic choices.
+- **Edit for precision, function, and rhythm.** The author has supplied no blacklist of disliked words or punctuation. Evaluate qualifiers and transitions in context rather than treating them as automatic AI tells.
 
-## Non-negotiable rules
+The current request overrides these defaults, including audience, register, authorial voice, length, and editing scope.
 
-1. **Never change a substantive claim, a number, or a citation.** If a sentence makes a claim that the journal style would not, flag it but do not delete it.
-2. **Never add new claims or hedges that were not in the original.** Voice revision is subtractive and lateral, not additive.
-3. **Always emit a side-by-side diff** so the user can see every change.
-4. **Each change must have a one-line justification keyed to a style rule.** "Sounds better" is not a justification.
+## Compose around the reasoning
 
----
+Privately identify the claim, why it matters to this reader, the comparison or mechanism that makes it intelligible, and the available evidence. Give each paragraph a coherent argumentative job. Use the relevant section moves in [main-text](main-text.md); do not impose a fixed introduction arc on every passage.
 
-## Workflow
+Make transitions express an actual relationship: cause, qualification, contrast, dependency, or implication. Keep construct names and referents stable; use pronouns only where their referents are clear. Introduce an inferential obstacle or comparison before a procedure when its purpose would otherwise be obscure.
 
-```
-Identify journal → Tokenize → Apply voice rules → Diff with justifications → Final pass
-```
+Interpret findings in relation to the question. Use a meaningful magnitude or benchmark when supplied and useful. Explain a figure's consequential pattern rather than touring its features. Distinguish per-item from aggregate effects, averages from tails, levels from changes, and percentages from percentage points.
 
-### Step 1 — Identify the target journal
+During a voice-only pass, flag an absent inferential link or unsupported interpretation outside the revised prose. Supplying new reasoning belongs to a substantive revision, even when it makes the passage sound smoother.
 
-Ask the user for the target journal and the input text. If the journal is in the profile list below, load it directly. If unknown, ask the user to name 2–3 papers from that journal as exemplars, then proceed.
+## Preserve the evidence
 
-| Journal | Voice profile |
-|---|---|
-| *Journal of Marketing* | Third person, past tense for findings, no first-person claims, conservative on hedging |
-| *Marketing Science* | Formal, equation-heavy, defines all terms, no informal connectors ("so", "really") |
-| *Journal of Consumer Research* | Narrative-friendly, first person allowed in discussion, theoretical framing emphasized |
-| *Journal of Marketing Research* | Crisp, methods-forward, minimal qualifiers |
-| *Quantitative Marketing and Economics* | Economics-style, theorems before intuition |
+Keep claims, numbers, units, denominators, dates, comparison groups, citations, equation labels, and uncertainty attached to their original support. Preserve LaTeX commands, cross-references, and bibliographic keys. Retain central construct terms under main-text's construct lock.
 
-### Step 2 — Tokenize the input into sentences
+Do not turn association into causation, a model implication into an observed effect, or an imprecise estimate into evidence of no effect. A changed estimand, omitted qualification, new interpretation, or reversed comparison is substantive. A voice-only pass must flag such problems rather than silently repair them. Do not replace an author's belief with “the data suggest” unless the original claim already has that evidentiary basis.
 
-Split the input into individual sentences, preserving paragraph boundaries. Number them.
+Missing evidence does not warrant decorative precision. Preserve an honest qualitative statement when sufficient. Identify an essential gap outside the proposed final prose; use marked placeholders only for a requested scaffold or unfinished draft. Never invent a citation or section reference to make a revision appear supported.
 
-### Step 3 — Apply voice rules sentence by sentence
+Explain what a limitation changes when substantive revision is authorized. A sensitivity check can weaken a conclusion and is not automatically reassurance; a bound requires assumptions that establish its direction. Include welfare, policy, or stakeholder implications only where relevant and supported. Source papers supply evidence about writing practices, not findings to insert into unrelated work.
 
-For each sentence, decide whether to (a) keep, (b) revise, or (c) flag. Common revision rules:
+## Optional journal-voice pass
 
-- Replace contractions with full forms (`don't` → `do not`)
-- Replace hedges that journal style avoids (`we think` → `the data suggest`)
-- Tighten passives where the agent is clear; preserve passives where they are intentional
-- Remove rhetorical adverbs (`clearly`, `obviously`, `interestingly`)
-- Replace marketing-speak with technical terms (`game-changing` → `substantial`; `leverage` → `use`)
+1. **Establish the target and evidence.** Use the supplied journal, manuscript section, article type, and exemplars. If a venue-specific requirement matters, verify current official author guidance. Read comparable sections of available exemplars in full context; use more than one when feasible before describing a recurring practice. Ask for exemplars only when needed and unavailable through the project or accessible sources. If evidence is unavailable, apply the calibrated defaults and state that venue calibration is unverified.
+2. **Separate requirements from preferences.** Distinguish official requirements, observed exemplar practices, and author preferences. Record source and section locators for any venue-specific recommendation. An observed choice in a few papers is not a universal journal rule. Do not assume a journal bans first person, requires a single tense, demands equations, or puts theorems before intuition. Choose tense according to what the sentence describes and preserve its temporal meaning. Match relevant register and explanation density without copying phrasing or adding technical content.
+3. **Revise in paragraph context.** Keep, revise, or flag each passage. Check the reasoning first, then compression and cadence. Remove empty emphasis, unnecessary repetition, and vague wording only where the edit preserves meaning. Keep useful hedges, deliberate passives, and functional signposting. The goal is a clear version of the author's argument.
+4. **Return a reviewable result.** By default, provide a compact original/revised comparison for changed passages with a brief reason tied to a calibrated default or sourced venue practice, followed by the clean revised text. Group related edits rather than narrating every punctuation change. If the user requests clean text only, critique only, or tracked edits, honor that format. Separate substantive flags from accepted voice edits and mention unverified venue assumptions only when material.
 
-### Step 4 — Emit a diff with justifications
-
-```
-### Sentence 3
-
-**Original:** We obviously found that consumers really care about scarcity cues.
-
-**Revised:** Consumers responded to scarcity cues (Section 4).
-
-**Justifications:**
-- "obviously" → removed (rhetorical adverb; *JM* avoids)
-- "we found" → recast in third person (*JM* convention)
-- "really care about" → "responded to" (specific verb; testable)
-```
-
-### Step 5 — Final pass
-
-Print the full revised text as a single block at the end so the user can copy-paste. Above it, print a one-line summary: *"Revised 14 of 22 sentences. Flagged 1 substantive claim for review."*
-
----
-
-## How this composes with the rest of `paper-writing`
-
-```
-brainstorm → literature-review → eda → report.md artifacts
-                                          ↓
-                                     main text  ← draft (structure + content)
-                                          ↓
-                                  academic voice  ← polish for target journal
-                                          ↓
-                                     revision  (if R&R arrives)
-```
-
-Sequential, not overlapping:
-
-- [main-text](main-text.md) gets the paper *structurally and substantively* right against a generic empirical-econ template — including Movement 7's strict-traceability mode for sections (especially Methods) where claim provenance matters more than narrative flow.
-- This pass does the final pass to match the *target journal's* house voice.
-- [revision-plan](../../revision-plan.md) handles referee responses if and when the R&R arrives.
-
-The discipline-generic rules in `main-text.md` Movement 5 ("Active voice, first person plural", "No throat-clearing", "Concrete numbers beat vague summary") and the journal-specific rules here are not redundant — the same sentence lands differently in *JM* vs. *MS* vs. *JCR*. Apply both, in order.
-
----
-
-## Notes for extending
-
-- **Profile files.** Journal voice profiles can live in `profiles/<journal-slug>.md` and be loaded as Level-3 resources. Currently the profiles are inline in Step 1; splitting them out is a clean extension once the list grows past ~10 journals.
-- **Voice from exemplars.** When the journal is unknown, sample 5–10 sentences from a recent exemplar paper and infer the rules instead of asking the user to articulate them. The exemplar-driven path is more reliable than asking authors to introspect their own house style.
-- **Multi-pass register.** Cover letters, response-to-reviewers, and the paper itself have different sub-registers within the same journal. A single profile is a starting point, not the final word.
+For ordinary drafting or revision, return the requested text with only useful explanations of material choices or unresolved evidence. Do not expose internal planning or routine self-review. A separate comparison report belongs to the requested journal-voice pass, not every paragraph edit.

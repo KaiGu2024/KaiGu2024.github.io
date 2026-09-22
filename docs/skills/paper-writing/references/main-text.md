@@ -153,12 +153,10 @@ Distilled from McCloskey's *Economical Writing* and Cochrane's *Writing Tips*:
 - **Make the substantive result easy to find.** Give enough problem and comparison context for the result to mean something; in abstracts, select quantitative anchors rather than opening automatically with a number.
 - **Concrete numbers beat vague summary.** "N = 14,203, 47 duplicates removed, 0.3% missingness on the outcome" beats "the dataset was cleaned."
 - **Report uncertainty where estimates are presented and defended.** Results text and tables should supply SEs, intervals, or appropriate uncertainty measures. A short abstract need not repeat every SE, but must retain uncertainty that changes its conclusion, especially for nulls or imprecise contrasts. Never invent missing precision.
-- **Active voice, first person plural.** "We estimate" beats "It is estimated."
-- **One sentence, one idea.** Shorter sentences read faster and survive translation.
-- **No throat-clearing.** Cut "It is well known that…", "Recently…", "An important question is…", "In this paper, we will…".
+- **Subjects, cadence, and signposting.** Follow the [calibrated prose defaults](academic-voice.md#calibrated-defaults): choose informative subjects, preserve inferential links, and keep transitions that do real work. First person, sentence length, and particular phrases are contextual choices.
 - **Bold key terms, numbers, conclusions.** Matches the [report](../../report/SKILL.md) convention.
 - **Use → for logic chains.** "high churn → low LTV → unprofitable segment." Matches [report](../../report/SKILL.md).
-- **Write early, revise late.** Varian: writing is part of thinking, so start before the analysis is finished. McCloskey: every revision pass should remove words.
+- **Write early and revise for purpose.** Writing helps develop the argument before analysis is finished. Remove unnecessary words while retaining or adding the explanation needed to follow the inference.
 - **Audience: the busy referee.** Imagine them on a train, with thirty minutes, deciding among reject / R&R / accept. Write so they can decide on the abstract and intro alone.
 - **Offload the banal, protect the important.** Boilerplate emails, regression-table summaries, section roadmaps, and reference-list cleanup are safe targets for LLM assistance. The wedge sentence, the framing, the contribution paragraphs, and the limits paragraph are not.
 
