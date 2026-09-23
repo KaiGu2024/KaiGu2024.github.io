@@ -1,6 +1,6 @@
 # Main Text — shared drafting guidance
 
-Use this file for substantive development and [academic voice](academic-voice.md) for prose. Load the relevant section guide below. The guides describe argumentative functions; the manuscript's headings and order follow the project.
+Use this file for substantive development and [academic voice](academic-voice.md) for prose. Load the relevant section guide below. The guides describe argumentative functions: adapt their order, length, and paragraph allocation to the project. Source audits document their basis; they are optional background, not drafting steps.
 
 ## Section guides
 
@@ -15,27 +15,27 @@ Use this file for substantive development and [academic voice](academic-voice.md
 
 ## Develop the argument
 
-Identify the passage's job, its central claim, and the evidence or reasoning that supports it. Arrange supporting claims so each establishes, explains, or qualifies the next step. Select findings by their [role in the argument](sections/abstract.md#select-evidence-by-its-job), rather than by the order of analyses. A working draft can help develop the argument before analysis is complete; distinguish established findings from open questions.
+Identify the passage's central claim and arrange the reasoning so each step prepares the next. Include a detail when it helps answer the question, explains the reasoning, makes a comparison interpretable, or changes an implication. Select findings by their [role in the argument](sections/abstract.md#select-evidence-by-its-job). A working draft can help develop the argument before analysis is complete.
 
-Work from the supplied manuscript, literature, analysis outputs, or research notes. Organized report artifacts can help but are not required. For an essential missing input, identify the gap briefly and continue with the supported material; use placeholders when producing a scaffold or unfinished draft.
+Work from the supplied manuscript, literature, analysis outputs, or research notes. If an essential input is missing, identify it briefly and continue with the available material; use placeholders in unfinished drafts.
 
-## Within-paper construct lock
+## Keep constructs consistent
 
-Keep central terms tied to their intended meanings across the paper. When several related constructs are easily confused, keep a small internal map: `term → meaning → allowed shorthand → misleading alternatives`. Distinguish the construct from its empirical manifestation and measure.
+Use central terms consistently, distinguishing a construct from its empirical manifestation and measure. When related terms are easily confused, clarify their meanings and shorthand before revising the prose.
 
-Use established terminology when it fits, and define deliberate extensions or new constructs. Resolve inconsistent usage from the manuscript where possible; surface a choice when it changes the substantive meaning. Routine wording corrections within the requested editing scope do not need separate approval. A targeted [terminology check](review-checks.md#terminology-check) is available when literature usage is uncertain.
+Use established terminology when it fits, and define deliberate extensions or new constructs. Resolve routine inconsistencies directly. A [terminology check](review-checks.md#terminology-check) can help when competing meanings affect the argument.
 
-## Substantive compression and local qualification
+## State the answer directly
 
-State what an analysis establishes, rather than merely announcing that it was performed. Combine corroborating evidence with the finding it supports, retaining any sample or measurement distinction that changes its interpretation.
+State what the analysis establishes. Combine corroborating evidence with the finding it supports and remove procedural narration that adds no understanding.
 
-Preserve the claim's identity when shortening: the comparison, population, period, units, denominator, and inferential status that readers need. A rising share is not necessarily a rising count; a modeled scenario is conditional on its assumptions; an intervention should retain the meaning of what actually changed. Keep these details where they affect the conclusion, with implementation detail in the appropriate section or appendix.
+Establish scope and assumptions where readers first need them, then let later statements use that context. Add or repeat a qualification when omitting it would change the answer, its credibility, or its use. A precise noun, comparison, or verb can carry the distinction without an extra caveat sentence. Avoid attaching a list of limitations to every finding or implication; methods and discussion can carry the fuller account.
 
-State supported findings directly and place consequential qualifications beside the claims they limit. Choose the strength of the claim from the evidence. [Academic voice](academic-voice.md#preserve-the-evidence) covers sentence-level confidence and evidence-preserving edits; the Results guide covers presentation of estimates and uncertainty.
+Compression should retain the claim's meaning: association, an estimated effect, and a modeled outcome are different answers. Keep numerical comparisons interpretable and distinguish findings from proposed explanations. [Results](sections/results.md) covers estimates and uncertainty; [academic voice](academic-voice.md#preserve-the-evidence) covers meaning during prose revision.
 
 ## Targeted checks
 
-Use [review checks](review-checks.md) when a task needs explicit claim-to-source verification or resolution of uncertain terminology. Ordinary drafting includes checking the evidence used; it does not require a separate audit report. Return the requested text or critique with only material unresolved issues.
+Use supplied sources directly during drafting. Turn to [review checks](review-checks.md) for conflicting evidence, consequential uncertainty about a source or term, or a requested audit. Return the requested text or critique, mentioning unresolved issues that affect it.
 
 ## Supporting evidence
 

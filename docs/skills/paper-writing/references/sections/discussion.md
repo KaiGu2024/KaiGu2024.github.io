@@ -1,43 +1,43 @@
 # Discussion and Conclusion
 
-Explain what the empirical answer changes in understanding or decision making, and where that conclusion stops. Return to the constructs and relationships that motivated the study, now informed by the findings. The [three-paper audit](../../audits/discussion-three-paper-audit.md) supports several ways to do this; the functions below are not a required sequence or paragraph count.
+Explain what the empirical answer changes in understanding or decision making. Return to the constructs and relationships that motivated the study, now informed by the findings.
 
 ## Choose the section's work and shape
 
-A combined discussion and conclusion can move from the central answer to its implications and boundaries. Separate sections work when interpretation needs sustained development: use Discussion to develop that reasoning and Conclusion to consolidate the answer and its significance. If Results already develops the interpretation, a compact conclusion may suffice. Follow the manuscript's needs and the target venue's requirements; do not impose a page ceiling or add headings merely to fill a template.
+A combined discussion and conclusion can move from the answer to its implications and boundaries. Separate sections work when interpretation needs sustained development: Discussion develops that reasoning and Conclusion consolidates its significance. If Results already develops the interpretation, a compact conclusion may suffice.
 
-Results explains what the evidence establishes and assesses nearby interpretations. Discussion connects that answer to broader substantive questions, literature, or decisions. A reasoning passage can belong in either place; give it one main home and carry forward only what the next step needs. Supporting context or a modest calculation can clarify an implication here, but a substantial new empirical claim needs the methods and evidence appropriate to Results.
+Results explains the evidence and nearby interpretations. Discussion connects that answer to broader questions, literature, or decisions. Give each reasoning passage one main home and carry forward what the next step needs. Supporting context or a modest calculation can clarify an implication here; substantial new analyses belong with their methods and results.
 
 ## Synthesize the answer and develop its meaning
 
-Revisit the research question through the relationship among the main findings. Explain the central pattern, trade-off, distinction, or unresolved tension that emerges when they are considered together. Include a quantitative anchor when it helps establish substantive importance. A one-sentence restatement may suffice, but a connected synthesis can need a paragraph or more. Avoid reproducing the abstract, introduction's contribution list, or sequence of tables.
+Revisit the question through the relationship among the findings. Explain the pattern, trade-off, distinction, or unresolved tension they reveal together, using a quantitative anchor if it conveys substantive importance. Develop the synthesis at the length its reasoning needs.
 
-Use that synthesis to explain what readers should now understand differently. Identify the prior expectation, literature-based relationship, or empirical uncertainty that the evidence informs, then state how the answer supports, qualifies, or challenges it. Where findings differ from earlier studies, explain the relevant comparison and plausible reasons; retain an unresolved disagreement when the evidence cannot distinguish explanations.
+Identify the prior expectation, literature-based relationship, or empirical uncertainty that the evidence informs, then explain how the answer supports, qualifies, or challenges it. When findings differ from earlier studies, develop plausible reasons for the difference.
 
-Scale theoretical claims to the study. A substantive empirical paper may clarify how familiar constructs relate in a particular context, document a consequential pattern, or identify a condition under which an established relationship changes. It need not propose a new theory. If the paper does revise theory, identify the assumption, relationship, or prediction affected and the evidence that warrants the revision. Organize engagement with literature around these changes in understanding, rather than reopening a general literature review.
+A substantive empirical paper can clarify how familiar constructs relate, document a consequential pattern, or identify a condition under which a relationship changes. If it revises theory, identify the assumption, relationship, or prediction affected. Organize engagement with literature around what readers now understand differently.
 
-An explanation developed here should distinguish what the study observes, what the pattern is consistent with, and what remains conjectural. Explain why a proposed account fits the joint findings and which important alternatives remain. An unresolved mechanism can motivate further work without becoming a compulsory mechanism section. Detailed checks and local interpretation follow the [Results guidance](results.md#explain-variation-and-evaluate-interpretations).
+Develop an explanation by showing how it accounts for the joint findings and relates to existing theory. An unresolved mechanism can motivate further work. Detailed checks and local interpretation follow the [Results guidance](results.md#explain-variation-and-evaluate-interpretations).
 
 ## Derive implications for decisions
 
-Develop practical implications where the findings bear on an actual choice. Connect the result to the decision maker's objective, the relevant action or evaluation criterion, and the condition that makes the inference useful. Separate audiences into paragraphs or subsections when their choices or incentives differ; a stakeholder list is not itself an implication. Include only the audiences the study can meaningfully inform.
+Connect the finding to a decision maker's objective and an action or evaluation criterion. Explain why the result changes that choice. Separate audiences into paragraphs or subsections when their decisions or incentives differ.
 
-Distinguish evidence about an outcome from evidence about the best action. An estimated benefit, cost, or offset does not by itself identify an optimal policy, a net welfare gain, or the most profitable strategy. Relevant implementation costs, competing objectives, behavioral responses, and time horizons may remain outside the study. Explain the decision-relevant lesson the evidence supports, even when it cannot settle the choice. Measurement accuracy and decision quality, for example, need not be the same criterion.
+A finding can inform a choice without settling the optimal action. Develop the practical lesson and the trade-off that matters most. Measurement accuracy and decision quality, for example, may lead to different evaluations. Discuss costs, competing objectives, or longer-run responses when they change the implication.
 
-Proposed responses can still be useful when untested. Identify them as candidate strategies or directions, explain their rationale and relevant trade-offs, and distinguish them from interventions evaluated in the paper. Use outside cases or literature to substantiate a possibility when helpful; an illustrative success does not establish that the same strategy will work in the study's setting. Avoid turning a historical example into a claim about current practice without verification.
+Propose strategies when the findings suggest a useful response. Explain their rationale and use outside cases or literature to develop the idea. Present untested strategies as proposals; they can be valuable implications without becoming findings of the study.
 
 ## Explain boundaries and consequential open questions
 
-Select limitations that change the interpretation or use of the answer. Explain what is unobserved, restricted, or unresolved; which conclusion it affects; and what remains supported. Distinguish a boundary on the target population or period from a threat to inference within that target. Describe each accurately rather than recasting every weakness as scope or appending a generic apology.
+Focus on limitations that change the interpretation or use of the answer. Explain the unresolved issue and its consequence. Distinguish a boundary on the population or period from a threat to inference within that target. Routine design details can stay in Methods.
 
-For generalization, identify the features likely to matter: institutional rules, participants and selection, market structure, intervention intensity, timing, or behavioral adjustment. State the reason a change in those features could alter the answer. A single setting does not automatically make a result uninformative elsewhere, and similarity alone does not establish transferability. Short-run effects, scale-up, and equilibrium or long-run responses may answer different questions; opposing forces can leave the broader effect unresolved.
+For generalization, explain which features could change the answer and why: institutional rules, participants, market structure, intervention intensity, or behavioral adjustment. Develop a reasoned account of where the insight may travel. Scale-up and longer time horizons may introduce responses absent from the original setting.
 
-Keep a consequential qualification beside the implication it limits, even if a later paragraph collects limitations. A separate limitations subsection is useful when several issues need sustained treatment; it is not mandatory. Do not repeat the full methods defense or every robustness check.
+Integrate a limitation with the implication it affects, or collect several connected issues in a subsection. Let established scope carry forward without repeating it throughout the discussion.
 
-Develop future research from the remaining substantive uncertainty. Explain what observation, comparison, follow-up period, or design could distinguish competing accounts or change a decision. Prioritize the questions that follow from this paper; there is no quota of future studies and no need to pair every limitation with a proposal. When useful, an agenda can be organized around alternative paths and their feasibility or trade-offs rather than a list of unavailable data.
+Develop future research from the remaining uncertainty: what observation, comparison, follow-up period, or design would distinguish accounts or change a decision? An agenda can compare alternative paths and their feasibility or trade-offs.
 
 ## Close with the paper's significance
 
-End with a specific change in understanding, evaluation, or action that the study supports. A final open question can serve this purpose when it crystallizes what the findings make newly important to resolve. Give the closure a concrete substantive object; avoid generic claims of important implications or a larger unsupported leap. If Discussion and Conclusion are separate, carry their reasoning into a compact ending instead of repeating each implication and limitation.
+End with a specific change in understanding, evaluation, or action. A final open question can serve this purpose when it crystallizes what the findings make newly important to resolve. If Discussion and Conclusion are separate, carry the reasoning into a compact ending.
 
-Use [academic voice](../academic-voice.md) for paragraph development, pacing, and confidence. Findings may recur across sections when their argumentative role changes; shared guidance on [substantive compression](../main-text.md#substantive-compression-and-local-qualification) governs what must survive that compression.
+Source record: [three-paper discussion audit](../../audits/discussion-three-paper-audit.md).

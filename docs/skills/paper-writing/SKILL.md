@@ -25,13 +25,13 @@ Then load only the section guidance needed for the task:
 | Findings, mechanisms, or heterogeneity | [Results](references/sections/results.md) |
 | Discussion or conclusion | [Discussion](references/sections/discussion.md) |
 
-Background records under `references/evidence/` and `audits/` contain source notes and completed comparisons. Read them only when checking the basis for guidance or comparing exemplars; [main-text](references/main-text.md#supporting-evidence) explains their coverage and limits. They are not additional default drafting instructions.
+Background records under `references/evidence/` and `audits/` document sources and completed comparisons. Consult them for provenance or exemplar comparisons; the current guides govern drafting. [Main-text](references/main-text.md#supporting-evidence) maps these records.
 
-The conceptual-framework section grounds the study's constructs and their relationships in existing literature, scaling further theoretical development to the project. It supports a separate section or conceptual development integrated where readers need it. The separate conceptual-framework skill makes a figure from a supplied paper; it is a related, distinct task.
+The conceptual-framework section grounds constructs and their relationships in literature. The separate conceptual-framework skill makes a figure from a supplied paper.
 
-Run the separate journal-voice adaptation only when requested, after the substantive draft is settled. It does not silently repair gaps in the argument. For that pass, follow academic-voice's source requirements and default original/revised comparison unless the author requests another format.
+For a requested journal-voice adaptation, follow the optional pass in academic-voice. Naming a venue during drafting sets the audience and submission constraints.
 
-Match the requested deliverable: a short abstract edit does not require a full-paper audit or a terminology report. Keep intermediate maps internal unless a missing definition or evidence conflict needs the author's decision. Naming a target journal sets the audience and constraints; it does not by itself require a separate side-by-side voice report. Current venue requirements override illustrative templates; verify them from official author guidance when needed, and do not present a suggested length or style preference as a journal rule.
+Return the requested draft, revision, outline, or critique. Keep working notes internal and raise unresolved choices when they affect the result. Check official venue guidance when a submission requirement matters.
 
 ## TeX Build and Cleanup
 
@@ -41,16 +41,6 @@ Match the requested deliverable: a short abstract edit does not require a full-p
 - After a successful build, remove only that document's generated intermediates: `.aux`, `.bbl`, `.bcf`, `.blg`, `.fdb_latexmk`, `.fls`, `.lof`, `.log`, `.lot`, `.out`, `.run.xml`, `.synctex.gz`, and `.toc`. Keep the `.tex` source and final `.pdf`. Retain the affected `.log` only while diagnosing a failed build.
 
 ## How this fits the other skills
-
-```
-brainstorm → literature-review → eda → report.md artifacts
-                                          ↓
-                              paper-writing · main text   ← draft (structure + content)
-                                          ↓
-                              paper-writing · academic voice   ← polish for target journal
-                                          ↓
-                                     revision-plan   (if R&R arrives)
-```
 
 - [`report`](../report/SKILL.md) can supply organized findings and supporting evidence for drafting.
 - [`literature-review`](../literature-review.md) Path A resolves `[CITE: handle]` placeholders into verified DOIs.
