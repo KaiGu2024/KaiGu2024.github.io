@@ -27,7 +27,7 @@ Then load only the section guidance needed for the task:
 
 Background records under `references/evidence/` and `audits/` contain source notes and completed comparisons. Read them only when checking the basis for guidance or comparing exemplars; [main-text](references/main-text.md#supporting-evidence) explains their coverage and limits. They are not additional default drafting instructions.
 
-The conceptual-framework section develops constructs, theoretical relationships, and empirical implications through relevant literatures. It supports a separate section or conceptual development integrated where readers need it. The separate conceptual-framework skill makes a figure from a supplied paper; it is a related, distinct task.
+The conceptual-framework section grounds the study's constructs and their relationships in existing literature, scaling further theoretical development to the project. It supports a separate section or conceptual development integrated where readers need it. The separate conceptual-framework skill makes a figure from a supplied paper; it is a related, distinct task.
 
 Run the separate journal-voice adaptation only when requested, after the substantive draft is settled. It does not silently repair gaps in the argument. For that pass, follow academic-voice's source requirements and default original/revised comparison unless the author requests another format.
 

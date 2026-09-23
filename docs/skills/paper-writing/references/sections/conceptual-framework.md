@@ -4,51 +4,48 @@ The [three-paper audit](../../audits/conceptual-framework-three-paper-audit.md) 
 
 ## Purpose
 
-Help readers understand and position the study's central constructs and theoretical relationships through the relevant fields of literature. A construct is a high-level abstraction of the empirical objects or processes studied. Theory explains relationships among constructs: why a relationship should arise, under which assumptions, and within what scope. Naming a relationship or showing a correlation alone does not provide that explanation. Literature positioning supplies the foundation; the section develops the reasoning that makes it useful for this study.
+For a substantive empirical paper whose theoretical contribution is modest, the primary job is conceptual grounding: introduce the major constructs as existing literatures understand them, explain their established or debated relationships, and clarify the perspective the study adopts. This synthesis can be the section's main contribution to reader understanding. Scale further theoretical development to the paper's question and contribution.
 
-## Develop the account
+A construct is a high-level abstraction of the empirical objects or processes studied. Theory explains relationships among constructs: why a relationship should arise, under which assumptions, and within what scope. The section can draw on existing explanations without proposing a new theory. Where prior work establishes a pattern but leaves its explanation unsettled, preserve that distinction.
+
+## Core development: constructs, relationships, and the study's perspective
 
 These functions can be combined or distributed across paragraphs and subsections. Their order follows the dependencies in the argument, not a paragraph quota.
 
-### Establish the conceptual focus
+### Introduce the major constructs through existing literature
 
-Begin with the relationship or distinction that needs development beyond the introduction. Define unfamiliar or contested constructs where they enter the reasoning, keeping the [shared construct lock](../main-text.md#within-paper-construct-lock). State whose behavior, belief, or outcome is involved and at what level: individual, relationship, organization, or market. Explain any consequential difference between the study's usage and established usage. Familiar constructs need only enough definition to make the argument precise.
+Introduce the constructs readers need beyond the introduction's brief framing. Explain how relevant literatures define them, which dimensions or neighboring concepts matter, and which meaning the study uses, keeping the [shared construct lock](../main-text.md#within-paper-construct-lock). Select conceptual distinctions for their relevance to the research question. Familiar constructs need only enough definition to make the argument precise.
 
-Distinguish the concept from the intervention that may change it and the indicator used to observe it. When moving between levels or actors, explain the connection; an individual response does not by itself establish an aggregate outcome. Include the relevant time horizon when immediate and longer-run responses may differ.
+State whose behavior, belief, or outcome is involved and at what level: individual, relationship, organization, or market. Distinguish the concept from the intervention that may change it and the indicator used to observe it. Include the relevant time horizon when immediate and longer-run responses may differ.
 
-### Put literature perspectives into conversation
+### Explain how the literature relates these constructs
 
-Organize the literature around a conceptual question, relationship, or disagreement. For each relevant perspective, explain what it accounts for, the assumptions under which its explanation applies, and what remains unresolved here. Compare meanings and assumptions before combining conclusions from different fields. Apparent disagreement may reflect different outcomes, actors, or conditions rather than incompatible theories. One literature may suffice when it supplies the relevant foundation.
+Synthesize what prior theory proposes and empirical research has found about the focal relationships. Explain the reasoning behind those relationships and the conditions that affect their interpretation. Organize by constructs and relationships, with individual studies supporting the account. A coherent synthesis is sufficient when the study mainly contributes substantive evidence.
 
-Develop the account the study adopts, combines, extends, or questions. A useful synthesis shows how the perspectives jointly clarify the phenomenon; a sequence of article summaries or lists of fields does not. An empirical paper can apply or assess existing theory without claiming a new one. Use prior empirical findings to establish what has been observed, and theory to explain why it might occur, making the inferential step between them explicit.
+Bring different literature perspectives together where they improve understanding. Explain whether they use different meanings, emphasize complementary relationships, or disagree under comparable conditions. Apparent disagreement may reflect different outcomes, actors, or assumptions rather than incompatible theories. One literature may suffice. Develop disagreements only when consequential to this question; the section does not need a manufactured theoretical dispute.
 
-### Explain relationships and consequential conditions
+### Clarify the perspective used in this study
 
-Develop the process connecting the constructs: what changes in incentives, information, beliefs, constraints, or interactions, and how that change can produce the focal outcome. Bring in institutional features when they make a step plausible or change its scope. Setting detail earns space here through its explanatory role.
+Explain which definitions and relationships organize the investigation and how the empirical setting instantiates them. Include institutional features when they clarify that connection. This can be a short synthesis of the preceding literature rather than a separate claim of theoretical novelty.
 
-Separate a mechanism, which explains how a relationship arises, from a moderator, which changes when or how strongly it operates. Explain why a proposed moderator affects that process rather than merely naming a subgroup. When several channels matter, show whether they reinforce, offset, or depend on one another. State the assumptions needed for a directional prediction; if theory does not rank opposing channels, preserve an open empirical question. A predicted effect on one outcome need not settle the net consequence for another actor or outcome.
+Close an early framework by connecting this understanding to the empirical question: what relationship, aspect, or condition the study examines and what remains to be learned. A modest theoretical contribution does not require deriving new predictions or discriminating among theories. The handoff establishes the purpose of the analysis without promoting the dataset or method as uniquely capable.
 
-Select alternatives that materially change the interpretation. Develop their distinct implications when the study can examine them; acknowledge unresolved alternatives where it cannot. A routine robustness checklist does not belong in the framework.
+## Further development when the argument needs it
 
-### Connect the account to the investigation
+Use these extensions when they are central to the research question or necessary to interpret the evidence, including in papers with modest theoretical novelty. They are not additional requirements for every conceptual-framework section.
 
-Explain which observable distinctions would inform the conceptual question: relevant outcomes, comparisons, sequences, or variation across conditions. Show why these distinctions follow from the account. If competing explanations imply the same headline pattern, identify what additional evidence could distinguish them, when available. A pattern consistent with an explanation is weaker evidence than a comparison that separates it from a plausible alternative.
+- **Mechanisms and conditions.** Develop the process linking constructs through incentives, information, beliefs, constraints, or interactions. Separate a mechanism, which explains how a relationship arises, from a moderator, which changes when or how strongly it operates. Explain why the proposed condition matters. When moving between actors or levels, explain the connection rather than inferring an aggregate consequence from an individual response alone.
+- **Competing channels or explanations.** Show whether channels reinforce, offset, or depend on one another. State the assumptions needed for a directional prediction; preserve an open empirical question if theory does not rank opposing channels. When plausible explanations imply the same headline pattern, identify additional observations that could distinguish them if available. Evidence consistent with an explanation need not uniquely support it.
+- **Hypotheses or propositions.** Use them when distinct, justified predictions help organize the study. Derive their comparison and scope in the preceding prose. Numbering is optional; research questions can express genuine indeterminacy.
+- **Formalization.** A model helps when assumptions, interdependence, aggregation, or welfare interpretation require greater precision. Explain its intuition and what its conclusions depend on; place extended derivations elsewhere when they interrupt the main argument.
 
-End an early framework by making clear what the study will examine and what theory leaves unsettled. This handoff establishes the purpose of the analysis; it need not promote the dataset or method as uniquely capable. A conceptual reason to expect a relationship is distinct from the assumptions needed to estimate it causally.
-
-## Choose the form that serves the argument
-
-- **Verbal development** is sufficient when it conveys the constructs, process, and scope precisely. Develop a consequential relationship over several paragraphs if its reasoning needs that space.
-- **Hypotheses or propositions** help when the account yields distinct, justified predictions. State their comparison and scope, and derive them in the preceding prose. Use competing predictions or research questions when the direction remains unsettled; numbering is optional.
-- **A formal model** helps when assumptions, interdependence, aggregation, or welfare interpretation require greater precision. Explain its intuition and what its conclusions depend on; place extended derivations elsewhere when they interrupt the main argument.
-
-For a methodological paper, the relevant conceptual account may explain the inferential problem and benchmark rather than a behavioral theory. Keep that account connected to the substantive measurement question, with technical conditions in the methods section. For a framework that interprets results, establish the interpretation problem, develop the account, and then connect it to evidence. Distinguish such interpretation from advance predictions; placement before a results paragraph does not establish when a prediction was formed.
+For a methodological paper, the relevant conceptual account may explain the inferential problem and benchmark rather than a behavioral theory. For a framework that interprets results, establish the interpretation problem, develop the account, and then connect it to evidence. Distinguish such interpretation from advance predictions; exposition order does not establish when a prediction was formed.
 
 ## Boundaries with other sections and skills
 
 The [introduction](introduction.md) previews the question and positions the paper's contribution. Here, literature positioning explains the meaning of the constructs and the logic of the theoretical account in enough depth to support the investigation. Avoid repeating the introduction's contribution claims.
 
-[Data and Methods](data-and-methods.md) explains how the concepts are observed and what the design identifies. Signal that connection here, leaving measurement, estimation, and identification details there. Results and Discussion assess the evidence and its implications.
+[Data and Methods](data-and-methods.md) explains how the concepts are observed and what the design identifies. Signal that connection here, leaving measurement, estimation, and identification details there. A conceptual reason to expect a relationship is distinct from the assumptions needed to estimate it causally. Results and Discussion assess the evidence and its implications.
 
 Placement as Section 2 is an option, not a requirement. Use a separate section when readers need sustained conceptual development before the empirical analysis. Institutional background may precede or accompany it when the reasoning depends on how the setting operates. Integrate a short account with the introduction, background, or relevant analysis when a separate section would repeat it. A framework whose main job is interpreting findings may belong later. Choose placement by when readers need the reasoning.
 

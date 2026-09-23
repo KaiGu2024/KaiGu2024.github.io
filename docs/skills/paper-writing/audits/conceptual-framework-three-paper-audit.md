@@ -2,6 +2,8 @@
 
 Audited 2026-09-23 against [conceptual-framework.md](../references/sections/conceptual-framework.md) at repository revision `e8127d5`. This extends the initial purpose-and-boundaries guide using the same three empirical papers as the [introduction audit](../references/evidence/introduction-three-paper-audit.md), which records their recognition and bibliographic verification. The author's starting point is retained: relevant literatures help readers understand and position the constructs and theoretical relationships. This audit examines how that foundation develops into reasoning useful for the empirical investigation.
 
+**Author calibration after revision `f9f6137`, 2026-09-23:** for substantive empirical papers with modest theoretical contributions, introducing the major constructs and their relationships through existing literature is the section's primary work. The first revision gave extended explanatory development too much default weight. The current guide therefore centers conceptual grounding and synthesis, followed by the study's adopted perspective and connection to its question. Mechanisms, competing predictions, and formal models receive fuller development only when the argument needs them. This calibrates the editorial decisions below without changing observations about the papers.
+
 ## Scope and source versions
 
 Mapped the main-text section structures and read the passages identified below in context, including nearby empirical and interpretive discussion. This is an audit of conceptual functions, not three identically titled sections: none of these versions has a standalone early section titled Conceptual Framework. Nor do they jointly establish a standard numbered-hypothesis format. The inspected passages support flexible development and placement, not a mandatory Section 2.
@@ -34,9 +36,9 @@ The initial guide already distinguished constructs, theory, literature synthesis
 |---|---|
 | Literature positioning could remain descriptive | Explain what each perspective accounts for, its assumptions, and how the study adopts or combines it. Organize around relationships and conceptual questions. |
 | Definitions lacked actor, level, and temporal scope | Specify whose construct or outcome is involved; explain movement across levels and consequential time horizons. Keep concepts distinct from interventions and indicators. |
-| The move from relationship to explanation was implicit | Develop the intervening process and the institutional conditions that make it plausible. Define a moderator through its role in that process. |
-| Competing channels had little development guidance | Explain whether channels reinforce or offset one another and whether assumptions determine a net prediction. Preserve indeterminacy when they do not. |
-| The empirical handoff was underspecified | Identify observations or comparisons that inform the conceptual question, including distinctions between plausible explanations when feasible. Keep methodological superiority outside this function. |
+| The move from relationship to explanation was implicit | Explain the literature's reasoning as part of the core synthesis. Following author calibration, make extended mechanism and moderator development conditional on the argument's needs. |
+| Competing channels had little development guidance | When competing channels matter, explain how they interact and whether assumptions determine a net prediction. Preserve indeterminacy; do not require competing accounts in every study. |
+| The empirical handoff was underspecified | Connect the adopted concepts and relationships to what the study examines. Derive discriminating observations when relevant, without making theory discrimination or methodological superiority a default task. |
 | Section form and placement needed decision criteria | Allow integrated reasoning, a separate early section, or a later interpretive framework. Select verbal development, predictions, or formalization according to their argumentative use. |
 | Prediction and interpretation needed a clearer boundary | Distinguish advance expectations, empirical findings, and explanations developed in interpreting them; do not infer research chronology from exposition order. |
 

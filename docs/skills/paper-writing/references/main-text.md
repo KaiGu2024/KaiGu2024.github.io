@@ -8,7 +8,7 @@ Use this file for substantive development and [academic voice](academic-voice.md
 |---|---|
 | [Abstract](sections/abstract.md) | Compress the conceptual problem, empirical object, answer, and significance. |
 | [Introduction](sections/introduction.md) | Motivate the question, preview the study and findings, position contributions, and give the roadmap. |
-| [Conceptual Framework](sections/conceptual-framework.md) | Develop constructs, theoretical relationships, conditions, and empirical implications through relevant literatures. |
+| [Conceptual Framework](sections/conceptual-framework.md) | Ground constructs and their relationships in existing literature; scale further theoretical development to the project. |
 | [Data and Methods](sections/data-and-methods.md) | Explain observation, measurement, design, and what the analysis can establish. |
 | [Results](sections/results.md) | Organize findings and decisive evidence around the paper's questions. |
 | [Discussion](sections/discussion.md) | Develop implications, limits, and the concluding change in understanding. |
