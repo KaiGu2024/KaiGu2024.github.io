@@ -1,6 +1,6 @@
 # Academic-voice audit: three recognized empirical papers
 
-Audited 2026-09-22 and extended systematically on 2026-09-23 to refine [academic-voice.md](academic-voice.md). These are the same three papers used in the [introduction audit](introduction-three-paper-audit.md), which records verified bibliographic metadata, recognition, exact versions, introduction paragraph labels, and PDF checksums. This follow-up examines prose choices rather than prescribing paragraph order. The recommendations are editorial inferences, not journal frequencies or evidence that these choices caused publication success. The [writing-source review](academic-voice-sources.md) distinguishes published advice from empirical evidence and our synthesis.
+Audited 2026-09-22 and extended systematically on 2026-09-23 to refine [academic-voice.md](../academic-voice.md). These are the same three papers used in the [introduction audit](introduction-three-paper-audit.md), which records verified bibliographic metadata, recognition, exact versions, introduction paragraph labels, and PDF checksums. This follow-up examines prose choices rather than prescribing paragraph order. The recommendations are editorial inferences, not journal frequencies or evidence that these choices caused publication success. The [writing-source review](academic-voice-sources.md) distinguishes published advice from empirical evidence and our synthesis.
 
 ## Sources and passages read
 

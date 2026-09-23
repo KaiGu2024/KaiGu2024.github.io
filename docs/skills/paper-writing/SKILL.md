@@ -1,7 +1,7 @@
 ---
 name: paper-writing
 description: >-
-  Draft or polish main-text sections of empirical economics, management, information systems, and marketing papers: abstracts, introductions, framing, contributions, results, mechanisms, discussions, and conclusions. Use for section drafting, argument revision, or a requested journal-voice pass. Supports AER, QJE, Econometrica, JPE, Management Science, and Marketing Science with venue-bounded, move-based abstracts that compress the substantive argument; contribution-oriented introductions with flexible conceptual openings; results organized around findings and decisive evidence; and conclusions that state what changes in interpretation or decision making. For titles alone use paper-titles; for appendices or supplementary materials use appendix.
+  Draft or polish main-text sections of empirical economics, management, information systems, and marketing papers: abstracts, introductions, conceptual frameworks, data and methods, results, discussions, and conclusions. Use for section drafting, argument revision, or a requested journal-voice pass. Supports AER, QJE, Econometrica, JPE, Management Science, and Marketing Science with venue-bounded, move-based abstracts that compress the substantive argument; contribution-oriented introductions with flexible conceptual openings; results organized around findings and decisive evidence; and conclusions that state what changes in interpretation or decision making. For titles alone use paper-titles; for appendices or supplementary materials use appendix.
 allowed-tools: Read, Edit, Write
 user-invocable: true
 invocation: auto
@@ -9,13 +9,27 @@ invocation: auto
 
 # Paper Writing
 
-Turning verified analysis into a paper's **main text**, then matching that prose to a target journal's voice. Two stages, loaded on demand:
+Turn grounded research into a paper's main text. Read these two shared guides when using the skill:
 
-- **Drafting and structure** → [`references/main-text.md`](references/main-text.md). Flexible abstract moves, introductions that connect conceptual motivation to an empirical question and findings-based contributions, finding-led results, and bounded conclusions. Movement 2 explains paragraph allocation and optional moves; its linked three-paper audit provides structural evidence when requested. For abstracts and framing revisions, use **construct lock → evidence hierarchy → substantive compression**: keep central terms stable, select evidence by its argumentative role, and shorten prose without widening claims. Movement 6 checks substantive and stylistic AI tells; Movement 7 adds explicit claim provenance; Movement 8 separates within-paper terminology consistency from literature anchoring. **This is the default** — load it for any drafting request.
+- [Main text](references/main-text.md): shared substantive rules, construct consistency, claim provenance, and a map to six section guides.
+- [Academic voice](references/academic-voice.md): precise words, sentence emphasis and variety, paragraph development, pacing, and evidence-preserving revision.
 
-- **Prose defaults and optional journal-voice pass** → [`references/academic-voice.md`](references/academic-voice.md). Read for precise word choice, sentence emphasis and variety, paragraph development, pacing, and compression that preserves reasoning. Its linked sources and systematic three-paper audit explain the basis when needed; observed lengths are not quotas. The separate journal adaptation is **opt-in only**. Ground venue-specific choices in official guidance and relevant exemplars; preserve claims and evidence. For that pass, provide an original/revised comparison with reasons by default, unless the author requests another format.
+Then load only the section guidance needed for the task:
 
-Use `main-text.md` for structure and content and `academic-voice.md` for prose defaults. Run the optional journal adaptation after the substantive draft is settled; it does not silently repair gaps in the argument.
+| Requested section | Guidance |
+|---|---|
+| Abstract | [Abstract](references/sections/abstract.md) |
+| Introduction or contribution framing | [Introduction](references/sections/introduction.md) |
+| Conceptual framework or theoretical development | [Conceptual Framework](references/sections/conceptual-framework.md) |
+| Setting, data, measurement, design, or estimation | [Data and Methods](references/sections/data-and-methods.md) |
+| Findings, mechanisms, or heterogeneity | [Results](references/sections/results.md) |
+| Discussion or conclusion | [Discussion](references/sections/discussion.md) |
+
+The four background records under `references/evidence/` contain audits and source notes. Read them only when checking the basis for guidance or comparing exemplars; [main-text](references/main-text.md#supporting-evidence) explains their coverage and limits. They are not additional default drafting instructions.
+
+The conceptual-framework section develops constructs and theoretical relationships through relevant literatures. The separate conceptual-framework skill makes a figure from a supplied paper; it is a related, distinct task. The section guide currently establishes purpose and boundaries, with detailed development left for a later refinement.
+
+Run the separate journal-voice adaptation only when requested, after the substantive draft is settled. It does not silently repair gaps in the argument. For that pass, follow academic-voice's source requirements and default original/revised comparison unless the author requests another format.
 
 Match the requested deliverable: a short abstract edit does not require a full-paper audit or a terminology report. Keep intermediate maps internal unless a missing definition or evidence conflict needs the author's decision. Naming a target journal sets the audience and constraints; it does not by itself require a separate side-by-side voice report. Current venue requirements override illustrative templates; verify them from official author guidance when needed, and do not present a suggested length or style preference as a journal rule.
 

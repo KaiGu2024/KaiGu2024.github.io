@@ -107,7 +107,7 @@ Three rules:
 
 Group response-letter sections by reviewer (R1, R2, AE), and within each reviewer follow the order of their original letter. The reviewer reads top-to-bottom against their own letter; do not make them re-sequence.
 
-Do not let Claude write these paragraphs without your decision per task. Comment-mode editing (per [paper-writing](paper-writing/references/main-text.md) Movement 6) applies — draft the paragraph yourself, then ask Claude for comments on clarity and tone, not for prose.
+Do not let Claude write these paragraphs without your decision per task. Comment-mode editing (per [paper-writing](paper-writing/references/main-text.md) §Working with Claude on prose) applies — draft the paragraph yourself, then ask Claude for comments on clarity and tone, not for prose.
 
 ---
 

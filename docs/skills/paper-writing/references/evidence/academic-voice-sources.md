@@ -1,6 +1,6 @@
 # Sources for academic-voice principles
 
-Researched 2026-09-23 for [academic-voice.md](academic-voice.md). This is a focused source review, not a systematic literature review or a set of journal requirements. We searched for scientific-writing principles, paragraph development, transitions, sentence variety, concision, and empirical research on lexical complexity/readability. We read original guidance from its publisher or university and original research, rather than relying on summaries. The [three-paper audit](academic-voice-three-paper-audit.md) separately checks how these principles appear in the selected empirical manuscripts.
+Researched 2026-09-23 for [academic-voice.md](../academic-voice.md). This is a focused source review, not a systematic literature review or a set of journal requirements. We searched for scientific-writing principles, paragraph development, transitions, sentence variety, concision, and empirical research on lexical complexity/readability. We read original guidance from its publisher or university and original research, rather than relying on summaries. The [three-paper audit](academic-voice-three-paper-audit.md) separately checks how these principles appear in the selected empirical manuscripts.
 
 ## Instructional and conceptual sources
 

@@ -1,6 +1,6 @@
 # Introduction audit: three recognized empirical papers
 
-Audited 2026-09-22 against Movement 2 in [main-text.md](main-text.md). This is a purposive comparison of three recognized papers, not a representative sample of journals or evidence that any paragraph order causes publication success. Awards establish external recognition of the research, not a separate award for writing quality. The structural assessments below are our readings of the full introductions.
+Audited 2026-09-22 against the [Introduction guide](../sections/introduction.md) (formerly Movement 2 in main-text.md). This is a purposive comparison of three recognized papers, not a representative sample of journals or evidence that any paragraph order causes publication success. Awards establish external recognition of the research, not a separate award for writing quality. The structural assessments below are our readings of the full introductions.
 
 ## Selection and verification
 
