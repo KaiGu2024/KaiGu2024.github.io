@@ -41,7 +41,7 @@ When in doubt, the test: would this slide look at home on a NeurIPS or Marketing
 
 **Register caveat — read-deck vs projection-deck.** Some "violations" are register choices, not mistakes. A deck built to be *read* close-up or printed as a handout (footnotes, dense two-column lists, ~13–20px type, serif book-voice — e.g. the MGMT430 *"Using AI without sounding like AI"* deck in `notes/slides/`) legitimately runs denser than this spec. Our slide brand targets *projection*: when a deck will be shown on a screen, hold "fewer, bigger words" and the §1 body tier; when it will be read, density and footnotes are fine. Decide which deck you're making before you size the type.
 
-The matching **language tells** (the AI cliché phrasebook, "moat", em-dashes, and three structural patterns) live in [`paper-writing`](../../paper-writing/references/main-text.md) → Working with Claude on prose. The *why* is empirical: detectably-AI work is penalized by evaluators (Reif/Larrick/Soll 2025; Raj/Berg/Seamans 2026) and over-reliance homogenizes output across a room (Anderson 2024; Doshi & Hauser 2024; Moon 2025). In a pitch, distinctiveness is the asset.
+For wording and sentence-level clarity, see paper-writing's [academic-voice guidance](../../paper-writing/references/academic-voice.md). Replace empty emphasis with a specific claim while preserving useful qualifications and the speaker's individual voice.
 
 ---
 

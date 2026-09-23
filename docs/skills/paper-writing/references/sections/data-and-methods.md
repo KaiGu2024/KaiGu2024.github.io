@@ -14,6 +14,6 @@ These are explanatory jobs, not five required paragraphs or a fixed subsection o
 
 ## Grounding and handoff
 
-Draft from the actual data documentation, code, outputs, and design records. Apply [strict-traceability mode](../main-text.md#strict-traceability-mode) for claim-level provenance. Missing sample counts, implementation details, identifying assumptions, or approvals require a visible gap or focused clarification; do not fill them from a conventional template.
+Draft from the actual data documentation, code, outputs, and design records. Use a [claim-to-source check](../review-checks.md#claim-to-source-check) when drafting directly from these artifacts or resolving discrepancies. Identify missing details that matter to the account; keep a separate provenance record when the task calls for one.
 
 End with enough understanding for the reader to interpret the comparisons in [Results](results.md). Preserve limits on the target population, construct coverage, and inference in later findings. The appendix skill owns the support audit; this guide owns the main-text explanation.

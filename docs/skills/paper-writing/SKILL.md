@@ -11,7 +11,7 @@ invocation: auto
 
 Turn grounded research into a paper's main text. Read these two shared guides when using the skill:
 
-- [Main text](references/main-text.md): shared substantive rules, construct consistency, claim provenance, and a map to six section guides.
+- [Main text](references/main-text.md): argument development, construct consistency, substantive compression, and a map to six section guides. It links optional checks for source or terminology problems.
 - [Academic voice](references/academic-voice.md): precise words, sentence emphasis and variety, paragraph development, pacing, and evidence-preserving revision.
 
 Then load only the section guidance needed for the task:
@@ -52,7 +52,7 @@ brainstorm → literature-review → eda → report.md artifacts
                                      revision-plan   (if R&R arrives)
 ```
 
-- [`report`](../report/SKILL.md) packages results into the artifacts this skill consumes; the artifact → section mapping is in `references/main-text.md`.
+- [`report`](../report/SKILL.md) can supply organized findings and supporting evidence for drafting.
 - [`literature-review`](../literature-review.md) Path A resolves `[CITE: handle]` placeholders into verified DOIs.
 - [`appendix`](../appendix/SKILL.md) is the **separate** skill for the appendix / online appendix / supplementary materials — it derives required support from this main text and audits it against code and data. Drafting prose for an appendix still follows `references/main-text.md` register, but the appendix skill owns its structure and verification.
 - [`revision-plan`](../revision-plan.md) handles the referee+editor letter when the R&R arrives — the inverse of this skill.

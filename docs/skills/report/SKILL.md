@@ -157,7 +157,7 @@ Flag **data differences** (time period, sample size, selection mechanism, geogra
 
 ## Paper-section Templates
 
-The Writing Pipeline above structures an *internal report*. These templates structure *paper sections* for a journal submission — a different audience and stage. Pair with [`paper-writing`](../paper-writing/references/main-text.md) §Strict-traceability mode when strict claim traceability is required (the canonical case is Methods, where one invented detail sinks credibility).
+The Writing Pipeline above structures an *internal report*. These templates structure *paper sections* for a journal submission — a different audience and stage. Use paper-writing's [claim-to-source check](../paper-writing/references/review-checks.md#claim-to-source-check) when drafting from raw artifacts, resolving discrepancies, or providing an evidence audit.
 
 | Section | Slots |
 |---|---|
@@ -165,7 +165,7 @@ The Writing Pipeline above structures an *internal report*. These templates stru
 | **Results** | Descriptive stats, main findings, robustness — use §3 Findings above for slot-level structure |
 | **Discussion** | Summary, theoretical contribution, practical implications, limitations, future research |
 
-Slots without source material become explicit `[TODO]` placeholders, never silent omissions. The discipline that enforces this — `[CITE: handle]` for references, `[TODO: number]` for absent values, `file:line` provenance for every empirical claim — is in [`paper-writing`](../paper-writing/references/main-text.md) §Strict-traceability mode.
+Identify essential missing source material. Use placeholders in unfinished drafts or report unresolved items outside clean prose, following the [claim-to-source check](../paper-writing/references/review-checks.md#claim-to-source-check). Keep verified citations and use source locators suited to the evidence.
 
 ---
 

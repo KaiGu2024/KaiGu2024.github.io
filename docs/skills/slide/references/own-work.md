@@ -1,6 +1,6 @@
 # Own-work mode — presenting your own paper
 
-Use this as the single authoritative reference for an `own` deck. It governs both the talk's narrative and its Beamer/PDF production. Also read [`paper-writing/references/main-text.md`](../../paper-writing/references/main-text.md) before writing speaker notes; its contribution-first, number-first, evidence-calibrated prose rules govern the spoken script.
+Use this as the single authoritative reference for an `own` deck. It governs both the talk's narrative and its Beamer/PDF production. Also read paper-writing's [shared drafting guidance](../../paper-writing/references/main-text.md) and [academic voice](../../paper-writing/references/academic-voice.md) before writing speaker notes; adapt their argument and prose principles to a spoken presentation.
 
 ## Contents
 

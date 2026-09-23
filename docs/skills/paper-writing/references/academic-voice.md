@@ -21,6 +21,8 @@ Infer the audience, genre, and editing scope from the request and material. Ask 
 
 The current request overrides these defaults, including audience, register, authorial voice, length, and editing scope.
 
+When the author requests a personal style guide, derive candidate preferences from supplied writing and let the author refine them. Keep preferences specific to the register and apply them as flexible guidance; a separate style-guide exercise is unnecessary for routine editing.
+
 ## Choose words for meaning and audience
 
 Prefer the familiar, specific word when alternatives mean the same thing. Retain a longer technical term when it names the construct or method more accurately. Avoid ornamental sophistication, vague evaluative adjectives, and strings of abstract nouns that leave the action unclear. Express actions in verbs when this reveals who does what; keep nominalizations when they name an established concept or carry a useful topic forward. Neither short words nor active verbs are universal objectives.
