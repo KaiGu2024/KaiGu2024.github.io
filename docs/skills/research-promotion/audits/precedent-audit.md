@@ -1,10 +1,21 @@
-# Sources and examples
+# Audit of writing and agent-skill precedents
 
-Researched on 2026-09-23. Notes below are editorial interpretations of inspected
-examples, not evidence that a technique improves engagement. Learn a structural
-move, then write original prose. Promotional examples are not substitutes for the
-underlying paper when checking factual claims. No external skill is required or
-vendored here.
+Recorded 2026-09-23 during initial skill development, with later pointers to the
+opening and prose audits. These notes retain editorial interpretations and access
+limits; they are not evidence of engagement effects or the current instruction set.
+Use the [source catalog](../references/sources.md) for identities and provenance,
+and `../guidance/` for current writing decisions. No external skill is required or
+vendored. Scientific claims still require the underlying paper.
+
+For close readings of the standfirsts and opening paragraphs, and instructions
+derived from them, see [Openings and language](../guidance/openings-and-language.md). Its
+word ranges and worked examples are editorial choices made for this skill, not
+reported house rules from the referenced outlets.
+
+For the systematic audit of words, sentences, length variation, paragraphs, and
+pacing, see [Reference audit](prose-audit.md). It records observations and weaknesses
+for seven accessible texts, with a feature-to-decision crosswalk. The operational
+guidance is in [Prose editing](../guidance/prose-editing.md).
 
 ## Existing agent skills inspected
 

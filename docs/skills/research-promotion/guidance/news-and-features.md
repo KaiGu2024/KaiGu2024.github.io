@@ -5,11 +5,18 @@ institutional voice. An author essay can interpret an idea in the first person.
 Independent editorial coverage gives the reader distance from the authors' framing.
 A pitch is an invitation to report, not a miniature press release.
 
+Read [Openings and language](openings-and-language.md) when drafting or substantially
+revising the headline, standfirst, or opening paragraphs. It provides source-based
+paragraph patterns, sentence edits, and complete opening examples. Apply those
+choices within the format below.
+
 ## University news or magazine story
 
 Default to a headline, a one- or two-sentence standfirst, and roughly 500–800 words
 for a full story; respect the requested length and available evidence. Do not pad
 an abstract-only brief to a magazine length with invented context or quotes.
+For an exact word budget, state whether the count includes the headline and
+standfirst; otherwise treat the suggested story lengths here as body-text ranges.
 
 Choose the structure that fits the finding:
 
@@ -26,9 +33,8 @@ or event, use documented facts and preserve the original source.
 
 Introduce authors, affiliation, paper, and publication status naturally when the
 study enters the story. Explain a design through its comparison: what changed,
-for whom, and compared with what. Use one or two memorable numbers with units and
-baselines, rather than importing a regression table. Translate theory into a
-decision under stated assumptions, not claims about what people demonstrably do.
+for whom, and compared with what. Translate theory into a decision under stated
+assumptions, not claims about what people demonstrably do.
 
 Subheads should advance the argument. A closing image, return to the opening, or
 specific unanswered question can provide a satisfying ending. Do not turn a
@@ -45,8 +51,9 @@ structure and tone, not to copy distinctive prose. Label the result as a draft;
 do not create an outlet byline or imply publication or endorsement.
 
 For roughly 600–1,000 words, a useful arc is **public problem or documented scene →
-why it matters now → finding → how the study gets there → outside context or
-counterevidence → limits → implication**. If no timely development is verified,
+why it matters now → finding → how the study gets there → wider context →
+implication**. Bring in counterevidence or limits when they change the explanation,
+not as mandatory sections. If no timely development is verified,
 use the enduring question instead of manufacturing a news peg.
 
 Earned-media coverage normally involves editorial selection and reporting beyond
@@ -72,17 +79,10 @@ as provided; offer interview availability only when supplied. Tailor a pitch to 
 named journalist using verified beat information if requested. Do not promise
 coverage, invent exclusivity, or send the pitch without explicit instruction.
 
-## Making prose more engaging
+## Revise the whole story
 
-Replace an abstract noun with the actor doing something; explain a mechanism as a
-sequence readers can follow; let a precise number resolve the opening puzzle.
-Use a concrete comparison before technical labels. Vary pace: a short sentence can
-mark a turn after a longer explanation. When an opening feels flat, change the
-angle before reaching for stronger adjectives.
-
-**Synthetic example:** A descriptive study finds that independent publishers'
-participation fell after a platform introduced a fee; it cannot isolate the fee's
-causal effect. “When free promotion acquired a price tag, the mix of publishers
-changed” introduces a story the data can support. “A fee killed independent
-publishing” invents both a causal conclusion and an industry-wide outcome. The
-next paragraph should specify the platform, observed change, and study design.
+Use [Prose editing](prose-editing.md) for words, information order, integrated
+sentences, paragraph development, and pacing throughout the story. Apply the
+same care to explanations and endings as to the lead. If the brief cannot support
+the requested length, identify what is missing instead of padding the story with
+restated results or repeated qualifications.

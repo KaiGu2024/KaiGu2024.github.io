@@ -11,16 +11,28 @@ Address a professional reader's decision or curiosity. Open with a concrete
 tension, result, or recognizable situation; give the substantive payoff before
 credits and publication details take over.
 
-A useful arc is **situation or puzzle → finding → why to trust it → meaning for
-this audience → boundary and paper link**. Rearrange it when the story benefits.
+A useful arc is **situation or puzzle → finding → explanation → meaning for
+this audience → paper link**. Rearrange it when the story benefits.
 Aim for roughly 150–250 words unless the user specifies otherwise; shorter is
 appropriate for one finding. Use readable paragraphs, with bullets only when
 parallel findings are genuinely easier to scan.
 
-Explain one decisive design detail in normal language. Name a relevant boundary
-or subgroup rather than appending “more research is needed.” A managerial
-implication should be phrased as a consideration to test unless the study actually
-evaluates the proposed action. End with the paper, a useful question, or a practical
+Give the first two paragraphs distinct tasks. In the first, name a recognizable
+decision, specific question, or result in one or two sentences. In the second,
+deliver the finding and identify the comparison behind it. For a result-first
+opening, use paragraph two to explain how researchers could tell. Avoid spending
+the second paragraph merely saying the issue matters.
+
+Two useful choices are **decision → evidence**, or **concrete example → question →
+answer**. A rhetorical question is optional. Use [Prose editing](prose-editing.md)
+for sentence and paragraph decisions. The separate [prose audit](../audits/prose-audit.md)
+records the LinkedIn observations behind these choices; consult it for provenance
+or maintenance, not as another required writing step.
+
+Use a decisive design detail when it helps readers understand or trust the result.
+Draw practical implications by explaining how they follow; they need not all become
+proposals for another test. Include a boundary or subgroup when it changes the
+lesson. End with the paper, a useful question, or a practical
 implication; generic invitations to agree add little.
 
 Author posts may include a brief, authentic acknowledgement or excitement about
@@ -30,6 +42,13 @@ they fit the speaker. Link directly by default; put links in a comment only if
 requested. The examples in the source notes do not establish a reach benefit.
 
 ## X/Twitter: standalone post
+
+Treat the post as a miniature standfirst: a specific actor or setting, one finding,
+and enough context to make sense. If using two sentences, let the first state the
+finding and the second develop its meaning or supply a telling comparison. An intriguing question
+should receive a substantive answer in the same post, unless it opens a requested
+thread. A standalone teaser saying only that a study has surprising results is
+not finished research communication.
 
 Choose one finding or interpretive correction. Fit a meaningful contrast and enough
 setting to prevent a false universal claim, followed by a route to the paper.
@@ -54,12 +73,13 @@ count and avoid filler. Possible sequence:
 2. The concrete problem and comparison the researchers could observe or test.
 3. The main finding, with an intelligible magnitude if available.
 4. The mechanism or surprising second result, labeled at its actual evidence strength.
-5. The boundary, null finding, or alternate interpretation that shapes the lesson.
+5. What the finding changes: a consequence, application, or revealing comparison.
 6. The useful implication, authors/publication status, and paper link.
 
-Combine or reorder beats as needed. Each post should contribute a new piece of the
-explanation. Preserve essential scope in the opening because it may be reshared
-alone. Keep qualifications next to the claims they constrain. Number consistently
+Combine or reorder beats as needed; include a limit or alternate interpretation
+when it materially changes the lesson. Each post should contribute a new piece of
+the explanation. Make the opening intelligible on its own, then build context
+through the thread without repeating it in every post. Number consistently
 if useful and count the numbers as text. A source link can appear early when
 credibility is central and again at the end if useful; do not hide it to manufacture
 suspense. Avoid obligatory “a thread” announcements and follow/reshare requests.

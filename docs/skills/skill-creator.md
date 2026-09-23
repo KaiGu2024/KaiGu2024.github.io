@@ -81,9 +81,47 @@ skill-name/
 │   └── Markdown instructions
 └── Bundled Resources (optional)
     ├── scripts/    - Executable code for deterministic/repetitive tasks
-    ├── references/ - Docs loaded into context as needed
+    ├── guidance/   - Procedures, decision rules, and worked instructional examples
+    ├── references/ - Source material, specifications, and provenance
+    ├── audits/     - Observations, evaluation findings, and rationale
     └── assets/     - Files used in output (templates, icons, fonts)
 ```
+
+#### Separate guidance, references, and audits
+
+For new skills and substantial revisions, classify supporting documents by their
+purpose. Create only the directories with useful content; a small skill can remain
+entirely in `SKILL.md`. Apply this convention to the skill being worked on, without
+reorganizing unrelated skills.
+
+| Location | Question it answers | Contents |
+|---|---|---|
+| `SKILL.md` | When should I use this skill, and where do I start? | Scope, essential workflow, constraints, and conditional links |
+| `guidance/` | What should I do, and how? | Reusable instructions, decision criteria, procedures, and worked examples that teach execution |
+| `references/` | What source material or specification supports the work? | Source catalogs, URLs, factual specifications, schemas, permitted excerpts, and provenance/access notes |
+| `audits/` | What was examined, what was found, and why did the guidance change? | Source analyses, evidence matrices, comparisons, evaluation summaries, limitations, and dated rationale |
+
+An instruction for conducting an audit belongs in `guidance/`; a completed audit
+belongs in `audits/` when worth retaining as skill-development evidence. Task
+deliverables still go to the user's requested output location. Keep executable
+helpers in `scripts/`, output assets in `assets/`, UI/agent configuration in its
+existing runtime location, and test fixtures in `evals/` when used. Large raw runs
+belong in the evaluation workspace; link to them from a retained audit summary.
+
+Separate mixed documents by moving content to its role and updating links, rather
+than duplicating it. Original teaching examples belong with guidance; published
+examples' metadata and source text belong in references; an analysis of why those
+examples work belongs in audits. Record audit scope, sources/locators, date or skill
+version, findings, and limitations. Distinguish observations from inferred rules.
+Promote an accepted lesson into current guidance and link back to its evidence;
+an older audit is not a competing instruction set.
+
+Normal invocation loads `SKILL.md` and relevant guidance. Load references when
+source details are needed; load audits for provenance questions, review, or skill
+maintenance. Do not make ordinary execution read the whole development history.
+During validation, check document roles, moved-file links, stale paths, and routing.
+If an initializer lacks these directory options, create the needed directories
+explicitly rather than passing unsupported arguments.
 
 #### Progressive Disclosure
 
@@ -96,19 +134,20 @@ These word counts are approximate and you can feel free to go longer if needed.
 
 **Key patterns:**
 - Keep SKILL.md under 500 lines; if you're approaching this limit, add an additional layer of hierarchy along with clear pointers about where the model using the skill should go next to follow up.
-- Reference files clearly from SKILL.md with guidance on when to read them
-- For large reference files (>300 lines), include a table of contents
+- Link supporting files clearly from SKILL.md, stating their role and when to read them
+- For large supporting documents (>300 lines), include a table of contents
 
 **Domain organization**: When a skill supports multiple domains/frameworks, organize by variant:
 ```
 cloud-deploy/
 ├── SKILL.md (workflow + selection)
-└── references/
+└── guidance/
     ├── aws.md
     ├── gcp.md
     └── azure.md
 ```
-Claude reads only the relevant reference file.
+Claude reads only the relevant procedural guide; source specifications and completed
+reviews remain in `references/` and `audits/` when needed.
 
 #### Principle of Lack of Surprise
 
