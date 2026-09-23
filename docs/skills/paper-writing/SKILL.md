@@ -25,7 +25,7 @@ Then load only the section guidance needed for the task:
 | Findings, mechanisms, or heterogeneity | [Results](references/sections/results.md) |
 | Discussion or conclusion | [Discussion](references/sections/discussion.md) |
 
-The four background records under `references/evidence/` contain audits and source notes. Read them only when checking the basis for guidance or comparing exemplars; [main-text](references/main-text.md#supporting-evidence) explains their coverage and limits. They are not additional default drafting instructions.
+Background records under `references/evidence/` and `audits/` contain source notes and completed comparisons. Read them only when checking the basis for guidance or comparing exemplars; [main-text](references/main-text.md#supporting-evidence) explains their coverage and limits. They are not additional default drafting instructions.
 
 The conceptual-framework section develops constructs and theoretical relationships through relevant literatures. The separate conceptual-framework skill makes a figure from a supplied paper; it is a related, distinct task. The section guide currently establishes purpose and boundaries, with detailed development left for a later refinement.
 
