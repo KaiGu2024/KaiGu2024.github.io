@@ -43,6 +43,7 @@ Consult these records when checking the basis for guidance or comparing exemplar
 
 - [Abstract audit](../audits/abstract-three-paper-audit.md): the same three empirical papers, comparing openings, empirical framing, connected findings, and closure, with the author's subsequent calibration.
 - [Conceptual-framework audit](../audits/conceptual-framework-three-paper-audit.md): how the three papers develop conceptual reasoning across sections, and what transfers to section-writing guidance.
+- [Data-and-methods audit](../audits/data-and-methods-three-paper-audit.md): how the three papers connect setting, sample construction, measurement, comparisons, and estimation, with limits on transferring their practices.
 - [Introduction audit](evidence/introduction-three-paper-audit.md): three empirical papers and their paragraph structures.
 - [Academic-voice audit](evidence/academic-voice-three-paper-audit.md): prose observations, paragraph/sentence counts, and counterexamples.
 - [Academic-voice sources](evidence/academic-voice-sources.md): writing principles and their evidentiary limits.
