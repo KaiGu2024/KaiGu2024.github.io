@@ -25,3 +25,8 @@ defaults:
     values:
       title: Paper Titles
       permalink: /skills/paper-titles/
+  - scope:
+      path: "skills/research-promotion/SKILL.md"
+    values:
+      title: Research Promotion
+      permalink: /skills/research-promotion/

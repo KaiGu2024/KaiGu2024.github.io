@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research Promotion"
+  short_description: "Turn papers into engaging research news and social posts"
+  default_prompt: "Use $research-promotion to turn this paper into engaging public-facing coverage for my chosen channels."
