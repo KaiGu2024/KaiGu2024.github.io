@@ -45,6 +45,7 @@ Consult these records when checking the basis for guidance or comparing exemplar
 - [Conceptual-framework audit](../audits/conceptual-framework-three-paper-audit.md): how the three papers develop conceptual reasoning across sections, and what transfers to section-writing guidance.
 - [Data-and-methods audit](../audits/data-and-methods-three-paper-audit.md): how the three papers connect setting, sample construction, measurement, comparisons, and estimation, with limits on transferring their practices.
 - [Results audit](../audits/results-three-paper-audit.md): how the three papers connect findings, benchmarks, interpretation, and sensitivity into an empirical answer.
+- [Discussion audit](../audits/discussion-three-paper-audit.md): how the three papers develop interpretation, practical implications, boundaries, and research agendas through different closing structures.
 - [Introduction audit](evidence/introduction-three-paper-audit.md): three empirical papers and their paragraph structures.
 - [Academic-voice audit](evidence/academic-voice-three-paper-audit.md): prose observations, paragraph/sentence counts, and counterexamples.
 - [Academic-voice sources](evidence/academic-voice-sources.md): writing principles and their evidentiary limits.
