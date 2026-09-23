@@ -9,6 +9,7 @@ exclude:
   - skills/slide/references
   - skills/tables/references
   - skills/visualization/references
+  - skills/conceptual-framework/references
 
 defaults:
   - scope:

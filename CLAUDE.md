@@ -120,6 +120,8 @@ The same layout applies under `~/.codex/skills/`. Copy explicit files without de
 - `appendix/` — write & audit empirical appendices; derives required support from the main text, then traces the chain main-text claim → appendix item → evidence (directory + literature), checking coverage/grounding/consistency. Decomposes each statement into typed claims (definitional / factual / methodological / citational / result / procedural)
 - `agent-configuration/` — configure Codex for a research project (AGENTS.md authoring, documentation layers, reproducibility, source protection, and subagents). `references/source-protection.md` defines build-cleanup boundaries and distinguishes instructions from verified filesystem protection. `references/general-principles.md` holds the expanded coding principles outside the skill entrypoint.
 
+- `conceptual-framework/` is a folder skill for source-grounded conceptual-framework figures from papers, with construct/measurement semantics and diagram-specific export audits.
+
 **Flat skills** (single `.md`): `analysis-cleanup`, `ai-disclosure-block`, `big-data-processing`, `brainstorm`, `codebook-generator`, `eda`, `literature-review`, `llm-annotation`, `preregistration`, `replication-readme`, `revision-plan`, `skill-creator`, `username-dossier`, `verify-citations`, `version-control`, `web-access`, `web-scraping`.
 
 ---
