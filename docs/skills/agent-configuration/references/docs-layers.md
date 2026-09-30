@@ -1,45 +1,44 @@
 # Documentation layers — the five-layer model
 
-Extended reference for the `agent-configuration` skill. Loaded on demand when scaffolding a full research-project structure; kept out of `SKILL.md` so it does not cost context on every invocation.
+Read when scaffolding or auditing a research project's layout, analysis naming, or notes wiki.
 
 ### Where documentation lives — the layers, and AGENTS.md's place in them
 
-AGENTS.md does not exist in isolation. A mature research project is organized into **five execution layers**, and AGENTS.md is the layer that governs the other four rather than storing content itself.
+The five directories below hold project work; AGENTS.md supplies the operational guidance governing them.
 
 | Layer | Holds | Rule |
 |---|---|---|
 | `code/` | Preprocessing, crawling, ingestion, and other input-preparation scripts | Name scripts in run order and key them to the substantive analysis (`01_ingest.py`, `02_localization.R`) |
-| `data/` | `raw/` (immutable source) + `processed/` | **Never edit `raw/` — read only** |
+| `data/` | Raw data plus processed data that remains large or is a primary project input | **Never edit `raw/` — read only** |
 | `docs/` | Stable reference specs | Change only when design/schema/method changes |
 | `notes/` | The living wiki | Changes every session |
 | `output/` | Results and supporting sources: `output/code/` result-generating scripts, `output/data/` smaller processed data or reproducibility caches, tables, figures, reports, and manuscript sources | Preserve scripts, manuscripts, retained data, and final outputs; document provenance and decompose results by fact/analysis |
 
 **Location does not establish disposability.** `output/paper/ms/`, `output/code/`, and retained `output/data/` may contain authoritative work. Even regenerable outputs can be required for replication or submission. Keep disposable build files in a separately identified build root and apply the [source-protection procedure](source-protection.md); neither `output`, `temp`, nor `build` in a path authorizes deletion.
 
-The confusing part is always the **documentation roles**, because four things look like "documentation" but do four different jobs. The distinction that keeps them from bleeding into each other: **two are *content* (they hold knowledge); two are *front doors* (they orient a reader and route into the content).** They split on two axes — content vs. orientation, and within each, by stability or by audience.
+### Analysis naming and outputs
+
+When several analyses address the same substantive topic, use the listing number as the analysis name (for example, `01_localization`, `02_localization`). Keep that number and name consistent across scripts, outputs, notes, and documentation.
+
+Keep input preparation in `code/` and result-generating reproducibility scripts in `output/code/`; do not duplicate a preprocessing script there. Each result-generating script should consume a named input, record its provenance, and write a predictable output keyed to the numbered analysis. Keep smaller processed inputs and reproducibility caches in `output/data/`.
+
+### Documentation roles
 
 | Role | Kind | Audience | Changes | Answers |
 |---|---|---|---|---|
-| `AGENTS.md` | Front door | The **agent** | When layout / constraints / conventions change | "How do I *operate* in this repo?" |
+| `AGENTS.md` | Front door | The **agent** | When durable decisions / layout / constraints / conventions change | "How do I *operate* in this repo?" |
 | `README.md` (root) | Front door | **Humans** | When onboarding facts change | "What *is* this and how do I start?" |
 | `docs/` | Content — **stable reference** | Human + agent | Only when the design / schema / method actually changes | "What *exactly* is X?" |
 | `notes/` | Content — **living wiki** | Agent (+ human) | Every session | "What do we *think* / what's next?" |
 
-**The load-bearing rule: front doors are not content bodies.** AGENTS.md and README are thin. They point *into* `docs/` and `notes/`; they never accumulate the knowledge that belongs there. When you are tempted to explain a method inside AGENTS.md, write it in `docs/methodology/` and link; when you want to record what changed, append to `notes/log.md`. A front door that grows a knowledge base has stopped being a front door.
+Keep AGENTS.md and README brief and link into the content directories. Environment and build configuration hold setup details; `docs/methodology/` holds method explanations.
 
-- **`AGENTS.md`: the agent's operating manual and router.** Use AGENTS.md for Codex. It carries project conventions, the subagent inventory when relevant, wiki-maintenance guidance, and pointers to content (`notes/index.md`, the `docs/` subfolders). Keep setup details in environment/build configuration and keep this file thin.
-- **`README.md` (root) — the human front door.** The GitHub landing page. What the project is, how to get set up, where things are, how to run. Orientation for a collaborator or future self — not for the agent (that is AGENTS.md's job) and not a place for specs (that is `docs/`). Distinct from the *replication-package* README (the public handoff artifact covered later in this skill).
-- **`docs/` — the stable reference manual.** Neutral, declarative, specification-style ("3,150 rows × 37 columns"). Four subfolders, each a documentation type: `design/` (the experiment/design spec, frozen before analysis — "what we set out to do and why"), `methodology/` (the how, at replicator detail), `technical/` (`data_architecture.md`, `code_architecture.md`, `analysis_architecture.md`), `references/` (external immutable material — parallels `notes/sources/`). Visualization and table conventions belong to the dedicated `visualization` and `tables` skills, not to a project-level style-guide document.
-- **`notes/` — the living wiki.** A file-based knowledge base in plain Markdown with YAML frontmatter and Obsidian `[[wiki-links]]`, maintained across sessions. Argument-and-commentary voice ("the big implication"). Four load-bearing pages: `index.md` (master catalog — search here first), `overview.md` (the evolving thesis + Open Work checklist), `log.md` (chronological history), `methodology/decisions.md` (choices + rationale). Layered subfolders (`sources/` immutable, `concepts/`, `entities/`, `findings/`, `literature/`, `methodology/`, `paper/`). Organizing principles: **single source of truth per fact** (a number lives on one `findings` page and is *linked*, never copied — which is why log entries are thin pointers, not restatements), and **cross-linking over hierarchy**.
+- **`docs/`:** Use neutral, declarative prose. Organize stable material into `design/` (experiment/design specifications frozen before analysis), `methodology/` (replicator detail), `technical/` (data, code, and analysis architecture), and `references/` (external immutable material). Visualization and table conventions belong to their dedicated skills.
+- **`notes/`:** Use Markdown, YAML frontmatter, and Obsidian `[[wiki-links]]` for evolving arguments and commentary. The core pages are `index.md` (catalog; search first), `overview.md` (evolving thesis and open work), `log.md` (chronology), and `methodology/decisions.md` (choices and rationale). Subfolders can include immutable `sources/`, `concepts/`, `entities/`, `findings/`, `literature/`, `methodology/`, and `paper/`. Link each fact from one authoritative page instead of copying it elsewhere; favor cross-links over hierarchy.
 
-**Two configurations — where the running history lives.** The line most projects get wrong is *where the log goes*, and it depends on whether a `notes/` wiki exists:
+### History and wiki maintenance
 
-- **Lightweight project (no wiki).** README does double duty: human front door **plus** a dated changelog. AGENTS.md is the agent manual. This is the two-document setup the next section describes.
-- **Full research project (with wiki).** The running history moves into the wiki: chronology to `notes/log.md`, rationale to `notes/methodology/decisions.md`, the evolving thesis to `notes/overview.md`. README then shrinks back to pure orientation, and AGENTS.md gains the wiki-maintenance rules. Do not keep a second changelog in README once `notes/log.md` exists — that violates single-source-of-truth.
+- **Without a wiki:** README holds orientation, detailed rationale, and a dated update log.
+- **With a wiki:** Move chronology to `notes/log.md`, rationale to `notes/methodology/decisions.md`, and the evolving thesis to `notes/overview.md`. README holds orientation; maintain one running log.
 
-**The maintenance contract (why it must live in AGENTS.md).** A wiki decays without discipline, and the discipline is stated in `notes/index.md` — but the *trigger to follow it* needs to remain discoverable across sessions, so it belongs in AGENTS.md as operational rules. Put these two verbatim:
-
-- **Append to the log.** After each meaningful operation, append one entry to `notes/log.md` in a fixed, grep-parseable format — `## [YYYY-MM-DD] operation | description` — with typed operations (`ingest`, `lint`, `strategy`, …) so history is queryable (`grep "^## \[" notes/log.md | tail -10`). The entry *links* to the phase plan and to `[[decisions#...]]`; it does not restate them.
-- **Lint periodically.** Every so often, sweep the wiki for orphan pages, stale claims, and missing cross-references, and fix or flag them. Record the sweep as a `lint` log entry.
-
-Both are just two more bullets in the AGENTS.md "Operational rules" block (see the generator below).
+Include the maintenance, typed logging, and periodic wiki-lint rules from the [AGENTS.md template](../SKILL.md#generating-a-research-agentsmd-workflow) in persistent project instructions. Keep detailed wiki procedures in `notes/index.md`.

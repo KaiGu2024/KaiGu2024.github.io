@@ -118,11 +118,13 @@ The same layout applies under `~/.codex/skills/`. Copy explicit files without de
 - `paper-review/` — multi-agent referee report
 - `paper-writing/` — drafting + journal-voice polish for the main text; `references/main-text.md` (Cochrane/McCloskey template, the AI-tells self-audit, strict-traceability mode) is the default, `references/academic-voice.md` is the opt-in house-voice pass. Folds in the former flat `writing` and `academic-voice` skills. Sibling to `appendix/` (which owns the appendix/supplementary materials)
 - `appendix/` — write & audit empirical appendices; derives required support from the main text, then traces the chain main-text claim → appendix item → evidence (directory + literature), checking coverage/grounding/consistency. Decomposes each statement into typed claims (definitional / factual / methodological / citational / result / procedural)
-- `agent-configuration/` — configure Codex for a research project (AGENTS.md authoring, documentation layers, reproducibility, source protection, and subagents). `references/source-protection.md` defines build-cleanup boundaries and distinguishes instructions from verified filesystem protection. `references/general-principles.md` holds the expanded coding principles outside the skill entrypoint.
+- `agent-configuration/` — create and maintain project agent guidance as durable decisions and lessons emerge, replacing stale instructions. Covers documentation layers, reproducibility, source protection, and subagents. `references/source-protection.md` defines build-cleanup boundaries; `references/general-principles.md` explains the core task rule for writing and coding and the optional coding principles.
 
 - `conceptual-framework/` is a folder skill for source-grounded conceptual-framework figures from papers, with construct/measurement semantics and diagram-specific export audits.
 
 **Flat skills** (single `.md`): `analysis-cleanup`, `ai-disclosure-block`, `big-data-processing`, `brainstorm`, `codebook-generator`, `eda`, `literature-review`, `llm-annotation`, `preregistration`, `replication-readme`, `revision-plan`, `skill-creator`, `username-dossier`, `verify-citations`, `version-control`, `web-access`, `web-scraping`.
+
+**Project guidance upkeep.** When completed work establishes a durable decision or principle, update the relevant guidance here or in its linked documentation. Replace superseded instructions and consolidate overlapping rules; keep exploratory ideas in `notes/` until established. Keep this file concise and current, with detailed rationale in the relevant project notes.
 
 ---
 

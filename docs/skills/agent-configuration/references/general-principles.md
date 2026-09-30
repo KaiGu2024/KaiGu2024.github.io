@@ -1,30 +1,46 @@
-# General principles — the full source
+# General principles — rationale and sources
 
-This is the long form of the **General principles** block that the `agent-configuration`
-skill can emit into a research AGENTS.md. It is adapted from
-[Karpathy's LLM-coding CLAUDE.md](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md)
-(multica-ai/andrej-karpathy-skills), which is itself general behavioral guidance meant to be
-merged with project-specific instructions.
+Read for the core task rule's examples or when tailoring the optional coding principles,
+adapted from [Karpathy's LLM-coding CLAUDE.md](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md).
+The [AGENTS.md template](../SKILL.md#generating-a-research-agentsmd-workflow) holds the concise rules;
+this reference supplies supporting detail.
 
-It is kept **here**, in the skill's `references/`, rather than in the skill body or in the
-generated AGENTS.md, for one reason: AGENTS.md provides persistent project guidance, so it should not carry generic
-best-practice text the model already knows. The skill
-therefore emits at most four condensed one-liners; this file holds the reasoning behind them for
-when you are deciding whether to include the block or expanding a principle into a concrete rule.
+## Advance the core task
+
+Spend effort where it improves the answer, develops the argument, or makes the current
+implementation reliable. Before adding a qualification, defensive branch, or extra analysis,
+ask: **What concrete interpretation, decision, or result would change if this were omitted?**
+If none, leave it out. A credible risk can justify prevention before a failure occurs.
+
+- **Writing:** State supported findings directly. Explain consequential assumptions and
+  uncertainty where readers need them; repeat a qualification only when the new claim
+  requires it. Address an objection when it exposes a real gap in the argument. See the
+  existing [writing guidance](../../paper-writing/references/main-text.md#state-the-answer-directly).
+- **Coding:** Implement current requirements. Add validation at actual input boundaries
+  and handle plausible failures; avoid speculative configuration, redundant checks in
+  trusted internal paths, and fallbacks that conceal a broken assumption.
+- **Analysis:** Run an additional check when it could change the substantive conclusion
+  or resolve a concrete uncertainty. For example, investigate duplicate join keys when
+  they could inflate the sample; skip an unused multi-format loader for a fixed input.
+
+Material uncertainty, necessary tests, security, and the project's source-protection
+rules remain part of doing the task correctly.
+
+This is a synthesis of the user's requested principle and the following guidance:
+
+- **Writing:** The public [econ-writing skill](https://github.com/Silas1929/econ-writing/blob/main/SKILL.md)
+  discourages cascaded hedging while preserving meaning. [Oxford's hedging guidance](https://lifelong-learning.ox.ac.uk/hedging/)
+  ties qualification to evidential limits and discourages indiscriminate hedging.
+- **Coding:** The [deslop skill](https://github.com/rohitg00/pro-workflow/blob/main/skills/deslop/SKILL.md)
+  targets unnecessary defenses in trusted paths and premature abstractions.
+  [Fowler's YAGNI](https://martinfowler.com/bliki/Yagni.html) explains the cost of speculative
+  capabilities while preserving work that keeps code maintainable and tested.
 
 ## Should this block go into a project's AGENTS.md at all?
 
-Default: **only the four one-liners, and only if the team wants them stated as visible house
-rules.** Otherwise drop the block. The value is never novelty (the model has these internalized)
-— it is making the standard explicit so a reviewer can point at it. Never paste the full text
-below into a generated AGENTS.md; that trades permanent every-turn context for prose the model
-does not need. If a project wants the full rationale on hand, link to this file or the upstream
-URL rather than inlining it.
-
-The four principles are ordered by how often they prevent a bad diff, and each maps to one
-condensed line in the template.
-
----
+Keep the core task rule in the operational instructions. Include the four optional coding
+principles only when the team wants explicit house rules. Link to supporting detail instead
+of copying it into AGENTS.md.
 
 ## 1. Think Before Coding
 
@@ -35,10 +51,6 @@ Before implementing:
 - If multiple interpretations exist, present them — don't pick silently.
 - If a simpler approach exists, say so. Push back when warranted.
 - If something is unclear, stop. Name what's confusing. Ask.
-
-*Condensed line:* **Think before coding.** State assumptions explicitly. If a request has
-multiple interpretations, present them — do not pick silently. If something is unclear, stop and
-name what's confusing before implementing.
 
 ## 2. Simplicity First
 
@@ -51,10 +63,6 @@ name what's confusing before implementing.
 - If you write 200 lines and it could be 50, rewrite it.
 
 Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
-
-*Condensed line:* **Simplicity first.** Minimum code that answers the question. No speculative
-features, no abstractions for single-use scripts, no error handling for impossible inputs. If
-200 lines could be 50, rewrite it.
 
 ## 3. Surgical Changes
 
@@ -71,10 +79,6 @@ When your changes create orphans:
 - File cleanup follows the project's **Protected files and cleanup** section and the [source-protection procedure](source-protection.md). Being stale, unused, untracked, or regenerable is insufficient authorization to delete a file.
 
 The test: every changed line should trace directly to the user's request.
-
-*Condensed line:* **Surgical changes.** Touch only what the task requires. Match the existing
-style. Avoid unrelated refactors. Remove task-related dead code when useful; file cleanup
-follows **Protected files and cleanup**. Preserve unrelated work. The test: every changed line traces directly to the user's request.
 
 ## 4. Goal-Driven Execution
 
@@ -95,10 +99,6 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require
 constant clarification.
-
-*Condensed line:* **Goal-driven execution.** Convert tasks into verifiable goals before running
-them, and state a brief plan as `[step] → verify: [check]` for multi-step work. Strong success
-criteria let the agent loop until verified without re-asking.
 
 ---
 
