@@ -1,0 +1,4 @@
+interface:
+  display_name: "Conceptual Framework"
+  short_description: "Draw paper frameworks with constructs and measurements"
+  default_prompt: "Use $conceptual-framework to turn this paper into a sourced figure showing constructs, relationships, measurements, and identification qualifications."

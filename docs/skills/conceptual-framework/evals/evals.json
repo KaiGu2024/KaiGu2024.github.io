@@ -1,0 +1,44 @@
+{
+  "skill_name": "conceptual-framework",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Draw the conceptual framework of Tucker and Zhang (2011), How Does Popularity Information Affect Choices? A Field Experiment, from the supplied complete paper. Include constructs, relationships, measurements, and relevant design qualifications. Save editable SVG, PNG, and a source note in the provided output directory.",
+      "expected_output": "A grounded framework separating displayed popularity, observed established popularity, appeal moderation, quality inference, and clicking, with actual measures and appropriate identification limits.",
+      "files": [],
+      "assertions": [
+        "Outputs contain a parseable SVG, rendered PNG, and source note with paper locators.",
+        "Constructs and measurements are distinguishable through both color and shape.",
+        "Appeal is represented as moderation, with town population as an observed proxy; it is not equated with latent confounding.",
+        "Quality inference is marked unmeasured or untested as a mechanism, not validated by the treatment effect alone.",
+        "The intervention and observed popularity/appeal are distinguished, including category-level assignment.",
+        "If regression discontinuity is described, it refers to the intervention time window, not a town-population threshold.",
+        "All panels are legible with correct arrowheads and no label clipping."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Draw the conceptual framework of Hunt (1983), General Theories and the Fundamental Explananda of Marketing, from the supplied complete paper. Represent its central conceptual structure faithfully. Save editable SVG, PNG, and a source note in the provided output directory.",
+      "expected_output": "Complementary criteria-for-theory and marketing-domain frameworks, with their connection, without fabricated measures or causal paths.",
+      "files": [],
+      "assertions": [
+        "The figure represents both criteria for theory/general theory and the four explanatory domains.",
+        "The four explananda are a domain organization rather than a causal chain.",
+        "No operational measures, sample, or original causal test are invented.",
+        "SVG, PNG, and source note are produced and source locators support the depicted arguments.",
+        "All panels are legible with connectors whose noncausal meanings are clear."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Draw a conceptual framework from the supplied complete synthetic observational SEM vignette. Include constructs, relationships, measurements, and relevant empirical qualifications. Save SVG, PNG, and a source note. This is a test fixture, not a published paper.",
+      "expected_output": "Measurement direction, covariance, moderation, and nonrandomized status are separately encoded, with no unsupported causal identification claim.",
+      "files": ["fixtures/observational-sem.txt"],
+      "assertions": [
+        "Double-headed covariance edges are distinguished from moderation and observed assignment status.",
+        "Reflective indicators have the supported direction and are colored differently from constructs.",
+        "The figure does not claim that SEM fitting or covariate adjustment alone establishes causality."
+      ]
+    }
+  ]
+}

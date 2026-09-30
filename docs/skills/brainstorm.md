@@ -1,183 +1,137 @@
 ---
 name: brainstorm
-description: Use when the user has a vague research topic and needs to sharpen it into a question — produces one wedge sentence, a labeled contribution type (sharp prediction / question-meets-data / conceptual reframe), and a decomposition tree of three to five sub-questions, each tied to a candidate identification strategy. Output feeds literature-review and eda; without it both are unfocused.
-allowed-tools: Read
+description: Develop and compare research questions in economics, management, information systems, and marketing from a topic, new phenomenon, empirical pattern, dataset, theoretical concern, or practical problem. Supports empirics-first discovery, gap-spotting, problematization, and theory-led inquiry; produces a provisional research question, evidence needs, and a useful next step.
 invocation: auto
 ---
 
 # Brainstorm
 
-Brainstorming in empirical economics is not idea generation. It is **idea sharpening** — the funnel between a vague topic and the concrete sub-question tree that feeds [literature-review.md](literature-review.md) and [eda.md](eda.md). The output is one **wedge sentence**, a labeled **contribution type**, and a **decomposition tree** of three to five sub-questions, each tied to a candidate identification strategy. Without that, lit review is unfocused and EDA is aimless.
+Help the researcher discover, sharpen, and assess research questions. Start from what they actually bring. Develop a defensible question and a feasible next learning step, allowing the question and proposed contribution to change as evidence accumulates. A clear one-sentence question is useful; an anticipated finding is not required.
 
-Two movements: **topic → question** (what to ask) and **question → decomposition** (what to test).
+Distinguish the **starting point** (what prompted interest), the **approach to inquiry** (how to learn), and the **potential contribution** (what knowledge could change). These need not have matching labels. A new phenomenon may invite empirics-first exploration, a focused theory test, or an assumption challenge. A familiar phenomenon can also warrant empirics-first investigation.
 
----
+## Work with the researcher
 
-## Movement 1 — Topic to Research Question
+Read supplied observations, notes, papers, and data descriptions before asking for more context. Ask a few questions that change the research direction or feasibility; avoid a questionnaire covering every possible concern. When useful, propose a small set of substantively different questions and explain their tradeoffs. If the researcher already has a focused question, stress-test it directly.
 
-### The wedge
+Separate documented observations, literature-supported claims, conjectures, and unresolved access or measurement questions. Search or inspect sources when novelty, an attributed assumption, a current phenomenon, or data availability matters. Scope absence claims to the literature actually checked. If verification is unavailable, identify the specific uncertainty and continue with conditional reasoning.
 
-Every empirical paper that lands in a top journal opens a door the literature didn't have. Three archetypes worth pattern-matching against:
+The agent can generate alternatives and critique reasoning. Keep the researcher's substantive interests visible and explain why a proposed direction is promising. Do not require the user to arrive with a polished argument before helping.
 
-- **Sharp prediction that can fail visibly.** Card and Krueger 1994: textbook minimum-wage theory predicts employment falls; the New Jersey wage hike with Pennsylvania as a control makes the test clean. The wedge is the falsifiability — a confident theoretical prior the data is permitted to overturn.
-- **Question everyone asks meets data nobody had.** Chetty and Hendren 2014: "Is the US still the land of opportunity?" was rhetorical until forty million tax records made it answerable at the commuting-zone level. The wedge is the data, used to settle a question already in the air.
-- **Conceptual reframe of a domain.** Goldfarb and Tucker recast digital marketing as a story about five cost reductions — search, replication, transportation, tracking, verification. The wedge is the lens: apply a clean econ frame to a messy domain and a dozen subquestions fall out.
+## Recognize the starting point
 
-If your candidate question fits none of the three, it isn't sharp enough yet. Most failures here are quiet — the question is interesting, but no specific door opens when the data comes in.
+| What the researcher brings | First development task |
+|---|---|
+| A new or newly noticed phenomenon | Establish what is happening, to whom, under what conditions, and what makes it consequential or distinctive. |
+| An empirical pattern or surprising observation | Check its provenance and measurement; distinguish a stable pattern from an artifact, and identify what would make it informative. |
+| A dataset or access opportunity | Map observed units, coverage, measures, and variation to questions it could answer; identify what the data omit. |
+| A gap or disagreement in literature | Identify the unresolved knowledge and why resolving it matters. |
+| A theoretical concern | Specify the explanation, its assumptions, and the consequence of retaining or revising them. |
+| A practical problem or decision | Identify the actor, feasible choices, consequential outcomes, and uncertainty preventing an informed decision. |
+| A broad topic | Find a concrete occurrence, actor, relationship, or uncertainty to investigate. |
 
-### Three contribution types
+Use the relevant guidance below and combine approaches when helpful. These are entry points, not mutually exclusive study types or mandatory stages.
 
-Empirical economics rewards papers that pick exactly one of:
+## Starting with a new phenomenon
 
-- **New fact.** Measure something previously unmeasured. Chetty's mobility maps; Athey-Imbens heterogeneous treatment effects in real data.
-- **New mechanism.** Explain *why* an established fact holds. DellaVigna-style structural recovery of behavioral parameters that rationalize reduced-form moments.
-- **New method.** Hand the field a tool. The DiD framework as Card-Krueger deployed it; causal forests in Athey-Imbens-Wager.
+Give the phenomenon an empirical identity: define what counts as an instance, distinguish neighboring occurrences, and establish facts and usable constructs before demanding a complete explanation. This draws on phenomenon-based research's role in making emerging domains investigable [3].
 
-Mixed-contribution papers blur. Force the commitment in brainstorming: which of the three is your primary contribution? The other two can appear as secondary, but cannot drive the abstract.
+For this skill, develop a short account of:
 
-### Gap typology
+- **Occurrence and evidence:** what has been observed, the source and date, and what remains anecdotal or unverified. A product announcement establishes availability claims, not adoption or behavioral effects.
+- **Distinctiveness:** what changed in behavior, actors, institutions, technology, or relationships? Compare an earlier or neighboring practice. Distinguish new-to-the-world, newly widespread, newly observable, and newly noticed by the researcher.
+- **Consequences:** whose choices, experiences, or outcomes may change? Explain the substantive uncertainty; popularity in the press alone does not establish research value.
+- **Initial questions:** what is it, how prevalent is it, how does it unfold, what varies, or what consequences follow? Definition, classification, measurement, and prevalence may be the immediate research tasks.
+- **Next observation:** identify a feasible way to learn more, such as inspecting actual instances, comparing cases, conducting interviews, piloting a measure, or checking a data source.
 
-Gaps come in four kinds. Each routes to a different skill for verification.
+Treat existing concepts as candidates to examine. Explain both useful analogies and consequential differences before declaring an entirely new construct or a failure of existing theory. Where suitable theory already makes a clear prediction, a phenomenon-originating project can proceed deductively.
 
-- **Theory gap.** A published model predicts X; X has not been tested cleanly, or two models predict opposite signs and the data can adjudicate. Use [literature-review.md](literature-review.md) Path A to map predictions and unresolved bets.
-- **Practical gap.** A parameter needed for a real decision — a policy choice, a price, a market design — has not been measured. Use [literature-review.md](literature-review.md) to confirm absence, then talk to practitioners; their absence in the literature *is* the gap.
-- **Empirical gap.** New data — administrative records, scraped traces, GenAI logs, platform partnerships — makes a question newly answerable. Use [eda.md](eda.md) to surface what the data actually permits before committing.
-- **Method gap.** Existing studies use a strategy with known biases; cleaner identification is now available. Tied to [eda.md](eda.md) (what variation lives in the data) and lit review (what others tried and where they failed).
+## Developing an empirics-first inquiry
 
-Brainstorm starts with at least two of these in mind. A theory gap with no empirical gap is hard to publish; an empirical gap with no theory gap is a fact-sheet, not a paper.
+Golder et al. describe empirics-first research as beginning with a substantive real-world observation or problem and developing knowledge through empirical investigation; testing or creating theory is a possible outcome, not a requirement [1]. Use it when existing explanations offer limited guidance, several accounts remain plausible, or basic regularities are unsettled.
 
-### The Heckman-Varian iteration
+Adapt their iterative progression to brainstorming:
 
-Don't read the literature first. Varian's *spare-time* method: write down the agents (whose choices?), the constraints, the interactions, the equilibrium adjustment. Simplify until the cleanest version remains. *Then* check what the literature has done.
+1. **Identify an opportunity:** articulate the substantive uncertainty and its relevance; consult literature to assess what guidance exists.
+2. **Explore the terrain:** formulate open questions, identify evidence to obtain, and revise the questions as observations suggest where to investigate more deeply or broadly.
+3. **Advance understanding:** consider whether the work could establish a regularity, improve concepts or measurement, support an explanation, or inform a decision [1, Figure 1 and Table 3].
 
-Heckman and Singer's 2017 *Abducting Economics* extends this into the data: don't separate hypothesis-creation from inference. Successful empirical papers iterate — surprising fact in the data, tentative model, augment the data, revise the model, re-test. Brainstorming is where that iteration happens cheaply, before commitments are sunk in scripts and tables.
+Empirics-first inquiry can use experiments, qualitative evidence, surveys, or existing records. It does not require possession of a large dataset. Literature can inform the investigation throughout [1].
 
-The practical implication: hold the model and the data in your head simultaneously. If you find yourself locked into one, switch to the other for ten minutes.
+The Journal of Marketing's empirics-first guidance emphasizes abstraction beyond the immediate setting, learning from failed robustness checks, and reporting discovery as it occurred [2]. Apply that here by stating what a pattern might teach beyond a single case and what additional evidence could change the interpretation. A failed check can suggest a boundary or measurement problem while also weakening the original claim.
 
-### Using an LLM during brainstorm
+Keep an account of consequential changes to the question and analyses already inspected. Label explanations formed after seeing results as exploratory; do not retrospectively portray them as prior hypotheses. Where stronger confirmation is needed, identify suitable new evidence, a genuinely untouched holdout, or a prospective study. Repeated exploration of the same data is not independent confirmation. Null or mixed findings can be informative; assess uncertainty and substantive magnitude instead of selecting a preferred sign.
 
-Brainstorming is idea *sharpening*, and an LLM can sharpen — or it can quietly substitute for the work and leave you with a wedge sentence you cannot defend. Goldsmith-Pinkham's rules, applied to this stage:
+## Developing questions through literature and theory
 
-- **Earn the specificity before you prompt.** "Help me think about household savings over the life cycle" returns generic prose. Iterate the wedge sentence and the four pegs by hand first, then bring the LLM in to stress-test what you already have.
-- **Load maximum context.** Lit-review notes, prior drafts, the data dictionary, related slide decks, the policy URL that motivated the question. Underspecified prompts return the LLM's average prior, which is your competitor's prior too.
-- **Margin-notes mode, not rewrite mode.** Paste your wedge sentence and the decomposition tree, and ask for inline comments — missing branches, weakest assumption, alternative explanations you skipped — *not* a rewritten tree. Read each comment, decide your response. The act of deciding is the brainstorming.
-- **Self-test before leaving the stage.** "Can I defend this wedge for ten minutes without the LLM open?" If no, you have a draft of someone else's idea, not yours. Stay in brainstorm.
-- **Don't brainstorm with Claude when tired.** The output looks fine and isn't, and you stop pushing back. Bad wedges survive these sessions.
+**Gap-spotting:** identify unresolved knowledge, why it matters, and what an answer would change [4]. This may involve competing accounts, insufficient evidence, or extending an informative perspective to an overlooked area. Check whether seemingly conflicting studies examine comparable constructs, populations, outcomes, and conditions. A new setting or dataset needs an argument for the knowledge it enables.
 
-The principle: the LLM is a sounding board, not a co-author of the question. The 1977 IBM rule applies — the model cannot be held accountable, so it cannot make the call.
+**Problematization:** identify a consequential assumption underlying an existing explanation, document where that assumption is made, explain why reconsidering it matters, and develop an alternative with different implications [5]. Examine assumptions in the preferred alternative too. Adding a variable or importing another theory does not by itself establish an assumption challenge. Use the term in this stricter sense here; if a course uses broader categories such as incompleteness or inadequacy, preserve and explain that distinction.
 
-### Storytelling: the four pegs
+**Theory-led inquiry:** articulate the prediction or unresolved implication, its conditions, and the observation that would discriminate among accounts. A known direction can leave an important magnitude, scope, or decision threshold uncertain. A formal model may clarify incentives, interactions, aggregation, or welfare when those are central to the question.
 
-The wedge needs a story. Top-5 intros open with four pegs in a specific order:
+An untested challenge motivates inquiry; demonstrated theory failure requires evidence inconsistent with a specified prediction under its relevant assumptions. Do not make theoretical novelty or an assumption challenge a condition for valuable empirical work. Gap-spotting and problematization can combine, but neither is mandatory for a phenomenon-originating project.
 
-- **Protagonist.** Whose choices are we explaining? A worker, a household, a firm, a regulator, a platform. Name them.
-- **Puzzle.** What does naive intuition predict, and what does the data show? Tension is the engine. No tension, no paper.
-- **Why now.** What changed — data availability, a policy event, a technology, a theoretical advance — that makes the question newly answerable? Your reader wants to know why this paper exists in 2026 and not in 2020.
-- **Wedge sentence.** "We show **X** — contrary to / extending **Y** — using **Z**." One line. If you can't write it, you don't have a question yet, and going further into the literature or the data is procrastination.
+## Connect the question to evidence
 
-The wedge sentence is the test. It is also what survives onto your job-market poster.
+State the actor or unit, focal construct or outcome, context, comparison where relevant, and time horizon. Distinguish constructs from indicators and interventions. A concept can be useful before it has a validated measure; treat developing that measure as work to do.
 
----
+Match the evidence task to the question:
 
-## Movement 2 — Question to Decomposition
+| Question | Evidence and feasibility to consider |
+|---|---|
+| Definition, classification, or description | Observable instances, inclusion boundaries, coverage, sampling, measurement validity, and uncertainty. |
+| Process or explanation | Sequence, actor accounts, competing mechanisms, and observations that could distinguish them. State when evidence is only consistent with an explanation. |
+| Causal effect | Target contrast, assignment or source of variation, identifying assumptions, and credible threats. An estimator name is not an identification argument. |
+| Prediction | Target, benchmark, information available at prediction time, leakage risks, and evaluation on appropriate unseen observations. |
+| Method or measurement | The existing limitation, proposed improvement, benchmark, and evidence of validity or performance. |
+| Decision or welfare | Feasible alternatives, outcomes and tradeoffs, and the causal or structural assumptions needed to evaluate changes. |
 
-A question is not yet a paper. It becomes a paper when it decomposes into a tree of sub-questions, each clearing a specific objection from a specific reader.
+Use a sub-question tree when it clarifies dependencies. Each branch should answer a specific uncertainty and name the evidence needed; do not require every branch to estimate a causal effect or fill a quota of mechanism, heterogeneity, and robustness tests.
 
-### The empirical-econ paper anatomy
+Distinguish mechanisms from moderators. A subgroup difference or treatment effect alone does not establish mediation. For observational adoption, identify selection and concurrent changes before proposing a causal interpretation. For structural explanations or welfare counterfactuals, specify what identifies the parameters and what depends on modeling assumptions.
 
-Read any AER or QJE empirical paper from the last decade and the structure repeats:
+Check feasible access, linkage keys, observation timing, measurement resolution, and missing actors or outcomes. Mark proposed data collection or linkage as unverified until supported. If the preferred design is unavailable, consider a narrower question or a different evidence source and make the change in scope explicit.
 
-1. **One main estimate.** One number, one identification strategy, one comparison. The headline.
-2. **Two to three mechanism tests.** If the headline effect comes from channel A, we should see B in subsample C. Pre-specified.
-3. **Two to three heterogeneity cuts.** Theoretically motivated — not data-mined. State the predicted direction *before* running the cut.
-4. **Five to ten robustness checks.** Alternative samples, measures, specifications. One main robustness table; appendix the rest.
-5. **A placebo or falsification.** Something that should *not* show an effect. It reports your discipline back to the reader.
-6. **An external-validity discussion.** Where else does this apply? Where doesn't it?
+## Converge provisionally and hand off
 
-Each layer moves a different skeptic. Brainstorming sketches the tree — not in detail, but enough to know whether the data and design can support all six layers.
+Compare candidates by the importance of the uncertainty, likely knowledge gain, interpretability, feasible evidence, and cost of resolving the largest unknown. Distinguish a weak idea from an appealing idea with a current access problem. Avoid numerical rankings that imply unsupported precision.
 
-### The Goldfarb-Tucker three-step
+Choose a provisional direction with the researcher where a choice is needed. Scale the output to the task; a short discussion need not become a full proposal. A useful research brief contains:
 
-For every sub-question in the tree, write three lines:
+- **Question and motivation:** one clear sentence plus the phenomenon, unresolved knowledge, assumption, or decision that motivates it.
+- **What is known and open:** observations and sources, candidate explanations where relevant, and important uncertainties.
+- **Potential contribution:** what could be learned, stated conditionally. Empirical characterization, measurement, prediction, explanation, method, and conceptual development are possible contributions; a primary emphasis can coexist with others.
+- **Evidence plan:** the smallest useful set of observations or sub-questions, access status, and assumptions needed for the proposed claims.
+- **Stress test:** evidence that would weaken the favored explanation or require reframing; whether a precise null, heterogeneous pattern, or unresolved mechanism would still teach something.
+- **Next action:** the most useful feasible check and how its possible outcomes would affect the decision to continue, narrow, or redirect.
 
-- **Causal arrow.** The specific X → Y you want to estimate.
-- **Identification strategy.** RCT, DiD, RD, IV, synthetic control, matching, structural — pick one.
-- **Why it recovers the parameter.** The assumption that has to hold; the variation you exploit.
+Use “We ask whether…” or “This could establish…” before findings exist. Keep an alternative direction alive when a consequential uncertainty prevents choosing. The exit criterion is a defensible next learning step, not a known punchline or a complete paper outline.
 
-If you cannot fill all three lines for a sub-question, that branch is not yet a research question, it is a hope.
+For deeper source verification, use the literature-review skill; for data inspection, use eda. Paper-writing develops the resulting manuscript argument, including conceptual grounding. The separate conceptual-framework skill draws a model from supplied research when a figure is useful. These are optional handoffs when available, not prerequisites for brainstorming.
 
-### DellaVigna's structural decomposition
+## Worked example: a new shopping practice
 
-When the question is *why*, layer reduced-form on top of structural. The pattern in DellaVigna's *Structural Behavioral Economics*:
+This example is hypothetical. It assumes no verified adoption pattern, available dataset, or finding.
 
-- One reduced-form moment establishes the headline fact.
-- Several theory-predicted moments together identify the behavioral parameters.
-- Heterogeneity layers in via random effects or mixture-over-types.
-- Welfare counterfactuals fall out of the recovered parameters.
+**Starting observation:** the researcher reports seeing consumers delegate product searches to AI shopping assistants. First establish what “delegate” includes: obtaining suggestions, creating a shortlist, choosing a product, or executing a purchase. Collect concrete instances and compare them with conventional search and recommendation tools.
 
-Useful when you want both mechanism *and* policy implication. Not needed for fact-only or method-only papers.
+**Phenomenon question:** which shopping tasks are delegated, and how do consumers retain or relinquish control? A pilot combining observed sessions with interviews could assess whether these distinctions are meaningful and observable. It would not establish population prevalence without an appropriate sample.
 
-### The tree as artifact
+**Empirics-first direction:** investigate how search paths, considered products, and purchases vary across forms of delegation. Request a data dictionary or run a small prospective observation pilot; do not assume browsing logs can be linked to purchases. Any observed association may reflect which consumers and tasks select into delegation.
 
-What brainstorm hands off to the next stage:
+**Possible explanatory follow-up:** reduced search effort, narrower exposure, and pre-existing preferences could produce overlapping patterns. Evidence on effort and exposure may help distinguish accounts. A causal follow-up might randomize assistant access if feasible, while distinguishing access from actual use.
 
-- **Root.** The headline question, in one sentence.
-- **Branches** (three to five). Sub-questions covering mechanism, heterogeneity, alternative explanation, scope. Optionally welfare or policy.
-- **Leaves.** Each sub-question paired with its candidate identification strategy and the data cut required.
+**Potential contribution:** characterize forms of delegation and their empirical relationships with shopping behavior; further evidence may support causal or conceptual claims. Theory development remains optional. An assumption-challenging version would first need sources establishing the specific premise it questions.
 
-Write the tree as a bulleted list, not a diagram. It will be re-drawn many times.
+**Next step:** inspect a small set of real sessions and available fields to decide whether task delegation can be measured. If only assistant availability is observable, narrow the question or collect different evidence. Do not claim a result about search or purchases yet.
 
-### Pre-stop checklist
+## Sources and scope
 
-Before leaving brainstorming and committing scripts:
+The workflow and example are an applied synthesis for this skill. Source-specific ideas are attributed above; the workflow is not a universal journal template. Sources checked on 2026-09-30:
 
-- Can you state the punchline in one sentence?
-- Can you sketch the headline figure — axes, comparison, expected shape — on a napkin?
-- Can you name two findings that, if true, would *kill* the story?
-- Can you explain the contribution to a non-economist in thirty seconds?
-
-If any answer is no, the question isn't ready. Stay in brainstorm.
-
----
-
-## Worked example — GenAI and households
-
-**Topic** (vague). "How does generative AI affect households?"
-
-**Wedge probe.** Sharp prediction? Yes — household production theory says reducing the cognitive cost of a task should shift time toward that task or away from substitutes, depending on elasticity. Data nobody had? Time-use diaries plus GenAI usage logs from 2023–2025 are now panel-able. Conceptual reframe? Yes — apply the household-production lens to a domain currently dominated by descriptive surveys.
-
-**Contribution type.** New fact (primary): measure the substitution pattern between GenAI use and time-use categories. New mechanism (secondary): identify whether the substitution loads on cognitive vs. routine activities.
-
-**Gaps.** Empirical (new diary + log panel) and theory (prior models predict ambiguous signs depending on which task is automated).
-
-**Story (four pegs).**
-
-- *Protagonist:* household members making time-allocation choices.
-- *Puzzle:* lower cognitive cost predicts either more leisure or a reallocation toward education-intensive activities; the data has to pick.
-- *Why now:* GenAI usage is broad enough by 2024 to detect time shifts, and ATUS-style diaries can be linked to platform logs.
-- *Wedge sentence:* "We show that GenAI adoption substitutes for household time on **educational and informational activities**, not on leisure — extending Becker-style household production by pinning down which task category absorbs the shock."
-
-**Decomposition tree.**
-
-- *Root.* Does GenAI use reallocate household time, and from which activity category?
-- *Mechanism.* Does the reallocation load on cognitive-intensive tasks (theory says yes) or on routine tasks (alternative)? → DiD on adoption × task-cognition score.
-- *Heterogeneity.* By education and income — the cognitive-cost-reduction hypothesis predicts larger shifts among lower-education users for whom the marginal cognitive cost was higher. → Interaction with education quartiles.
-- *Alternative explanation.* Remote-work and pandemic time-use shifts. → Within-user pre/post pandemic comparison.
-- *Scope.* Spousal joint activities vs. solo: does the reallocation extend across household members? → Compare matched within-household pairs.
-
-Pre-stop check: punchline statable, headline figure (a difference-in-time-use pre/post adoption split by activity category) sketchable, killer findings identified (no shift, or shift loads only on leisure), thirty-second pitch holds. → ready to leave brainstorm.
-
----
-
-## Handoff
-
-What this skill produces, fed downstream:
-
-- A one-paragraph **research statement** with the wedge sentence in bold.
-- A **contribution-type label** (fact / mechanism / method).
-- A **gap label** (theory / practical / empirical / method).
-- A **decomposition tree** as a bulleted list, three to five branches deep.
-
-Next: [literature-review.md](literature-review.md) verifies the gap is real; [eda.md](eda.md) checks that the data supports the tree; the empirical-plan stage (out of scope here) translates each leaf into a script.
-
-If brainstorming returns a question that fails the pre-stop checklist after two iterations, the topic itself may be wrong. Return to source material outside academic journals — newspapers, conversations, working domains — in the spirit of Varian, and start again.
+1. Golder, P. N., Dekimpe, M. G., An, J. T., van Heerde, H. J., Kim, D. S. U., & Alba, J. W. (2023). [Learning from Data: An Empirics-First Approach to Relevant Knowledge Generation](https://journals.sagepub.com/doi/10.1177/00222429221129200). *Journal of Marketing, 87*(3), 319–336. Publisher full text; especially Figure 1, Table 3, and the discussion of literature's role. First published online in 2022.
+2. Journal of Marketing (2025). [Call for Papers: Special Issue on Empirics First](https://www.ama.org/2025/04/14/call-for-papers-journal-of-marketing-special-issue-on-empirics-first/). Official editorial guidance, especially “What Does EF Research Look Like?” and the discussion of consumer research. Used for methodological guidance, not as a claim that submissions remain open or that its criteria apply to every journal.
+3. von Krogh, G., Rossi-Lamastra, C., & Haefliger, S. (2012). [Phenomenon-based Research in Management and Organisation Science: When Is It Rigorous and Does It Matter?](https://doi.org/10.1016/j.lrp.2012.05.001). *Long Range Planning, 45*(4), 277–298. [Author repository record](https://openaccess.city.ac.uk/id/eprint/5956/); abstract and indexed accepted-manuscript passage on identifying and distinguishing phenomena. Full manuscript retrieval was unavailable in this update; no detailed five-activity procedure is attributed to it here.
+4. Sandberg, J., & Alvesson, M. (2011). [Ways of Constructing Research Questions: Gap-Spotting or Problematization?](https://journals.sagepub.com/doi/10.1177/1350508410372151). *Organization, 18*(1), 23–44. Publisher abstract supports the distinction between identifying gaps and challenging assumptions; the practical prompts above are a synthesis.
+5. Alvesson, M., & Sandberg, J. (2011). [Generating Research Questions Through Problematization](https://journals.aom.org/doi/abs/10.5465/amr.2009.0188). *Academy of Management Review, 36*(2), 247–271. Publisher abstract supports the assumption-challenging definition.

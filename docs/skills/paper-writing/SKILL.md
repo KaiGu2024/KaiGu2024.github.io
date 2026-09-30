@@ -27,7 +27,7 @@ Then load only the section guidance needed for the task:
 
 Background records under `references/evidence/` and `audits/` document sources and completed comparisons. Consult them for provenance or exemplar comparisons; the current guides govern drafting. [Main-text](references/main-text.md#supporting-evidence) maps these records.
 
-The conceptual-framework section grounds constructs and their relationships in literature. The separate conceptual-framework skill makes a figure from a supplied paper.
+The conceptual-framework section grounds constructs and relationships in literature, separates concepts from their measures, and calibrates proposed mechanisms and causal claims to their evidence. Scale theoretical development to the paper's contribution. The separate [conceptual-framework skill](../conceptual-framework/SKILL.md) makes a figure from a supplied paper; the section guide explains how prose and figure semantics align when both are requested.
 
 For a requested journal-voice adaptation, follow the optional pass in academic-voice. Naming a venue during drafting sets the audience and submission constraints.
 

@@ -1,0 +1,16 @@
+Synthetic methods vignette for skill evaluation — not a published paper
+Title: Trust, Perceived Risk, and Adoption Intention
+Author: Evaluation fixture
+Date: 2026-09-12
+
+1. Question and conceptual model
+We examine whether trust and perceived risk predict intention to adopt a service, and whether prior familiarity moderates the trust–intention relationship. Trust is confidence in the provider's reliability. Perceived risk is anticipated potential loss from adoption. Adoption intention is a stated plan to adopt. Trust and perceived risk are treated as correlated exogenous latent constructs; neither is assumed to cause the other in this model. Hypotheses propose a positive trust–intention path, a negative risk–intention path, and a stronger positive trust slope at higher familiarity.
+
+2. Design and measurement
+The complete illustrative study uses a single cross-sectional survey of 240 adults. There is no intervention or random assignment. Trust is reflectively measured with three seven-point agreement items: keeps promises, is dependable, and acts reliably. Perceived risk is reflectively measured with three seven-point items about financial loss, wasted time, and poor service performance. Adoption intention is reflectively measured with two seven-point agreement items: intend to adopt and plan to adopt. Familiarity is an observed self-report from 1 (never heard of the service) to 5 (very familiar). The three latent constructs each point to their own reflective indicators. Each indicator has an individual measurement error; errors are assumed uncorrelated in this specification.
+
+3. Analysis and results
+The illustrative SEM estimates direct trust and risk paths to intention, a familiarity main effect, a trust-by-familiarity interaction, and covariance between trust and risk. Path signs agree with the hypotheses, but this vignette does not supply coefficient magnitudes or uncertainty. The authors describe these as conditional associations. No causal identification strategy is claimed. Model fit is not offered as evidence ruling out common causes or reverse causation.
+
+4. Scope
+The study is intended to illustrate a predictive framework with reflective measurement and moderation. It does not establish that manipulating familiarity changes the trust effect or that changing trust causes adoption. No supplement or other results exist for this evaluation fixture.
