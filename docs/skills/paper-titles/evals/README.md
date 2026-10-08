@@ -6,10 +6,10 @@ copy into the model's response.
 
 ## Status
 
-The bundle contains 28 authored cases and a comparison protocol. A full comparative
-model evaluation has not been run. Five independent behavioral spot-checks from
-2026-09-15 are recorded in [review notes](review-notes.md). A structural package check is not evidence
-that the new skill writes better titles. Do not report invented success rates,
+The bundle contains 36 authored cases and a comparison protocol. A full comparative
+model evaluation has not been run. The [review notes](review-notes.md) record five
+independent behavioral spot-checks from 2026-09-15 and seven from 2026-10-08.
+These limited checks and package validation do not establish overall superiority. Do not report invented success rates,
 reviewer judgments, acceptance gains, or citation gains.
 
 The cases are synthetic except for the explicitly supplied publisher-metadata
@@ -37,7 +37,9 @@ not improved either.
 Run each case under the same model, settings, supplied evidence, and tool access:
 
 1. No specialized title skill.
-2. The prior committed version (b8c9067), including its references.
+2. A frozen prior version, including its references and any local modifications.
+   Record the snapshot used; historical commit b8c9067 is not automatically the
+   pre-revision version of a working tree.
 3. This revised version.
 
 Use separate fresh contexts. Do not feed one condition's outputs into another.
@@ -75,10 +77,12 @@ it sounds more appealing.
 Show anonymized outputs in randomized order to readers who know the intended
 field. Ask which output they would actually use and why. Compare:
 
-**Contribution recognition:** Can they tell what this particular paper contributes?
+**Recognition:** Can they identify the subject, inquiry, or asserted answer at the
+intended level of disclosure? Do not require a subject title to reveal the finding.
 **Substantive interest:** Is the puzzle, distinction, quantity, or task consequential?
 **Positioning:** Does the abstraction level fit the evidence and audience?
-**Language:** Is the title clear, specific, memorable, and economical?
+**Language:** Is the title intelligible, intellectually substantial, memorable,
+and economical? Neither technical detail nor brevity wins automatically.
 **Portfolio quality:** For brainstorm requests, do alternatives offer meaningful
 choices rather than repeated phrasings?
 
@@ -110,13 +114,30 @@ connector falsely creates a sequence between coexisting organizational processes
 PT28 tests nature/nurture without a forced either/or interpretation. Assess the
 meanings and relationship as well as whether the words sound alike.
 
-## Cold-reader check
+## Simple-language and disclosure checks
 
-For a small subset, show readers only the title and ask what they expect the paper
-to establish. Compare their descriptions with the supplied brief. Then show the
-brief and ask whether the title would disappoint or mislead them. Record genuine
-reader responses; an assistant's simulated reader description is a diagnostic,
-not independent human validation.
+PT29/PT30 compare a human-practice paper with a technical inference paper; the
+same evocative phrase should not fit both automatically. PT31/PT32 hold the proposed
+broad subject title constant while changing the paper's scope. PT33 tests whether
+a triad introduces unmeasured concepts. PT34 keeps a direct causal answer available.
+PT35 tests whether one ordinary word can preserve persistence. PT36 tests an apt
+idiom without inventing a literal second meaning.
+
+Among eligible outputs, compare a simple version with an explicit version. Judge
+what the extra words do: useful recognition, essential scope, or merely more
+explanation. Do not reward a colon, matching initials, a short word count, or an
+unanswered question as independent signs of quality. Preserve cases where a
+technical title, subtitle, or direct answer should win.
+
+## Two-stage reader check
+
+For a subset, show readers only the title. Ask what subject or inquiry it invites,
+what claims they infer, and whether it makes them want to read. Do not mark a
+failure merely because they cannot predict the finding or design. Then show the
+brief and ask whether the wording feels apt, becomes richer, disappoints, or
+misleads. Look for warranted curiosity followed by fit, not mystery for its own sake.
+Record real responses; an assistant's simulated reader is a diagnostic, not
+independent human validation.
 
 ## Report and revise
 

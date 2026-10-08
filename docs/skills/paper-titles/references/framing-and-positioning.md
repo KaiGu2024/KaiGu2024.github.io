@@ -1,191 +1,143 @@
 # Framing and positioning
 
-Use when the author asks for stronger problematization, the candidates sound like
-synonyms, or the paper could join more than one scholarly conversation.
-These are editorial reasoning procedures, not experimentally validated rules for
-publication success. The conceptual sources are recorded in [sources and examples](sources-and-examples.md).
+Use when the paper could join several scholarly conversations, its motivating
+question is unclear, or candidate titles differ only in wording. These are editorial
+reasoning procedures; [sources and examples](sources-and-examples.md) records
+their conceptual grounding.
 
 ## Contents
 
 1. Find the reader's update
-2. Test the proposed tension
-3. Separate claim strength from conceptual reach
+2. Test a proposed tension
+3. Separate conceptual reach from claim strength
 4. Decide what belongs in the title
 5. Distinguish current and aspirational positioning
 6. Work through a case
 
 ## 1. Find the reader's update
 
-Do not begin with "make it catchy." Begin with the change in understanding:
+Ask what becomes understandable, credible, measurable, or possible after reading
+the paper. A contribution may explain a practice, establish a quantity, connect
+concepts, develop a method, or adjudicate a disagreement. It need not overturn an
+expectation. For coexistence or a new phenomenon's conceptual identity, use the
+[dedicated guide](../guidance/coexistence-and-characterization.md).
 
-> Before the paper, a relevant reader might infer [A] from [B]. The paper shows,
-> establishes, or makes measurable [C], so [A] needs to be qualified, distinguished,
-> quantified, or reconsidered in [specified respect]. This matters for [D].
+When an expectation is central, try this internally:
 
-This is a diagnostic, not compulsory title syntax. The reader's starting point
-can be a documented assumption, an unresolved debate, an explicit managerial
-objective, or a plausible intuition. Keep those sources of motivation distinct.
-A gap in knowledge can itself be important; never invent a consensus to oppose.
+> A reader might infer [A] from [B]. The paper establishes [C], changing that
+> inference in [specified respect], which matters for [D].
 
-For a method, the update can concern what is estimable or achievable. For a
-replication, it can concern the credibility or portability of an earlier finding.
-For qualitative work, it can concern how an apparently familiar process operates.
-For theory, it can concern the conditions that make an intuitive argument valid.
+Keep a documented literature assumption distinct from an unresolved debate or a
+motivating intuition. A gap can be important without an invented consensus.
 
-Ask what the paper adds beyond its largest coefficient. A series of results may
-jointly establish a distinction, a limiting condition, an allocation problem, or a
-new measurement capability. That organizing insight can make a stronger title
-than enumerating the outcomes. It cannot become an unmeasured additional result.
+Find the organizing insight beyond the largest coefficient. Several results may
+jointly illuminate a distinction, condition, allocation problem, or capability.
+That insight cannot become an unmeasured additional result. Nor must the title
+state the entire update: a recognizable subject can invite the inquiry that
+produces it.
 
-### Useful framing operators
+### Useful directions
 
-| Operator | Productive question | Evidence needed to promote it to the main promise |
+| Direction | What to establish |
+|---|---|
+| Human practice or consequential subject | Why this action, experience, event, or institution organizes the paper's inquiry. |
+| Coexistence or conceptual connection | What considering the objects together reveals and at which unit they coexist. |
+| Means and ends; proxy and target | How an operational quantity relates to the consequential object, using a benchmark or substantive analysis. |
+| Levels or horizons | Evidence at the relevant individual/collective levels or short/long horizons; a justified link between them. |
+| Participation and allocation | A distributional comparison beyond an aggregate change. |
+| Conditions and constraints | A characterized boundary, process, or analytical task that explains when or how something becomes possible. |
+
+These are alternatives, not a checklist. A large dataset alone cannot establish
+a collective outcome, a distributional mechanism, or external validity.
+
+## 2. Test a proposed tension
+
+Use these tests when tension is the proposed contribution, not as a prerequisite
+for titling.
+
+- **Beyond a definition:** Could the result be deduced from the outcome definition?
+  Exact copies add nothing to a deduplicated union. The research question might
+  instead concern supplementation, access, or altered production, if studied.
+- **A shared argument:** Two outcomes from the same dataset need a common decision,
+  process, or comparison to constitute a tension. Opposite signs do not establish
+  that achieving one requires sacrificing the other.
+- **An earned cost:** Less source-relative novelty is not necessarily lower quality;
+  more off-platform activity is not necessarily lower profit. Opportunity cost,
+  displacement, and welfare loss require the relations those words assert.
+- **An established explanation:** A pattern consistent with anchoring or dependence
+  does not identify that mechanism. Name the phenomenon without choosing an
+  explanation the paper cannot distinguish.
+
+A coexistence or subject title can be the best framing, not simply a fallback when
+a dramatic interpretation fails.
+
+## 3. Separate conceptual reach from claim strength
+
+| Editing operation | Example | Consequence |
 |---|---|---|
-| Means and ends | Does achieving the operational target deliver the underlying objective? | Both objects are observed or their relationship is substantively analyzed. |
-| Success and dependence | Does a useful intervention create reliance on an input, intermediary, or complementary task? | Evidence or a model of that dependence, not just an intuitive story. |
-| Individual and collective | Does a local improvement translate into the system-level outcome? | Both levels, or a justified aggregation/model linking them. |
-| Participation and allocation | Does expansion change who contributes, benefits, or receives exposure? | A supported distributional comparison, not an aggregate alone. |
-| Short run and development | Does an immediate benefit persist, erode, or alter future capacity? | Relevant horizons and a defensible temporal comparison. |
-| Quantity and informational content | Do additional units represent additional information or a different composition? | A validated interpretation of the content measures and their reference set. |
-| Autonomy and accountability | Who acts, who decides, and who remains responsible? | The decision rights or process must be studied, not inferred from tool adoption. |
-| Average and boundary | What determines when a familiar benefit holds? | A characterized condition or supported heterogeneity contrast. |
-| Proxy and target | Does an available measure recover what the decision requires? | A benchmark, identification argument, or formal measurement distinction. |
-| Prediction and intervention | Can predicting an outcome guide a decision that changes it? | The paper must examine the distinction or develop the relevant decision method. |
+| Sharpen a subject | "Technology and Workers" to "Algorithmic Advice and Worker Discretion" | Makes the inquiry recognizable. |
+| Abstract a setting | A named translation tool to source-based assistance in knowledge production | Identifies a class of phenomenon, without expanding its evidence. |
+| Use ordinary language | Persistence of an outcome to why it "stays" | Can preserve a distinction without specialist wording. |
+| Assert an effect | "Advice and Performance" to "Advice Improves Performance" | Raises the identification burden. |
+| Add a mechanism | "... through Reduced Search" | Promises a particular explanation. |
+| Expand a construct | Output to productivity; novelty to creativity | Changes what must be measured or developed. |
 
-These routes are alternatives. Do not apply all of them to one manuscript.
-A large multilingual dataset does not, on its own, establish a collective outcome,
-a distributional mechanism, or cross-platform external validity.
+Move among **setting**, **phenomenon**, and **scholarly conversation**, and compare
+ordinary expressions for the underlying action. Choose the level that best opens
+the inquiry. Broader nouns and longer technical descriptions do not inherently
+improve a title.
 
-## 2. Test the proposed tension
-
-A useful tension has a substantive basis, a consequential implication, and some
-resolution or illumination in the paper. Perform four tests.
-
-**Not merely definitional.** Could the claimed surprise be deduced from the outcome
-definition before observing data? A copied statement adds no new statement to a
-set that already contains it. The empirical issue might instead be whether people
-supplement the copy, or whether assistance changes total production. Title the
-question the data resolve, not the accounting identity.
-
-**Not two unrelated results.** Why do the outcomes belong in one argument? The
-same dataset is insufficient. Identify a common decision, input, process, or
-comparison. Opposite signs alone do not demonstrate that attaining one outcome
-requires sacrificing the other.
-
-**Not an invented cost.** Less source-relative novelty is not necessarily lower
-quality; more off-platform activity is not necessarily lower total profit. Use a
-neutral contrast when the valuation or counterfactual link is absent. Reserve
-"at the cost of," "crowding out," and comparable language for the relation they
-actually assert, not merely two observed differences.
-
-**Not an untested explanation.** A pattern consistent with anchoring, dependence,
-or displaced effort does not identify that mechanism. The title can organize the
-phenomenon without choosing an explanation the paper cannot distinguish.
-
-Also ask: Would an informed reader find the claim nearly inevitable given the
-task? "Translations Resemble Their Sources" usually misses the interesting issue.
-A contribution about legitimate additions, post-publication development, or source
-selection could supply a less trivial promise, provided it is actually studied.
-
-## 3. Separate claim strength from conceptual reach
-
-These are different editing operations:
-
-| Operation | Example | What changes |
-|---|---|---|
-| Sharpen the relationship | "Technology and Workers" to "Algorithmic Advice and Worker Discretion" | The question becomes recognizable. |
-| Abstract the setting | "A Translation Tool on Site A" to "Source-Based Assistance in Collaborative Knowledge Production" | The phenomenon becomes recognizable beyond one site. |
-| Strengthen the empirical assertion | "Advice and Performance" to "Advice Improves Performance" | The evidentiary burden changes. |
-| Add a mechanism | "Advice and Performance" to "Improving Performance through Reduced Search" | A particular explanation is now promised. |
-| Expand the outcome | "Output" to "Productivity"; "Novelty" to "Creativity" | The construct and necessary evidence change. |
-
-The first two can improve positioning without stronger identification, but the
-whole title must still signal its essential empirical scope. The last three
-cannot be accomplished by wording alone.
-
-Use a three-level map:
-
-**Setting:** the named platform, population, institutional episode, or task.
-**Phenomenon:** a recognizable class of production, exchange, learning, allocation,
-or governance process instantiated there.
-**Conversation:** the theoretical or managerial question advanced by studying it.
-
-A strong title often combines phenomenon and setting. A very broad conversation
-label can be appropriate for a broad conceptual or theoretical paper;
-for a narrow empirical paper it may erase the informative contribution.
-
-Do not require every construct in a title to be a raw database column. A justified
-conceptual term is legitimate. But explain its relation to the measure and avoid
-language whose ordinary meaning materially exceeds that relation.
+A conceptual term need not be a raw database column, but its meaning must fit the
+paper. A broad subject can name a domain without asserting a universal effect;
+judge the whole title's reasonable interpretation, including omitted boundaries.
 
 ## 4. Decide what belongs in the title
 
-Allocate words by function, not by a fixed numerical limit.
+Choose whether the title should **name the subject**, **open the question**, or
+**state the answer**. Make that the principal grammatical focus. The full
+contribution remains an internal requirement, not compulsory title content.
 
-**Principal promise:** the problem, contribution, or relationship the reader should
-remember. Give this the main grammatical role.
+Allocate words to useful recognition and essential scope. Consider ordinary names
+for the practice alongside established field vocabulary. The abstract and keywords
+can carry additional search terms. Preserve technical terms when they identify
+the method, target quantity, or problem that makes this paper distinctive.
 
-**Recognition terms:** the minimum field vocabulary needed to recognize and find
-the paper. Do not replace an established concept with a metaphor for novelty's sake.
-
-**Essential qualifiers:** the scope, comparison, or design whose omission would
-change the promise. Other details belong in the abstract.
-
-A subtitle earns its place if it supplies a distinct function. An empirical setting
-can demonstrate where the phenomenon is observed; a design can establish the kind
-of evidence; a technical term can specify an otherwise ambiguous hook. Do not add
-all three automatically.
-
-Use an omission test: would deleting this qualifier make the title materially
-misleading, or merely less detailed? Keep the first kind. The title need not
-reproduce every exclusion, reference category, fixed effect, or observation date.
+Compare a standalone title with a subtitle version. Keep the extra words if they
+clarify the inquiry or avert a materially false expectation. Details about the
+setting, design, and result do not all need to appear. For how an intelligible
+subject can leave its explanation open, see
+[simple language and intellectual reach](simple-language-and-intellectual-reach.md).
 
 ## 5. Distinguish current and aspirational positioning
 
-Classify an ambitious candidate before recommending it:
-
-| Status | Required action |
+| Status | Meaning |
 |---|---|
-| Supported now | It fits the current evidence and conceptual development. |
-| Needs exposition alignment | The substantive distinction is supported, but the Introduction or construct definition must make it explicit. |
-| Needs new evidence | The title adds a mechanism, evaluation, outcome, or generalization the paper does not establish. |
+| Supported now | Fits the current evidence and conceptual development. |
+| Needs exposition alignment | An established distinction needs clearer foregrounding or definition in the manuscript. |
+| Needs new evidence | Adds a mechanism, outcome, evaluation, or generalization not established. |
 
-An exposition change can foreground an existing distinction; it cannot rescue an
-unsupported causal or welfare assertion. Do not present a title requiring a new
-experiment as an equally available synonym for the current paper.
-
-An author may intentionally be deciding between projects, not just titles. In that
-case, describe the additional evidence attached to each possible identity. Keep
-this separate from the recommendation for the present manuscript.
+Recommend the first two, explaining needed alignment. Keep the third separate.
+Rewriting an Introduction cannot create causal identification or welfare evidence.
+If the author is choosing between research projects, describe the additional
+evidence attached to each proposed identity explicitly.
 
 ## 6. Work through a case
 
-**Synthetic brief.** A collaborative archive compares manually prepared entries
-with entries produced using source-based automated drafts. Assisted entries contain
-more source-matched statements but fewer verified statements absent from the
-reference source. Comparisons are observational. The study measures neither time
-saved nor independent entries that would otherwise have been produced.
+**Synthetic brief:** Assisted archive entries contain more source-matched statements
+but fewer verified statements absent from the source. Comparisons are observational;
+labor inputs and displaced independent entries are unobserved.
 
-**Finding:** Greater source-matched content and fewer source-relative additions.
-**Insight:** More represented content and more additions beyond a source are
-distinct outcomes of a source-based production workflow.
-**Stakes:** Evaluating output volume alone misses the composition of what is added.
+**Finding:** More source-matched content, fewer source-relative additions.
+**Insight:** Represented content and additions beyond supplied material are distinct.
+**Stakes:** Evaluating volume alone misses the composition of what is contributed.
 
-Viable identities include a production-composition study, an enrichment study, and
-an evaluation-oriented measurement study. They are not automatically three separate
-empirical contributions; the author must choose which one organizes the manuscript.
+A production-composition frame and an enrichment frame can both fit.
+**"More Reuse, Fewer Additions: Automated Drafting in Collaborative Archives"**
+discloses the contrast. **"Source-Based Assistance and Knowledge Enrichment in
+Collaborative Archives"** opens the conceptual inquiry. Their relative usefulness
+depends on the intended reader, not on a rule that findings must appear in titles.
 
-"The Efficiency–Creativity Tradeoff" changes two constructs and implies a relation
-not established. "Automated Drafts Destroy Collective Knowledge" additionally
-invents a total-system counterfactual. Inserting "may" or a question mark would
-not solve those problems.
-
-"More Reuse, Fewer Additions: Automated Drafting in Collaborative Archives" names
-the observed contrast. "Source-Based Assistance and Knowledge Enrichment in
-Collaborative Archives" foregrounds the conceptual relationship. Both need a
-clear definition of source-relative enrichment in the manuscript, but neither
-requires a new outcome or an invented mechanism.
-
-A separate governance experiment might someday justify a title about an enrichment
-prompt that improves output. The present comparison does not. The general skill
-must not make this particular archive example the template for every AI paper.
+**"The Efficiency–Creativity Tradeoff"** changes the constructs and adds sacrifice.
+**"Automated Drafts Destroy Collective Knowledge"** invents a total-system
+counterfactual. Hedging cannot repair either. Keep enrichment source-relative,
+and do not turn this instructional archive case into the template for every paper.

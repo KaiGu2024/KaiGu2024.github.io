@@ -7,6 +7,16 @@ The original examples have issue dates in **2020–2025**. The department supple
 adds an older 2014 example and two 2026 publications. This is a purposive teaching
 sample, not a systematic review or a ranking of titles.
 
+The [2026-09-30 source supplement](coexistence-and-characterization-sources.md)
+grounds coexistence, complementarity, paradox, and characterizing new phenomena
+through established constructs. It includes separate access and scope notes.
+
+The [2026-10-08 guide](simple-language-and-intellectual-reach.md) integrates the
+author's notes on simple language and intellectual reach, with the three requested
+anchor titles and nine further examples. It records primary sources, publication
+versions, access limits, and separate editorial readings. Those additions do not
+refresh the older bibliographic and recognition snapshots below.
+
 ## Contents
 
 - [Repository provenance](#what-was-integrated-from-the-requested-repositories)
@@ -37,7 +47,7 @@ commit `3b009a43ceacb9959654528b14075f88778118b6`.
   supplies a useful connection among motivation, question, identification, and
   contribution relative to prior work.
 
-**Adaptation:** Center the social-science object and substantive tension. Feature a
+**Adaptation:** Center the social-science object and intellectual importance. Feature a
 method only when it is central or materially clarifies the evidence. The upstream
 introduction's prescriptive paragraph counts and claims about editorial rejection
 are not title requirements and are not adopted here.
@@ -65,7 +75,7 @@ provides a useful sequence: inspect the content, identify important terms, gener
 different structures, compare candidates, and explain a recommended revision.
 
 **Adaptation:** Replace its computing-oriented method emphasis and fixed scoring
-weights with contribution fit, substantive tension, and an evidence check. Its
+weights with contribution fit, intellectual interest, and an evidence check. Its
 10–15-word target, 65-character keyword threshold, and venue-specific advice are not
 verified requirements for AER, QJE, Management Science, or Marketing Science. They
 are not imported as such. Search visibility and attractiveness remain editorial
@@ -171,9 +181,10 @@ Hunt Allcott, Luca Braghieri, Sarah Eichmeyer, and Matthew Gentzkow.
   several outcomes, including well-being, polarization, and factual news knowledge.
 - **Title reading:** An economic quantity organizes competing benefits and costs
   without forcing them into a one-direction verdict.
-- **Boundary:** This is a useful descriptive baseline, not permission to omit
-  material platform, population, or time restrictions from a new title. Welfare
-  language needs an actual welfare analysis, beyond an engagement outcome alone.
+- **Boundary:** A subject title can organize an inquiry without stating a verdict.
+  Judge which platform, population, or time restrictions are essential to a new
+  title's meaning. Welfare language needs an actual welfare analysis, beyond an
+  engagement outcome alone.
 
 ### 5. Generative AI at Work
 

@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "skill_name": "paper-titles",
   "authored_on": "2026-09-14",
-  "status": "Authored test cases; comparative model evaluation not run.",
+  "status": "Authored test cases; limited independent spot-checks in review-notes.md; comparative model evaluation not run.",
   "case_type": "Synthetic except the explicit publisher-metadata fixture in PT21.",
   "split_note": "The inherited development/reserved split is retained for organization. All supplied cases were inspected during this revision; none is an unseen holdout.",
   "grading": "Use evals/README.md. No exact-title answer key and no automatic keyword-based quality score.",
@@ -464,7 +464,147 @@
       ],
       "split": "development",
       "evaluation_note": "Assess meanings and the implied relationship; no exact-title answer key."
+    },
+    {
+      "id": "PT29",
+      "focus": "A human practice can carry a standalone title",
+      "split": "development",
+      "user_request": "Compare Waiting for Water with Queue Formation and Informal Place-Holding at Communal Taps. Recommend one and explain whether it needs a subtitle.",
+      "supplied_brief": "Ethnography at communal water taps explains how households maintain a place in line while attending to work and care responsibilities. The central contribution is an account of everyday waiting and informal coordination. It does not measure health, income effects, water scarcity trends, or willingness to pay.",
+      "expected_behaviors": [
+        "Treat the recognizable human practice as a substantive title option even though it does not reveal the process account.",
+        "Compare what the explicit version or a subtitle adds; do not append a subtitle simply to disclose more.",
+        "Keep the inquiry about waiting and coordination, with no invented result."
+      ],
+      "disallowed_inferences": [
+        "Rejecting a subject title solely because readers cannot predict the exact mechanism.",
+        "Health gains, income losses, an effect of worsening scarcity, or measured willingness to pay."
+      ],
+      "paired_case": "PT30",
+      "evaluation_note": "Assess meaning and reader expectations; no exact-title answer key or fixed preference for brevity."
+    },
+    {
+      "id": "PT30",
+      "focus": "Everyday language can obscure a technical contribution",
+      "split": "development",
+      "user_request": "Compare Waiting for Water with Identifying Pipe Leaks from Sparse Pressure Measurements. Recommend one for an applied methods audience.",
+      "supplied_brief": "A methods paper develops identifiability conditions for locating pipe leaks using sparse pressure sensors and validates the estimator on controlled faults. Human waiting, queues, access to water, and household experiences are not studied. The inferential task is the main contribution.",
+      "expected_behaviors": [
+        "Prefer wording that identifies the estimation task and data constraint.",
+        "Explain why an attractive human scene does not fit this contribution.",
+        "Keep established technical terms when they provide necessary recognition."
+      ],
+      "disallowed_inferences": [
+        "Inferring household waiting or improved water access from sensor validation.",
+        "Applying an unconditional preference for the shortest or most evocative title."
+      ],
+      "paired_case": "PT29",
+      "evaluation_note": "Assess meaning and reader expectations; no exact-title answer key or fixed preference for brevity."
+    },
+    {
+      "id": "PT31",
+      "focus": "A consequential subject can organize a broad paper",
+      "split": "development",
+      "user_request": "Evaluate The Economic Consequences of Floods as a title. Give a recommendation and a brief reason.",
+      "supplied_brief": "A synthesis combines a multi-country longitudinal analysis and an economic framework to study output, investment, public finances, and household relocation following major floods. Their joint evolution and recovery horizons organize the paper. It does not claim identical effects across countries or that every possible consequence is measured.",
+      "expected_behaviors": [
+        "Treat the consequential subject as a potentially strong title without demanding a paradox or a result statement.",
+        "Assess breadth against the paper's integrated analysis rather than rejecting all broad subject titles.",
+        "Do not read a general subject as automatically asserting identical universal effects."
+      ],
+      "disallowed_inferences": [
+        "A requirement to disclose all outcomes or a causal estimate in the title.",
+        "Claiming the familiar title structure is unique or predicts publication."
+      ],
+      "paired_case": "PT32",
+      "evaluation_note": "Assess meaning and reader expectations; no exact-title answer key or fixed preference for brevity."
+    },
+    {
+      "id": "PT32",
+      "focus": "A consequential subject can exceed a narrow contribution",
+      "split": "development",
+      "user_request": "Evaluate The Economic Consequences of Floods as a title. Give a recommendation and a brief reason.",
+      "supplied_brief": "A descriptive study charts monthly electricity-meter reconnections after a single flood in one district. The contribution is the recovery profile for this service. Output, investment, public finances, household migration, and mechanisms are not studied.",
+      "expected_behaviors": [
+        "Narrow the subject to electricity service recovery rather than promising a broad macroeconomic account.",
+        "Offer a useful simple alternative without requiring every observation date or denominator.",
+        "Explain the mismatch in intellectual scope, not merely title length."
+      ],
+      "disallowed_inferences": [
+        "Treating broad-subject permission as a license to imply outcomes never studied.",
+        "Inferring aggregate economic recovery or a causal mechanism from meter reconnections."
+      ],
+      "paired_case": "PT31",
+      "evaluation_note": "Assess meaning and reader expectations; no exact-title answer key or fixed preference for brevity."
+    },
+    {
+      "id": "PT33",
+      "focus": "Borrow an example's function rather than matching initials",
+      "split": "development",
+      "user_request": "I like Myths, Morals, and Movies. For this paper, is Prices, Profits, and Prejudice a good title? Give a recommendation and two alternatives.",
+      "supplied_brief": "A laboratory experiment measures whether buyers pay more for otherwise equivalent products made by members of their own neighborhood. It studies affiliation and willingness to pay. Firm costs and profits are absent. The paper does not label local affiliation as ethnic prejudice.",
+      "expected_behaviors": [
+        "Check the meanings of profits and prejudice rather than accepting the triad for its sound.",
+        "Offer three faithful options with an explained recommendation and meaningfully different emphases.",
+        "Transfer the idea of a familiar conceptual connection without mechanically copying three alliterative nouns."
+      ],
+      "disallowed_inferences": [
+        "Measured firm profits, ethnic animus, or unestablished effects of prejudice.",
+        "Refusing to supply titles after finding problems in the proposed one."
+      ],
+      "evaluation_note": "Assess meaning and reader expectations; no exact-title answer key or fixed preference for brevity."
+    },
+    {
+      "id": "PT34",
+      "focus": "An answer can generate interest without withholding it",
+      "split": "development",
+      "user_request": "Compare Automatic Refunds Increase Repeat Purchases with Second Chances. Choose one for a field-experiment paper and explain briefly.",
+      "supplied_brief": "A randomized experiment finds that automatic refunds for late deliveries increase later purchases relative to refunds requiring a customer request. The repeat-purchase effect is prespecified and central. The paper does not identify trust, forgiveness, emotional responses, profit, or lifetime value.",
+      "expected_behaviors": [
+        "Keep the direct causal answer available and judge it against the vague alternative without rewarding mystery by default.",
+        "Make the refund comparison and purchase outcome recognizable in any revision.",
+        "Avoid inventing a psychological mechanism to justify the evocative phrase."
+      ],
+      "disallowed_inferences": [
+        "Forced question wording or unnecessary causal hedging.",
+        "Established forgiveness, trust restoration, higher profit, or lifetime value."
+      ],
+      "evaluation_note": "Assess meaning and reader expectations; no exact-title answer key or fixed preference for brevity."
+    },
+    {
+      "id": "PT35",
+      "focus": "One ordinary word preserves the analytical distinction",
+      "split": "development",
+      "user_request": "Shorten Determinants of Persistent Commercial Vacancy in Neighborhood Retail Streets. Give exactly one title.",
+      "supplied_brief": "Longitudinal qualitative evidence explains why already-vacant shops remain empty: lease renewal practices and coordination among neighboring property owners prolong vacancy. The paper concerns persistence, not why shops initially become vacant. It does not estimate an average treatment effect.",
+      "expected_behaviors": [
+        "Preserve persistence through an ordinary word or phrase while keeping empty retail premises recognizable.",
+        "Use explanatory wording supported by the developed process account.",
+        "Return exactly one title without rationale or options."
+      ],
+      "disallowed_inferences": [
+        "Changing the question to initial closure or vacancy incidence.",
+        "Demanding a randomized experiment for a developed qualitative explanation."
+      ],
+      "evaluation_note": "Assess meaning and reader expectations; no exact-title answer key or fixed preference for brevity."
+    },
+    {
+      "id": "PT36",
+      "focus": "An idiom must carry the paper's meanings",
+      "split": "development",
+      "user_request": "I want an idiomatic title like Burying the Hatchet. Would Passing the Buck fit? Recommend a title and briefly explain.",
+      "supplied_brief": "An organizational study tracks how employees pass responsibility for unresolved customer complaints between departments. It develops an account of responsibility avoidance. No money changes hands and no currency experiment is involved.",
+      "expected_behaviors": [
+        "Assess whether the familiar idiom identifies the studied behavior and whether a domain qualifier improves recognition.",
+        "Allow an apt idiom without demanding a literal second meaning when the paper only needs its established figurative sense.",
+        "Do not fabricate monetary evidence to imitate the published example's double meaning."
+      ],
+      "disallowed_inferences": [
+        "A required literal dollar transfer or invented monetary mechanism.",
+        "Claiming that an idiom is unique or understandable to every audience."
+      ],
+      "evaluation_note": "Assess meaning and reader expectations; no exact-title answer key or fixed preference for brevity."
     }
   ],
-  "updated_on": "2026-09-15"
+  "updated_on": "2026-10-08"
 }
