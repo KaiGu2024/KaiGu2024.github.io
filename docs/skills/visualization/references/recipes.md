@@ -1,6 +1,6 @@
 # Recipes
 
-Copy-pasteable code for common figures. Assumes the shared `theme_pub.R` helpers and `brand` palette from SKILL.md §4 are loaded. All sizes follow SKILL.md §1.6 (oversized for half-column print).
+Copy-pasteable code for common figures. Assumes the shared `theme_pub.R` helpers and `brand` palette from SKILL.md §4 are loaded. Text sizes follow SKILL.md §1.6: 20 pt axis titles, 16 pt ticks, 16–18 pt direct labels, and 18 pt facet strips at manuscript placement size.
 
 ## Contents
 
@@ -184,7 +184,7 @@ ggplot(df, aes(x = year, y = outcome, colour = group)) +
   geom_text_repel(
     data = labels, aes(label = group),
     hjust = 0, nudge_x = 0.2, direction = "y",
-    segment.colour = NA, size = 8
+    segment.colour = NA, size = 16 / ggplot2::.pt, family = "Newsreader"
   ) +
   scale_y_continuous(labels = label_percent(accuracy = 1)) +
   scale_x_continuous(expand = expansion(mult = c(0.02, 0.15))) +
@@ -207,7 +207,8 @@ ggplot(df, aes(x = month, y = value, colour = group)) +
              size = 9, stroke = 1.0, colour = "white") +   # white halo
   geom_text_repel(data = labels, aes(label = group),
                   hjust = 0, nudge_x = 0.2, direction = "y",
-                  segment.colour = NA, size = 8) +
+                  segment.colour = NA, size = 16 / ggplot2::.pt,
+                  family = "Newsreader") +
   scale_colour_manual(values = pal) +
   scale_fill_manual(values   = pal) +
   scale_shape_manual(values  = brand_shapes) +
@@ -236,16 +237,20 @@ Past weekly cadence, drop per-point markers entirely — distinguish by color + 
 
 ## Coefficient / event-study plot
 
+Follow [event-study axis wording and normalization](annotations.md#event-study-axes). This example assumes monthly event time, first treatment at 0, and employment effects and interval endpoints already expressed in percentage points. Substitute the actual event, outcome, and scale; do not relabel raw coefficients without converting them.
+
 ```r
 ggplot(es, aes(x = period, y = coef)) +
   geom_hline(yintercept = 0, linewidth = 1.2) +
+  # Boundary between last untreated month (-1) and first treated month (0).
   geom_vline(xintercept = -0.5, linetype = "dashed",
              colour = brand$accent, linewidth = 1.2) +
   geom_ribbon(aes(ymin = lo, ymax = hi),
               fill = brand$primary, alpha = 0.22) +
   geom_line(linewidth = 2.8, colour = brand$primary) +
   geom_point(size = 9, colour = brand$primary) +
-  labs(x = "Periods relative to treatment", y = "Estimated effect")
+  labs_pub(x = "Months relative to first treatment",
+           y = "Effect on employment (percentage points)")
 ```
 
 **Two versions — match the CI to the connection.** The code above is the **line version**: estimates connected by a line, uncertainty as a shaded ribbon. It reads as a *continuous trajectory* and is right when the coefficient path is **smooth** (a clean pre-trend and a coherent post arc). When the path is **noisy / jagged** — coefficients zig-zagging month to month — the line turns into a sawtooth that overstates structure that is mostly sampling wobble, and a shaded band implies a continuity the data doesn't support. Switch to the **non-shaded version**: drop the connecting line and draw each CI as a vertical error-bar *line*, dots only — the classic discrete coefficient plot.
@@ -317,7 +322,7 @@ ggplot(df, aes(x = year, y = value)) +
              group_by(series) |> slice_max(year, n = 1),
     aes(label = series, colour = series),
     hjust = 0, nudge_x = 1, direction = "y",
-    segment.colour = NA, size = 8
+    segment.colour = NA, size = 16 / ggplot2::.pt, family = "Newsreader"
   ) +
   scale_x_continuous(expand = expansion(mult = c(0.02, 0.15))) +
   labs_pub(x = "Calendar year", y = "Average outcome value (units)") +
@@ -363,7 +368,8 @@ ggplot(df, aes(x = date, y = y)) +
            x = ev, y = y_label,
            label = "Policy enacted, 2024-03",
            angle = 90, hjust = 1, vjust = -0.4,
-           size = 6, colour = "grey30") +
+           size = 16 / ggplot2::.pt, family = "Newsreader",
+           colour = "grey30") +
 
   # Data on top of all of the above
   geom_line(linewidth = 2.8, colour = brand$primary) +
@@ -404,7 +410,8 @@ ggplot(df, aes(x = week, y = visits, group = platform)) +
   geom_text_repel(
     data = endpoints,
     aes(label = platform, colour = label_colour),
-    size = 7, hjust = 0, nudge_x = 1, direction = "y",
+    size = 16 / ggplot2::.pt, family = "Newsreader",
+    hjust = 0, nudge_x = 1, direction = "y",
     segment.colour = NA
   ) +
   scale_colour_identity() +    # use the literal hex / "grey50" from the column
@@ -423,7 +430,7 @@ For two focal series, give each a distinct accent (`brand$primary` and `brand$ac
 geom_text_repel(
   data = endpoints,
   aes(label = platform, colour = label_colour),
-  size = 7,
+  size = 16 / ggplot2::.pt, family = "Newsreader",
   angle  = 90, hjust = 0,           # vertical, hanging upward from endpoint
   nudge_x = 1, direction = "x",     # repel only sideways, not vertically
   segment.colour = NA

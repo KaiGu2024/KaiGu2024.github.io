@@ -8,8 +8,9 @@ Use this reference when a figure contains direct labels, event annotations, dens
 2. [Orientation and contrast](#orientation-and-contrast)
 3. [Annotation styling](#annotation-styling)
 4. [Axis titles and tick labels](#axis-titles-and-tick-labels)
-5. [Unit disclosure across the figure and TeX](#unit-disclosure-across-the-figure-and-tex)
-6. [Collision and clipping](#collision-and-clipping)
+5. [Event-study axes](#event-study-axes)
+6. [Unit disclosure across the figure and TeX](#unit-disclosure-across-the-figure-and-tex)
+7. [Collision and clipping](#collision-and-clipping)
 
 ## Direct-label coverage
 
@@ -29,7 +30,7 @@ Use at least `grey30` on white for annotations meant to be read. `grey60` is too
 
 ## Annotation styling
 
-Use `geom_text(size = 7–8)`, approximately 20–22 pt rendered, for direct line and point labels. Endpoint labels that replace a legend may match the 24 pt axis text at `size = 8`. Use Newsreader, inherited from `theme_pub()`, rather than introducing a third typeface.
+Use **16–18 pt** for direct line and point labels; start at 16 pt to match tick labels. Use `size = 16 / ggplot2::.pt` in `geom_text()` or `geom_text_repel()`, and set `family = "Newsreader"` explicitly: theme text settings do not set the font family of text geoms. `geom_text()` also supports `size = 16, size.unit = "pt"`; see the [ggplot2 text-unit documentation](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html). Keep Lora for the 20 pt axis titles and 18 pt facet strips.
 
 Write plain nouns of one to three words: `ChatGPT`, `Google`, `Treatment`. Do not add parentheses, qualifiers, units, sample sizes, periods, countries, or model specifications. Put units in axis titles and contextual details in the TeX caption.
 
@@ -41,13 +42,25 @@ Treat axis titles and ticks as the figure's structural text. Follow these rules:
 
 - Use sentence case.
 - Spell out the quantity; avoid cryptic abbreviations.
-- State the aggregation and unit of analysis: `Mean distinct foundation models per language`, not `Distinct foundation models`.
+- Name what is actually plotted: a level, mean, share, difference, or estimated effect. Include aggregation or the denominator when it distinguishes quantities: `Mean distinct foundation models per language`, not `Distinct foundation models`. Avoid bare `Value`, `Outcome`, or `Coefficient`.
 - Put the unit in parentheses at the end: `Referral share (%)`, `Response time (ms)`.
-- Keep titles to roughly three to six words. Use `labs_pub()` to wrap at 32 characters for x titles and 26 for y titles by default.
+- Aim for roughly three to six words; this is a brevity target, not a limit that justifies dropping the outcome or unit. Use `labs_pub()` to wrap at 32 characters for x titles and 26 for y titles by default. Prefer at most two lines when possible.
 - Use `y = NULL` only when y-axis ticks already name every item, as in sorted horizontal bars.
 - Format ticks with `scales::label_*`; avoid raw long numbers and scientific notation. Aim for about six characters per tick label. Keep dates in ISO `%Y-%m`.
 
 When a title is too long, shorten or wrap it before increasing margins. Do not replace a precise axis title with an in-figure title or subtitle.
+
+## Event-study axes
+
+For dynamic treatment-effect or regression event studies, label the estimated contrast, not the outcome level. Derive wording from the estimation code and plotted transformations.
+
+- **X: time unit + event.** Use `Months relative to policy adoption`, `Years relative to first treatment`, or `Days relative to announcement`. Avoid generic `Time` or `Periods` when the unit is known. Define zero in the figure note (for example, first treated month); distinguish announcement from implementation. Use integer event-time ticks, including zero and the reference period where applicable. Label pooled tails explicitly, such as `≤ −12` and `≥ 12`.
+- **Y: outcome + effect scale.** Prefer `Effect on employment (percentage points)`, `Effect on earnings (log points)`, or `Effect on test scores (SD)`. Use `Estimated difference in …` when a causal interpretation is not supported. `Estimated effect` alone leaves the outcome and scale unidentified. Pre-treatment coefficients are diagnostics; describe their interpretation in the note rather than calling them pre-treatment causal effects.
+- **Match the numerical transformation.** A coefficient for a 0–1 outcome becomes percentage points only after multiplying the estimate and interval endpoints by 100. Raw coefficients for a natural-log outcome are log points; do not simply relabel them `%`. If reporting `100 × (exp(coef) − 1)`, transform the interval endpoints too and explain the transformation and its model-specific interpretation. For SD units, state the standardization population in the note.
+- **Keep normalization in the note.** Name the reference period or base-period scheme, comparison group, estimator, interval level and whether intervals are pointwise or simultaneous, and clustering where used. Do not assume every estimator omits period −1: some use varying pre-treatment base periods. A zero added only for normalization has no estimated confidence interval; identify it as the reference. See [Callaway on universal versus varying base periods](https://bcallaway11.github.io/posts/event-study-universal-v-varying-base-period).
+- **Show the relevant zero.** Include a horizontal zero-effect reference and the full confidence intervals; signed effects are an exception to the zero-lower-bound rule. An event line at 0 marks event time; a line at −0.5 separates the last untreated and first treated discrete periods when 0 is the first treated period. Choose and explain the convention consistently.
+
+Across outcome panels, keep the x title and time convention consistent, but give each y title its own outcome and scale. Model specifications, sample restrictions, and identification assumptions belong in the caption or note, not in long axis titles.
 
 ## Unit disclosure across the figure and TeX
 
@@ -72,4 +85,4 @@ Apply repairs in the order specified by the acceptance gate:
 
 Right-side direct labels require both scale expansion and `theme_pub(gutter = "right")`. Off-panel annotations require `coord_cartesian(clip = "off")`, matching scale expansion, and the relevant margin profile. Wrap long category labels with `scales::label_wrap()` or `stringr::str_wrap()` before enlarging the left gutter.
 
-Never solve overflow by shrinking text below the minimum sizes in `../SKILL.md` rule 6. Open and inspect the saved artifact at placement size after every repair.
+Keep the default sizes in `../SKILL.md` rule 6 during collision repairs. If the venue or user requires different sizes, check them at final placement. Open and inspect the saved artifact at placement size after every repair.

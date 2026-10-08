@@ -50,14 +50,14 @@ theme_pub <- function(gutter = c("none", "right", "left", "top", "bottom")) {
     theme(
       # Axis titles in Lora (display weight); explicit margins keep them off
       # the tick labels (SKILL.md rule 13 repair order).
-      axis.title.x     = element_text(family = "Lora", size = 28,
+      axis.title.x     = element_text(family = "Lora", size = 20,
                                       lineheight = 0.95,
                                       margin = margin(t = 12)),
-      axis.title.y     = element_text(family = "Lora", size = 28,
+      axis.title.y     = element_text(family = "Lora", size = 20,
                                       lineheight = 0.95,
                                       margin = margin(r = 12)),
-      axis.text.x      = element_text(size = 24, margin = margin(t = 4)),
-      axis.text.y      = element_text(size = 24, margin = margin(r = 4)),
+      axis.text.x      = element_text(size = 16, margin = margin(t = 4)),
+      axis.text.y      = element_text(size = 16, margin = margin(r = 4)),
       # In-figure title / subtitle / caption / tag are intentionally
       # suppressed — that text belongs in LaTeX (rule 10).
       plot.title       = element_blank(),
@@ -69,7 +69,7 @@ theme_pub <- function(gutter = c("none", "right", "left", "top", "bottom")) {
       axis.line        = element_line(linewidth = 1.1, colour = "grey20"),
       axis.ticks       = element_line(linewidth = 1.0, colour = "grey20"),
       axis.ticks.length = unit(8, "pt"),
-      strip.text       = element_text(family = "Lora", size = 24,
+      strip.text       = element_text(family = "Lora", size = 18,
                                       face = "bold",
                                       margin = margin(b = 8)),
       # Outer padding profiles keep axis chrome and off-panel annotations away
