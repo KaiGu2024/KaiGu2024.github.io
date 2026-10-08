@@ -1,0 +1,48 @@
+{
+  "skill_name": "did-adjustment",
+  "purpose": "Cross-domain forward checks; prompts supplied alone to runners, without expected outputs or assertions. Historical project scenarios retained under iteration-1.",
+  "evals": [
+    {
+      "id": 4,
+      "name": "firm-energy-policy",
+      "prompt": "I have an unbalanced annual panel of 1,800 manufacturing plants from 2012 to 2024. A state energy-efficiency mandate starts in 2017, 2019, or 2021 in 18 states; 12 states never adopt. The outcome is plant electricity consumption in MWh. The mandate remains in force, but plants sometimes stop operating their installed equipment. My current TWFE event study uses mandate timing and has positive leads. I want the effect of the mandate on total electricity use. Would keeping only plants observed in every year, matching on consumption in the last year before the mandate, and taking log(1+MWh) solve it? Several plants close after the mandate, and a few very large plants dominate consumption. Recommend a concrete analysis plan and explain what the main estimate would identify. No raw data are supplied: do not estimate numbers, browse, or inspect other project files. You may read the assigned guide and its bundled methodological references. Save a concise answer of at most 650 words.",
+      "assertions": [
+        "Targets the mandate effect in MWh and distinguishes policy assignment from equipment operation or adoption.",
+        "Explains why conditioning on survival or a balanced plant panel can select on treatment; distinguishes verified closure from missing measurement.",
+        "Uses eligible never-treated or not-yet-treated cohort-time comparisons and addresses TWFE lead contamination.",
+        "Explains noisy single-baseline matching and regression to the mean, with justified earlier histories or validation instead.",
+        "Treats log(1+MWh) as a new estimand/scale, not an automatic percentage or trend repair; does not delete large valid plants to obtain significance.",
+        "Addresses state-level assignment/dependence in inference rather than treating plant observations as independent assignments.",
+        "Gives an actionable plan without invented estimates or AI-search-specific thresholds, covariates, or data dependencies."
+      ]
+    },
+    {
+      "id": 5,
+      "name": "regional-training-iv",
+      "prompt": "We have annual employment and training records for 12 regions from 2010 to 2025. A national training grant began in 2018, and three regions qualified through an administrative classification fixed in 2014. Within each region, firms choose whether and how many workers to train. I want the employment effect of training. The grant also pays for payroll administration; firms can spend that support without training anybody. I propose instrumenting training uptake with eligible-region times post-2018, then converting fitted uptake into each firm's first-training year and running staggered DiD. Eligibility-group contrasts show a positive average first stage, but annual first stages are near zero in some years and the employment reduced-form interval includes zero. Can this be used as a causal design, and what estimates and figures should we report? Could thousands of firm observations justify firm-clustered errors? No raw data are supplied: do not estimate numbers, browse, or inspect other project files. You may read the assigned guide and its bundled methodological references. Save a concise answer of at most 650 words.",
+      "assertions": [
+        "Recognizes the direct payroll-administration subsidy channel as a concrete exclusion threat; does not certify a causal training effect from the proposed IV.",
+        "Rejects fitted first-training dates followed by ordinary adoption-timed CSDiD as a valid IV procedure.",
+        "Uses grant/eligibility timing for an assignment effect and explains required untreated/no-instrument counterfactual trends, anticipation, and comparison credibility.",
+        "Distinguishes a grant-package effect from a local training effect and makes any IV interpretation conditional on valid exclusion and treatment-response assumptions.",
+        "Retains first-stage and reduced-form components and recognizes weak annual first stages need joint uncertainty and potentially unbounded weak-IV confidence sets.",
+        "Addresses 12 assignment regions and only three eligible regions; thousands of firms do not justify firm-only inference or eliminate few-cluster limitations.",
+        "Does not equate an insignificant reduced form with invalidity or zero effect and gives a feasible report plan without fabricated estimates."
+      ]
+    },
+    {
+      "id": 6,
+      "name": "repeated-cross-section-health",
+      "prompt": "Our 2014, 2016, 2018, 2020, and 2022 health surveys sample new residents in each wave in 40 districts. Ten districts expanded clinic access in 2018, ten in 2020, and twenty never did. The outcome is whether a resident reports unmet medical need. We have district, age, education, employment, income, survey weights, strata, and PSU identifiers, but no person identifier linking waves. Treatment is assigned by district. After expansion, some districts attract migrants; employment and income may also change. Can we repair pretrend differences by creating a balanced person panel, weighting to national demographics, and controlling for each respondent's current income and employment? I need an actionable DiD plan for the effect on residents, with a clear estimand, feasible comparison groups and inference. No raw data are supplied: do not estimate numbers, browse, or inspect other project files. You may read the assigned guide and its bundled methodological references. Save a concise answer of at most 650 words.",
+      "assertions": [
+        "Uses a repeated-cross-section DiD design rather than fabricating linked people, within-person outcomes, or a balanced person panel.",
+        "Defines a resident-population target and treats policy-induced migration/composition changes as an identification or estimand issue, not something automatically solved by reweighting.",
+        "Uses district adoption cohorts and never-treated or still-untreated comparisons, with attention to anticipation and available preperiod support.",
+        "Separates survey/representation weights from causal balancing and does not assume national demographic calibration establishes parallel trends.",
+        "Recognizes current employment/income can be treatment-induced mediators or selection variables and avoids routine adjustment without additional assumptions.",
+        "Addresses district assignment dependence together with survey strata/PSUs or a justified compatible variance approach; does not treat respondents as independent policy assignments.",
+        "Gives a feasible plan and uncertainty-aware interpretation without importing household browsing histories, fixed activity caps, or invented estimates."
+      ]
+    }
+  ]
+}
