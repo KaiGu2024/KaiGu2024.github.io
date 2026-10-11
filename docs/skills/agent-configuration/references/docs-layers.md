@@ -12,15 +12,21 @@ The five directories below hold project work; AGENTS.md supplies the operational
 | `data/` | Raw data plus processed data that remains large or is a primary project input | **Never edit `raw/` — read only** |
 | `docs/` | Stable reference specs | Change only when design/schema/method changes |
 | `notes/` | The living wiki | Changes every session |
-| `output/` | Results and supporting sources: `output/code/` result-generating scripts, `output/data/` smaller processed data or reproducibility caches, tables, figures, reports, and manuscript sources | Preserve scripts, manuscripts, retained data, and final outputs; document provenance and decompose results by fact/analysis |
+| `output/` | Results and supporting sources: `output/code/` result-generating scripts, `output/data/` smaller processed data or reproducibility caches, tables, figures, reports, and manuscript sources | Preserve scripts, manuscripts, retained data, and final outputs; document provenance and organize results by substantive result family |
 
 **Location does not establish disposability.** `output/paper/ms/`, `output/code/`, and retained `output/data/` may contain authoritative work. Even regenerable outputs can be required for replication or submission. Keep disposable build files in a separately identified build root and apply the [source-protection procedure](source-protection.md); neither `output`, `temp`, nor `build` in a path authorizes deletion.
 
 ### Analysis naming and outputs
 
-When several analyses address the same substantive topic, use the listing number as the analysis name (for example, `01_localization`, `02_localization`). Keep that number and name consistent across scripts, outputs, notes, and documentation.
+Use one stable folder per substantive result family (for example, `01_localization`). Keep its number and name consistent across scripts, outputs, notes, and documentation. Alternative research designs, specifications, estimators, and presentation designs for that family stay in the same family folder. Create a new family only for a different substantive result, not for another attempt or run.
 
-Keep input preparation in `code/` and result-generating reproducibility scripts in `output/code/`; do not duplicate a preprocessing script there. Each result-generating script should consume a named input, record its provenance, and write a predictable output keyed to the numbered analysis. Keep smaller processed inputs and reproducibility caches in `output/data/`.
+Use descriptive filenames to distinguish metrics and variants, such as `employment_baseline.pdf`, `employment_alternative_controls.pdf`, and `wages_baseline.pdf` within `output/01_localization/`. Use meaningful variant names rather than revision labels such as `v2` or `final_final`.
+
+Keep run dates, run identifiers, and manifests in provenance records using the project's existing provenance location, or a family-local `provenance/` directory if none exists. Record input versions or hashes, the specification, code revision and any uncommitted changes, environment, and output paths or hashes so each retained result can be traced to its generating run. A rerun adds provenance; it does not create a dated or numbered copy of the result-family folder.
+
+Git preserves revisions of committed, tracked files through the `version-control` skill. Do not duplicate result folders to simulate version history. For artifacts outside Git, provenance must identify their retained storage location and version; a manifest alone does not preserve artifact contents. Honor existing retention requirements when updating outputs.
+
+Keep input preparation in `code/` and result-generating reproducibility scripts in `output/code/`; do not duplicate a preprocessing script there. Each result-generating script should consume a named input, record its provenance, and write predictable outputs keyed to the result family, metric, and variant. Keep smaller processed inputs and reproducibility caches in `output/data/`.
 
 ### Documentation roles
 

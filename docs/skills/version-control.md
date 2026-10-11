@@ -12,6 +12,8 @@ Committing well is a separate cognitive task from the work itself. By the time y
 
 It commits and pushes. It does **not** open PRs — this repo's workflow is solo on `main`. For collaborative repos with a PR convention, invoke `gh pr create` separately after the skill finishes.
 
+Scope: preserve revision history through Git commits. Result-family organization and provenance conventions belong to [`agent-configuration`](agent-configuration/SKILL.md). Keep alternative designs in the same result-family folder, distinguish metrics and variants in filenames, and keep run dates and manifests in provenance. Never create dated, version-suffixed, or duplicate result folders as a substitute for Git history. Git preserves only committed, tracked content; provenance identifies retained versions of artifacts stored elsewhere.
+
 ---
 
 ## Movement 1 — When to fire

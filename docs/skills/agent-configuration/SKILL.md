@@ -100,6 +100,7 @@ Skip if already answered. **Never ask about anything readable from the directory
 - **Sources:** <data sources, or TODO list>
 - **Access:** <how to obtain raw data; license; embargoes>
 - **Versioning:** <how data versions are tracked>
+- **Result provenance:** <location of run records and manifests linking run dates, input versions, specifications, code revisions, and output identities; retained storage for artifacts outside Git>
 
 ## Coding Conventions
 <concrete rules derived from a quick read of existing files — never invent
@@ -127,7 +128,7 @@ a convention the project does not actually use>
 **Operational rules** (concrete, apply every time):
 
 - **Advance the core task.** Do not spend effort defending against hypothetical objections, hypothetical use cases, or irrelevant failure modes unless doing so materially improves the current task or advances the analysis. In writing and coding, tie each caveat, check, or abstraction to a concrete consequence for interpretation, correctness, or use. Keep material uncertainty and safeguards for credible risks.
-- When writing new analysis: use the numbered substantive analysis name consistently; put preprocessing/crawling in `code/`, result-generating reproducibility scripts in `output/code/`, and their smaller processed inputs or caches in `output/data/`; produce both the code and the output it generates.
+- When writing new analysis: use one stable folder per substantive result family, keeping alternative designs together and distinguishing metrics and variants in filenames. Keep run dates and manifests in provenance records; use Git for revision history, without duplicate dated or version-suffixed result folders. Put preprocessing/crawling in `code/`, result-generating reproducibility scripts in `output/code/`, and their smaller processed inputs or caches in `output/data/`; produce both the code and the output it generates.
 - For established estimation or prediction methods (for example, DID, CS-DID, FECT, and DML): default to an existing, maintained R package with documented methodology and a pinned version rather than hand-coding the estimator in Python. Implement a custom estimator only when the user explicitly requests it or no suitable package supports the required specification; document the reason and verify it by matching an established implementation on benchmark data or recovering known simulation truth.
 - When proposing a method change: state which result(s) it would change before editing.
 - When uncertain about a number or citation: flag with `[TODO]` rather than guess.
@@ -175,3 +176,5 @@ Constraints: [Any rules from AGENTS.md that apply]
 ## Automated Version Control
 
 Use the [`version-control`](../version-control.md) skill for completion triggers, staging, checks, commits, and pushes. Record project-specific disclosure tags, commit-message conventions, required build steps, and paths excluded from staging in AGENTS.md. Keep the commit procedure in that skill rather than duplicating it in project instructions.
+
+This skill owns result-family organization and provenance conventions as defined in [analysis naming and outputs](references/docs-layers.md#analysis-naming-and-outputs). The `version-control` skill owns Git history; it does not create result-folder copies to preserve revisions.
