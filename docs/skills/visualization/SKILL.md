@@ -2,7 +2,7 @@
 name: visualization
 title: Visualization
 permalink: /skills/visualization/
-description: Use when producing publication-ready R + ggplot2 figures for papers or slides. Applies perceptual chart selection; brand, subject-identity, magnitude, and CVD-safe palettes; Lora/Newsreader typography; direct labeling; uncertainty; one standalone panel per script; conditional LaTeX multi-panel assembly; paired PDF + 600-DPI PNG export; and a blocking inspection at intended placement size. Enforces sorted categories, plot-differences-not-raw, explicit units and aggregation, no gridlines, no explanatory titles or captions inside the image, and no clipping or overlap. For regression tables, use the tables skill.
+description: Use when producing publication-ready R + ggplot2 figures for papers or slides. Applies perceptual chart selection; brand, subject-identity, magnitude, and CVD-safe palettes; Lora/Newsreader typography; direct labeling; uncertainty; one standalone panel per script; conditional LaTeX multi-panel assembly; PDF-only export; and a blocking inspection at intended placement size. Enforces sorted categories, plot-differences-not-raw, explicit units and aggregation, no gridlines, no explanatory titles or captions inside the image, and no clipping or overlap. For regression tables, use the tables skill.
 allowed-tools: Read, Edit, Write, Bash
 invocation: auto
 ---
@@ -15,7 +15,7 @@ invocation: auto
 4. [Setup](#4-setup) — shared theme, title, save, and palette helpers
 5. [Palette rules](#5-palette-rules) — the color constraints that apply to every figure
 6. [References](#6-references) — annotations, palettes, and implementation recipes
-7. [Output](#7-output) — one standalone panel per file, conditional LaTeX assembly, paired PDF/PNG export
+7. [Output](#7-output) — one standalone panel per file, conditional LaTeX assembly, PDF-only export
 8. [Cross-references](#8-cross-references)
 
 ---
@@ -30,7 +30,7 @@ invocation: auto
 
 4. **Direct annotation, no legends.** Label every line or group the reader needs to identify, including background series; highlighting changes color, not label coverage. Horizontal-bar ticks may serve as labels. Suppress redundant guides, keep labels in white space, and facet or change encoding if required labels cannot fit. Read [annotations.md](references/annotations.md) whenever adding or positioning text.
 
-5. **High DPI.** `dpi = 600` (or PDF vector). *Science*/*Nature* minimum at submission.
+5. **Vector PDF output.** Deliver vector PDFs only; do not generate companion PNG deliverables. Raster renders needed for inspection belong in `exploratory/previews/` (see §7).
 
 6. **Use a readable text hierarchy at final placement size.** Author at the declared placement size (rule 13), with export and placement widths within 10%. Manuscript defaults are:
    - Axis titles **20 pt**; tick labels **16 pt**; inline / annotation labels **16–18 pt**. For text geoms, use `size = 16 / ggplot2::.pt` (or `18 / ggplot2::.pt`); their default size unit is mm, with 1 mm ≈ 2.85 pt.
@@ -45,11 +45,11 @@ invocation: auto
 
 9. **Calculate before you graph.** Pre-aggregate with dplyr, plot with `stat = "identity"`. Geom-side stats (`after_stat(prop)`, `stat_summary`) fail in surprising ways with grouped/multi-variable aggregation; the summary table is itself a useful artifact.
 
-10. **No explanatory text except direct data labels and designed annotations.** Axis titles and tick labels are the only structural text inside the image; direct data labels and designed annotations from rule 4 are allowed. **Do not** set `plot.title`, `plot.subtitle`, `plot.caption`, or `plot.tag`; those belong in LaTeX (`\caption{}`, section prose, slide chrome) where they can be re-edited without re-rendering the figure. Notes, sample descriptions, model details, and any panel letter all live in TeX, not in the PNG/PDF.
+10. **No explanatory text except direct data labels and designed annotations.** Axis titles and tick labels are the only structural text inside the image; direct data labels and designed annotations from rule 4 are allowed. **Do not** set `plot.title`, `plot.subtitle`, `plot.caption`, or `plot.tag`; those belong in LaTeX (`\caption{}`, section prose, slide chrome) where they can be re-edited without re-rendering the figure. Notes, sample descriptions, model details, and any panel letter all live in TeX, not in the PDF.
 
     Use self-contained, sentence-case axis titles that name the plotted quantity and its measurement unit, plus aggregation when needed to distinguish quantities. Aim for roughly 3–6 words, but preserve meaning over brevity. Put units in parentheses at the end. For event studies, name the time unit and event on x and the outcome and effect scale on y; follow the [event-study axis guidance](references/annotations.md#event-study-axes). Format ticks with `scales::label_*`; use `y = NULL` only when y ticks already name each item. Follow the three-layer unit-disclosure rule in [annotations.md](references/annotations.md), which separates the axis label, LaTeX caption or panel subtitle, and figure note.
 
-    **One standalone panel per file.** Generate every report panel independently with its own script and matched PDF/PNG pair; do not combine panels in R with patchwork or similar tools. Combine the exported panels in LaTeX under one figure number only when they jointly establish one argument and use compatible units, populations, and denominators. Otherwise use separate figure floats. A faceted plot that forms one small-multiple encoding over a shared variable remains one panel for this rule.
+    **One standalone panel per file.** Generate every report panel independently with its own script and PDF; do not combine panels in R with patchwork or similar tools. Combine the exported panels in LaTeX under one figure number only when they jointly establish one argument and use compatible units, populations, and denominators. Otherwise use separate figure floats. A faceted plot that forms one small-multiple encoding over a shared variable remains one panel for this rule.
 
 11. **Show uncertainty.** Confidence intervals always — `geom_ribbon(alpha = 0.18–0.22)` for continuous, error bars for discrete. Point estimates without uncertainty convey false precision.
 
@@ -58,8 +58,8 @@ invocation: auto
 13. **Blocking layout acceptance gate: nothing clips, touches, overlaps, or wastes space.** A figure is not complete when `ggsave()` succeeds. It is complete only after the saved artifact has been opened and inspected at its intended manuscript or slide placement size.
 
     1. **Declare geometry before constructing the plot.** Set export width, export height, and intended placement width first with `figure_spec()`. Use the same physical unit for export and placement. Export width and placement width may differ by no more than 10%; do not export large and substantially shrink in LaTeX. Choose dimensions for the actual manuscript column or slide layout, then inspect with the 20/16 pt manuscript defaults.
-    2. **Save paired artifacts.** Use `save_figure()` to write the publication PDF and a white-background `-qa.png` at identical dimensions and aspect ratio. The PNG is an inspection artifact, not a substitute for the PDF.
-    3. **Open the saved artifact itself.** Inspect the PNG or a rasterized PDF with an image-viewing tool, never only the RStudio plot pane. View it at the declared placement width. For TeX output, rebuild the report and inspect the placed figure in the report PDF too.
+    2. **Save the PDF only.** Use `save_figure()` to write the publication PDF with a white background. Do not export a companion PNG.
+    3. **Open the saved artifact itself.** Inspect the saved PDF with a PDF-viewing or rendering tool, never only the RStudio plot pane. Save any required raster inspection renders in the project's `exploratory/previews/` directory, outside the delivery folder and excluded from version control. View the figure at the declared placement width. For TeX output, rebuild the report and inspect the placed figure in the report PDF too.
     4. **Audit unit consistency.** Verify that the code's aggregation level, axis label, LaTeX caption or panel subtitle, surrounding prose, and figure note describe the same observation unit, population, and denominator. Never alternate casually among units such as languages, repositories, models, and foundation models.
     5. **Reject and regenerate on any failure.** Reject if an axis title is cropped, touches a tick label, or touches an edge; tick labels touch, overlap, or truncate; any direct label or designed annotation crops or overlaps another label or mark; an exceptionally permitted legend is incomplete or touches an edge; or avoidable empty space makes text or data materially smaller at final placement.
     6. **Repair in this order.** Shorten or wrap axis titles and annotations with `labs_pub()` (defaults: 32 characters per x-title line, 26 per y-title line); thin breaks, use `guide_axis(n.dodge = 2)`, or flip long categorical axes; reserve a data-scale annotation gutter with `expand`; use `ggrepel`; select the relevant `theme_pub(gutter = ...)` margin profile or increase the device dimension; then change the layout or encoding. Right-side direct labels require both scale expansion and `theme_pub(gutter = "right")`. Keep rule 6's default text sizes during collision repairs; a different size required by the venue or requested by the user must be checked at final placement.
@@ -158,7 +158,7 @@ This loads `theme_pub()` (already applied via `theme_set()`), `labs_pub()`, `fig
 
 ### One script per panel
 
-**One runnable script per panel.** Each standalone figure or report panel is produced by its own self-contained script (e.g. `figures/fig_<slug>.R`) that writes exactly **one matched PDF/PNG pair**. Never put several panels in one serial script — that forces them to render one after another.
+**One runnable script per panel.** Each standalone figure or report panel is produced by its own self-contained script (e.g. `figures/fig_<slug>.R`) that writes exactly **one PDF**. Never put several panels in one serial script — that forces them to render one after another.
 
 **One shared project setup, not divergent local copies.** Factor the common preamble — the `library()` calls, the single `source(".../theme_pub.R")`, the `showtext` font registration above, project subject mappings, and any shared data prep — into one project-level `_setup.R` that every figure script sources. Do not redefine `theme_pub()`, `labs_pub()`, `figure_spec()`, or `save_figure()` in project/subproject setup files. When divergent copies already exist, replace them with thin forwarding setup files that source the one project helper; merely improving the central skill will not update copied functions. Cache expensive data prep to disk (e.g. `saveRDS()` / `readRDS()`) so each job reads the prepared data instead of recomputing it.
 
@@ -175,7 +175,7 @@ dat <- readRDS("_cache/panel.rds")
 save_figure(p, spec)
 ```
 
-Because each script is independent, panels can render simultaneously under any parallel launcher: one panel = one matched artifact pair = one script = one job.
+Because each script is independent, panels can render simultaneously under any parallel launcher: one panel = one PDF = one script = one job.
 
 Read [palettes.md](references/palettes.md) for palette slots, subject mappings, scale code, and CVD checks. `scripts/theme_pub.R` remains the executable source of truth.
 
@@ -200,17 +200,19 @@ Read [palettes.md](references/palettes.md) when choosing anything beyond the def
 
 - Read [annotations.md](references/annotations.md) when writing or positioning axis text, direct labels, callouts, or event annotations.
 - Read [palettes.md](references/palettes.md) when selecting categorical, identity, sequential, diverging, or CVD-safe color encodings.
-- Read the relevant section of [recipes.md](references/recipes.md) before implementing a chart pattern or export workflow. It covers sorting, axes, paired export, direct labels, multi-series lines, event studies, model overlays, event lines, layer-and-highlight, and ridge plots.
+- Read the relevant section of [recipes.md](references/recipes.md) before implementing a chart pattern or export workflow. It covers sorting, axes, PDF export, direct labels, multi-series lines, event studies, model overlays, event lines, layer-and-highlight, and ridge plots.
 
 ---
 
 ## 7. Output
 
-**One standalone panel per file.** No patchwork, no `plot_annotation(tag_levels = "A")`, and no in-R panel combining. Each panel gets its own PDF/PNG pair. Combine panels in LaTeX under one figure number only when they jointly establish one argument and use compatible units, populations, and denominators; otherwise give each panel its own figure float.
+**Inspection previews.** Use project-root `exploratory/previews/` for disposable raster renders of saved PDFs, creating it when inspection needs a raster image. Add `/exploratory/previews/` to the project's `.gitignore`. Keep this directory outside the delivery folder; previews are not deliverables. Keep exploratory analysis scripts and useful working figures elsewhere so they are not treated as disposable previews. `save_figure()` continues to write only the PDF; render previews separately only when needed for inspection.
 
-**The blocking acceptance gate in rule 13 governs every export.** Declare geometry before constructing the plot, save the paired PDF and white-background PNG, open the artifact at placement size, and inspect the rebuilt report PDF when TeX is the destination. A successful save is not acceptance.
+**One standalone panel per file.** No patchwork, no `plot_annotation(tag_levels = "A")`, and no in-R panel combining. Each panel gets its own PDF. Combine panels in LaTeX under one figure number only when they jointly establish one argument and use compatible units, populations, and denominators; otherwise give each panel its own figure float.
 
-Use the paired-export and TeX-placement examples in [recipes.md](references/recipes.md#figure-specification-paired-export-and-qa). Relationship alone is insufficient for combining panels; the panels must jointly support one claim and remain directly comparable.
+**The blocking acceptance gate in rule 13 governs every export.** Declare geometry before constructing the plot, save the PDF with a white background, open the artifact at placement size, and inspect the rebuilt report PDF when TeX is the destination. A successful save is not acceptance.
+
+Use the PDF-export and TeX-placement examples in [recipes.md](references/recipes.md#figure-specification-pdf-export-and-qa). Relationship alone is insufficient for combining panels; the panels must jointly support one claim and remain directly comparable.
 
 ---
 

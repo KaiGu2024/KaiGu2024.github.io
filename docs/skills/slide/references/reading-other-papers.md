@@ -154,7 +154,7 @@ Every ordinary content section should contain an `<aside class="notes">`. Press 
 
 Once the HTML contains several base64 figures, do not load or rewrite the whole file through a context-limited text editor. Patch it with a temporary script under `.tmp_edit/`, run the script, then delete it. To inspect structure, print headings and `<section>` boundaries while replacing long base64 lines with a length marker.
 
-Render changed slides in headless Edge or Chrome at a window larger than 1280×720. Inspect the title, equation, densest text slide, every distinct results layout, and the closing slide. Check:
+Render changed slides in headless Edge or Chrome at a window larger than 1280×720. Save inspection screenshots and contact sheets under project-root `exploratory/previews/slides/<slug>/`; exclude `/exploratory/previews/` from version control. These disposable images are not deck deliverables or embedded figure assets. Inspect the title, equation, densest text slide, every distinct results layout, and the closing slide. Check:
 
 - no right-edge or bottom clipping;
 - readable axes, table text, and source lines;

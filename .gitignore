@@ -3,5 +3,8 @@ output/*.log
 output/*.out
 output/*.synctex.gz
 
+# Disposable figure inspection renders
+/exploratory/previews/
+
 # Local learning-materials library — copyrighted PDFs, not for the public Pages repo
 materials/

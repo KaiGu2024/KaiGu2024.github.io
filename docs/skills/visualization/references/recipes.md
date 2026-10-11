@@ -4,7 +4,7 @@ Copy-pasteable code for common figures. Assumes the shared `theme_pub.R` helpers
 
 ## Contents
 
-1. [Figure specification, paired export, and QA](#figure-specification-paired-export-and-qa)
+1. [Figure specification, PDF export, and QA](#figure-specification-pdf-export-and-qa)
 2. [Sorting categorical axes](#sorting-categorical-axes)
 3. [Subject-anchored rank ramp](#subject-anchored-rank-ramp)
 4. [Thinning dense axes](#thinning-dense-axes)
@@ -18,9 +18,9 @@ Copy-pasteable code for common figures. Assumes the shared `theme_pub.R` helpers
 12. [Layer-and-highlight](#layer-and-highlight--focal-series-in-crimson-all-series-labeled)
 13. [Distribution comparisons](#distribution-comparisons-ridge-plot)
 
-## Figure specification, paired export, and QA
+## Figure specification, PDF export, and QA
 
-Declare export geometry and intended placement width before constructing the plot. `figure_spec()` blocks export/placement mismatches above 10%; `save_figure()` writes a publication PDF and a white-background `-qa.png` with the same dimensions and aspect ratio. Saving does not certify the layout: open the QA image at placement size and inspect the rebuilt report PDF when TeX is the destination.
+Declare export geometry and intended placement width before constructing the plot. `figure_spec()` blocks export/placement mismatches above 10%; `save_figure()` writes only a publication PDF with a white background. Saving does not certify the layout: open the saved PDF at placement size and inspect the rebuilt report PDF when TeX is the destination.
 
 ```r
 spec <- figure_spec(
@@ -35,7 +35,10 @@ p <- ggplot(df, aes(x = source, y = share)) +
            y = "Average referral share (%)")
 
 paths <- save_figure(p, spec)
-# Open paths[["qa_png"]] with an image-viewing tool at 4.5 in.
+# Open paths[["pdf"]] with a PDF-viewing or rendering tool at 4.5 in.
+# If raster inspection is needed, render the saved PDF to
+# <project-root>/exploratory/previews/fig_referral_share-qa.png.
+# Keep /exploratory/previews/ in the project's .gitignore.
 ```
 
 `labs_pub()` wraps x titles at 32 characters and y titles at 26 by default; override `x_width` or `y_width` only when the rendered artifact shows a better break. For right-side direct labels, reserve both kinds of space:
@@ -59,7 +62,7 @@ For a single-panel TeX figure, place the PDF at the declared physical width:
 \end{figure}
 ```
 
-Inspect the rebuilt report PDF. Generate every report panel as its own script and PDF/PNG pair. Combine panels in LaTeX under one figure number only when they jointly establish one argument and use compatible units, populations, and denominators; otherwise place them in separate floats. Keep panel subtitles, letters, and the shared caption in LaTeX rather than baking them into the image files.
+Inspect the rebuilt report PDF. Generate every report panel as its own script and PDF. Combine panels in LaTeX under one figure number only when they jointly establish one argument and use compatible units, populations, and denominators; otherwise place them in separate floats. Keep panel subtitles, letters, and the shared caption in LaTeX rather than baking them into the image files.
 
 ## Sorting categorical axes
 

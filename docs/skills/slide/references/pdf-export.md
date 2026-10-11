@@ -33,3 +33,5 @@ Open the HTML in a browser and scroll each `<section>`. Any section that needs s
 - Callouts and code blocks not clipped at the bottom.
 
 After splits, re-run Decktape.
+
+Inspect the exported PDF itself, including the title, densest content slide, every distinct results layout, and conclusion. Save any rasterized pages or contact sheets needed for inspection under project-root `exploratory/previews/slides/<slug>/`, with `/exploratory/previews/` excluded from version control. These disposable previews stay outside `slide/` and are not companion PNG deliverables.

@@ -105,6 +105,8 @@ slide/
 
 Keep paper-native vector figures as PDF when possible. Use PNG or JPEG for raster sources. Convert SVG/EPS only when the active TeX engine cannot include it. Rebuild compact tables in native LaTeX with `booktabs`; do not paste screenshots of tables. Do not copy assets that are never used.
 
+Do not export a companion PNG deck by default. Rasterized pages and contact sheets used only for inspection belong under project-root `exploratory/previews/slides/<slug>/`, outside `slide/` and excluded from version control through `/exploratory/previews/` in `.gitignore`. Keep required Beamer assets in `slide/assets/<slug>/`; they are not disposable previews.
+
 Reference assets as `assets/<slug>/<filename>` and compile with `latexmk -cd`, so paths resolve from the `slide/` directory.
 
 ## Beamer document
@@ -247,7 +249,7 @@ Do not replace a failed local compile with an unverified `.tex` handoff. Report 
 
 2. Search the log for `Overfull` boxes, missing files, undefined control sequences, and unresolved references. Fix them rather than shrinking an entire deck.
 3. Confirm the PDF page count matches the intended slide count. Overlays can silently create extra pages.
-4. Render representative pages—including the title, densest data slide, every distinct results layout, and conclusion—to images and inspect them. Check clipping, minimum type size, source visibility, table legibility, and figure labels. On the title slide, verify bold Palatino, horizontal centering, two unbroken title lines when a subtitle exists, balanced spacing, and the centered author block.
+4. Render representative pages—including the title, densest data slide, every distinct results layout, and conclusion—to inspection images in project-root `exploratory/previews/slides/<slug>/` and inspect them. Check clipping, minimum type size, source visibility, table legibility, and figure labels. On the title slide, verify bold Palatino, horizontal centering, two unbroken title lines when a subtitle exists, balanced spacing, and the centered author block.
 5. Read the notes from beginning to end without looking at the slides. They should sound like one coherent talk. Revise abrupt openings, repeated transitions, unexplained terms, unsupported numbers, and paragraphs that merely recite visible bullets.
 6. Verify that the same headline magnitude appears verbatim in the preview, main result, conclusion, and corresponding notes.
 7. Check the block-level time budget, interruption allowance, backup-slide references, and route to the conclusion against `talk-delivery.md`. Distinguish estimated timing from an actual timed rehearsal.

@@ -119,30 +119,22 @@ figure_spec <- function(stem, width, height, placement_width) {
   )
 }
 
-# Save the publication PDF and a white-background PNG QA copy with identical
-# dimensions. Opening and accepting the rendered artifact remains a blocking
+# Save only the publication PDF with a white background.
+# Opening and accepting the rendered artifact remains a blocking
 # manual step; this helper cannot certify layout quality.
-save_figure <- function(plot, spec, dpi = 600) {
+save_figure <- function(plot, spec) {
   if (!inherits(spec, "figure_spec")) {
     stop("`spec` must come from figure_spec().", call. = FALSE)
   }
 
   output_dir <- dirname(spec$stem)
   dir.create(output_dir, recursive = TRUE, showWarnings = FALSE)
-  paths <- c(
-    pdf = paste0(spec$stem, ".pdf"),
-    qa_png = paste0(spec$stem, "-qa.png")
-  )
+  paths <- c(pdf = paste0(spec$stem, ".pdf"))
 
   ggplot2::ggsave(
     paths[["pdf"]], plot = plot,
     width = spec$width, height = spec$height, units = "in",
     device = grDevices::cairo_pdf, bg = "white"
-  )
-  ggplot2::ggsave(
-    paths[["qa_png"]], plot = plot,
-    width = spec$width, height = spec$height, units = "in",
-    dpi = dpi, bg = "white"
   )
 
   invisible(paths)

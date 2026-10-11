@@ -56,6 +56,14 @@ Record figure and table provenance in the notes: source file or PDF page, captio
 - Use one claim per slide and keep visual text large enough for projection.
 - Attribute every external asset visibly on the slide.
 
+## Deliverables and inspection previews
+
+Keep the mode's default deliverables: HTML for `report`, TeX source and compiled PDF for `own`. Generate additional deck formats or a separate notes PDF only when requested. Do not export a companion PNG deck by default.
+
+Save browser screenshots, rasterized PDF pages, and inspection contact sheets under project-root `exploratory/previews/slides/<slug>/`, creating the directory only when needed. Add `/exploratory/previews/` to the project's `.gitignore`. These disposable previews may remain for review, but must stay outside `slide/` and any delivery folder. Keep exploratory analysis scripts and useful working figures elsewhere.
+
+Images embedded in the HTML or referenced by Beamer are deck assets, not inspection previews. Preserve the selected mode's asset rules; do not move required source assets into the disposable preview directory.
+
 ## Verify before delivery
 
 Apply the mode-specific checklist, then confirm:
@@ -64,7 +72,7 @@ Apply the mode-specific checklist, then confirm:
 2. Every result number and visual traces to the paper or a verified project artifact.
 3. Figures, tables, equations, notes, and source lines render without clipping or overlap.
 4. The title, densest content slide, each distinct results layout, and conclusion have been visually inspected.
-5. Temporary extraction, conversion, edit, and build artifacts have been removed; retain only source inputs needed for reproducibility and intended deliverables.
+5. Temporary extraction, conversion, edit, and build artifacts have been removed from the delivery folder; retain source inputs needed for reproducibility and intended deliverables. Any retained inspection previews are confined to the ignored `exploratory/previews/slides/<slug>/` directory.
 
 ## Report completion
 
