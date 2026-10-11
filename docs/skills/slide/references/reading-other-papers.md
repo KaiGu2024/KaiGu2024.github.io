@@ -52,7 +52,7 @@ Insert **Analytical Model** immediately before Results when needed. Explain the 
 ### Titles and density
 
 - Keep each content-slide `<h2>` to one row, normally no more than about 33 characters.
-- Use a stable `Section: topic` title with `<span class="h2-section">Section:</span> topic` so the audience can locate the slide in the Outline.
+- Put `<p class="section-label">2 Is the remedy catching up?</p>` immediately above the content-slide `<h2>` (illustrative wording). Use the actual section name and any number from the talk map; for analyses listed in the Outline, match its labels and numbering. Keep the label unchanged within a section, omit it on the opening title slide, and label backup slides explicitly. The `<h2>` names the slide's topic without repeating a `Section:` prefix.
 - Name the analytical role and object, not the punchline. Put the estimate or conclusion in a result callout.
 - Avoid em-dash compound titles. Use a subtitle only when it adds information; let either the title or subtitle carry the underline, never both.
 - Add `class="dense"` only to text-heavy Outline, Identification, or closing slides. Do not shrink figure or results slides by hand.

@@ -15,7 +15,7 @@ Hold the line on:
 - **Typography.** Plus Jakarta Sans, weight 400–800 across heading and body. One typeface only — no mixing with serif Lora / Newsreader. Source Serif 4 is loaded for math/citations but should not appear as body type. Never substitute Inter, Arial, system-ui-only (Plus Jakarta Sans falls back to system-ui only when the webfont fails to load), or Space Grotesk.
 - **Palette role-distribution.** White surfaces dominate (~92% of slide area). **Desaturated chrome** (`--c-primary`, `#234E96`) ~6% — h2 color, table-header band, code background, link / role text. **Saturated electric accent** (`--c-accent`, `#0046AD`) ≤2% — one moment per slide: `.callout-result`, the `.with-accent` / title-slide h2 underline, eq-block left rule, outline-grid numerals. The two share a hue but differ in saturation, so the deck reads monochromatic while the accent still pops against the quieter chrome. If electric blue starts covering area, it has stopped being an accent. **Never raise the chrome's saturation back to the accent's** — a fully-saturated table-header band on every slide is the dated, loud look the muted-figure palette exists to avoid.
 - **No warm tones.** No cream paper. No Hokusai crimson. No banana-yellow accents. No coral warns. The personal site uses warm cream and crimson; the slide deck does not. If you find yourself reaching for `#EFE6D2` or `#A03830` while generating a deck, you are conflating brands — stop.
-- **Layout.** Asymmetric where it helps the eye land (title slide gets a big blue underline rule), generous negative space everywhere else. **Fewer, bigger words.** Bullets should breathe; max ~8 words per bullet where possible. The body font sizes in §1 are intentionally one tier larger than the previous deck spec — eye-catch at slide pace, not document-style density.
+- **Layout.** Asymmetric where it helps the eye land (title slide gets a big blue underline rule), generous negative space everywhere else. **Fewer, bigger words.** Bullets should breathe; max ~8 words per bullet where possible. The type sizes in §1 balance restrained headings with readable body text at projection size. Resolve crowding by shortening or splitting content before reducing type further.
 - **Execution density.** Academic-clean asks for *restraint and precision* — careful spacing, deliberate type hierarchy, no decorative flourishes. Plain white with a blue stripe is the right answer; a tasteful paper-grain texture is *not* (warm in feel; against the brand).
 - **Symmetric column heights.** For any `.col-7-5` or `.col-6-6` slide, the left and right columns must have the same vertical extent. The deck CSS stretches both columns and centers content inside each, so a short text column sits visually opposite the figure rather than floating above its bottom edge. Per-slide overrides (inline `style="align-items: stretch"`, `style="justify-content: center"`) are unnecessary and should be deleted when found.
 - **Drop per-column h3s that break top-alignment.** If two adjacent panels have headings that occupy different vertical heights (one wraps, one doesn't), drop the heading entirely and fold the label into the caption sentence below the figure (e.g., `<p class="small"><strong>Deadline (Fig. 7).</strong> ...</p>`). The panels then top-align cleanly.
@@ -49,6 +49,8 @@ For wording and sentence-level clarity, see paper-writing's [academic-voice guid
 
 These tokens are **specific to slide decks** — they do NOT mirror `docs/css/tokens.css`. The personal site has its own tokens; this file is the source of truth for the slide deck only.
 
+At a 1280×720 viewport with a 16px root font, the standard content-title, subtitle/subheading, and body sizes are **56px, 30px, and 27px**, before Reveal's overall slide scaling. The opening title retains its separate 48px cap; small text and the dense-slide tier retain their existing sizes. Inspect readability in the final slide layout, following the [visualization skill's placement-size principle](../../visualization/SKILL.md#1-standards); its manuscript point sizes are not slide CSS targets. These tokens also govern PDFs exported from the HTML deck; `own` mode uses the separate Beamer settings in `own-work.md`.
+
 ```css
 :root {
   /* Palette — blue-white academic, no warm tones.
@@ -80,10 +82,10 @@ These tokens are **specific to slide decks** — they do NOT mirror `docs/css/to
   --font-serif:   'Source Serif 4', Georgia, 'Times New Roman', serif;
   --font-mono:    ui-monospace, 'JetBrains Mono', Consolas, monospace;
 
-  /* Sized one tier larger than the previous spec — eye-catch over density */
-  --fs-h1:    clamp(2.8rem,  6.0vw, 4.2rem);
-  --fs-h3:    clamp(1.55rem, 3.1vw, 2.0rem);
-  --fs-body:  clamp(1.45rem, 2.7vw, 1.8rem);
+  /* Standard caps at a 16px root: title 56px, subheading 30px, body 27px */
+  --fs-h1:    clamp(2.8rem,  5.0vw, 3.5rem);
+  --fs-h3:    clamp(1.55rem, 2.9vw, 1.875rem);
+  --fs-body:  clamp(1.45rem, 2.5vw, 1.6875rem);
   --fs-small: clamp(1.15rem, 1.9vw, 1.5rem);
   --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
@@ -109,7 +111,17 @@ Load fonts in `<head>` before stylesheets:
 
 ## 2. Base slide overrides
 
-When body and display fonts are the same (Plus Jakarta Sans across the board), the hierarchy still has to be visible through weight + size, not through typeface contrast. So h2 jumps to weight 800 with negative letter-spacing; body is 400; small-caps eyebrows are 600 with positive letter-spacing.
+When body and display fonts are the same (Plus Jakarta Sans across the board), the hierarchy still has to be visible through weight + size, not through typeface contrast. So h2 uses weight 800 with negative letter-spacing; body is 400; the section label is a smaller, medium-weight line in the slide's muted blue.
+
+Use a short, sentence-case section label above each content-slide title, aligned to its left edge. At the standard 16px root it is 22px, with an 8px gap before the title. Keep its size and position stable on dense slides too. Use the section name and any number from the talk map; repeat them across the section, omit the label on the opening title slide, and use an explicit Backup label for appendix slides. Keep it in normal document flow and include its height when checking fit. No pill, box, extra rule, or full navigation bar is needed. The label carries orientation; the larger title carries the slide topic.
+
+```html
+<section>
+  <p class="section-label">2 Is the remedy catching up?</p>
+  <h2>Technology has moved since 2022</h2>
+  <!-- slide content and speaker notes -->
+</section>
+```
 
 ```css
 .reveal .slides section {
@@ -139,6 +151,12 @@ When body and display fonts are the same (Plus Jakarta Sans across the board), t
   letter-spacing: -0.012em;
 }
 .reveal p, .reveal li { color: var(--c-ink-soft); }
+.reveal .slides section > .section-label {
+  font-family: var(--font-display); font-size: 1.375rem;
+  font-weight: 500; line-height: 1.2; letter-spacing: 0;
+  color: var(--c-primary); text-transform: none;
+  margin: 0 0 var(--sp-2);
+}
 .reveal strong { color: var(--c-ink); font-weight: 700; }
 .reveal em { color: var(--c-ink); font-style: italic; }
 code { font-family: var(--font-mono); font-size: 0.88em;
@@ -150,14 +168,12 @@ code { font-family: var(--font-mono); font-size: 0.88em;
 .reveal li { margin: var(--sp-2) 0; }
 .reveal ul.tight li, .reveal ol.tight li { margin: 4px 0; }
 
-/* Dense-slide tier — the §1 body sizes are deliberately one tier large for
-   eye-catch on figure/result slides, but they overflow the 720px section on
-   the few text-heavy slides (Takeaways & Discussion: 3 bullets + 5 questions;
-   Outline; Identification's three stacked Challenge/Strategy/Assumptions
-   blocks). Add class="dense" to those <section>s instead of hand-shrinking
-   fonts per deck. It redefines the type tokens one notch down; because the
-   tokens are inherited custom properties, every h2/h3/body/small inside the
-   section scales proportionally with no per-element overrides. */
+/* Dense-slide tier — reserved for text-heavy Outline, Identification,
+   and closing slides. Try the standard tier first; shorten or split content
+   before using this smaller tier. Add class="dense" to the <section>
+   instead of hand-shrinking individual elements. Its inherited type tokens
+   keep headings, body, and small text in a consistent hierarchy.
+   Inspect the final layout; split any slide that still needs scrolling. */
 .reveal .slides section.dense {
   --fs-h1:    clamp(2.2rem, 4.6vw, 3.0rem);
   --fs-h3:    clamp(1.3rem, 2.5vw, 1.6rem);

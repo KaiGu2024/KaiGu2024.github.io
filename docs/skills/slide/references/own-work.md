@@ -136,6 +136,24 @@ Start from this minimal system and adapt content, not the delivery format. Keep 
 \setbeamercolor{structure}{fg=DeckBlue}
 \setbeamercolor{alerted text}{fg=DeckBlue}
 \setbeamerfont{frametitle}{series=\bfseries,size=\Large}
+\setbeamercolor{section label}{fg=DeckMuted,bg=white}
+\setbeamerfont{section label}{size=\footnotesize,series=\mdseries}
+\setbeamertemplate{frametitle}{%
+  \nointerlineskip
+  \begin{beamercolorbox}[wd=\textwidth,sep=0pt]{frametitle}
+    \vskip0.6em
+    \ifnum\value{section}>0
+      {\usebeamerfont{section label}\usebeamercolor[fg]{section label}%
+       \insertsectionnumber\enspace\insertsectionhead\par}%
+      \vskip0.3em
+    \fi
+    {\usebeamerfont{frametitle}\insertframetitle\par}%
+    \ifx\insertframesubtitle\empty\else
+      {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}%
+       \insertframesubtitle\par}%
+    \fi
+    \vskip0.3em
+  \end{beamercolorbox}}
 \setbeamerfont{title}{family=\rmfamily,series=\bfseries,size=\LARGE}
 \setbeamerfont{subtitle}{family=\rmfamily,series=\bfseries,size=\Large}
 \setbeamerfont{author}{family=\rmfamily,size=\normalsize}
@@ -181,12 +199,16 @@ Start from this minimal system and adapt content, not the delivery format. Keep 
   \note{<Natural opening in complete spoken sentences.>}
 \end{frame}
 
-% Follow the exact narrative spine above.
+% Follow the exact narrative spine above. Declare each block before its frames:
+\section{Motivation}
+% \begin{frame}{<Slide-specific title>} ... \end{frame}
 
 \end{document}
 ```
 
 Use one claim per frame. Keep frame titles short and informative. Prefer a full-width figure or a simple two-column composition. Avoid tiny multi-panel plots, ornamental card grids, automatic section-divider frames, and overlays that turn one logical slide into several PDF pages. Put useful backup frames after `\appendix` and write notes for them too.
+
+**Section labels above titles.** Declare each narrative block with `\section{<Short section name>}` before its first content frame. The template prints the current section number and name above every frame title, as a small orientation line; the opening title frame has no label. Keep section names stable and consistent with the talk map, and let each frame title name its own topic without repeating the section. If the talk map is unnumbered, omit `\insertsectionnumber\enspace` from the template. After `\appendix`, declare `\section{Backup}` so backup frames do not inherit Conclusion. Shorten an overlong section label instead of shrinking it; inspect alignment, the gap above the title, and the remaining body space in the compiled PDF.
 
 Put a plain-language symbol gloss below every displayed equation. Keep only the equation required for the argument. For canonical designs, explain the identifying assumption and diagnostic rather than spending a full frame on a familiar regression equation.
 

@@ -9,6 +9,8 @@ decktape reveal --size 1280x720 slide/<slug>.html slide/<slug>.pdf
 
 Decktape walks every `<section>` and writes one fixed-size page per slide. Unlike the HTML view, **PDF pages cannot scroll** — content overflowing the viewport is silently clipped. The HTML's `overflow-y: auto` is a safety net for HTML viewing only; in PDF it does nothing.
 
+**Use the HTML deck's typography unchanged.** Decktape renders the CSS from `aesthetics.md`, including the standard 56px title, 30px subtitle/subheading, and 27px body caps at a 16px root font. Do not introduce a separate PDF font-size override. Compare HTML and PDF at the same slide display size, and ensure the webfonts have loaded before capture. This applies to HTML-derived PDFs; `own` mode's Beamer PDFs follow `own-work.md`.
+
 ---
 
 ## Splitting rules
