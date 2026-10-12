@@ -137,7 +137,7 @@ a convention the project does not actually use>
 - After each meaningful operation: append one entry to `notes/log.md` as `## [YYYY-MM-DD] operation | description` (typed operation: `ingest` / `lint` / `strategy` / …); link to the phase plan and `[[decisions#...]]` rather than restating them. (Omit this rule if the project has no `notes/` wiki.)
 - Periodically: lint the wiki — sweep for orphan pages, stale claims, and missing cross-references; fix or flag, and record the sweep as a `lint` log entry. (Omit if no wiki.)
 - Single source of truth per fact: a number lives on one page and is linked, never copied. Never restate a result or a decision in a second location — link to it.
-- At end of a completed task with a non-clean working tree: let the [`version-control`](../version-control.md) skill commit and push. Tag AI-assisted commits with `[AI]` if this repo documents that policy.
+- After each substantial, coherent revision: create a local Git commit in the project's repository before proceeding to the next substantial revision, following the [`version-control`](../version-control.md) skill's checks and staging rules. A completed section rewrite, analysis change, or implementation milestone qualifies; individual keystrokes and incomplete experiments do not. Use a descriptive message to preserve the revision record. At task completion, commit any remaining task changes and push the task's commits to the established remote branch; a clean working tree does not mean earlier checkpoints have been pushed. Honor explicit instructions to defer commits or pushes. Tag AI-assisted commits with `[AI]` if this repo documents that policy.
 - Follow **Protected files and cleanup** for temporary/build artifacts. Finishing a task, successful compilation, or a request to commit does not authorize deleting files or directories.
 
 **General principles** (optional house rules, adapted from [Karpathy's LLM-coding CLAUDE.md](https://github.com/multica-ai/andrej-karpathy-skills/blob/main/CLAUDE.md); include only when the team wants them stated explicitly):
@@ -175,6 +175,6 @@ Constraints: [Any rules from AGENTS.md that apply]
 
 ## Automated Version Control
 
-Use the [`version-control`](../version-control.md) skill for completion triggers, staging, checks, commits, and pushes. Record project-specific disclosure tags, commit-message conventions, required build steps, and paths excluded from staging in AGENTS.md. Keep the commit procedure in that skill rather than duplicating it in project instructions.
+Use the [`version-control`](../version-control.md) skill for substantial-revision checkpoints, task-completion triggers, staging, checks, commits, and pushes. Carry the template's checkpoint rule into project guidance so local commits occur during the task and pushing occurs at completion without repeated confirmation. Record project-specific disclosure tags, commit-message conventions, required build steps, and paths excluded from staging in AGENTS.md. Keep the commit procedure in that skill rather than duplicating it in project instructions.
 
 This skill owns result-family organization and provenance conventions as defined in [analysis naming and outputs](references/docs-layers.md#analysis-naming-and-outputs). The `version-control` skill owns Git history; it does not create result-folder copies to preserve revisions.

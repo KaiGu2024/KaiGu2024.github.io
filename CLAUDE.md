@@ -126,6 +126,8 @@ The same layout applies under `~/.codex/skills/`. Copy explicit files without de
 
 **Project guidance upkeep.** When completed work establishes a durable decision or principle, update the relevant guidance here or in its linked documentation. Replace superseded instructions and consolidate overlapping rules; keep exploratory ideas in `notes/` until established. Keep this file concise and current, with detailed rationale in the relevant project notes.
 
+**Revision history.** After each substantial, coherent revision, use the [version-control skill](docs/skills/version-control.md) to check and commit the task's changes locally before starting the next revision. Use descriptive commit messages and preserve unrelated work. At task completion, commit remaining task changes and push the task's commits to the established remote branch, even if earlier checkpoints left the working tree clean. Honor explicit instructions to defer commits or pushes.
+
 ---
 
 ## Reading-group decks — `docs/reading_group/`
