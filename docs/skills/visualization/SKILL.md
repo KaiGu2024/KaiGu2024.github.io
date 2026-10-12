@@ -214,6 +214,12 @@ Read [palettes.md](references/palettes.md) when choosing anything beyond the def
 
 Use the PDF-export and TeX-placement examples in [recipes.md](references/recipes.md#figure-specification-pdf-export-and-qa). Relationship alone is insufficient for combining panels; the panels must jointly support one claim and remain directly comparable.
 
+### Panel layout
+
+Use **rows × columns** notation. For panels that meet the combination rule above, default to **1 × 2** (two panels side by side) or **2 × 2** (four panels in a grid) to save page space and make comparisons easy. Prefer these layouts over **2 × 1**; stack two panels only when a side-by-side arrangement cannot accommodate their axes, labels, or data detail at readable final size. Choose other panel counts by the argument and available space rather than adding panels just to fill a grid.
+
+Assemble the independent PDFs in LaTeX with consistent panel widths, aligned plot areas where feasible, and modest, even gaps. Order panels left to right, then top to bottom; use rows or columns for meaningful comparison groups. Keep panel letters, short subtitles, and the shared caption in LaTeX. Size each export for its actual subfigure width, accounting for the gap between columns, and retain the export/placement tolerance in rule 13. Inspect the complete figure in the compiled document for readable text, balanced spacing, and page fit; repair crowded labels or geometry before falling back to a vertical stack.
+
 ---
 
 ## 8. Cross-references

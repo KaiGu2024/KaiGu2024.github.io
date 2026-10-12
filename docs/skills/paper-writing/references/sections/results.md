@@ -54,4 +54,6 @@ Choose a figure for a pattern, a table for precise comparisons, or a compact num
 
 Use captions and notes for units, samples, benchmarks, transformations, and uncertainty conventions; use prose for the implication. Explain constructed values and distinguish confidence intervals from dispersion or scenario ranges. Make uncertainty legible and keep repeated magnitudes consistent in value and rounding.
 
+When panels warrant one combined figure, default to **1 × 2** for two panels and **2 × 2** for four panels (rows × columns). Prefer these compact arrangements over **2 × 1**; stack two panels only when they need the extra width to remain readable. Follow visualization's [panel layout guidance](../../../visualization/SKILL.md#panel-layout) for grouping, sizing, and alignment.
+
 Use [tables](../../../tables/SKILL.md) or [visualization](../../../visualization/SKILL.md) for display execution. Source record: [three-paper results audit](../../audits/results-three-paper-audit.md).
