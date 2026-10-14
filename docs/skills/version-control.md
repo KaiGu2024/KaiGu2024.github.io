@@ -59,7 +59,7 @@ An unborn branch has no log yet; use project conventions or the defaults below. 
 
 Read current project guidance and build configuration for required checks and generated outputs. Run the checks applicable to the proposed commit; reuse successful checks only while their relevant inputs remain unchanged. Do not copy machine-specific compiler paths or obsolete build recipes into this reusable skill.
 
-For this website, changes to `code/cv.tex` require rebuilding the single CV with abstracts and updating `docs/assets/cv.pdf` using CLAUDE.md's current procedure. Inspect output-only changes for legitimate regeneration or stale artifacts before deciding what to stage; they do not automatically require confirmation.
+For this website, changes to `code/cv.tex` require rebuilding the single CV with abstracts and updating `docs/assets/cv.pdf` using AGENTS.md's current procedure. Inspect output-only changes for legitimate regeneration or stale artifacts before deciding what to stage; they do not automatically require confirmation.
 
 If a required build fails, diagnose and fix task-related problems, then rerun it. Do not commit stale or partial generated outputs. If blocked, report the failing command and relevant error. Builds and commits do not authorize cleanup of source files or retained artifacts.
 

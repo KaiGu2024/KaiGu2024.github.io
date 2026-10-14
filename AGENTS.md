@@ -1,4 +1,4 @@
-# Personal Academic Website — CLAUDE.md
+# Personal Academic Website — AGENTS.md
 
 ## Project Overview
 
@@ -16,7 +16,7 @@ This is NOT a research replication package; the research-specific Data Provenanc
 
 ```
 website/
-├── CLAUDE.md           # this file
+├── AGENTS.md           # this file
 ├── code/cv.tex         # LaTeX CV source
 ├── output/             # LaTeX build artifacts (do not edit manually)
 ├── docs/               # GitHub Pages root

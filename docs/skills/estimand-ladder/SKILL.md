@@ -121,7 +121,7 @@ The throughline mirrors the figure: **define the target before reading the estim
 
 ## Sync to the active skill library
 
-After editing, this skill must be copied into `~/.claude/skills/` to take effect (manual `cp`, no symlink — see the repo CLAUDE.md):
+After editing, this skill must be copied into `~/.claude/skills/` to take effect (manual `cp`, no symlink — see the repo AGENTS.md):
 
 ```bash
 cp docs/skills/estimand-ladder/SKILL.md ~/.claude/skills/estimand-ladder/SKILL.md
