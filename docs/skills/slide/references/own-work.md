@@ -55,7 +55,9 @@ Prefer one clean chart, headline, document, or photograph over a montage. If no 
 
 ## Spoken notes
 
-Write notes as language the author could actually say aloud. Use complete sentences and short paragraphs, usually 60–120 words or roughly 30–60 seconds per frame. The title note may be shorter. Do not use labels such as “Hook,” “Claim,” “Caveat,” or “Transition,” and do not write telegraphic fragments.
+Write notes as language the author could actually say aloud. Use complete sentences and short paragraphs, usually 60–120 words per frame as an initial drafting range; delivery time depends on pauses, figures, and the speaker. The title note may be shorter. Do not use labels such as “Hook,” “Claim,” “Caveat,” or “Transition,” and do not write telegraphic fragments.
+
+Each paragraph is a speaking unit, with its visible gap cueing a brief pause and a look up at the audience. Mark selected words or short phrases with `\textbf{...}` to cue vocal stress. These are part of writing the note, not optional decoration: avoid a dense unbroken script, and do not rely on bold section labels to indicate emphasis. Follow [talk-delivery.md](talk-delivery.md) for pause length, emphasis selection, and conversational phrasing.
 
 Apply [talk-delivery.md](talk-delivery.md) when choosing what to say and budgeting time. The usual note length is a starting point; expand the explanation of a central result or shorten a transition to match the rehearsed block budget.
 
@@ -125,6 +127,9 @@ Start from this minimal system and adapt content, not the delivery format. Keep 
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{pgfpages}
+
+% Keep speaking units visibly separated when notes are rendered.
+\addtobeamertemplate{note page}{\setlength{\parskip}{0.6em}}{}
 
 \definecolor{DeckNavy}{HTML}{17324D}
 \definecolor{DeckBlue}{HTML}{2563EB}
@@ -232,16 +237,19 @@ Write every slide as an explicit `frame` environment and put exactly one substan
     \item The effect is concentrated among first-time buyers.
     \item Placebo outcomes remain flat.
   \end{itemize}
-  \note{We find a 3.2 percentage-point increase in purchases, with a 95 percent
-  confidence interval from 2.1 to 4.3 points. Relative to the 12-point baseline,
-  that is about a 27 percent increase. The concentration among first-time buyers
-  is useful because it points to acquisition rather than heavier purchasing by
-  existing customers. I will first explain the setting that generates our
-  comparison and then show the estimates behind this preview.}
+  \note{We find a \textbf{3.2 percentage-point increase} in purchases, with a
+  95 percent confidence interval from 2.1 to 4.3 points. Relative to the
+  12-point baseline, that's about a \textbf{27 percent increase}.
+
+  The increase is concentrated among \textbf{first-time buyers}. That suggests
+  we're bringing in new buyers, rather than seeing existing customers buy more.
+
+  So where does our comparison come from? Let me explain the setting, and
+  then we'll look at the estimates behind these findings.}
 \end{frame}
 ```
 
-The note is spoken prose, not a second slide. Apply the style and block-specific guidance above. Escape TeX-sensitive characters and keep citations or source details concise enough to say naturally. Do not put unsourced numbers in either the frame or its note.
+This example uses illustrative findings, not evidence to copy into a real deck. Its paragraph gaps cue pauses between the magnitude, interpretation, and transition; bold spans cue stress within the spoken sentences. The note is spoken prose, not a second slide. Apply the style and block-specific guidance above. Escape TeX-sensitive characters and keep citations or source details concise enough to say naturally. Do not put unsourced numbers in either the frame or its note.
 
 ## Compilation
 
@@ -273,5 +281,6 @@ Do not replace a failed local compile with an unverified `.tex` handoff. Report 
 3. Confirm the PDF page count matches the intended slide count. Overlays can silently create extra pages.
 4. Render representative pages—including the title, densest data slide, every distinct results layout, and conclusion—to inspection images in project-root `exploratory/previews/slides/<slug>/` and inspect them. Check clipping, minimum type size, source visibility, table legibility, and figure labels. On the title slide, verify bold Palatino, horizontal centering, two unbroken title lines when a subtitle exists, balanced spacing, and the centered author block.
 5. Read the notes from beginning to end without looking at the slides. They should sound like one coherent talk. Revise abrupt openings, repeated transitions, unexplained terms, unsupported numbers, and paragraphs that merely recite visible bullets.
+   Inspect a temporary notes rendering even when a separate notes PDF is not a requested deliverable; keep that inspection build under the ignored preview directory. Check that paragraph gaps survive compilation, bold words visibly differ from normal text, and the longest note fits at a comfortable reading size. Shorten or reflow an overflowing note rather than shrinking it into a dense block. In an aloud rehearsal, pause at paragraph gaps and stress the bold words to check that both feel natural.
 6. Verify that the same headline magnitude appears verbatim in the preview, main result, conclusion, and corresponding notes.
 7. Check the block-level time budget, interruption allowance, backup-slide references, and route to the conclusion against `talk-delivery.md`. Distinguish estimated timing from an actual timed rehearsal.

@@ -38,7 +38,7 @@ The table below is for a discussant appraising someone else's paper.
 
 ## Markup
 
-Markup-light HTML — use one `<p>` per message layer, with a short `<strong>` label. No tables, images, or callouts (the overlay is itself the callout).
+Markup-light HTML — use one `<p>` per speaking unit, with a visible gap that cues a pause. A short organizational label is optional; put `<strong>` around the actual words or short phrases to stress aloud. Labels alone are not vocal-emphasis cues. Follow [talk-delivery.md](talk-delivery.md) for natural phrasing and selective emphasis, while keeping the overlay brief. No tables, images, or callouts (the overlay is itself the callout).
 
 ```html
 <section>
@@ -47,12 +47,14 @@ Markup-light HTML — use one `<p>` per message layer, with a short `<strong>` l
   <h3>Description</h3>
   <ul><li><strong>Magnitude</strong>: +3.2 pp, 95% CI [2.1, 4.3]</li></ul>
   <aside class="notes">
-    <p><strong>Magnitude:</strong> +3.2 pp off a 12-point base — about a 27% lift.</p>
-    <p><strong>Visual:</strong> Flat pre-period; sharp kink at week 0.</p>
-    <p><strong>Caveat:</strong> Wider CI after week 4 as the panel thins; balanced-panel robustness in Table A5.</p>
+    <p><strong>3.2 percentage points</strong> above a 12-point baseline; about a <strong>27 percent increase</strong>.</p>
+    <p>Point to <strong>week zero</strong>: the estimates rise after a flat pre-period.</p>
+    <p><strong>Less precise after week four</strong> as the sample shrinks. If asked: balanced-panel check in Table A5.</p>
   </aside>
 </section>
 ```
+
+The findings and table reference above are illustrative; replace them with verified evidence. Inspect both the N overlay and S speaker view when used: paragraph gaps and bold stress words must remain visible, with no clipping or scrolling needed for the planned cues. Keep optional Q&A reminders out of the timed narration.
 
 ---
 

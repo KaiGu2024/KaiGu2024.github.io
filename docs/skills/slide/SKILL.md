@@ -18,7 +18,7 @@ Generate slides only when explicitly requested. Select `report` when the user do
 
 Follow the selected mode reference as authoritative. Do not combine skeletons, notes conventions, asset handling, or output formats across modes unless the user explicitly requests a hybrid.
 
-In both modes, read `references/talk-delivery.md` before drafting notes. It covers opening hooks, spoken explanations, objections, closing, and pacing; the mode reference determines whether to write full prose or brief cues.
+In both modes, read `references/talk-delivery.md` before drafting notes. It covers paragraph breaks as pauses, bold keywords as vocal emphasis, natural oral phrasing, opening hooks, spoken explanations, objections, closing, and pacing; the mode reference determines whether to write full prose or brief cues. Make these delivery cues visible in the rendered notes, not just in their source.
 
 ## Acquire the paper
 
@@ -73,6 +73,7 @@ Apply the mode-specific checklist, then confirm:
 2. Every result number and visual traces to the paper or a verified project artifact.
 3. Figures, tables, equations, notes, and source lines render without clipping or overlap. Section labels match the talk map, sit above content titles consistently, and leave enough room for the slide body.
 4. The title, densest content slide, each distinct results layout, and conclusion have been visually inspected.
+   Inspect representative rendered notes too: paragraph gaps must be visible, bold stress words easy to find, and text readable without clipping. Read the narration aloud when rehearsing, honoring the pauses and emphasis; distinguish a text review from an actual timed rehearsal.
 5. Temporary extraction, conversion, edit, and build artifacts have been removed from the delivery folder; retain source inputs needed for reproducibility and intended deliverables. Any retained inspection previews are confined to the ignored `exploratory/previews/slides/<slug>/` directory.
 
 ## Report completion
