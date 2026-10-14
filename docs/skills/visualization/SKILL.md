@@ -30,6 +30,8 @@ invocation: auto
 
 4. **Direct annotation, no legends.** Label every line or group the reader needs to identify, including background series; highlighting changes color, not label coverage. Horizontal-bar ticks may serve as labels. Suppress redundant guides, keep labels in white space, and facet or change encoding if required labels cannot fit. Read [annotations.md](references/annotations.md) whenever adding or positioning text.
 
+   **Label outlying observations.** In scatterplots and other point-based figures, directly label clear outliers with their observation identifier—for example, the country name when each dot represents a country. Use a consistent, documented selection criterion and position labels without overlap, using `ggrepel` where needed. Ordinary points may remain unlabeled.
+
 5. **Vector PDF output.** Deliver vector PDFs only; do not generate companion PNG deliverables. Raster renders needed for inspection belong in `exploratory/previews/` (see §7).
 
 6. **Use a readable text hierarchy at final placement size.** Author at the declared placement size (rule 13), with export and placement widths within 10%. Manuscript defaults are:

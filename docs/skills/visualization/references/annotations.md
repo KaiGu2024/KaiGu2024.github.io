@@ -18,6 +18,8 @@ Replace legends with direct labels. Label every line or group the reader needs t
 
 Do not double-label horizontal bars when their y-axis ticks already name them. If all required series cannot be labeled after using `ggrepel` and an annotation gutter, facet or change the encoding instead of shrinking text.
 
+For scatterplots and other point-based figures, label clear outliers with their observation identifier, such as the country name when each dot represents a country. Apply a consistent selection criterion to all observations and document it in the plotting code and figure note; ordinary points may remain unlabeled. Keep all selected labels visible: if `ggrepel` drops labels because of crowding, use `max.overlaps = Inf` and repair the layout. Verify that each label can be matched unambiguously to its point, using leader segments where needed.
+
 Keep labels in white space rather than on data marks. Use `nudge_x`, `nudge_y`, or `ggrepel`; reserve `geom_label()` for the rare case where no white space exists.
 
 ## Orientation and contrast
@@ -32,7 +34,7 @@ Use at least `grey30` on white for annotations meant to be read. `grey60` is too
 
 Use **16–18 pt** for direct line and point labels; start at 16 pt to match tick labels. Use `size = 16 / ggplot2::.pt` in `geom_text()` or `geom_text_repel()`, and set `family = "Newsreader"` explicitly: theme text settings do not set the font family of text geoms. `geom_text()` also supports `size = 16, size.unit = "pt"`; see the [ggplot2 text-unit documentation](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html). Keep Lora for the 20 pt axis titles and 18 pt facet strips.
 
-Write plain nouns of one to three words: `ChatGPT`, `Google`, `Treatment`. Do not add parentheses, qualifiers, units, sample sizes, periods, countries, or model specifications. Put units in axis titles and contextual details in the TeX caption.
+Write concise names or plain nouns, usually one to three words: `ChatGPT`, `Google`, `Treatment`, `Germany`. Preserve the full observation identifier when needed for unambiguous identification. Country names are required when identifying country-level outliers; omit country details only when they are extra context for another identifier. Do not append parentheses, qualifiers, units, sample sizes, periods, or model specifications. Put units in axis titles and contextual details in the TeX caption.
 
 For ordinary endpoint labels, use `geom_text_repel(direction = "y")`. When endpoints converge in a narrow vertical band, keep one label rail: rotate labels to `angle = 90, hjust = 0`, anchor each at its endpoint, and repel with `direction = "x"`. If that rail still cannot fit, facet or switch to layer-and-highlight.
 
