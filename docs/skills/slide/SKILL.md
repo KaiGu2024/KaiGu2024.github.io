@@ -41,7 +41,7 @@ When only an arXiv identifier is provided, retrieve the paper PDF first. When th
 Before generating the deck, write `notes/<slug>.md` from the full source.
 
 - In `report`, record the one-line contribution, research question, data, identification strategy, main results with uncertainty, mechanisms, limitations, and discussion questions.
-- In `own`, build the talk map in the exact order defined by `references/own-work.md`, with the headline magnitude stated consistently across preview, results, conclusion, and speaker notes.
+- In `own`, build the talk map in the exact order defined by `references/own-work.md`: place one Literature Positioning slide after Motivation, then one combined Research Question + Preview of Findings slide. State the headline magnitude consistently across preview, results, conclusion, and speaker notes.
 
 Record figure and table provenance in the notes: source file or PDF page, caption, panel, and any conversion or crop. For external motivation evidence allowed in `own`, record the publisher, year, URL, and retrieval date.
 

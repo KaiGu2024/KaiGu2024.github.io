@@ -6,6 +6,8 @@ Use this as the single authoritative reference for an `own` deck. It governs bot
 
 - [Hard rules](#hard-rules)
 - [Required narrative spine](#required-narrative-spine)
+- [Literature positioning](#literature-positioning)
+- [Combined research question and findings preview](#combined-research-question-and-findings-preview)
 - [Motivation assets](#motivation-assets)
 - [Spoken notes](#spoken-notes)
 - [Notes by block](#notes-by-block)
@@ -19,8 +21,8 @@ Use this as the single authoritative reference for an `own` deck. It governs bot
 ## Hard rules
 
 - Produce `slide/<slug>.tex` and compile `slide/<slug>.pdf`. Beamer/PDF is the default and primary format, even when the input is a PDF rather than TeX.
-- Follow this narrative spine in order: **Opening → Motivation → Research Question → Preview of Findings → Context → Data & Research Design → Results → Conclusion**.
-- Give **Research Question** and **Preview of Findings** one separate slide each. Never merge them.
+- Follow this narrative spine in order: **Opening → Motivation → Literature Positioning → Research Question + Preview of Findings → Context → Data & Research Design → Results → Conclusion**.
+- Give **Literature Positioning** exactly one slide, immediately before exactly one combined **Research Question + Preview of Findings** slide. Keep the question and its answer visible together on one PDF page.
 - Do not add Author Bios or Outline slides unless the user explicitly asks for them.
 - Put a substantive `\note{...}` in every frame. There are no own-mode skip exceptions.
 - Present as the author making and defending a claim, not as a discussant appraising someone else's work.
@@ -33,14 +35,44 @@ The number of slides inside a block may vary, but do not reorder or silently omi
 |---|---:|---|
 | **Opening** | 1 slide | Use the title frame to begin the argument in spoken notes: one concrete tension, then the paper's promise. Do not read the title or give an agenda. |
 | **Motivation** | 1–3 slides | Establish that the phenomenon is real and consequential. Move from a concrete instance to scale or stakes. One idea and one dominant visual per slide. |
-| **Research Question** | exactly 1 slide | State the precise question, the unresolved tension, and—only if needed—the estimand or construct. Do not reveal the answer here. |
-| **Preview of Findings** | exactly 1 slide | Give the answer plainly. Lead with the headline magnitude and uncertainty, then at most two supporting findings or mechanisms. This must be distinct from the question slide. |
+| **Literature Positioning** | exactly 1 slide | Connect the closest research streams to what is known, what remains unresolved, and the paper's specific contribution. End with the unresolved issue that motivates the question. |
+| **Research Question + Preview of Findings** | exactly 1 slide | Put one precise question at the top and its answer below. Lead with the headline magnitude and uncertainty, then at most two supporting findings or mechanisms. |
 | **Context** | 1–3 slides | Explain only the institutional, market, or theoretical details needed to understand the design and interpret the effect. End with the variation or comparison that makes the study possible. |
 | **Data & Research Design** | 1–3 slides | Name the data, sample, period, unit, outcome, treatment, identification logic, key assumption, and most relevant diagnostic. Integrate identification here rather than inserting a new top-level block. |
 | **Results** | 3–7 slides | Lead with the main estimate, then mechanism or heterogeneity, then the decisive robustness or scope result. One finding per slide; show the number, uncertainty, benchmark, and interpretation. |
 | **Conclusion** | 1 slide | Show the opening question, the answer with the same headline magnitude, and the implication. Explain the contribution and dominant scope condition in the spoken notes; end on the implication rather than an open-question list. |
 
 Use section-divider frames sparingly. If one is necessary for a long talk, it belongs inside the corresponding block and still requires a note. Do not use a divider to create an extra Outline section.
+
+## Literature positioning
+
+Place this slide after Motivation so the audience first understands why the phenomenon matters. Then establish how the paper changes an existing research conversation, before showing its question and answer. Give the slide a substantive title that names the unresolved issue or contribution.
+
+Use two or three compact rows for the closest research streams or debates; use one if only one is relevant. Each row should connect:
+
+| Research stream | What existing work establishes | What this paper adds |
+|---|---|---|
+| Short substantive label; one or two representative author–year citations | One specific finding, assumption, or scope boundary | The specific extension, qualification, mechanism, measurement, or evidence supplied here |
+
+Keep each cell to a short phrase or sentence. A simple aligned list can replace the table when it reads better. Finish with one concise sentence naming the unresolved relationship or tension that leads directly to the next slide's question. Reserve numerical findings for the combined question-and-preview slide.
+
+Choose streams by their relevance to the contribution, not by the number of papers available. Explain what readers learn beyond existing work; a new country, dataset, or method needs a substantive payoff. Avoid a chronological bibliography, lists of author names without claims, broad “little is known” statements, and unsupported claims to be first.
+
+Ground every characterization of prior work and every novelty claim in the manuscript and its cited sources. Use verified author–year citations beside the relevant claim and record source locators in `notes/<slug>.md`. Consult the original work when the manuscript does not support a precise comparison; flag unresolved positioning rather than inventing a gap. These textual citations are permitted here; the Motivation-only rule for external visual assets does not prohibit citing literature.
+
+In the spoken notes, explain the intellectual relationship in plain language, emphasize the decisive distinction, and end on what remains to be answered. Do not read the citation list aloud. Keep the positioning brief enough that the question and findings arrive early.
+
+## Combined research question and findings preview
+
+Use one frame and one PDF page, with both question and answer visible from the start. Place a one-sentence research question across the top, followed by a clearly labeled findings area. Treat them as one coherent message: the question and the evidence that answers it. Do not add a separate question slide, a separate preview slide, or incremental overlays that create extra pages.
+
+1. **Question:** state the relationship, comparison, or tradeoff being studied in plain language. Define an unfamiliar construct briefly only when necessary to understand the answer.
+2. **Main answer:** give the headline finding, exact magnitude, units, benchmark, and available uncertainty. Preserve the design's causal or associational language. For a non-quantitative contribution, state the central supported proposition without inventing a numerical estimate.
+3. **Supporting findings:** include at most two short points that clarify the answer, such as a mechanism, heterogeneity pattern, or scope condition. Omit them if they crowd the main message. Save the full specification, robustness inventory, and detailed figures for later slides.
+
+Keep the question visually distinct from the findings with whitespace and a restrained heading or block. Use a short section label such as “Question & Findings” to avoid an overlong orientation line. Shorten prose rather than shrinking the font to fit.
+
+In the notes, connect the unresolved issue from literature positioning to the question, pause at a paragraph break, and then give the answer plainly. Bold the key comparison or magnitude for vocal stress. Close with why the setting or design can support that answer, leading into Context. The audience can see the answer while the presenter states the question; there is no need to create suspense.
 
 ## Motivation assets
 
@@ -84,8 +116,8 @@ Write natural transitions, not mechanical signposts. “That pattern gives us th
 |---|---|
 | **Opening** | Begin with the concrete tension or phenomenon, make its stakes specific, and arrive at what the paper will explain. |
 | **Motivation** | Explain why the example is representative and why its consequence matters. State the source naturally when using external evidence. |
-| **Research Question** | Narrow the broad phenomenon to one answerable question. Define unfamiliar terms in plain language and hold back the result. |
-| **Preview of Findings** | State the answer without teasing. Read the headline number once, interpret its size, and preview how the rest of the talk supports it. |
+| **Literature Positioning** | Explain what the closest research establishes, what this paper adds, and which unresolved issue motivates its question. Emphasize the substantive distinction without reciting citations. |
+| **Research Question + Preview of Findings** | State the question, pause, then give the answer and interpret its size. Preview how the rest of the talk supports it, with both question and findings visible on the same page. |
 | **Context** | Explain only the rule, institution, or mechanism needed for the audience to understand the comparison. |
 | **Data & Research Design** | Make the unit and variation intuitive. State the identifying assumption in plain language, then explain which diagnostic addresses the most plausible violation. |
 | **Results** | Say the headline number, direct attention to the relevant visual region, interpret the magnitude, and handle one serious objection or scope condition. |
@@ -228,16 +260,22 @@ Keep each title line unbroken: use separate `\title{...}` and `\subtitle{...}` f
 Write every slide as an explicit `frame` environment and put exactly one substantive `\note{...}` inside it. This includes the title frame, any section divider, conclusion, acknowledgments, and appendix frames. Do not use automatic frame generators because they can create slides without notes.
 
 ```tex
-\begin{frame}{Preview of findings}
+\section{Question \& Findings}
+\begin{frame}{Does treatment bring in new buyers?}
+  \textbf{Research question:} How does treatment change purchases,
+  and is the increase concentrated among first-time buyers?
+  \medskip
   \begin{block}{Main result}
     Treatment raises purchases by \alert{3.2 percentage points}
-    (95\% CI: 2.1 to 4.3), a 27\% increase over baseline.
+    (95\% CI: 2.1 to 4.3), about 27\% above a 12-point baseline.
   \end{block}
   \begin{itemize}
     \item The effect is concentrated among first-time buyers.
-    \item Placebo outcomes remain flat.
   \end{itemize}
-  \note{We find a \textbf{3.2 percentage-point increase} in purchases, with a
+  \note{That leaves a question about \textbf{who responds}. How does treatment
+  change purchases, and is the increase concentrated among first-time buyers?
+
+  We find a \textbf{3.2 percentage-point increase} in purchases, with a
   95 percent confidence interval from 2.1 to 4.3 points. Relative to the
   12-point baseline, that's about a \textbf{27 percent increase}.
 
@@ -249,7 +287,7 @@ Write every slide as an explicit `frame` environment and put exactly one substan
 \end{frame}
 ```
 
-This example uses illustrative findings, not evidence to copy into a real deck. Its paragraph gaps cue pauses between the magnitude, interpretation, and transition; bold spans cue stress within the spoken sentences. The note is spoken prose, not a second slide. Apply the style and block-specific guidance above. Escape TeX-sensitive characters and keep citations or source details concise enough to say naturally. Do not put unsourced numbers in either the frame or its note.
+This example uses an illustrative question and findings, not evidence to copy into a real deck. Its paragraph gaps cue pauses between the question, magnitude, interpretation, and transition; bold spans cue stress within the spoken sentences. The note is spoken prose, not a second slide. Apply the style and block-specific guidance above. Escape TeX-sensitive characters and keep citations or source details concise enough to say naturally. Do not put unsourced numbers in either the frame or its note.
 
 ## Compilation
 
@@ -279,7 +317,7 @@ Do not replace a failed local compile with an unverified `.tex` handoff. Report 
 
 2. Search the log for `Overfull` boxes, missing files, undefined control sequences, and unresolved references. Fix them rather than shrinking an entire deck.
 3. Confirm the PDF page count matches the intended slide count. Overlays can silently create extra pages.
-4. Render representative pages—including the title, densest data slide, every distinct results layout, and conclusion—to inspection images in project-root `exploratory/previews/slides/<slug>/` and inspect them. Check clipping, minimum type size, source visibility, table legibility, and figure labels. On the title slide, verify bold Palatino, horizontal centering, two unbroken title lines when a subtitle exists, balanced spacing, and the centered author block.
+4. Render representative pages—including the title, literature positioning, combined question and findings, densest data slide, every distinct results layout, and conclusion—to inspection images in project-root `exploratory/previews/slides/<slug>/` and inspect them. Check clipping, minimum type size, source visibility, table legibility, and figure labels. Confirm that positioning follows Motivation, its claims have supporting citations, and exactly one combined question-and-preview page follows it. Both question and answer must be visible together without overlays. On the title slide, verify bold Palatino, horizontal centering, two unbroken title lines when a subtitle exists, balanced spacing, and the centered author block.
 5. Read the notes from beginning to end without looking at the slides. They should sound like one coherent talk. Revise abrupt openings, repeated transitions, unexplained terms, unsupported numbers, and paragraphs that merely recite visible bullets.
    Inspect a temporary notes rendering even when a separate notes PDF is not a requested deliverable; keep that inspection build under the ignored preview directory. Check that paragraph gaps survive compilation, bold words visibly differ from normal text, and the longest note fits at a comfortable reading size. Shorten or reflow an overflowing note rather than shrinking it into a dense block. In an aloud rehearsal, pause at paragraph gaps and stress the bold words to check that both feel natural.
 6. Verify that the same headline magnitude appears verbatim in the preview, main result, conclusion, and corresponding notes.
