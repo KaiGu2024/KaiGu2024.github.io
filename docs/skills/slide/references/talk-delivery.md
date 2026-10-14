@@ -33,7 +33,9 @@ The delivery conventions above were informed by the user's twelve-minute `main_n
 
 ## Opening and motivation
 
-Use the first ninety seconds to make the audience curious. Begin with one verified, concrete object: a number, an institutional fact, a quotation, or a pattern in a graph. Explain the tension it creates and the question it raises. Avoid opening with a topic announcement, a list of methods, or a spoken table of contents. A title-slide opening can be much shorter than ninety seconds; continue the argument into motivation.
+In `own` mode, use the title slide for the personal opening in [own-work.md](own-work.md#title-slide-opening): greet and thank the audience, introduce the presenter and affiliation, say the project title, and acknowledge coauthors. Start the substantive explanation on the first Motivation slide. In `report` mode, retain the brief title-slide hook specified in [speaker-notes.md](speaker-notes.md); do not describe someone else's paper as the presenter's joint work.
+
+Use the opening motivation to make the audience curious. Begin that substantive explanation with one verified, concrete object: a number, an institutional fact, a quotation, or a pattern in a graph. Explain the tension it creates and the question it raises. Keep this early enough to engage the audience within roughly the first ninety seconds, including the personal introduction in `own` mode. Avoid a list of methods or a spoken table of contents before the audience understands why the question matters.
 
 In motivation, explain why the question matters, why it is hard, and what the data or setting make possible, in that order. Name the tempting naive comparison and explain its specific failure in plain language. In `own` mode, follow Motivation with Literature Positioning, then present the formal research question and findings preview on one combined slide or two consecutive slides, depending on the length and complexity of the findings. Use sourced examples from the paper or permitted motivation evidence; illustrative numbers in a writing guide are not evidence for the deck.
 

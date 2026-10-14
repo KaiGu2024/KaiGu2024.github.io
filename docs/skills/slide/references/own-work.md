@@ -10,6 +10,7 @@ Use this as the single authoritative reference for an `own` deck. It governs bot
 - [Research question and findings preview](#research-question-and-findings-preview)
 - [Motivation assets](#motivation-assets)
 - [Spoken notes](#spoken-notes)
+- [Title-slide opening](#title-slide-opening)
 - [Notes by block](#notes-by-block)
 - [Files and assets](#files-and-assets)
 - [Beamer document](#beamer-document)
@@ -33,7 +34,7 @@ The number of slides inside a block may vary, but do not reorder or silently omi
 
 | Block | Typical length | Job |
 |---|---:|---|
-| **Opening** | 1 slide | Use the title frame to begin the argument in spoken notes: one concrete tension, then the paper's promise. Do not read the title or give an agenda. |
+| **Opening** | 1 slide | Greet and thank the audience, introduce the presenter and affiliation, say the project title, and credit coauthors. Save the substantive hook and explanation for Motivation. |
 | **Motivation** | 1–3 slides | Establish that the phenomenon is real and consequential. Move from a concrete instance to scale or stakes. One idea and one dominant visual per slide. |
 | **Literature Positioning** | exactly 1 slide | Connect the closest research streams to what is known, what remains unresolved, and the paper's specific contribution. End with the unresolved issue that motivates the question. |
 | **Research Question + Preview of Findings** | 1–2 slides | Combine a concise question and answer on one slide, or put the question first and the findings preview on the next slide when findings are longer or more complex. Lead with the headline magnitude and uncertainty, then at most two supporting findings or mechanisms. |
@@ -98,7 +99,7 @@ Each paragraph is a speaking unit, with its visible gap cueing a brief pause and
 
 Apply [talk-delivery.md](talk-delivery.md) when choosing what to say and budgeting time. The usual note length is a starting point; expand the explanation of a central result or shorten a transition to match the rehearsed block budget.
 
-Each note should do three things smoothly:
+Each content-slide note should do three things smoothly; the title slide follows the personal opening below:
 
 1. Connect to what the audience has just heard, except on the opening frame.
 2. Add the interpretation, emphasis, or defense that is not already visible on the slide.
@@ -115,11 +116,25 @@ Follow the paper-writing discipline:
 
 Write natural transitions, not mechanical signposts. “That pattern gives us the comparison we need” is smoother than “On the next slide, I discuss identification.” Vary the transition so the notes read as one talk rather than isolated mini-scripts.
 
+## Title-slide opening
+
+For Kai Gu's own-work talks, begin with a brief, warm personal introduction. Use this wording as the default, adapting the greeting to the session and filling in the verified title and coauthors:
+
+> Good morning, everyone. Thank you for being here.
+>
+> I'm **Kai Gu** from **Bocconi University**. I'm very honored to present this project, titled **[project title]**.
+>
+> This is joint work with **[coauthor names]**.
+
+Use “Good afternoon” for an afternoon session, or “Hello, everyone” when the time is unknown. Say “joint work with” rather than “coworked with.” Match the title and coauthors to the current manuscript or user-supplied metadata; do not copy names from a different project. Omit the joint-work sentence for solo work, and use the actual presenter's name and affiliation when preparing a talk for someone else.
+
+Keep the paragraph gaps as brief pauses, and use bold to mark natural emphasis on names, affiliation, and title. This short introduction is sufficient for the title frame's note; it does not need an additional research claim, result, agenda, or hook. Advance to the first Motivation slide before explaining the project, for example with “Let me start with a concrete example.” Include the greeting and pauses in the opening time budget.
+
 ## Notes by block
 
 | Block | Spoken emphasis |
 |---|---|
-| **Opening** | Begin with the concrete tension or phenomenon, make its stakes specific, and arrive at what the paper will explain. |
+| **Opening** | Greet and thank the audience; introduce the presenter, affiliation, project title, and coauthors. Pause naturally between these speaking units; begin the substantive explanation on Motivation. |
 | **Motivation** | Explain why the example is representative and why its consequence matters. State the source naturally when using external evidence. |
 | **Literature Positioning** | Explain what the closest research establishes, what this paper adds, and which unresolved issue motivates its question. Emphasize the substantive distinction without reciting citations. |
 | **Research Question + Preview of Findings** | State the question, pause or advance to the immediately following preview slide, then give the answer and interpret its size. Preview how the rest of the talk supports it. Match notes to the chosen one- or two-slide layout. |
@@ -238,7 +253,12 @@ Start from this minimal system and adapt content, not the delivery format. Keep 
 
 \begin{frame}[plain]
   \titlepage
-  \note{<Natural opening in complete spoken sentences.>}
+  \note{Good morning, everyone. Thank you for being here.
+
+  I'm \textbf{Kai Gu} from \textbf{Bocconi University}. I'm very honored to
+  present this project, titled \textbf{<Project title>}.
+
+  This is joint work with \textbf{<Coauthor names>}.}
 \end{frame}
 
 % Follow the exact narrative spine above. Declare each block before its frames:
@@ -323,7 +343,7 @@ Do not replace a failed local compile with an unverified `.tex` handoff. Report 
 2. Search the log for `Overfull` boxes, missing files, undefined control sequences, and unresolved references. Fix them rather than shrinking an entire deck.
 3. Confirm the PDF page count matches the intended slide count. Overlays can silently create extra pages.
 4. Render representative pages—including the title, literature positioning, the question and findings preview in their chosen layout, densest data slide, every distinct results layout, and conclusion—to inspection images in project-root `exploratory/previews/slides/<slug>/` and inspect them. Check clipping, minimum type size, source visibility, table legibility, and figure labels. Confirm that positioning follows Motivation, its claims have supporting citations, and the question and preview follow on either one combined page or two consecutive pages, question first. Verify that the chosen layout accommodates the essential findings at readable size, without overlays or omitted uncertainty. On the title slide, verify bold Palatino, horizontal centering, two unbroken title lines when a subtitle exists, balanced spacing, and the centered author block.
-5. Read the notes from beginning to end without looking at the slides. They should sound like one coherent talk. Revise abrupt openings, repeated transitions, unexplained terms, unsupported numbers, and paragraphs that merely recite visible bullets.
+5. Read the notes from beginning to end without looking at the slides. They should sound like one coherent talk. Confirm that the title note contains the personal greeting, introduction, verified title, and coauthor credit where applicable, with the substantive hook starting on Motivation. Revise abrupt openings, repeated transitions, unexplained terms, unsupported numbers, and content-slide paragraphs that merely recite visible bullets.
    Inspect a temporary notes rendering even when a separate notes PDF is not a requested deliverable; keep that inspection build under the ignored preview directory. Check that paragraph gaps survive compilation, bold words visibly differ from normal text, and the longest note fits at a comfortable reading size. Shorten or reflow an overflowing note rather than shrinking it into a dense block. In an aloud rehearsal, pause at paragraph gaps and stress the bold words to check that both feel natural.
 6. Verify that the same headline magnitude appears verbatim in the preview, main result, conclusion, and corresponding notes.
 7. Check the block-level time budget, interruption allowance, backup-slide references, and route to the conclusion against `talk-delivery.md`. Distinguish estimated timing from an actual timed rehearsal.

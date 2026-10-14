@@ -42,6 +42,7 @@ Before generating the deck, write `notes/<slug>.md` from the full source.
 
 - In `report`, record the one-line contribution, research question, data, identification strategy, main results with uncertainty, mechanisms, limitations, and discussion questions.
 - In `own`, build the talk map in the exact order defined by `references/own-work.md`: place one Literature Positioning slide after Motivation, then Research Question + Preview of Findings on one combined slide or two consecutive slides, depending on the length and complexity of the findings. State the headline magnitude consistently across preview, results, conclusion, and speaker notes.
+  Start the title-slide notes with a greeting, thanks, the presenter's name and affiliation, the project title, and coauthors. Begin the substantive hook and project explanation on Motivation.
 
 Record figure and table provenance in the notes: source file or PDF page, caption, panel, and any conversion or crop. For external motivation evidence allowed in `own`, record the publisher, year, URL, and retrieval date.
 
