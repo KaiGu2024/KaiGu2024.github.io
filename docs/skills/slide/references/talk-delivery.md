@@ -35,7 +35,7 @@ The delivery conventions above were informed by the user's twelve-minute `main_n
 
 Use the first ninety seconds to make the audience curious. Begin with one verified, concrete object: a number, an institutional fact, a quotation, or a pattern in a graph. Explain the tension it creates and the question it raises. Avoid opening with a topic announcement, a list of methods, or a spoken table of contents. A title-slide opening can be much shorter than ninety seconds; continue the argument into motivation.
 
-In motivation, explain why the question matters, why it is hard, and what the data or setting make possible, in that order. Name the tempting naive comparison and explain its specific failure in plain language. In `own` mode, follow Motivation with Literature Positioning, then put the formal research question and findings preview together on one slide. Use sourced examples from the paper or permitted motivation evidence; illustrative numbers in a writing guide are not evidence for the deck.
+In motivation, explain why the question matters, why it is hard, and what the data or setting make possible, in that order. Name the tempting naive comparison and explain its specific failure in plain language. In `own` mode, follow Motivation with Literature Positioning, then present the formal research question and findings preview on one combined slide or two consecutive slides, depending on the length and complexity of the findings. Use sourced examples from the paper or permitted motivation evidence; illustrative numbers in a writing guide are not evidence for the deck.
 
 ## Explaining the design and results
 
@@ -62,8 +62,8 @@ Return to the opening question, answer it with the same headline magnitude, and 
 
 Record the available time, whether Q&A is included, and a block-level time budget in `notes/<slug>.md` before drafting the deck. If the duration is unspecified, state a working assumption. Budget interruptions explicitly and make the allocations sum to the total slot.
 
-- For a twenty-minute `own` slot including questions, one starting allocation is opening/motivation 2 minutes, literature positioning 1, combined question/findings preview 1, context/data/design 3, main results 6, mechanism/decisive robustness 3, conclusion 1, and questions 3. Compress supporting material while preserving the mode's required blocks.
-- For an eighty-minute `own` seminar including interruptions, one starting allocation is opening/motivation/positioning/combined question and preview 10 minutes, context/data 10, design 10, main results 15, mechanism/heterogeneity 10, decisive robustness 5, conclusion 5, and interruptions 15.
+- For a twenty-minute `own` slot including questions, one starting allocation is opening/motivation 2 minutes, literature positioning 1, question/findings preview 1 across either one or two slides, context/data/design 3, main results 6, mechanism/decisive robustness 3, conclusion 1, and questions 3. Compress supporting material while preserving the mode's required blocks.
+- For an eighty-minute `own` seminar including interruptions, one starting allocation is opening/motivation/positioning/question and preview 10 minutes, context/data 10, design 10, main results 15, mechanism/heterogeneity 10, decisive robustness 5, conclusion 5, and interruptions 15.
 
 These are planning examples, not fixed durations. A short talk needs fewer claims and less supporting detail; speeding up the same long deck is not a substitute. Mark optional slides and a route to the conclusion in the preparation map. Adjust note lengths to the actual slide budget: a central result may need several minutes, while a title slide may need only a few sentences.
 
