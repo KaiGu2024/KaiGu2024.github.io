@@ -74,7 +74,7 @@ Apply the mode-specific checklist, then confirm:
 2. Every result number and visual traces to the paper or a verified project artifact.
 3. Figures, tables, equations, notes, and source lines render without clipping or overlap. Section labels match the talk map, sit above content titles consistently, and leave enough room for the slide body.
 4. The title, densest content slide, each distinct results layout, and conclusion have been visually inspected.
-   Inspect representative rendered notes too: paragraph gaps must be visible, bold stress words easy to find, and text readable without clipping. Read the narration aloud when rehearsing, honoring the pauses and emphasis; distinguish a text review from an actual timed rehearsal.
+   Inspect representative rendered notes too: paragraph gaps must be visible, bold stress words easy to find, and text readable without clipping. Apply the [adjacent-slide continuity review](references/talk-delivery.md#continuity-between-slides), checking each ending and following opening together before reading the notes continuously. Read the narration aloud when rehearsing, honoring the pauses and emphasis; distinguish a text review from an actual timed rehearsal.
 5. Temporary extraction, conversion, edit, and build artifacts have been removed from the delivery folder; retain source inputs needed for reproducibility and intended deliverables. Any retained inspection previews are confined to the ignored `exploratory/previews/slides/<slug>/` directory.
 
 ## Report completion

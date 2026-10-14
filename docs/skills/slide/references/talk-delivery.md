@@ -31,6 +31,26 @@ In `own` mode, the paragraphs should form a complete, sayable explanation, not b
 
 The delivery conventions above were informed by the user's twelve-minute `main_notes.pdf` (notes for slides 2 and 10, PDF pages 4 and 20) and its companion `notes/speaker_notes.md`, reviewed on 2026-10-14. The PDF shows separated speaking units, selective bold emphasis, and direct visual pointers; the companion explicitly explains the pause convention. The original example is at `D:/ObsidianVaults/Kai_and_Kai/wiki_content/output/slides/12min/`. This is provenance, not a runtime dependency or a source of research claims for new decks; use the conventions without copying incidental wording or errors.
 
+## Continuity between slides
+
+Draft notes in talk order, with the preceding and following slide in view. Before writing a transition, identify what the audience has just learned and why the next idea follows: a question needs an answer, a finding needs an explanation, or a concern needs a diagnostic. Express that substantive relationship in ordinary spoken language. Naming the next section alone does not establish the connection.
+
+Use one bridge per slide boundary when needed. Put it at the end of the current note or the beginning of the next; do not announce the same move twice. If the next sentence already continues the explanation clearly, no separate bridge is necessary. Vary the form naturally: a direct continuation, a short question, or a statement of what remains unresolved. Do not turn every slide ending into a rhetorical question.
+
+Keep references clear across the slide change. “This,” “that pattern,” and “these effects” must have an unmistakable referent; repeat a short substantive phrase when needed. Do not point to a feature of the next slide before it is visible. After an interruption, restore the relevant comparison briefly before continuing.
+
+For example, if supported by the actual results:
+
+> End of results slide: “So purchases increase overall. But that still leaves open **who is responding**.”
+>
+> Start of the next slide: “Here, we separate first-time buyers from returning customers.”
+
+The second note takes up the question directly; it needs no additional “Now let's look at who responds.” These are illustrative speaking patterns, not findings to copy into a deck. In `report` mode, retain only the brief cues needed to make the same connection.
+
+Review every planned slide boundary by reading the last paragraph of slide A immediately followed by the first paragraph of slide B (or the corresponding cues in `report` mode). Check for repeated setup, missing reasoning, unclear references, and a promised question or explanation that the next slide does not address. Revise the two notes together. Repeat this check at boundaries changed by reordering or skipping optional slides, then read the full narration continuously.
+
+The title follows its mode-specific opening. A conclusion closes the argument and may invite discussion; it does not need to lead into another content slide. A standalone backup note answers the question that brings it into use, without assuming that the preceding or following backup slide will be shown. Add a brief return to the main argument only when useful.
+
 ## Opening and motivation
 
 In `own` mode, use the title slide for the personal opening in [own-work.md](own-work.md#title-slide-opening): greet and thank the audience, introduce the presenter and affiliation, say the project title, and acknowledge coauthors. Start the substantive explanation on the first Motivation slide. In `report` mode, retain the brief title-slide hook specified in [speaker-notes.md](speaker-notes.md); do not describe someone else's paper as the presenter's joint work.

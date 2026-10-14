@@ -99,11 +99,11 @@ Each paragraph is a speaking unit, with its visible gap cueing a brief pause and
 
 Apply [talk-delivery.md](talk-delivery.md) when choosing what to say and budgeting time. The usual note length is a starting point; expand the explanation of a central result or shorten a transition to match the rehearsed block budget.
 
-Each content-slide note should do three things smoothly; the title slide follows the personal opening below:
+For content slides in the planned talk, write a connected explanation; the title slide follows the personal opening below:
 
-1. Connect to what the audience has just heard, except on the opening frame.
+1. Connect to what the audience has just heard, using a direct continuation when the relationship is already clear.
 2. Add the interpretation, emphasis, or defense that is not already visible on the slide.
-3. End with a natural sentence that makes the next idea feel necessary.
+3. Make the reason for the next idea clear where a bridge is needed. Place the bridge at this slide's end or the next slide's opening, without repeating it in both places. The conclusion closes the argument; standalone backup notes answer the question that prompts them and need no bridge to adjacent backup slides.
 
 Follow the paper-writing discipline:
 
@@ -114,7 +114,7 @@ Follow the paper-writing discipline:
 - Anticipate the most credible objection and answer it with the relevant diagnostic, robustness result, or scope condition. Do not sound defensive.
 - Do not narrate every object on the slide. Say what the audience should notice and why it changes the argument.
 
-Write natural transitions, not mechanical signposts. “That pattern gives us the comparison we need” is smoother than “On the next slide, I discuss identification.” Vary the transition so the notes read as one talk rather than isolated mini-scripts.
+Follow the [continuity procedure](talk-delivery.md#continuity-between-slides): draft adjacent notes together, express the substantive relationship, and check each boundary for repetition, missing reasoning, and unclear references. “That pattern gives us the comparison we need” works only when the preceding explanation makes the pattern and comparison clear. A direct continuation can be sufficient; do not force a transition sentence or rhetorical question onto every slide.
 
 ## Title-slide opening
 
@@ -343,7 +343,7 @@ Do not replace a failed local compile with an unverified `.tex` handoff. Report 
 2. Search the log for `Overfull` boxes, missing files, undefined control sequences, and unresolved references. Fix them rather than shrinking an entire deck.
 3. Confirm the PDF page count matches the intended slide count. Overlays can silently create extra pages.
 4. Render representative pages—including the title, literature positioning, the question and findings preview in their chosen layout, densest data slide, every distinct results layout, and conclusion—to inspection images in project-root `exploratory/previews/slides/<slug>/` and inspect them. Check clipping, minimum type size, source visibility, table legibility, and figure labels. Confirm that positioning follows Motivation, its claims have supporting citations, and the question and preview follow on either one combined page or two consecutive pages, question first. Verify that the chosen layout accommodates the essential findings at readable size, without overlays or omitted uncertainty. On the title slide, verify bold Palatino, horizontal centering, two unbroken title lines when a subtitle exists, balanced spacing, and the centered author block.
-5. Read the notes from beginning to end without looking at the slides. They should sound like one coherent talk. Confirm that the title note contains the personal greeting, introduction, verified title, and coauthor credit where applicable, with the substantive hook starting on Motivation. Revise abrupt openings, repeated transitions, unexplained terms, unsupported numbers, and content-slide paragraphs that merely recite visible bullets.
+5. Apply the [adjacent-slide review](talk-delivery.md#continuity-between-slides) to every planned boundary, including any route that skips optional slides. Then read the notes from beginning to end without looking at the slides. They should sound like one coherent talk. Confirm that the title note contains the personal greeting, introduction, verified title, and coauthor credit where applicable, with the substantive hook starting on Motivation. Revise abrupt openings, repeated transitions, unexplained terms, unsupported numbers, and content-slide paragraphs that merely recite visible bullets. Check that the conclusion ends naturally and standalone backup notes do not assume sequential delivery.
    Inspect a temporary notes rendering even when a separate notes PDF is not a requested deliverable; keep that inspection build under the ignored preview directory. Check that paragraph gaps survive compilation, bold words visibly differ from normal text, and the longest note fits at a comfortable reading size. Shorten or reflow an overflowing note rather than shrinking it into a dense block. In an aloud rehearsal, pause at paragraph gaps and stress the bold words to check that both feel natural.
 6. Verify that the same headline magnitude appears verbatim in the preview, main result, conclusion, and corresponding notes.
 7. Check the block-level time budget, interruption allowance, backup-slide references, and route to the conclusion against `talk-delivery.md`. Distinguish estimated timing from an actual timed rehearsal.
