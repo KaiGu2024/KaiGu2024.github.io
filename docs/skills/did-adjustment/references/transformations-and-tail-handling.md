@@ -2,6 +2,23 @@
 
 Use these options to address a diagnosed scale, volatility, or influence problem. They do not by themselves restore identification. Keep the raw-outcome benchmark and explain which quantity each alternative estimates. These are general design notes, not a record of implemented trials or recommended numerical thresholds.
 
+## Levels, logs, and PPML
+
+Choose the economic question and untreated-trend restriction before the estimator. Justified comparisons are welcome; document changes in estimand rather than requiring all specifications to agree.
+
+| Specification | Target and identifying scale |
+|---|---|
+| Levels OLS | Absolute mean effect in outcome units; additive parallel trends. |
+| Log-OLS | Mean log effect; log-scale parallel trends. Equal-unit log changes in a simple balanced design are not an aggregate percentage effect. |
+| Baseline-weighted log-OLS | Predetermined importance-weighted log effects; still targets mean logs, not the arithmetic mean. |
+| PPML with log link | Multiplicative conditional mean of untransformed Y; requires a credible untreated mean model and compatible treatment timing. |
+
+Mean logs and log mean levels differ. With heavy tails, investigate concentration, baseline-size heterogeneity, dispersion changes, and weighting before interpreting disagreement. Separate these from sample changes using common-sample comparisons where feasible. See [Winkler et al. (2026), Sections 3.2-3.4 and Appendix C](https://doi.org/10.1007/s11129-026-09312-2).
+
+Poisson and PPML use the same objective when specification, sample, and weights coincide; they are not independent robustness checks. PPML permits zeros and nonnegative continuous outcomes without a Poisson distribution or equidispersion assumption. Use appropriate robust/clustered inference and check separation, dropped observations, and convergence. Under a correctly specified common multiplicative effect, 100*(exp(beta)-1) is the conditional-mean percentage effect; with heterogeneity, explicitly aggregate predicted treated and untreated means for the target population. See [Santos Silva and Tenreyro](https://personal.lse.ac.uk/tenreyro/LGW.html).
+
+Record scale/link, weights, zero handling, trend restriction, and aggregation in each trial. Log(Y) excludes zeros; log(1+Y)/asinh are not automatic percentages. Retain failed trials and choose the main specification by the question and identification, not sign, significance, or passing pretrend tests.
+
 ## Baseline demeaning
 
 For unit i, define a fixed mean m_i from a stated untreated baseline B_i and set Y*_it = Y_it - m_i. Specify the calendar or cohort-relative window, coverage requirements, and averaging weights; avoid post-treatment observations in calibration.

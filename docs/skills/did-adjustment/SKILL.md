@@ -1,6 +1,6 @@
 ---
 name: did-adjustment
-description: Diagnose and improve difference-in-differences and event-study designs when pretrends differ, estimates are unstable, or comparison groups are questionable. Assess measurement, sample selection, weighting, outcome scales, estimator choice, and sensitivity while preserving the estimand and a complete trial record. Covers panel and repeated cross-sectional studies, with optional IV-DiD guidance. Use for substantive design or analysis revisions, not merely cosmetic figure edits.
+description: Diagnose and improve difference-in-differences and event-study designs when pretrends differ, estimates are unstable, or comparison groups are questionable. Assess measurement, sample selection, weighting, outcome scales, estimator choice, and sensitivity while making estimands and any changes explicit and retaining a complete trial record. Covers panel and repeated cross-sectional studies, with optional IV-DiD guidance. Use for substantive design or analysis revisions, not merely cosmetic figure edits.
 ---
 
 # DiD adjustment: diagnose before changing the design
@@ -13,7 +13,7 @@ Read supporting material only as needed:
 
 - [Literature guide](references/literature.md): sources L1–L18 for methodological choices and limits.
 - [IV-DiD module](references/iv-did.md): only when a distinct encouragement or eligibility instrument is proposed.
-- [Transformations and tail handling](references/transformations-and-tail-handling.md): baseline demeaning, standardization, and unit-day/week/month winsorization or trimming; read before changing outcome scales or tail rules.
+- [Transformations and tail handling](references/transformations-and-tail-handling.md): levels, logs, weighted logs, PPML, standardization, and tail rules; read before comparing outcome scales or mean models.
 - [Trial-record template](assets/trial-record.md): when implementing or comparing specifications; omit inapplicable fields.
 - [Optional AI-search case study](references/case-study-ai-search.md): examples and historical trials; no case-specific rule is a default for another study.
 
@@ -67,7 +67,7 @@ Start with one dimension at a time and common-sample comparisons when useful. Do
 | Comparison groups | Never-treated, not-yet-treated, alternative eligible groups, or synthetic donors | Assess anticipation, earlier treatment, spillovers, follow-up, and actual eligibility |
 | Matching and weighting | Predetermined demographics, institutional features, outcome histories, volatility, or other justified covariates | Balance does not establish counterfactual trends; noisy matching and concentrated weights can worsen bias [L6–L7] |
 | Conditional seasonality | Baseline characteristics interacted with time, control-based outcome models, or proportional means | Requires overlap and transportable untreated responses; unrestricted treated-post terms absorb the effect |
-| Estimator changes | Cohort-time/DR DiD, synthetic weighting, SDID, factor or imputation methods | Different assumptions and supported estimands; a better fitted preperiod is not identification |
+| Estimator changes | Levels/log-OLS, baseline-weighted log-OLS, PPML, cohort-time/DR DiD, synthetic weighting, SDID, factor or imputation methods | Different assumptions and supported estimands; a better fitted preperiod is not identification |
 | Alternative designs | Triple differences, negative controls, discontinuities, or encouragement IV | Need genuinely new identifying restrictions; an additional outcome or date is not sufficient |
 | Windows and references | Substantive horizons, common cohort support, anticipation buffers, reference sensitivity | Cropping or selecting significant lags does not repair identification |
 
