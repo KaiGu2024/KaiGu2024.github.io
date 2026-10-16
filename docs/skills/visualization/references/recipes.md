@@ -17,6 +17,17 @@ Copy-pasteable code for common figures. Assumes the shared `theme_pub.R` helpers
 11. [Designed event lines](#designed-event-line)
 12. [Layer-and-highlight](#layer-and-highlight--focal-series-in-crimson-all-series-labeled)
 13. [Distribution comparisons](#distribution-comparisons-ridge-plot)
+14. [Joint quantile grid](#joint-quantile-grid)
+
+## Joint quantile grid
+
+Consider this optional diagnostic for overlap between two ranked variables and concentration of activity. Inspiration: [Winkler et al. (2026), Figure 3](https://link.springer.com/article/10.1007/s11129-026-09312-2/figures/3), which crosses Spotify-stream and TikTok-creation deciles. Adapt the construction to the question; 10×10 is not mandatory.
+
+- **Define bins.** Use one record per intended unit and a stated measurement window. Bin each variable separately over the same reference sample, then cross the two marginal classifications. Choose 3×3 (tertiles), 5×5 (quintiles), 10×10 (deciles), or another resolution supported by occupancy and placement size. These are rank intervals, not equal-width intervals in original units; equal marginal counts do not imply equally populated cells.
+- **Handle ties and comparisons.** Preserve ties with documented cutpoints, accepting fewer or uneven bins; consider a separate zero category for a large zero mass. Do not silently split equal values to force the requested grid. Report missing/excluded units. For comparable groups or periods, use common reference cutpoints; for baseline-defined treatment heterogeneity, construct and freeze bins before treatment.
+- **Choose the cell statistic.** Observation share is `n_cell / N`; activity share is `sum(z_in_cell) / sum(z_in_sample)` for a named nonnegative measure with a positive total. State weights and the denominator. Row/column percentages answer different, conditional questions and must be labeled accordingly. Retain counts alongside activity shares; use separate panels for different measures.
+- **Draw and label.** Pre-aggregate, then use `geom_tile()` with a sequential magnitude palette or a bubble matrix with area proportional to the statistic (`scale_size_area()`). Keep axes ordered low to high. Use readable percentages in cells where feasible; a compact color/size key is allowed when needed to decode magnitude. Distinguish empty cells, missing values, and rounded near-zero shares. Reduce bin count if labels crowd; do not shrink text to force 100 cells.
+- **Check.** Save cutpoints and the cell summary. Verify counts reconcile and unconditional shares sum to 100% before rounding. Inspect at placement size. Describe where units and activity concentrate; this descriptive plot does not establish a treatment effect.
 
 ## Figure specification, PDF export, and QA
 

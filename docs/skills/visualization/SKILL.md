@@ -43,7 +43,7 @@ invocation: auto
 
 7. **Thin out dense axis ticks.** Crowded labels → drop ticks, don't shrink fonts. Use ISO dates, `scales::pretty_breaks(n = 6)`, alternate categorical labels, `guide_axis(n.dodge = 2)`, or `coord_flip()` for long categories. Rotate only short standardized ticks such as dates; see [annotations.md](references/annotations.md) and [recipes.md](references/recipes.md).
 
-8. **Plot differences, not raw values.** Compute the gap (treatment − control) and plot one value per group, sorted by the difference. Two side-by-side bars force mental subtraction; the diff makes the comparison explicit.
+8. **Plot differences when the question is a contrast.** Compute the gap (treatment − control) and plot one value per group, sorted by the difference. Two side-by-side bars force mental subtraction; the diff makes the comparison explicit. Distribution and concentration diagnostics instead show the relevant counts, shares, or levels.
 
 9. **Calculate before you graph.** Pre-aggregate with dplyr, plot with `stat = "identity"`. Geom-side stats (`after_stat(prop)`, `stat_summary`) fail in surprising ways with grouped/multi-variable aggregation; the summary table is itself a useful artifact.
 
@@ -53,7 +53,7 @@ invocation: auto
 
     **One standalone panel per file.** Generate every report panel independently with its own script and PDF; do not combine panels in R with patchwork or similar tools. Combine the exported panels in LaTeX under one figure number only when they jointly establish one argument and use compatible units, populations, and denominators. Otherwise use separate figure floats. A faceted plot that forms one small-multiple encoding over a shared variable remains one panel for this rule.
 
-11. **Show uncertainty.** Confidence intervals always — `geom_ribbon(alpha = 0.18–0.22)` for continuous, error bars for discrete. Point estimates without uncertainty convey false precision.
+11. **Show uncertainty for inferential estimates.** Use `geom_ribbon(alpha = 0.18–0.22)` for continuous, error bars for discrete. Descriptive counts and shares of the observed sample need no automatic confidence intervals; disclose the sample and denominator.
 
 12. **No gridlines.** Drop both major and minor gridlines, panel border, and redundant ticks (Tufte taken further than the usual "faint major" compromise). The axis line + ticks carry value-lookup; lengthen ticks (`axis.ticks.length ≈ 6 pt`) and use `scales::pretty_breaks(n = 6–8)` so the axis itself is the lookup aid. When a specific numeric value is part of the message — endpoint of a line, peak of a curve, a single bar — direct-label it with `geom_text` instead of asking the reader to interpolate against a grid. `theme_pub()` (§4) implements this.
 
@@ -115,6 +115,7 @@ For "this country/firm/domain vs. all others": plot all data in `grey80`, plot t
 | Distribution (one var) | Histogram, density, violin |
 | Distribution (compare groups) | Ridge, overlaid density |
 | Two continuous vars | Scatter, hexbin (large N) |
+| Joint distribution / concentration across two ranked variables | [Joint quantile grid](references/recipes.md#joint-quantile-grid): 3×3, 5×5, 10×10, or another supported resolution |
 | Category vs. continuous | Bar/dot (mean ± CI), strip + box |
 | Time series | Line with shaded CI |
 | Time series + fitted models | Black raw line + linetype-distinguished fits + grey CI |
@@ -202,7 +203,7 @@ Read [palettes.md](references/palettes.md) when choosing anything beyond the def
 
 - Read [annotations.md](references/annotations.md) when writing or positioning axis text, direct labels, callouts, or event annotations.
 - Read [palettes.md](references/palettes.md) when selecting categorical, identity, sequential, diverging, or CVD-safe color encodings.
-- Read the relevant section of [recipes.md](references/recipes.md) before implementing a chart pattern or export workflow. It covers sorting, axes, PDF export, direct labels, multi-series lines, event studies, model overlays, event lines, layer-and-highlight, and ridge plots.
+- Read the relevant section of [recipes.md](references/recipes.md) before implementing a chart pattern or export workflow. It covers sorting, axes, PDF export, direct labels, multi-series lines, event studies, model overlays, event lines, layer-and-highlight, ridge plots, and joint quantile grids.
 
 ---
 

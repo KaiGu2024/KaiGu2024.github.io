@@ -183,7 +183,7 @@ schema.validate(df)
 
 ## Step 3 — Univariate Analysis
 
-For all plots in Steps 3–6, follow the standards in [Visualization](visualization.md): sort categorical axes by value, use `theme_pub()` for consistent fonts and DPI, prefer direct annotation over legends, and apply the Okabe-Ito palette.
+For publication figures from Steps 3–6, follow [Visualization](visualization/SKILL.md) for chart selection, typography, annotation, and palettes appropriate to the encoding.
 
 ```python
 # Numeric: count, null_count, mean, std, min, p25, median, p75, max
@@ -226,6 +226,8 @@ For datasets with text columns, see [LLM Annotation](llm-annotation.md): embeddi
 ---
 
 ## Step 4 — Bivariate & Correlation Analysis
+
+**Optional joint quantile grid.** When inspecting how two variables overlap or where activity is concentrated, consider a 3×3, 5×5, or 10×10 grid of their marginal quantile bins. Choose the resolution for sample size, ties, cell occupancy, and readability; it is not a required plot for every variable pair. Distinguish each cell's share of observations from its share of total activity (e.g., sales, streams, or exposure). Retain cell counts and cutpoints, and describe concentration without inferring causality. See the [construction guide and Figure 3 example](visualization/references/recipes.md#joint-quantile-grid).
 
 ```python
 import seaborn as sns
