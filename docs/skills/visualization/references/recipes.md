@@ -251,7 +251,7 @@ Past weekly cadence, drop per-point markers entirely — distinguish by color + 
 
 ## Coefficient / event-study plot
 
-Follow [event-study axis wording and normalization](annotations.md#event-study-axes). This example assumes monthly event time, first treatment at 0, and employment effects and interval endpoints already expressed in percentage points. Substitute the actual event, outcome, and scale; do not relabel raw coefficients without converting them.
+Follow [event-study axis wording and normalization](annotations.md#event-study-axes). This example assumes monthly event time, first treatment at 0, and employment effects and interval endpoints already expressed in percentage points. Substitute the actual event, outcome, and scale; do not relabel raw coefficients without converting them. The y title may also be `Employment (percentage points)`; use `Effect on [DV]` or the DV name itself, never a `Differences in` prefix.
 
 ```r
 ggplot(es, aes(x = period, y = coef)) +
