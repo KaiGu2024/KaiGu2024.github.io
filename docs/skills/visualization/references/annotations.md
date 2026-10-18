@@ -62,7 +62,7 @@ For dynamic treatment-effect or regression event studies, label the estimated co
 - **Keep normalization in the note.** Name the reference period or base-period scheme, comparison group, estimator, interval level and whether intervals are pointwise or simultaneous, and clustering where used. Do not assume every estimator omits period −1: some use varying pre-treatment base periods. A zero added only for normalization has no estimated confidence interval; identify it as the reference. See [Callaway on universal versus varying base periods](https://bcallaway11.github.io/posts/event-study-universal-v-varying-base-period).
 - **Show the relevant zero.** Include a horizontal zero-effect reference and the full confidence intervals; signed effects are an exception to the zero-lower-bound rule. An event line at 0 marks event time; a line at −0.5 separates the last untreated and first treated discrete periods when 0 is the first treated period. Choose and explain the convention consistently.
 
-Across outcome panels, keep the x title and time convention consistent, but give each y title its own outcome and scale. Model specifications, sample restrictions, and identification assumptions belong in the caption or note, not in long axis titles.
+Across outcome panels, keep the x title and time convention consistent, but give each y title its own outcome and scale. Put model specifications and sample restrictions needed to interpret the display in the caption or note. Keep fuller identification arguments in methods, retaining a local qualification when its omission would mislead.
 
 ## Unit disclosure across the figure and TeX
 
@@ -73,6 +73,8 @@ Use three complementary layers:
 3. **Figure note:** state what one observation represents, the universe, denominator, sample size or missing-data coverage, and exclusions, such as `Unit: one registry-recognized foundation model; 25 of 27 adopted foundations have measured parameter counts.`
 
 Make the layers complement rather than repeat one another. Before acceptance, compare them with the code's aggregation and the surrounding prose; all must describe the same unit, population, and denominator.
+
+Apply the shared [concise-note guidance](../../tables/SKILL.md#concise-notes-without-defensive-prose): include what makes this display interpretable on its own, and qualify only where interpretation, credibility, or use changes. Keep internal checks and unresolved author questions outside the publication prose; avoid generic disclaimers and repeated caveats.
 
 **Disclose inference units separately.** The observation or plotted aggregation unit does not establish the clustering level. For uncertainty notes, follow the shared [inference-wording guidance](../../tables/SKILL.md#inference-wording-for-tables-and-figures): identify interval coverage, method, and actual clustering dimensions from the source. "Firm influence scores" does not replace "standard errors clustered at the firm level"; include score construction only when needed and verified.
 

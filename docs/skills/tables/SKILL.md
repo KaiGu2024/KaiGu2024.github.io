@@ -65,7 +65,7 @@ A table's notes are a **typed, ordered block, not a running log** — so the que
 - **Last line — the significance legend.** `*** p<0.01, ** p<0.05, * p<0.1` (per the journal's cutoffs above). It is a fixed reading key; it always sits on the very bottom line, alone.
 - **Second-to-last — the parenthetical key.** What the parentheses hold and the dispersion details: *what's in parentheses* (SE, t-stat, or CI), the *SE type* (robust / clustered / bootstrap, with reps), the *clustering level*, and the *number of clusters*. E.g. *"Robust standard errors clustered at the firm level (142 clusters) in parentheses."* It precedes the legend because the stars are computed from these SEs — the reader has to know what the parentheses contain before the stars decode to anything.
 
-Everything else is inserted *above* those two anchors, grouped by type. A complete note covers far more than stars and clustering — work down this menu and include whatever applies:
+Everything else is inserted *above* those two anchors, grouped by type. Use this menu to select what readers need to interpret the display; it is not a checklist to reproduce in every note. Avoid repeating information already clear in the caption, labels, or table body:
 
 1. **Scope** — what the table reports and over what: estimator/method (OLS, 2SLS, logit, marginal effects), sample and population, time period, unit of observation, N (and any exclusions), and the dependent variable if it isn't in the caption.
 2. **Specification** — fixed-effect and control sets included, weighting (sample weights, IPW), coefficient scale/transform (logs, standardized, percentage points), winsorizing/trimming, and the baseline or DV mean that *sizes* the coefficients.
@@ -76,14 +76,22 @@ So "add a note that the sample drops 2020" slots into **Scope/Specification near
 
 **Figures use the same note, written in the TeX caption/note.** The visualization skill keeps text *out* of the image, so a figure's "note" lives in the LaTeX float, not the PNG. Same menu as above, plus figure-specific items: what error bars or bands represent (95% CI, ±1 SE, bootstrap reps) and the SE type behind them; binning / bandwidth / kernel / smoother; what each series, color, or reference line is when not directly annotated; N and number of clusters; axis units or scale when non-obvious. See [`../visualization/SKILL.md`](../visualization/SKILL.md).
 
+### Concise notes without defensive prose
+
+Apply paper-writing's [scope guidance](../paper-writing/references/main-text.md#state-the-answer-directly) and [evidence-preserving voice](../paper-writing/references/academic-voice.md#preserve-the-evidence): add a qualification when omitting it would change the reader's interpretation, confidence in the result, or use of it. State the supported information directly. A note should make the display understandable on its own; fuller methodological justification and general limitations belong in methods or discussion.
+
+Keep necessary definitions, sample restrictions, reference categories, and inference details. Remove stacked hedges, generic disclaimers, repeated limitations, and procedural narration that add no understanding. Prefer precise labels such as "Unadjusted association" when accurate over appending a general warning about causality. Retain a local caveat when this particular display would otherwise mislead; brevity is not a reason to conceal a material limitation.
+
+Keep source checks and unresolved author questions outside the publication note. Resolve a missing detail from the available material or raise it with the author; do not fill the gap with speculative or defensive prose. For example, when supported, "Standard errors clustered at the firm level are in parentheses" needs no added account of how the wording was verified or why influence scores were not described.
+
 ### Inference wording for tables and figures
 
-State the inference method and clustering level in reader-facing language, using the source output, code, or explicit user input as evidence. An internal object such as an influence score does not by itself tell the reader how uncertainty was computed.
+State the inference method and clustering level in reader-facing language, using the source output, code, or explicit user input as evidence. Apply the concise-note rule above when deciding how much detail to include.
 
-- **Name clustering explicitly.** For verified firm-clustered inference, write "Standard errors clustered at the firm level in parentheses." For a figure, write "Error bars show 95% pointwise confidence intervals based on standard errors clustered at the firm level" only when the level, coverage, and construction are verified. Substitute the actual cluster identifier; add the cluster count when supplied.
+- **Name clustering explicitly.** For firm-clustered SEs, write "Standard errors clustered at the firm level are in parentheses." A corresponding figure note can read "Error bars show 95% pointwise confidence intervals; standard errors are clustered by firm." Match the actual method, coverage, and cluster identifier; add the cluster count when supplied.
 - **Separate observation and inference units.** Firm-month observations can have standard errors clustered by firm. State each where relevant; do not infer clustering from the row unit, fixed effects, treatment-assignment unit, or the name of a score array. Preserve all dimensions of multiway clustering.
-- **Keep influence-score mechanics in methods unless needed to interpret the display.** Do not substitute "firm influence scores" or "firm-cluster influence scores" for the clustering statement. If the construction matters and is verified, say "influence scores aggregated at the firm-cluster level" and explain their role in the variance or bootstrap calculation. Do not relabel observation-level scores as cluster-level scores without evidence of that aggregation. Preserve bootstrap method, resampling level, and pointwise versus simultaneous coverage when applicable; do not translate every score-based procedure into a conventional clustered-SE claim.
-- **Flag missing evidence.** If the source says only "firm influence scores," the inference method remains unresolved. Check the available source or ask for the missing detail; never invent clustering, cluster counts, confidence levels, or bootstrap settings to complete a note.
+- **Keep influence-score mechanics in methods unless needed to interpret the display.** "Firm influence scores" or "firm-cluster influence scores" does not replace the clustering statement. When the construction matters, describe the actual aggregation, such as "influence scores aggregated at the firm-cluster level." Preserve bootstrap method, resampling level, and pointwise versus simultaneous coverage when applicable; score-based procedures do not all imply conventional clustered SEs.
+- **Resolve ambiguity during preparation.** "Firm influence scores" alone does not establish the inference method. Check the available source or raise the missing detail with the author outside the note. Do not invent clustering or other inference settings.
 
 ## Workflow
 
@@ -122,6 +130,7 @@ Two layers, in order:
 - N preserved exactly
 - Decimal count consistent within each column; no value silently re-rounded beyond the requested display precision
 - Inference notes match the source method and clustering dimensions; observation units and influence-score mechanics do not substitute for an explicit clustering statement
+- Notes retain information needed to interpret the display and omit redundant qualifications, generic disclaimers, and internal verification commentary
 
 If any check fails, **do not emit**; report the discrepancy and stop.
 
