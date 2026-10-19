@@ -138,7 +138,7 @@ Name what color is *for* before picking a palette.
 
 | Job | When | Palette |
 |---|---|---|
-| **Identification** | Treatment vs. control | Brand pair (`#6B89A8` + `#9CAF88`) |
+| **Identification** | Treatment vs. control | `series_palette()` by geometry: deeper marks, muted areas; see [palettes](references/palettes.md) |
 | **Magnitude (rank)** | Sorted bars colored by tertile | Brand sequential ramp (`brand_blues`); `subject_ramp()` if the figure is about one subject |
 | **Magnitude (precise)** | Choropleth, heatmap, density | Viridis |
 | **Signed deviation** | Coefficient vs. baseline, residual | Diverging |
@@ -197,11 +197,11 @@ Read [palettes.md](references/palettes.md) for palette slots, subject mappings, 
 
 ## 5. Palette rules
 
-- Use `brand$primary` for one series and the dusty-blue/sage pair for binary comparisons.
+- Choose color by geometry: `marks` for lines, points and intervals; `brand` for broad fills. Use `series_palette()` for grouped comparisons; see [palette selection](references/palettes.md#categorical-comparisons).
 - For 3–5 equal-weight line series, map the same variable to color and redundant shape; past five, facet or layer-and-highlight.
 - Assign recurring subjects one fixed project-level color and shape from `subject_palette`; use different hue families when highlighting several subjects.
 - Use `brand_blues` or `subject_ramp()` for rank only, viridis/cividis for precise magnitude, and a diverging scale only around a meaningful midpoint.
-- Keep non-focal series grey and reserve saturated colors for subject identity, not decoration.
+- Keep non-focal series grey. Use stronger colors for small marks and subject identity; keep broad default fills muted.
 - Check grayscale and common color-vision deficiencies before acceptance.
 
 Read [palettes.md](references/palettes.md) when choosing anything beyond the default single-series or binary palette. It contains slot definitions, rationale, and scale code.

@@ -4,7 +4,7 @@ source(file.path(example_dir, "_setup.R"))
 spec <- example_spec("fig_time_series")
 dat <- data.frame(month = rep(1:6, 2), group = rep(c("Program", "Comparison"), each = 6),
                   count = c(18,21,24,29,32,37,17,19,21,22,24,25))
-pal <- c(Program = brand$primary, Comparison = brand$secondary)
+pal <- c(Program = marks$primary, Comparison = marks$secondary)
 ends <- dat[dat$month == 6, ]
 p <- ggplot(dat, aes(month, count, colour = group, group = group)) +
   geom_line(aes(linetype = group), linewidth = 2.8) +

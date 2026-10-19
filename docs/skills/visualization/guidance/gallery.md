@@ -19,7 +19,7 @@ Replace the toy data with a prepared source artifact and revise the labels and n
 
 <object data="../examples/fig_event_study.pdf" type="application/pdf" width="100%" height="440"><a href="../examples/fig_event_study.pdf">Open event-study PDF</a></object>
 
-Solid dots and slim intervals establish a clear hierarchy. The open reference marker differs from estimates; the dashed event boundary stays quieter than the data. Discrete intervals avoid implying interpolated estimates across the omitted month. The short axis wording keeps space for the data.
+Deep-blue dots and slim intervals establish a clear hierarchy. The open reference marker differs from estimates; the dashed event boundary stays quieter than the data. Discrete intervals avoid implying interpolated estimates across the omitted month. The short axis wording keeps space for the data.
 
 Example note: invented employment coefficients and interval endpoints, in percentage points. Month −1 is normalized to zero and has no estimated interval. The dashed line separates the last untreated and first treated month. No confidence level or clustering method is claimed for these illustrative numbers.
 
@@ -39,7 +39,7 @@ Example note: invented subgroup estimates and interval endpoints. Group labels a
 
 <object data="../examples/fig_time_series.pdf" type="application/pdf" width="100%" height="440"><a href="../examples/fig_time_series.pdf">Open time-series PDF</a></object>
 
-White-edged markers stay distinct from the lines. Endpoint names occupy a reserved right-hand space, removing legend lookup. Shape and line pattern distinguish the same groups in grayscale. For denser data, use the marker-thinning recipe rather than adding a marker at every observation.
+Deeper blue and green distinguish the small marks; white-edged markers stay distinct from the lines. Endpoint names occupy a reserved right-hand space, removing legend lookup. Shape and line pattern distinguish the same groups in grayscale. For denser data, use the marker-thinning recipe rather than adding a marker at every observation.
 
 Example note: invented monthly mean orders per firm for two descriptive groups. These levels do not identify a program effect.
 
@@ -49,7 +49,7 @@ Example note: invented monthly mean orders per firm for two descriptive groups. 
 
 <object data="../examples/fig_grouped_comparison.pdf" type="application/pdf" width="100%" height="470"><a href="../examples/fig_grouped_comparison.pdf">Open grouped-comparison PDF</a></object>
 
-Rows sit close within each region, with a larger gap between regions. Bars show the gap directly, and endpoint numbers remove interpolation. The common sector ordering is also ascending within each region for these data; if rankings conflict, select a common comparison order explicitly. This is one faceted encoding with a shared scale.
+Muted dusty-blue fills suit these broad bars. Rows sit close within each region, with a larger gap between regions. Bars show the gap directly, and endpoint numbers remove interpolation. The common sector ordering is also ascending within each region for these data; if rankings conflict, select a common comparison order explicitly. This is one faceted encoding with a shared scale.
 
 Example note: invented program-minus-comparison gaps in orders per firm. Raw group means are included in the script; the differences are descriptive.
 
@@ -59,7 +59,7 @@ Example note: invented program-minus-comparison gaps in orders per firm. Raw gro
 
 <object data="../examples/fig_heatmap.pdf" type="application/pdf" width="100%" height="520"><a href="../examples/fig_heatmap.pdf">Open heatmap PDF</a></object>
 
-Square cells and narrow white separators make a compact matrix. Each cell contains its exact share, so a separate color key adds little. Text switches between light and dark according to the fill; that threshold is specific to these values and this palette, not a universal rule.
+Square cells and narrow white separators make a compact matrix. Each cell contains its exact share, so a separate color key adds little. This example retains its original higher-share = lighter orientation. Text switches between light and dark according to the fill; that threshold is specific to these values and this palette, not a universal rule.
 
 Example note: invented shares across three usage and spending ranks; the nine cells sum to 100%. They illustrate layout, not an actual quantile calculation. Use the joint-quantile recipe to construct bins from real data.
 

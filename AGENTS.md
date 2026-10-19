@@ -73,18 +73,18 @@ Two visual brands live in this repo. They are *cousins* (both quiet, both reject
 |---|---|---|
 | **Source of truth** | `docs/css/tokens.css` | `docs/skills/slide/references/aesthetics.md` |
 | **Type** | Lora (display) + Newsreader (body), both serif | Plus Jakarta Sans throughout (sans), Source Serif 4 for math |
-| **Palette** | Hokusai Prussian `#2E4A75`, warm cream `#EFE6D2`, Hokusai crimson `#A03830` | Navy `#1d3a6e`, white, electric blue `#0046AD` |
-| **Surface** | Warm cream paper with faint paper-grain | Pure white, no texture |
+| **Palette** | Navy `#1D3A6E`, blue accent `#0046AD` | Academic blue `#234E96`, electric blue accent `#0046AD` |
+| **Surface** | Off-white `#FAF8F3` page, white cards | Pure white, no texture |
 | **Register** | Book voice — slow read | Conference house slides — eye-catch at slide pace |
 
 **Rules to hold.**
 
 - **No Inter, anywhere on the site or CV** — body is Newsreader (paired with Lora). Inter / Roboto / Arial / system-ui-only are treated as the AI-slop default.
 - **Slide-context exception.** Plus Jakarta Sans is allowed in slide decks only. Slides need eye-catch sans-serif; the site rule does not transfer.
-- **No warm tones for slides.** No cream paper, no Hokusai crimson on slides. The slide brand is cool only.
-- **Hokusai crimson is for the site, and used sparingly** — ≤2% of visible area. If crimson covers area, it stopped being an accent.
+- **Slide chrome uses cool surfaces and decoration.** Embedded research figures retain their semantic data colors; the slide specification owns warning/tip tokens.
+- **Site colors follow `tokens.css`.** Update this description when the tokens change; do not mirror site tokens into slide or figure palettes.
 - **No section dividers** in styling — spacing alone separates blocks.
-- **Saturated colors look old-school for *decorative* fills and default series** (see `feedback_figure_aesthetic` memory); keep those muted. The exception is **subject identity** — the fixed `subject_palette` in the visualization skill deliberately uses vivid/deep hues, because there color's whole job is to name a recurring subject across a comparison. Pick one color per hue family when a figure colors more than one subject.
+- **Research figures have their own color roles.** Follow `docs/skills/visualization/references/palettes.md` and its shared R definitions: deeper colors for small marks, muted default area fills, and fixed subject identities. Conceptual-diagram colors and shapes belong to `docs/skills/conceptual-framework/references/visual-spec.md`.
 
 ---
 

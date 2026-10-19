@@ -1,12 +1,9 @@
 /* ==========================================================================
    tokens.css — design tokens for the personal site.
 
-   Shared in spirit with docs/skills/slide and visualization —
-   Lora display + Newsreader body, Monet/Hokusai palette
-   (dusty Prussian blue + crimson + warm cream).
-
-   When updating values here, mirror them in slide.md's :root block so
-   site + slides + figures read as one identity.
+   Site only: Lora display + Newsreader body, navy and blue accents,
+   off-white page and white cards. Slide and research-figure palettes have
+   their own sources of truth; do not mirror these tokens into them.
    ========================================================================== */
 
 :root {

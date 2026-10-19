@@ -139,15 +139,41 @@ save_figure <- function(plot, spec) {
   invisible(paths)
 }
 
-# Brand palette — Monet Water Lilies + Hokusai crimson. Same hex serves as
-# fill or stroke; tint with scales::alpha().
+# Area palette — muted fills for bars and ribbons. Small marks use `marks`.
 brand <- list(
-  primary   = "#6B89A8",  # Monet dusty blue   — default series, single-series fills
-  secondary = "#9CAF88",  # Monet sage green   — second series in 2-group comparisons
-  neutral   = "#EFE6D2",  # warm cream         — backgrounds, "all others"
+  primary   = "#6B89A8",  # dusty blue — first area fill
+  secondary = "#9CAF88",  # sage — second area fill
+  neutral   = "#EFE6D2",  # optional neutral area; canvas stays white
   dark      = "#1A1A1A",  # near-black         — raw observed lines, axis text
   accent    = "#A03830"   # Hokusai crimson    — rare, single high-emphasis callout
 )
+
+# Small marks — lines, points (including filled symbols), intervals and labels.
+# Blue and green from Paul Tol's bright scheme; retain shape/linetype redundancy.
+# Source for these and the subsets below: https://sronpersonalpages.nl/~pault/
+marks <- list(primary = "#4477AA", secondary = "#228833")
+
+# Five non-pale members of Tol's muted scheme for 3–5 equal-weight groups.
+# Subject identities already assigned in a project take precedence.
+series_muted <- c("#332288", "#117733", "#CC6677", "#44AA99", "#AA4499")
+series_high_contrast <- c("#004488", "#DDAA33", "#BB5566")
+
+series_palette <- function(n, geometry = c("marks", "areas"),
+                           scheme = c("default", "high_contrast")) {
+  geometry <- match.arg(geometry)
+  scheme <- match.arg(scheme)
+  if (length(n) != 1L || !is.numeric(n) || !is.finite(n) ||
+      n < 1 || n != as.integer(n) || n > 5) {
+    stop("Use 1–5 groups; facet or layer-and-highlight beyond five.", call. = FALSE)
+  }
+  if (scheme == "high_contrast") {
+    if (n > 3) stop("The high-contrast scheme supports at most three groups.", call. = FALSE)
+    return(series_high_contrast[seq_len(n)])
+  }
+  if (n > 2) return(series_muted[seq_len(n)])
+  pair <- if (geometry == "marks") unlist(marks) else c(brand$primary, brand$secondary)
+  unname(pair[seq_len(n)])
+}
 
 # Sequential ramp — Hokusai-Prussian blues (5 steps, dark = high). Use for
 # ORDERED bins where rank matters but not precise magnitude. For precise
@@ -195,10 +221,10 @@ subject_families <- list(
 # categorical colour. NOT for precise magnitude (use viridis — perceptual
 # uniformity beats brand identity) and NOT for multi-subject value figures (use
 # one neutral ramp there; identity stays categorical via subject_palette, or the
-# gradient and the palette fight over the same channel). The vivid identity hue
-# sits MID-ramp: the high stop is a darkened version, the low stop a desaturated
-# light tint, hue held roughly constant in HCL so lightness stays monotonic and
-# the ramp reads as ordered + CVD-safe. Returns dark -> light (dark = high), the
+# gradient and the palette fight over the same channel). Darken the identity
+# color for the high stop and lighten/desaturate it for the low stop in HCL,
+# then interpolate in RGB. Inspect lightness order and CVD simulations for
+# the chosen subject. Returns dark -> light (dark = high), the
 # same orientation as brand_blues, so it is a drop-in replacement:
 #   scale_fill_manual(values  = subject_ramp(hex, k))          # discrete bins
 #   scale_fill_gradientn(colours = rev(subject_ramp(hex)))     # continuous
@@ -211,5 +237,11 @@ subject_ramp <- function(hex, n = 5) {
   grDevices::colorRampPalette(c(high, low))(n)
 }
 
-options(ggplot2.discrete.fill   = c(brand$primary, brand$secondary),
-        ggplot2.discrete.colour = c(brand$primary, brand$secondary))
+# `fill` defaults to areas. Filled point symbols need an explicit marks palette
+# shared with their lines; see references/palettes.md.
+options(
+  ggplot2.discrete.fill = function(...) ggplot2::discrete_scale(
+    "fill", palette = function(n) series_palette(n, "areas"), ...),
+  ggplot2.discrete.colour = function(...) ggplot2::discrete_scale(
+    "colour", palette = function(n) series_palette(n, "marks"), ...)
+)

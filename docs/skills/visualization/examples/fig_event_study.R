@@ -12,8 +12,8 @@ p <- ggplot(dat, aes(month, estimate)) +
   geom_hline(yintercept = 0, colour = "grey55", linewidth = 1.2) +
   geom_vline(xintercept = -.5, colour = "grey55", linetype = "dashed", linewidth = 1.2) +
   geom_errorbar(aes(ymin = lo, ymax = hi), width = .12,
-                colour = brand$primary, linewidth = 1.2) +
-  geom_point(colour = brand$primary, size = 9) +
+                colour = marks$primary, linewidth = 1.2) +
+  geom_point(colour = marks$primary, size = 9) +
   annotate("point", x = -1, y = 0, shape = 1, size = 9, colour = "grey35", stroke = 1.2) +
   scale_x_continuous(breaks = -4:4, expand = expansion(mult = .05)) +
   scale_y_continuous(breaks = -1:3, expand = expansion(mult = .08)) +

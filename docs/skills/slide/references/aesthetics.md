@@ -1,6 +1,6 @@
 # Slide Aesthetics — Full Styling Spec
 
-**Blue-white academic clean** — Plus Jakarta Sans on white, academic-blue primary and accent. This is the slide-deck brand, intentionally *different* from the personal-site Hokusai/Lora brand. Reading-group decks want a quieter conference-house register (think NeurIPS / ICML / Marketing Science author slides), not the magazine-paper warmth the personal site uses.
+**Blue-white academic clean** — Plus Jakarta Sans on white, academic-blue primary and accent. The personal site has its own tokens and serif typography; reading-group decks use a conference presentation register.
 
 Read this file before populating the `<style>` block in the Reveal.js template (`reading-other-papers.md` → "Reveal.js document contract"). Sections 1–6 below are pasted into the template's `<style>` tag verbatim and in order.
 
@@ -8,13 +8,13 @@ Read this file before populating the `<style>` block in the Reveal.js template (
 
 ## Aesthetic discipline
 
-**The direction is academic-clean sans-serif on white with a single blue accent.** Tight type, generous padding, no warm-paper textures, no Lora/Newsreader (those belong to the personal site). The default model pull toward generic-modern (Inter body, sky-blue links, oversaturated charts) is rejected here just as in figures and on the personal site — but the *form* the rejection takes for slides is different from the site's. On the site the rejection is *book-voice serif on warm paper*; on slides it's *quiet sans on white with one decisive blue moment*.
+**The direction is academic-clean sans-serif on white with a single blue accent.** Tight type, generous padding, no warm-paper textures, no Lora/Newsreader (those belong to the personal site). The default model pull toward generic-modern (Inter body, sky-blue links, oversaturated charts) is rejected here just as in figures and on the personal site — but the *form* the rejection takes for slides is different from the site's. The site's register is serif and suited to sustained reading; slides use quiet sans on white with one decisive blue moment.
 
 Hold the line on:
 
 - **Typography.** Plus Jakarta Sans, weight 400–800 across heading and body. One typeface only — no mixing with serif Lora / Newsreader. Source Serif 4 is loaded for math/citations but should not appear as body type. Never substitute Inter, Arial, system-ui-only (Plus Jakarta Sans falls back to system-ui only when the webfont fails to load), or Space Grotesk.
 - **Palette role-distribution.** White surfaces dominate (~92% of slide area). **Desaturated chrome** (`--c-primary`, `#234E96`) ~6% — h2 color, table-header band, code background, link / role text. **Saturated electric accent** (`--c-accent`, `#0046AD`) ≤2% — one moment per slide: `.callout-result`, the `.with-accent` / title-slide h2 underline, eq-block left rule, outline-grid numerals. The two share a hue but differ in saturation, so the deck reads monochromatic while the accent still pops against the quieter chrome. If electric blue starts covering area, it has stopped being an accent. **Never raise the chrome's saturation back to the accent's** — a fully-saturated table-header band on every slide is the dated, loud look the muted-figure palette exists to avoid.
-- **No warm tones.** No cream paper. No Hokusai crimson. No banana-yellow accents. No coral warns. The personal site uses warm cream and crimson; the slide deck does not. If you find yourself reaching for `#EFE6D2` or `#A03830` while generating a deck, you are conflating brands — stop.
+- **Cool slide surfaces and decoration.** Use white and blue for slide chrome. Keep the muted semantic warning/tip tokens below. Embedded scientific figures follow the visualization palette roles, including data colors that carry group identity; do not recolor them merely to match slide chrome.
 - **Layout.** Asymmetric where it helps the eye land (title slide gets a big blue underline rule), generous negative space everywhere else. **Fewer, bigger words.** Bullets should breathe; max ~8 words per bullet where possible. The type sizes in §1 balance restrained headings with readable body text at projection size. Resolve crowding by shortening or splitting content before reducing type further.
 - **Execution density.** Academic-clean asks for *restraint and precision* — careful spacing, deliberate type hierarchy, no decorative flourishes. Plain white with a blue stripe is the right answer; a tasteful paper-grain texture is *not* (warm in feel; against the brand).
 - **Symmetric column heights.** For any `.col-7-5` or `.col-6-6` slide, the left and right columns must have the same vertical extent. The deck CSS stretches both columns and centers content inside each, so a short text column sits visually opposite the figure rather than floating above its bottom edge. Per-slide overrides (inline `style="align-items: stretch"`, `style="justify-content: center"`) are unnecessary and should be deleted when found.
@@ -23,7 +23,7 @@ Hold the line on:
 
 When in doubt, the test: would this slide look at home on a NeurIPS or Marketing Science author page? If yes, hold the line. If it looks magazine-y, conference-poster-y, or designer-portfolio-y, dial back.
 
-> **Why this brand differs from the personal site.** The personal site (`docs/css/tokens.css`, `docs/index.html`, CV) uses Lora display + Newsreader body + Hokusai cream/crimson — book-voice warmth, slow read. Slides need eye-catch at 30-second-per-slide pace under projector light, which is the opposite register. The site brand and slide brand are *cousins* (both quiet, both serif-discipline-aware, both reject the AI-slop default), not the same identity. Keep them separate.
+> **Separate sources of truth.** Site styling lives in `docs/css/tokens.css`; this document owns slide chrome. Research-figure colors follow the [visualization palette guidance](../../visualization/references/palettes.md). Sharing a blue hue does not require sharing typography, surfaces, or data-color mappings.
 
 ---
 
@@ -61,9 +61,7 @@ At a 1280×720 viewport with a 16px root font, the standard content-title, subti
      projector eye-catch. Same hue family, different saturation: the deck is
      still monochromatic, but the accent now pops against quieter chrome
      instead of competing with it.
-     NOTE: --c-primary is intentionally NOT the site's Hokusai Prussian
-     (#2E4A75) — brand separation is load-bearing; this is a cooler, distinct
-     slide blue. */
+     These tokens govern slide chrome independently of the site CSS. */
   --c-primary:      #234E96;   /* desaturated slide blue — h2, chrome, links, table-header band */
   --c-primary-soft: #eef3fb;   /* very pale blue — code bg, table stripes (when needed) */
   --c-accent:       #0046AD;   /* saturated electric blue — accent ONLY (title underline, .callout-result, eq left rule, outline numerals) */

@@ -213,7 +213,7 @@ ggplot(df, aes(x = year, y = outcome, colour = group)) +
 3–5 equal-weight series, each its own colored line, with a redundant shape so the figure survives grayscale / colorblindness and reads where lines cross. `shape` and `fill` map to the **same** variable as the line `colour` (SKILL.md §5); shape rides redundant on color and so doesn't spend the channel budget. `brand_shapes <- c(21, 24, 22, 23, 25)` comes from `theme_pub.R`.
 
 ```r
-pal <- c(A = brand$primary, B = brand$secondary, C = brand$dark)
+pal <- setNames(series_palette(3), c("A", "B", "C"))
 
 labels <- df |> group_by(group) |> slice_max(month, n = 1) |> ungroup()
 
@@ -263,8 +263,8 @@ ggplot(es, aes(x = period, y = coef)) +
              colour = brand$accent, linewidth = 1.2) +
   geom_ribbon(aes(ymin = lo, ymax = hi),
               fill = brand$primary, alpha = 0.22) +
-  geom_line(linewidth = 2.8, colour = brand$primary) +
-  geom_point(size = 9, colour = brand$primary) +
+  geom_line(linewidth = 2.8, colour = marks$primary) +
+  geom_point(size = 9, colour = marks$primary) +
   labs_pub(x = "Months relative to first treatment",
            y = "Effect on employment (percentage points)")
 ```
@@ -274,8 +274,8 @@ ggplot(es, aes(x = period, y = coef)) +
 ```r
   # non-shaded version: discrete coefficients, CI as error-bar lines, NO connecting line
   geom_hline(yintercept = 0, colour = "grey55", linewidth = 1.0) +
-  geom_linerange(aes(ymin = lo, ymax = hi), colour = brand$primary, linewidth = 1.1) +
-  geom_point(colour = brand$primary, fill = "white", shape = 21, size = 6, stroke = 1.3) +
+  geom_linerange(aes(ymin = lo, ymax = hi), colour = marks$primary, linewidth = 1.1) +
+  geom_point(colour = marks$primary, fill = "white", shape = 21, size = 6, stroke = 1.3) +
   # (no geom_line, no geom_ribbon)   # use geom_errorbar(width = 0.4) if you want caps
 ```
 
@@ -283,11 +283,11 @@ The pairing is the rule, not a style toss-up (rule 11): **shaded ribbon ↔ conn
 
 For a multi-outcome loop (one `make_es()`-style function over several outcomes), this is a per-figure author choice, not runtime branching on the data: carry a `shaded`/`line` flag in the spec table and let smooth outcomes take the line version, noisy ones the non-shaded version. The marker refinements below (open-circle, tangent-circle) apply to the **line** version.
 
-**Open-circle marker — sanctioned variant.** Instead of the solid blue dot, draw a blue-ringed white circle (`shape = 21`, `fill = "white"`, `colour = brand$primary`). The white interior lets the connecting line and ribbon read *through* the marker rail, so a long monthly event study (25+ periods) stays legible where solid dots would clot into a blue stripe. Use it for single-series coefficient/event-study plots; keep the solid dot when periods are few.
+**Open-circle marker — sanctioned variant.** Instead of the solid blue dot, draw a blue-ringed white circle (`shape = 21`, `fill = "white"`, `colour = marks$primary`). The white interior lets the connecting line and ribbon read *through* the marker rail, so a long monthly event study (25+ periods) stays legible where solid dots would clot into a blue stripe. Use it for single-series coefficient/event-study plots; keep the solid dot when periods are few.
 
 ```r
-  geom_line(colour = brand$primary, linewidth = 2.6) +
-  geom_point(colour = brand$primary, fill = "white", shape = 21,
+  geom_line(colour = marks$primary, linewidth = 2.6) +
+  geom_point(colour = marks$primary, fill = "white", shape = 21,
              size = 7, stroke = 1.6) +
 ```
 
@@ -295,14 +295,14 @@ Two things keep it inside the skill rather than fighting it:
 
 - **This is the inverse of the multi-series marker, and deliberately so.** Multi-series lines (§5) put the colour *inside* (`fill = group`) and a white *halo* outside (`colour = "white"`) so each marker names its series and stays crisp at crossings. A single-series event study has no series to name, so the marker carries no identity — invert it (white inside, brand ring outside) to make the rail recede and let the data path show through. Don't mix the two: open ring for one series, filled-with-white-halo for many.
 - **Hold the marker-to-line ratio, then size to period count.** The white fill makes an open circle read larger than a solid dot of the same radius, so it can run a touch smaller — but keep it near the 3:1 band (rule 6): `size = 7` on a `2.6` line, `stroke` 1.4–1.6 for a ring that reads at half-column. `size = 7` is the default for a shorter event study (≤ ~15 periods); past ~20 periods the markers start to kiss where the path is steepest, so drop to `size = 6`. Don't drop below `size ≈ 6` or the ring thins to a hairline — if even 6 crowds, thin the markers (every other period) rather than shrink further.
-- **Line weight `2.6` for a long monthly event study.** Rule 6 gives two discrete weights — `2.8` sparse, `2.4` dense — but a 25+-period monthly series is the in-between case: monthly cadence (sparse) yet long enough to read busy (dense). Split the difference at `linewidth = 2.6`. Keep `colour = brand$primary` — the dusty blue is already the default single-series colour, so the line, ribbon (`fill = brand$primary`), and open-circle ring all stay one hue.
+- **Line weight `2.6` for a long monthly event study.** Rule 6 gives two discrete weights — `2.8` sparse, `2.4` dense — but a 25+-period monthly series is the in-between case: monthly cadence (sparse) yet long enough to read busy (dense). Split the difference at `linewidth = 2.6`. Use `colour = marks$primary` for the line and open-circle ring, with the softer `fill = brand$primary` for the ribbon.
 
 **Tangent-circle look — let big markers hide the line except across gaps.** A variant of the open circle that makes the figure read as a *chain of dots* rather than a line: keep the continuous line, but size the (opaque-white-filled) circles so neighbouring circles in the flat stretches sit **tangent** — just touching — so their white fill covers the line segment between them. The line then only **peeks through where two consecutive points are far apart**, i.e. exactly where the series moves fast. No threshold, no `geom_segment`, no conditional drawing — the "few connectors" are an emergent geometric effect of the markers sitting on an always-present line.
 
 ```r
   geom_ribbon(aes(ymin = lo, ymax = hi), fill = brand$primary, alpha = 0.20) +
-  geom_line(colour = brand$primary, linewidth = 2.6) +     # KEEP — continuous, underneath
-  geom_point(colour = brand$primary, fill = "white", shape = 21,
+  geom_line(colour = marks$primary, linewidth = 2.6) +     # KEEP — continuous, underneath
+  geom_point(colour = marks$primary, fill = "white", shape = 21,
              size = 7, stroke = 1.4) +                      # ~tangent in flat runs at this geometry
 ```
 
@@ -330,9 +330,7 @@ ggplot(df, aes(x = year, y = value)) +
   scale_linetype_manual(values = c(linear = "dashed",
                                    loess  = "solid",
                                    poly   = "dotted")) +
-  scale_colour_manual(values = c(linear = brand$primary,
-                                 loess  = brand$secondary,
-                                 poly   = brand$accent)) +
+  scale_colour_manual(values = setNames(series_palette(3), c("linear", "loess", "poly"))) +
   geom_text_repel(
     data = filter(df, series != "raw") |>
              group_by(series) |> slice_max(year, n = 1),
@@ -388,7 +386,7 @@ ggplot(df, aes(x = date, y = y)) +
            colour = "grey30") +
 
   # Data on top of all of the above
-  geom_line(linewidth = 2.8, colour = brand$primary) +
+  geom_line(linewidth = 2.8, colour = marks$primary) +
 
   labs(x = "Date", y = "Outcome")
 ```
@@ -436,7 +434,7 @@ ggplot(df, aes(x = week, y = visits, group = platform)) +
   theme_pub(gutter = "right")
 ```
 
-For two focal series, give each a distinct accent (`brand$primary` and `brand$accent`) with its label matching its line; the rest stay grey80 / grey50.
+For two focal series, give each a distinct accent (`marks$primary` and `brand$accent`) with its label matching its line; the rest stay grey80 / grey50.
 
 **If the focal subject recurs across your figures** (the same platform / source highlighted in figure after figure), don't use crimson — give that subject one fixed colour from `subject_palette` (`theme_pub.R`) and reuse that exact colour every time, so the highlight reads identically across the paper (see `palettes.md` → "Locked subject identity"). When a figure highlights two or more subjects at once, take each from a different `subject_families` group (never two blues) so they separate by hue. Crimson stays the default for a one-off highlight whose subject won't reappear.
 
