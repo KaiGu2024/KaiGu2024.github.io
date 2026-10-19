@@ -12,4 +12,6 @@ Reviewed 2026-10-19. Sources: [paper v2](https://arxiv.org/html/2601.23265v2), o
 
 These are workflow adaptations, not measured improvements to our skills. The study focuses on NeurIPS methodology diagrams and a curated plot benchmark. Its style preferences and evaluation scores do not establish universal publication standards. Retain our own brand, export formats, concise notes, and event-study wording. Use sequential working passes without requiring five agents or three revision rounds.
 
+Follow-up inspection found actual reference plotting code in the [PaperBananaBench plot dataset](https://huggingface.co/datasets/dwzhu/PaperBananaBench/viewer/plot/ref), in the `gt_code` field alongside images, data, and visual intent. This is reference code derived from ChartMimic, not necessarily the code for PaperBanana's generated illustrations. Our [gallery](../guidance/gallery.md) uses original examples to teach compatible design choices; its [validation record](gallery-validation.md) documents the exports inspected.
+
 Current procedure: [figure planning and revision](../guidance/figure-review.md). Related changes belong in conceptual-framework, slide, tables, and skill-creator; paper-writing already supplies the concise-note principle.

@@ -9,9 +9,7 @@ invocation: auto
 
 ## Plan before rendering
 
-Before creating or substantially redesigning a figure, write a short internal brief: the question or comparison, source data, required series and uncertainty, visual mappings, and intended placement. Follow [figure planning and revision](guidance/figure-review.md). Reuse an existing brief for small edits. Keep this preparation out of the publication note.
-
-Choose examples by the comparison and data structure they solve; retain this skill's typography, palette, labeling, and export rules. After polishing, verify both the rendered appearance and the values and meanings preserved from the source. Correctness and readability are required before choosing between styles.
+For a new figure or substantial redesign, follow [figure planning and revision](guidance/figure-review.md). Start with the matching [rendered gallery example and runnable source](guidance/gallery.md); use the recipes for additional patterns. Small edits reuse the existing plan.
 
 ## Contents
 

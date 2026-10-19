@@ -21,7 +21,7 @@ The detailed preparation should produce concise publication text. Apply the [sha
 
 ## Use examples for the problem they solve
 
-Start with the relevant recipe and, when available, a rendered example the user has accepted. Match the comparison, data structure, number of series, label density, and placement size before matching the research topic. An event study is a better reference for another event study than an unrelated chart about the same industry.
+Start with the [rendered gallery](gallery.md), the relevant recipe, or a suitable example the user has accepted. Match the comparison, data structure, number of series, label density, and placement size before matching the research topic. An event study is a better reference for another event study than an unrelated chart about the same industry.
 
 Inspect the example itself. Identify the useful choice, such as a label rail, grouping, or uncertainty encoding. Adapt that choice while preserving current semantic, accessibility, brand, and export requirements. Never import the example's findings, causal assumptions, or inference settings.
 
@@ -29,8 +29,8 @@ When retaining a reusable example, pair its render with the source script/data l
 
 ## Review in order
 
-1. **Meaning:** compare with the source and brief. For plots, check data values, variable mappings, transformations, series, intervals, units, and reference periods. For diagrams, check each retained relation and its endpoints against the evidence map. Use structured data or diagram elements where available alongside visual inspection.
-2. **Readability:** inspect the saved artifact at placement size, including its host document when produced. Check labels, arrows, marks, and uncertainty for overlap, clipping, ambiguity, and legibility.
+1. **Meaning:** compare with the source and brief using the artifact's own acceptance checklist: [plot standards, rule 13](../SKILL.md#1-standards) or the [diagram audit](../../conceptual-framework/references/visual-audit.md). Use structured data or diagram elements alongside visual inspection.
+2. **Readability:** apply the same checklist to the saved artifact at placement size, including its host document when produced.
 3. **Concision and style:** remove repetition and unnecessary decoration while retaining information required for interpretation. Apply the destination's visual standards. A shorter label must still identify the same quantity or relation.
 
 Correctness and readability are acceptance requirements. A more attractive candidate cannot compensate for an incorrect value, missing relationship, or unreadable label. If comparing candidates, use the same evidence and placement size; either or both can fail.

@@ -10,7 +10,7 @@ For screen delivery, preserve readable text at the declared width (normally at l
 
 ## Checks that block acceptance
 
-1. **Source and meaning:** all constructs, measures, arrow directions, signs, units, levels, and captions agree with the evidence map. Color identifies construct versus measurement type; it must not simultaneously encode a different property such as randomization or effect size.
+1. **Source and meaning:** all constructs, measures, arrow directions, signs, units, levels, and captions agree with the evidence map or are visibly marked as reader interpretation. Recheck the strongest causal/mechanism claim against the paper's actual comparison and assumptions; distinguish demonstrated mechanisms from conjectures and heterogeneity from causal moderation. Keep measurement correspondence distinct from structural paths, and acknowledge unmeasured constructs or unavailable source material where relevant. Color identifies construct versus measurement type; it must not simultaneously encode a different property such as randomization or effect size.
 2. **Direct labels and grouping:** every node and consequential relation is identifiable without guessing. Keep the semantic legend compact; use direct labels for moderation, covariance, measurement direction, and important status distinctions. Proximity and connections must not imply unsupported groupings or causal paths.
 3. **Geometry:** open the saved SVG render/PNG at the declared placement width. Check labels against other text, node interiors/boundaries, connectors, and canvas edges. Inspect both heads of a bidirected edge and every reflective/formative direction. A text-bounds check alone cannot detect a label hidden behind an interior node.
 4. **Color accessibility:** inspect the actual figure in grayscale and simulations of protanopia, deuteranopia, and tritanopia using an available tool (for example Color Oracle or browser vision-deficiency emulation). Shape, labels, and line conventions must preserve interpretation when hues converge. Record the tool and modes actually checked; simulations are not a universal accessibility guarantee.
@@ -20,7 +20,7 @@ Reject and repair overlap, clipping, hidden arrowheads, unreadable text, mislead
 
 ## Review after polishing
 
-Compare each retained node and relationship ID with the evidence map, including endpoints, direction, relation type, label, and evidence status. Inspect the rendered connector too: an SVG ID can be correct while its path visibly ends at the wrong node. Preserve required measurements, qualifications, and semantic legends when shortening text or rearranging groups.
+Compare each retained node and relationship ID with the evidence map, including endpoints, direction, relation type, label, and evidence status. Check for omitted, duplicated, reversed, and unsupported connections; matching counts alone is insufficient. Inspect the rendered connector too: an SVG ID can be correct while its path visibly ends at the wrong node. Preserve required measurements, qualifications, and semantic legends when shortening text or rearranging groups.
 
 Describe a concrete defect and make a targeted repair. Keep the last verified version until the revision passes both meaning and readability checks, then compare concision and style if needed. Successful export is not evidence of improved quality. Missing or failed review remains unverified. Stop when no concrete defect remains; do not require a fixed number of revision rounds.
 

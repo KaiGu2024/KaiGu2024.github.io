@@ -2,6 +2,8 @@
 
 Use native, editable SVG as the default master. Adapt layout to the paper rather than forcing a fixed template.
 
+Inspect the [editable measurement-layer example](../examples/measurement-layout.svg) and its [gallery explanation](../../visualization/guidance/gallery.md#conceptual-diagram-separate-argument-and-measurement) when choosing a composition. It is an invented teaching example; replace its relationships and measures from the paper's evidence map.
+
 ## Visual vocabulary
 
 | Element | Shape and appearance |
@@ -19,6 +21,8 @@ Use white background, a commonly available sans-serif font, and one consistent t
 
 Place the substantive flow left-to-right, measures near their constructs, and confounders/moderators where their edges stay clear. Add labeled panels if theory and empirical design cannot fit without clutter. Put a compact legend and source line inside the figure, with detailed locators and qualifications in the accompanying Markdown.
 
+Align nodes that play the same role and use consistent padding and connector weights. Keep space within a group smaller than space between groups. Use pale fills for the existing semantic categories; a shared background region is useful only when it identifies a sourced grouping. For a complex framework, pair an overview with a clearly linked detail view rather than shrinking every node. Keep the main reading path visually prominent through placement and spacing, without making an unsupported relation appear stronger.
+
 ## SVG implementation details
 
 - Set `xmlns`, width/height, and viewBox. Include `<title>` and `<desc>` for accessibility.
@@ -31,6 +35,8 @@ Place the substantive flow left-to-right, measures near their constructs, and co
 ## Exports and inspection
 
 Render the actual SVG with an available renderer; do not create a visually unrelated PNG. Default to a PNG at 2× nominal dimensions. Use explicit dimensions/background and preserve the complete bounds, including legends and source notes. Keep the editable SVG even when PNG is the requested presentation format.
+
+Use an available SVG renderer such as Inkscape, CairoSVG, or rsvg. For browser rendering, set the viewport explicitly, wait for fonts, and capture the SVG bounds at the target scale.
 
 For requested PDF, use vector export through a tool such as Inkscape or browser printing of an SVG sized to one page; verify that print margins do not crop the figure or add unwanted pages. Report any raster-only PDF fallback accurately.
 

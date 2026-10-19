@@ -2,6 +2,8 @@
 
 Copy-pasteable code for common figures. Assumes the shared `theme_pub.R` helpers and `brand` palette from SKILL.md §4 are loaded. Text sizes follow SKILL.md §1.6: 20 pt axis titles, 16 pt ticks, 16–18 pt direct labels, and 18 pt facet strips at manuscript placement size.
 
+For complete runnable examples and their rendered PDFs, use the [visual gallery](../guidance/gallery.md). This file supplies reusable fragments and additional patterns; the gallery scripts own the complete teaching examples.
+
 ## Contents
 
 1. [Figure specification, PDF export, and QA](#figure-specification-pdf-export-and-qa)

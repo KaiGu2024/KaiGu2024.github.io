@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620">
+  <title>Illustrative conceptual framework with a separate measurement layer</title>
+  <desc>A proposed relationship from perceived usefulness to adoption intention. Each construct has its own observed scale below it. This invented example is not a finding from a paper.</desc>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 Z" fill="#234E96"/></marker></defs>
+  <rect width="1200" height="620" fill="white"/>
+  <g font-family="Verdana, sans-serif" fill="#202830">
+    <text x="70" y="62" font-size="24" font-weight="bold">Illustrative framework</text>
+    <text x="70" y="99" font-size="20">Layout example only · invented constructs and measures</text>
+    <path id="r1" d="M455 220 H745" stroke="#234E96" stroke-width="3" marker-end="url(#arrow)"/>
+    <text x="600" y="185" text-anchor="middle" font-size="22">Hypothesized effect</text>
+    <path id="r2" d="M285 280 V390" stroke="#65747C" stroke-width="2.5" stroke-dasharray="8 7"/>
+    <path id="r3" d="M915 280 V390" stroke="#65747C" stroke-width="2.5" stroke-dasharray="8 7"/>
+    <text x="307" y="342" font-size="20">Measured by</text>
+    <text x="937" y="342" font-size="20">Measured by</text>
+    <ellipse id="n1" cx="285" cy="220" rx="170" ry="60" fill="#EEF3FB" stroke="#234E96" stroke-width="2"/>
+    <ellipse id="n2" cx="915" cy="220" rx="170" ry="60" fill="#EEF3FB" stroke="#234E96" stroke-width="2"/>
+    <text x="285" y="213" text-anchor="middle" font-size="25"><tspan x="285">Perceived</tspan><tspan x="285" dy="32">usefulness</tspan></text>
+    <text x="915" y="213" text-anchor="middle" font-size="25"><tspan x="915">Adoption</tspan><tspan x="915" dy="32">intention</tspan></text>
+    <rect id="n3" x="115" y="390" width="340" height="88" rx="8" fill="#EAF5F0" stroke="#0E6E5A" stroke-width="2"/>
+    <rect id="n4" x="745" y="390" width="340" height="88" rx="8" fill="#EAF5F0" stroke="#0E6E5A" stroke-width="2"/>
+    <text x="285" y="443" text-anchor="middle" font-size="24">Usefulness scale</text>
+    <text x="915" y="443" text-anchor="middle" font-size="24">Intention scale</text>
+    <text x="70" y="546" font-size="19">Blue ovals: constructs · Green rectangles: observed measures</text>
+    <text x="70" y="578" font-size="19">Arrow: proposed direction · Dashed links: measurement correspondence</text>
+  </g>
+</svg>

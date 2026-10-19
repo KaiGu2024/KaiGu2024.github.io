@@ -2,9 +2,8 @@
 # See ../SKILL.md for the full design rationale (rules 1–13).
 #
 # Fonts: Lora (display) for axis titles + strip text, Newsreader (body) for
-# tick labels and annotations. Same pair as the personal website / slides /
-# CV — figures live in the same typeface family as the surrounding work
-# instead of defaulting to a generic Helvetica.
+# tick labels and annotations. This is the publication-figure/site family;
+# slide chrome has its own typography in the slide skill.
 #
 # If Newsreader / Lora aren't installed system-wide, register them once per
 # session with showtext:

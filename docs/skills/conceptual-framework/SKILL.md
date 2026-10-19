@@ -65,22 +65,12 @@ First record a short brief in the source note: what the reader should understand
 
 Use [the visual specification](references/visual-spec.md). Declare intended placement size using [the visual audit](references/visual-audit.md) before drawing. Default to native SVG written directly or generated with an available vector tool. Do not generate the scientific diagram with a raster image model. Prefer a clean layout with a construct layer and a measurement layer; use additional panels when the paper's argument needs them.
 
-- **Constructs:** blue ovals; definitions adjacent or in concise subtitles.
-- **Measurements/manipulations:** green rectangles, with explicit role labels.
-- **Other elements:** neutrals and clear text labels; avoid assigning a color to a causal status that already has a different meaning elsewhere.
-- Provide an in-figure legend for color, shape, arrows, correspondence, and support status actually used. Put concise source locators and “reader reconstruction” on the figure when applicable.
-- Draw node boundaries and route edges so that arrowheads end at boundaries, labels do not overlap links, and a bidirected path visibly has two correctly oriented heads.
+The visual specification owns shapes, colors, composition, connector routing, and the compact semantic legend. Its linked editable example demonstrates how to separate constructs from measurements.
 
-Render SVG using tools available in the environment, such as Inkscape, CairoSVG, or an ordinary headless browser. If using a browser, explicitly set viewport and wait for fonts; capture the SVG bounds at the target scale. Embed assets and avoid network font dependencies in the final SVG. Keep labels editable; verify Unicode symbols and XML escaping. If rendering is unavailable, deliver the SVG with a precise statement that the raster/export and visual check are incomplete, rather than pretending the export succeeded.
+Follow the visual specification's implementation and export instructions. If rendering is unavailable, deliver the SVG and identify the raster/export and visual checks that remain incomplete.
 
 ## 5. Verify and deliver
 
-Run the [diagram-specific visualization audit](references/visual-audit.md), consulting the `visualization` skill's applicable standards when available. Record placement size, grayscale/color-vision simulations, and actual export checks. The self-contained audit remains usable when that skill is unavailable. Check both substance and appearance:
-
-1. Every retained node/edge/measurement has a source locator or is visibly marked as reader interpretation; the caption and figure agree. After polishing, reconcile node and relationship IDs with the evidence map and inspect the actual endpoints and arrowheads. Check for omitted, duplicated, reversed, and unsupported connections; matching counts alone is insufficient.
-2. Arrows encode the intended relation, not whether data were randomized. Distinguish confounders, mediators, moderators, and controls. Show no feedback through a bidirected edge.
-3. Measurement correspondence differs visibly from structural paths; unmeasured constructs and unavailable appendices are acknowledged where relevant. Do not give a concept paper invented operationalizations.
-4. Verify that the output SVG parses, relative links/assets resolve, and the raster dimensions are correct. Render and visually inspect every panel at intended display size for clipping, font substitution, illegible labels, crossed text, incorrect arrowheads, and misleading grouping. Inspect each exported PDF page when requested.
-5. Recheck the strongest causal/mechanism claim against the paper's actual comparison and assumptions. Identify demonstrated versus conjectured mechanisms and heterogeneity versus causal moderation.
+Run the [diagram-specific visualization audit](references/visual-audit.md), which owns the meaning, layout, accessibility, and export checklist, including checks after polishing. Record the actual checks in the source note. The audit remains usable without the visualization skill installed.
 
 Fix defects and re-render affected outputs. Return links to the figure formats and source note, a sentence identifying the framework(s), and any material access or interpretation limit. Preserve the input paper and user edits. Do not create slides, a full reading report, or public uploads as a side effect.
