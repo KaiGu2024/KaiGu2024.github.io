@@ -46,6 +46,8 @@ Before generating the deck, write `notes/<slug>.md` from the full source.
 
 Record figure and table provenance in the notes: source file or PDF page, caption, panel, and any conversion or crop. For external motivation evidence allowed in `own`, record the publisher, year, URL, and retrieval date.
 
+For each substantive slide, connect its one claim to the evidence the audience needs to understand it. When choosing a layout example, match the communicative task—explaining identification, comparing estimates, showing a mechanism, or locating a contribution—and the amount of content. Preserve the selected mode's brand. The [figure planning and revision guide](../visualization/guidance/figure-review.md) applies when creating or redesigning a visual; the content map serves as the brief, so no separate planning document is required.
+
 ## Shared evidence rules
 
 - Preserve exact numbers, units, signs, uncertainty, sample definitions, and comparison groups.
@@ -71,11 +73,13 @@ Images embedded in the HTML or referenced by Beamer are deck assets, not inspect
 Apply the mode-specific checklist, then confirm:
 
 1. Every planned block appears once and in the required order.
-2. Every result number and visual traces to the paper or a verified project artifact.
+2. Every result number and visual traces to the paper or a verified project artifact. After simplifying or restyling, confirm that the claim still has its supporting comparison, units, sample, uncertainty, and material qualification. A crop must not remove the reference category or interval needed to interpret a result. Move supporting explanation into visible labels or speaker notes as appropriate; keep essential visual reading keys on the slide.
 3. Figures, tables, equations, notes, and source lines render without clipping or overlap. Section labels match the talk map, sit above content titles consistently, and leave enough room for the slide body.
 4. The title, densest content slide, each distinct results layout, and conclusion have been visually inspected.
    Inspect representative rendered notes too: paragraph gaps must be visible, bold stress words easy to find, and text readable without clipping. Apply the [adjacent-slide continuity review](references/talk-delivery.md#continuity-between-slides), checking each ending and following opening together before reading the notes continuously. Read the narration aloud when rehearsing, honoring the pauses and emphasis; distinguish a text review from an actual timed rehearsal.
 5. Temporary extraction, conversion, edit, and build artifacts have been removed from the delivery folder; retain source inputs needed for reproducibility and intended deliverables. Any retained inspection previews are confined to the ignored `exploratory/previews/slides/<slug>/` directory.
+
+Fix identified defects locally, re-render affected slides, and recheck their evidence and layout. Keep the last verified version until the replacement passes; missing or failed inspection remains unverified. Stop once the applicable checks pass and no concrete defect remains.
 
 ## Report completion
 

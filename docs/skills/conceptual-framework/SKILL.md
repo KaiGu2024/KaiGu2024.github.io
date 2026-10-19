@@ -38,6 +38,8 @@ Read [the semantic rules](references/semantics.md) when choosing relationship ty
 
 Map all retained nodes and links to source pages/sections/exhibits. Distinguish printed from PDF viewer pages. Include only elements necessary to understand the focal argument and its consequential limitations.
 
+Give retained nodes and relationships stable working IDs. For each relationship, record its source node, target node (or target relationship for moderation), direction, relation type, label, and evidence locator. Reuse the IDs in SVG elements where practical; they need not appear in the visible figure. This makes missing, extra, reversed, or misattached connections checkable after a layout revision.
+
 - **Theory:** connected explanatory/predictive propositions with stated assumptions and scope; a diagram is a representation of the theory, not the whole theory. For empirical theory, identify testable implications. Preserve the author's alternative philosophical framing when relevant.
 - **Construct:** a theoretically defined concept. Keep its meaning separate from the observed proxy, treatment, or scale.
 - **Measurement:** the actual indicator/operationalization, with unit, level, scale, timing, or items when material. Mark a relevant unmeasured mechanism explicitly. Separate manipulation, manipulation check, and mediator measure.
@@ -59,6 +61,8 @@ Add compact labels or a strip for the empirical design where relevant: randomize
 
 ## 4. Draw and render
 
+First record a short brief in the source note: what the reader should understand, which nodes and relationships carry that argument, and the intended placement. Reuse the author's faithful figure or a suitable accepted example for its relationship structure; keep this skill's semantic conventions. When available, the [figure planning and revision guide](../visualization/guidance/figure-review.md) provides examples and review order. The workflow here remains usable on its own.
+
 Use [the visual specification](references/visual-spec.md). Declare intended placement size using [the visual audit](references/visual-audit.md) before drawing. Default to native SVG written directly or generated with an available vector tool. Do not generate the scientific diagram with a raster image model. Prefer a clean layout with a construct layer and a measurement layer; use additional panels when the paper's argument needs them.
 
 - **Constructs:** blue ovals; definitions adjacent or in concise subtitles.
@@ -73,7 +77,7 @@ Render SVG using tools available in the environment, such as Inkscape, CairoSVG,
 
 Run the [diagram-specific visualization audit](references/visual-audit.md), consulting the `visualization` skill's applicable standards when available. Record placement size, grayscale/color-vision simulations, and actual export checks. The self-contained audit remains usable when that skill is unavailable. Check both substance and appearance:
 
-1. Every retained node/edge/measurement has a source locator or is visibly marked as reader interpretation; the caption and figure agree.
+1. Every retained node/edge/measurement has a source locator or is visibly marked as reader interpretation; the caption and figure agree. After polishing, reconcile node and relationship IDs with the evidence map and inspect the actual endpoints and arrowheads. Check for omitted, duplicated, reversed, and unsupported connections; matching counts alone is insufficient.
 2. Arrows encode the intended relation, not whether data were randomized. Distinguish confounders, mediators, moderators, and controls. Show no feedback through a bidirected edge.
 3. Measurement correspondence differs visibly from structural paths; unmeasured constructs and unavailable appendices are acknowledged where relevant. Do not give a concept paper invented operationalizations.
 4. Verify that the output SVG parses, relative links/assets resolve, and the raster dimensions are correct. Render and visually inspect every panel at intended display size for clipping, font substitution, illegible labels, crossed text, incorrect arrowheads, and misleading grouping. Inspect each exported PDF page when requested.

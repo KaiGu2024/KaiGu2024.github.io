@@ -181,6 +181,8 @@ Try to explain to the model why things are important in lieu of heavy-handed mus
 
 ### Test Cases
 
+For skills that polish evidence-bearing artifacts, include cases where appearance improves while meaning gets worse: a cleaner diagram with a reversed arrow, a shorter figure note that loses the reference period, or a reordered table that attaches an unchanged estimate to the wrong specification. Evaluate correctness and readability before stylistic preference. Use recoverable source values or relationships for objective checks; a polished screenshot alone cannot establish fidelity. Both candidates may fail, and missing or failed review must remain unverified rather than count as a pass. Also include an already satisfactory case when testing revision behavior, so the skill can demonstrate that it stops without unnecessary edits.
+
 After writing the skill draft, come up with 2-3 realistic test prompts — the kind of thing a real user would actually say. Share them with the user: [you don't have to use this exact language] "Here are a few test cases I'd like to try. Do these look right, or do you want to add more?" Then run them.
 
 Save test cases to `evals/evals.json`. Don't write assertions yet — just the prompts. You'll draft assertions in the next step while the runs are in progress.

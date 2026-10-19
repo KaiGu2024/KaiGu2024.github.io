@@ -18,6 +18,12 @@ For screen delivery, preserve readable text at the declared width (normally at l
 
 Reject and repair overlap, clipping, hidden arrowheads, unreadable text, misleading encodings, or unresolved source inconsistencies. Shorten/wrap labels, reroute edges, increase spacing, or split panels before shrinking type. Re-export and inspect after repairs. If a check cannot be performed, state exactly what remains unverified rather than marking the audit passed.
 
+## Review after polishing
+
+Compare each retained node and relationship ID with the evidence map, including endpoints, direction, relation type, label, and evidence status. Inspect the rendered connector too: an SVG ID can be correct while its path visibly ends at the wrong node. Preserve required measurements, qualifications, and semantic legends when shortening text or rearranging groups.
+
+Describe a concrete defect and make a targeted repair. Keep the last verified version until the revision passes both meaning and readability checks, then compare concision and style if needed. Successful export is not evidence of improved quality. Missing or failed review remains unverified. Stop when no concrete defect remains; do not require a fixed number of revision rounds.
+
 ## Diagram-specific adaptations
 
 - Editable SVG is the master for a relationship diagram. R/ggplot is not a prerequisite for drawing semantic nodes and edges.

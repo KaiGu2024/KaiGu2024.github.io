@@ -7,6 +7,12 @@ allowed-tools: Read, Edit, Write, Bash
 invocation: auto
 ---
 
+## Plan before rendering
+
+Before creating or substantially redesigning a figure, write a short internal brief: the question or comparison, source data, required series and uncertainty, visual mappings, and intended placement. Follow [figure planning and revision](guidance/figure-review.md). Reuse an existing brief for small edits. Keep this preparation out of the publication note.
+
+Choose examples by the comparison and data structure they solve; retain this skill's typography, palette, labeling, and export rules. After polishing, verify both the rendered appearance and the values and meanings preserved from the source. Correctness and readability are required before choosing between styles.
+
 ## Contents
 
 1. [Standards](#1-standards) — the 13 rules every figure must obey
@@ -68,9 +74,9 @@ invocation: auto
     3. **Open the saved artifact itself.** Inspect the saved PDF with a PDF-viewing or rendering tool, never only the RStudio plot pane. Save any required raster inspection renders in the project's `exploratory/previews/` directory, outside the delivery folder and excluded from version control. View the figure at the declared placement width. For TeX output, rebuild the report and inspect the placed figure in the report PDF too.
     4. **Audit unit consistency.** Verify that the code's aggregation level, axis label, LaTeX caption or panel subtitle, surrounding prose, and figure note describe the same observation unit, population, and denominator. Never alternate casually among units such as languages, repositories, models, and foundation models.
        Separately verify that the note's inference method, clustering dimensions, and interval coverage match the source. The clustering unit may differ from the observation unit; name it explicitly rather than substituting influence-score terminology.
-    5. **Reject and regenerate on any failure.** Reject if an axis title is cropped, touches a tick label, or touches an edge; tick labels touch, overlap, or truncate; any direct label or designed annotation crops or overlaps another label or mark; an exceptionally permitted legend is incomplete or touches an edge; or avoidable empty space makes text or data materially smaller at final placement.
+    5. **Verify content after styling, then reject failures.** Compare the plotted data and mappings with the prepared source: values, signs, series identities, transformations, intervals, population, denominator, and reference period must remain correct. Check for dropped or duplicated observations/series and clipped uncertainty. Read plotted values from the data or plot object, not by estimating pixels. Reject if an axis title is cropped, touches a tick label, or touches an edge; tick labels touch, overlap, or truncate; any direct label or designed annotation crops or overlaps another label or mark; an exceptionally permitted legend is incomplete or touches an edge; or avoidable empty space makes text or data materially smaller at final placement.
     6. **Repair in this order.** Shorten or wrap axis titles and annotations with `labs_pub()` (defaults: 32 characters per x-title line, 26 per y-title line); thin breaks, use `guide_axis(n.dodge = 2)`, or flip long categorical axes; reserve a data-scale annotation gutter with `expand`; use `ggrepel`; select the relevant `theme_pub(gutter = ...)` margin profile or increase the device dimension; then change the layout or encoding. Right-side direct labels require both scale expansion and `theme_pub(gutter = "right")`. Keep rule 6's default text sizes during collision repairs; a different size required by the venue or requested by the user must be checked at final placement.
-    7. **Report only the verified state.** Do not report completion unless the rendered artifact passes. If no image-viewing or PDF-rendering tool is available, report it as **generated but layout-unverified**.
+    7. **Report only the verified state.** Do not report completion unless the rendered artifact passes. If no image-viewing or PDF-rendering tool is available, report it as **generated but layout-unverified**. Missing or failed review is not a pass. Accept a revision only after checking the identified defect and preserved content; stop when the applicable checks pass and no concrete defect remains.
 
     Use [annotations.md](references/annotations.md) and the relevant [recipe](references/recipes.md) for direct-label rails, off-panel annotations, wrapping, and collision repairs; keep their overflow protections when adapting them.
 

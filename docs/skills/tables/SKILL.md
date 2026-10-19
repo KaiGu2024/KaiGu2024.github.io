@@ -114,6 +114,8 @@ Source formats commonly seen:
 
 Extract: variable names, coefficients, standard errors (or t-stats), N, R², F-stat, dependent variable label.
 
+Keep each estimate attached to its source outcome, specification, sample, uncertainty, and applicable note. Use row/column identifiers in the working representation so reordering and relabeling preserve these associations.
+
 ### Step 3 — Apply the rules
 
 Two layers, in order:
@@ -125,6 +127,7 @@ Two layers, in order:
 ### Step 4 — Validate
 
 - Every coefficient in the source appears in the output (no silent drops)
+- Every estimate remains paired with the correct outcome, specification, sample, uncertainty, and note after reordering or relabeling; an unchanged collection of numbers is insufficient
 - Every star matches its p-value per the journal's convention
 - Column count is consistent across all rows (no `&` mismatches)
 - N preserved exactly
@@ -132,7 +135,7 @@ Two layers, in order:
 - Inference notes match the source method and clustering dimensions; observation units and influence-score mechanics do not substitute for an explicit clustering statement
 - Notes retain information needed to interpret the display and omit redundant qualifications, generic disclaimers, and internal verification commentary
 
-If any check fails, **do not emit**; report the discrepancy and stop.
+If a check fails, repair the formatting from the source and repeat the affected checks. If the source cannot resolve the discrepancy, report it outside the publication note and leave the output unverified. Do not emit a table as final until the checks pass; a more attractive layout cannot compensate for an incorrect association.
 
 ### Step 5 — Emit (compile-ready snippet)
 
