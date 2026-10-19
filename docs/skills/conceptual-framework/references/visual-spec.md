@@ -40,4 +40,4 @@ Use an available SVG renderer such as Inkscape, CairoSVG, or rsvg. For browser r
 
 For requested PDF, use vector export through a tool such as Inkscape or browser printing of an SVG sized to one page; verify that print margins do not crop the figure or add unwanted pages. Report any raster-only PDF fallback accurately.
 
-Inspect every output panel at intended placement size. Confirm full labels, legible sources, distinguishable colors/shapes, no overlap or cropping, and correct arrows. Parse SVG as XML and check actual PNG dimensions as lightweight structural checks. Visual inspection remains necessary even when parsing succeeds.
+Apply [the visual acceptance audit](visual-audit.md) to each output and its intended placement. Check SVG validity by parsing it as XML and confirm actual PNG dimensions; these structural checks supplement the visual inspection.

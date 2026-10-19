@@ -56,7 +56,7 @@ For a new figure or substantial redesign, use the separate Retriever, Planner, S
 
     **Keep notes concise and self-contained.** Follow the shared [concise-note guidance](../tables/SKILL.md#concise-notes-without-defensive-prose), adapted from paper-writing: retain qualifications that change interpretation, credibility, or use; remove generic disclaimers, repeated caveats, and internal verification commentary. Use the caption, labels, and note together to explain the display. Put fuller methodological justification in methods and unresolved author questions outside the publication prose.
 
-    **One standalone panel per file.** Generate every report panel independently with its own script and PDF; do not combine panels in R with patchwork or similar tools. Combine the exported panels in LaTeX under one figure number only when they jointly establish one argument and use compatible units, populations, and denominators. Otherwise use separate figure floats. A faceted plot that forms one small-multiple encoding over a shared variable remains one panel for this rule.
+    Follow the [standalone-panel and LaTeX assembly rules](#7-output) for multi-panel figures.
 
 11. **Show uncertainty for inferential estimates.** Use `geom_ribbon(alpha = 0.18–0.22)` for continuous, error bars for discrete. Descriptive counts and shares of the observed sample need no automatic confidence intervals; disclose the sample and denominator.
 
@@ -73,7 +73,7 @@ For a new figure or substantial redesign, use the separate Retriever, Planner, S
        Separately verify that the note's inference method, clustering dimensions, and interval coverage match the source. The clustering unit may differ from the observation unit; name it explicitly rather than substituting influence-score terminology.
     5. **Verify content after styling, then reject failures.** Compare the plotted data and mappings with the prepared source: values, signs, series identities, transformations, intervals, population, denominator, and reference period must remain correct. Check for dropped or duplicated observations/series and clipped uncertainty. Read plotted values from the data or plot object, not by estimating pixels. Reject if an axis title is cropped, touches a tick label, or touches an edge; tick labels touch, overlap, or truncate; any direct label or designed annotation crops or overlaps another label or mark; an exceptionally permitted legend is incomplete or touches an edge; or avoidable empty space makes text or data materially smaller at final placement.
     6. **Repair in this order.** Shorten or wrap axis titles and annotations with `labs_pub()` (defaults: 32 characters per x-title line, 26 per y-title line); thin breaks, use `guide_axis(n.dodge = 2)`, or flip long categorical axes; reserve a data-scale annotation gutter with `expand`; use `ggrepel`; select the relevant `theme_pub(gutter = ...)` margin profile or increase the device dimension; then change the layout or encoding. Right-side direct labels require both scale expansion and `theme_pub(gutter = "right")`. Keep rule 6's default text sizes during collision repairs; a different size required by the venue or requested by the user must be checked at final placement.
-    7. **Report only the verified state.** Do not report completion unless the rendered artifact passes. If no image-viewing or PDF-rendering tool is available, report it as **generated but layout-unverified**. Missing or failed review is not a pass. Accept a revision only after checking the identified defect and preserved content; stop when the applicable checks pass and no concrete defect remains.
+    7. **Report only the verified state.** If the saved artifact cannot be visually inspected, report it as **generated but layout-unverified**. Use the [shared workflow](guidance/figure-review.md#repair-a-specific-defect) for revision acceptance, stopping and review status.
 
     Use [annotations.md](references/annotations.md) and the relevant [recipe](references/recipes.md) for direct-label rails, off-panel annotations, wrapping, and collision repairs; keep their overflow protections when adapting them.
 
@@ -160,8 +160,8 @@ library(scales)
 source("~/.claude/skills/visualization/scripts/theme_pub.R")
 
 # If Newsreader / Lora aren't installed system-wide, register them per session:
-showtext::font_add_google("Newsreader", "Newsreader")
-showtext::font_add_google("Lora",       "Lora")
+sysfonts::font_add_google("Newsreader", "Newsreader")
+sysfonts::font_add_google("Lora",       "Lora")
 showtext::showtext_auto()
 ```
 
@@ -188,8 +188,6 @@ save_figure(p, spec)
 
 Because each script is independent, panels can render simultaneously under any parallel launcher: one panel = one PDF = one script = one job.
 
-Read [palettes.md](references/palettes.md) for palette slots, subject mappings, scale code, and CVD checks. `scripts/theme_pub.R` remains the executable source of truth.
-
 **Greek and math symbols.** Use Unicode directly in labels: `α`, `β`, `μ`, `σ²`, `≥`, `×`. Symbol-font glyphs tofu in modern PDF readers.
 
 ---
@@ -202,8 +200,6 @@ Read [palettes.md](references/palettes.md) for palette slots, subject mappings, 
 - Use `brand_blues` or `subject_ramp()` for rank only, viridis/cividis for precise magnitude, and a diverging scale only around a meaningful midpoint.
 - Keep non-focal series grey. Use stronger colors for small marks and subject identity; keep broad default fills muted.
 - Check grayscale and common color-vision deficiencies before acceptance.
-
-Read [palettes.md](references/palettes.md) when choosing anything beyond the default single-series or binary palette. It contains slot definitions, rationale, and scale code.
 
 ---
 
@@ -219,11 +215,11 @@ Read [palettes.md](references/palettes.md) when choosing anything beyond the def
 
 **Inspection previews.** Use project-root `exploratory/previews/` for disposable raster renders of saved PDFs, creating it when inspection needs a raster image. Add `/exploratory/previews/` to the project's `.gitignore`. Keep this directory outside the delivery folder; previews are not deliverables. Keep exploratory analysis scripts and useful working figures elsewhere so they are not treated as disposable previews. `save_figure()` continues to write only the PDF; render previews separately only when needed for inspection.
 
-**One standalone panel per file.** No patchwork, no `plot_annotation(tag_levels = "A")`, and no in-R panel combining. Each panel gets its own PDF. Combine panels in LaTeX under one figure number only when they jointly establish one argument and use compatible units, populations, and denominators; otherwise give each panel its own figure float.
+**One standalone panel per file.** No patchwork, no `plot_annotation(tag_levels = "A")`, and no in-R panel combining. Each panel gets its own script and PDF. A faceted plot that forms one small-multiple encoding over a shared variable remains one panel. Combine panels in LaTeX under one figure number only when they jointly establish one argument and use compatible units, populations, and denominators; otherwise give each panel its own figure float.
 
-**The blocking acceptance gate in rule 13 governs every export.** Declare geometry before constructing the plot, save the PDF with a white background, open the artifact at placement size, and inspect the rebuilt report PDF when TeX is the destination. A successful save is not acceptance.
+Apply [rule 13's acceptance checks](#1-standards) to every export and its final placement.
 
-Use the PDF-export and TeX-placement examples in [recipes.md](references/recipes.md#figure-specification-pdf-export-and-qa). Relationship alone is insufficient for combining panels; the panels must jointly support one claim and remain directly comparable.
+Use the PDF-export and TeX-placement examples in [recipes.md](references/recipes.md#figure-specification-pdf-export-and-qa).
 
 ### Panel layout
 

@@ -79,7 +79,7 @@ Apply the mode-specific checklist, then confirm:
    Inspect representative rendered notes too: paragraph gaps must be visible, bold stress words easy to find, and text readable without clipping. Apply the [adjacent-slide continuity review](references/talk-delivery.md#continuity-between-slides), checking each ending and following opening together before reading the notes continuously. Read the narration aloud when rehearsing, honoring the pauses and emphasis; distinguish a text review from an actual timed rehearsal.
 5. Temporary extraction, conversion, edit, and build artifacts have been removed from the delivery folder; retain source inputs needed for reproducibility and intended deliverables. Any retained inspection previews are confined to the ignored `exploratory/previews/slides/<slug>/` directory.
 
-Use the shared [targeted repair procedure](../visualization/guidance/figure-review.md#repair-a-specific-defect) for visual revisions, applying this slide checklist to affected slides.
+For figure revisions, use the shared [targeted repair procedure](../visualization/guidance/figure-review.md#repair-a-specific-defect). For slide text or layout repairs, re-render and recheck affected slides with the checklist above; these repairs do not launch the figure-agent workflow.
 
 ## Report completion
 

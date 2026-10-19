@@ -1,6 +1,6 @@
 # Visual acceptance audit for conceptual diagrams
 
-Run this audit before delivery. When the `visualization` skill is available, consult its applicable layout, annotation, and palette standards as well. This reference keeps the audit usable without that skill installed. Report this as a **diagram-specific visualization audit**, not blanket compliance with an R/ggplot publication workflow.
+Run this audit before delivery using the diagram conventions in [the visual specification](visual-spec.md). The [shared agent workflow](../../visualization/guidance/figure-review.md) owns review orchestration. Report this as a **diagram-specific visualization audit**; plot-specific R, axis and PDF-only rules do not govern conceptual diagrams.
 
 ## Scope and placement
 

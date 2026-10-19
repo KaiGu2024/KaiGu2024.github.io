@@ -6,10 +6,10 @@
 # slide chrome has its own typography in the slide skill.
 #
 # If Newsreader / Lora aren't installed system-wide, register them once per
-# session with showtext:
+# session with sysfonts, then enable showtext:
 #
-#   showtext::font_add_google("Newsreader", "Newsreader")
-#   showtext::font_add_google("Lora",       "Lora")
+#   sysfonts::font_add_google("Newsreader", "Newsreader")
+#   sysfonts::font_add_google("Lora",       "Lora")
 #   showtext::showtext_auto()
 
 library(ggplot2)
