@@ -113,7 +113,7 @@ The same layout applies under `~/.codex/skills/`. Copy explicit files without de
 - `paper-reading/` — Markdown reading notes from a research article; adapts the slide report-mode content map, with source locators and critical discussion. No supporting files required.
 - `report/`: structured analysis reports with optional empirical-validity and benchmark references
 - `slide/` — Reveal.js deck generation
-- `visualization/` — R + ggplot2 publication figures
+- `visualization/` — R + ggplot2 publication figures; `guidance/figure-review.md` owns the shared five-agent workflow for new figures and substantial redesigns, including conceptual diagrams and figures drawn for slides
 - `tables/` — journal-convention + design-principles table formatting (sibling to `visualization/`)
 - `paper-review/` — multi-agent referee report
 - `paper-writing/` — drafting + journal-voice polish for the main text; `references/main-text.md` (Cochrane/McCloskey template, the AI-tells self-audit, strict-traceability mode) is the default, `references/academic-voice.md` is the opt-in house-voice pass. Folds in the former flat `writing` and `academic-voice` skills. Sibling to `appendix/` (which owns the appendix/supplementary materials)

@@ -22,7 +22,7 @@ Reject and repair overlap, clipping, hidden arrowheads, unreadable text, mislead
 
 Compare each retained node and relationship ID with the evidence map, including endpoints, direction, relation type, label, and evidence status. Check for omitted, duplicated, reversed, and unsupported connections; matching counts alone is insufficient. Inspect the rendered connector too: an SVG ID can be correct while its path visibly ends at the wrong node. Preserve required measurements, qualifications, and semantic legends when shortening text or rearranging groups.
 
-Describe a concrete defect and make a targeted repair. Keep the last verified version until the revision passes both meaning and readability checks, then compare concision and style if needed. Successful export is not evidence of improved quality. Missing or failed review remains unverified. Stop when no concrete defect remains; do not require a fixed number of revision rounds.
+Use the [shared agent workflow](../../visualization/guidance/figure-review.md#repair-a-specific-defect) for independent findings, targeted repairs, revision tracking and stopping. This checklist defines what a diagram must pass; it does not define a second orchestration procedure.
 
 ## Diagram-specific adaptations
 

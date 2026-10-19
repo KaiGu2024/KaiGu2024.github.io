@@ -46,7 +46,7 @@ Before generating the deck, write `notes/<slug>.md` from the full source.
 
 Record figure and table provenance in the notes: source file or PDF page, caption, panel, and any conversion or crop. For external motivation evidence allowed in `own`, record the publisher, year, URL, and retrieval date.
 
-For each substantive slide, connect its one claim to the evidence the audience needs to understand it. When choosing a layout example, match the communicative task—explaining identification, comparing estimates, showing a mechanism, or locating a contribution—and the amount of content. Preserve the selected mode's brand. The [figure planning and revision guide](../visualization/guidance/figure-review.md) applies when creating or redesigning a visual; the content map serves as the brief, so no separate planning document is required.
+For each substantive slide, connect its one claim to the evidence the audience needs to understand it. When choosing a layout example, match the communicative task—explaining identification, comparing estimates, showing a mechanism, or locating a contribution—and the amount of content. Preserve the selected mode's brand. Use the [shared figure-agent workflow](../visualization/guidance/figure-review.md) for newly drawn figures or substantial figure redesigns; the content map supplies the brief. Placing an existing verified figure or changing slide prose does not trigger five figure agents. Small figure edits use the guide's relevant-role path.
 
 ## Shared evidence rules
 

@@ -9,7 +9,7 @@ description: Create a source-grounded conceptual-framework figure from a researc
 
 Turn the paper's substantive argument into a legible, source-grounded figure. Explain what the concepts mean, how they relate, how they are represented empirically, and what supports the relationships. A figure should expose the argument's structure without implying stronger evidence than the paper provides.
 
-This is a standalone skill. Follow the user's project/output conventions when present; do not require any course repository, fixed slide count, bibliography file, or companion skill.
+Produce standalone figures using the user's project/output conventions; no course repository, fixed slide count or bibliography file is required. For new figures and substantial redesigns, use the separate role agents and shared specification in [figure planning and revision](../visualization/guidance/figure-review.md). That guide owns orchestration; this skill owns source interpretation, diagram construction and acceptance. Read the shared guide before dispatching work.
 
 ## Input and deliverables
 
@@ -61,7 +61,7 @@ Add compact labels or a strip for the empirical design where relevant: randomize
 
 ## 4. Draw and render
 
-First record a short brief in the source note: what the reader should understand, which nodes and relationships carry that argument, and the intended placement. Reuse the author's faithful figure or a suitable accepted example for its relationship structure; keep this skill's semantic conventions. When available, the [figure planning and revision guide](../visualization/guidance/figure-review.md) provides examples and review order. The workflow here remains usable on its own.
+Use the shared specification developed by the Planner, including this skill's evidence map and intended placement. The Retriever may select the author's faithful figure or a suitable accepted example for its relationship structure. The Stylist follows this skill's semantic conventions, and the Visualizer implements the agreed specification.
 
 Use [the visual specification](references/visual-spec.md). Declare intended placement size using [the visual audit](references/visual-audit.md) before drawing. Default to native SVG written directly or generated with an available vector tool. Do not generate the scientific diagram with a raster image model. Prefer a clean layout with a construct layer and a measurement layer; use additional panels when the paper's argument needs them.
 
@@ -71,6 +71,6 @@ Follow the visual specification's implementation and export instructions. If ren
 
 ## 5. Verify and deliver
 
-Run the [diagram-specific visualization audit](references/visual-audit.md), which owns the meaning, layout, accessibility, and export checklist, including checks after polishing. Record the actual checks in the source note. The audit remains usable without the visualization skill installed.
+Have the independent Critic run the [diagram-specific visualization audit](references/visual-audit.md) against the original paper, evidence map and saved render. It owns the meaning, layout, accessibility, and export checklist, including checks after polishing. Record the actual checks and reviewed revision in the source note; use the shared workflow to route repairs and accept the delivered revision.
 
 Fix defects and re-render affected outputs. Return links to the figure formats and source note, a sentence identifying the framework(s), and any material access or interpretation limit. Preserve the input paper and user edits. Do not create slides, a full reading report, or public uploads as a side effect.

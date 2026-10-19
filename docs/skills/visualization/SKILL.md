@@ -3,13 +3,12 @@ name: visualization
 title: Visualization
 permalink: /skills/visualization/
 description: Use when producing publication-ready R + ggplot2 figures for papers or slides. Applies perceptual chart selection; brand, subject-identity, magnitude, and CVD-safe palettes; Lora/Newsreader typography; direct labeling; uncertainty; one standalone panel per script; conditional LaTeX multi-panel assembly; PDF-only export; and a blocking inspection at intended placement size. Enforces sorted categories, plot-differences-not-raw, explicit units and aggregation, no gridlines, no explanatory titles or captions inside the image, and no clipping or overlap. For regression tables, use the tables skill.
-allowed-tools: Read, Edit, Write, Bash
 invocation: auto
 ---
 
 ## Plan before rendering
 
-For a new figure or substantial redesign, follow [figure planning and revision](guidance/figure-review.md). Start with the matching [rendered gallery example and runnable source](guidance/gallery.md); use the recipes for additional patterns. Small edits reuse the existing plan.
+For a new figure or substantial redesign, use the separate Retriever, Planner, Stylist, Visualizer and Critic agents defined in [figure planning and revision](guidance/figure-review.md). That guide owns dispatch, shared specifications, independent review and repair loops. Small edits activate only the relevant roles. Start retrieval with the [rendered gallery and runnable source](guidance/gallery.md); use recipes for additional patterns.
 
 ## Contents
 
