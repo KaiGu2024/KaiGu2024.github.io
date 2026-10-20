@@ -7,16 +7,19 @@ Use this reference after naming the color job in `../SKILL.md` §3. Palette defi
 1. [Available palette slots](#available-palette-slots)
 2. [Categorical comparisons](#categorical-comparisons)
 3. [Multi-series lines](#multi-series-lines)
-4. [Locked subject identity](#locked-subject-identity)
-5. [Sequential magnitude](#sequential-magnitude)
-6. [Diverging scales](#diverging-scales)
-7. [Conceptual diagrams and CVD checks](#conceptual-diagrams-and-cvd-checks)
+4. [Emphasis hierarchy](#emphasis-hierarchy)
+5. [Locked subject identity](#locked-subject-identity)
+6. [Sequential magnitude](#sequential-magnitude)
+7. [Diverging scales](#diverging-scales)
+8. [Conceptual diagrams and CVD checks](#conceptual-diagrams-and-cvd-checks)
 
 ## Available palette slots
 
 ```r
 marks$primary    # deeper blue — lines, points, intervals and data labels
 marks$secondary  # deeper green — second series of small marks
+emphasis         # dark blue focal, dark gray comparison, light gray context,
+                 # near-black summary; use for unequal emphasis, not equal groups
 brand$primary    # dusty blue — first broad fill, such as a bar or ribbon
 brand$secondary  # sage — second broad fill
 brand$neutral    # optional neutral area; publication canvas stays white
@@ -67,6 +70,23 @@ scale_shape_manual(values = brand_shapes)
 
 For monthly or sparser series, show every marker at `size = 9` on a `2.8` line. For weekly data, use `size = 7` on a `2.4` line and thin markers to every fourth observation plus the last point. At higher cadence, drop markers and distinguish lines with color plus linetype, or facet. See `recipes.md` for complete patterns.
 
+## Emphasis hierarchy
+
+For a focal subset within many observations or subjects, prefer `emphasis` over assigning each subject a different hue. These are attention roles, not a magnitude scale:
+
+| Role | Token | Use |
+|---|---|---|
+| Focal | `emphasis$focal` | Dark blue for the subset the argument concerns |
+| Comparison | `emphasis$comparison` | Dark gray for a substantive comparison group |
+| Context | `emphasis$context` | Light gray for the remaining observations or trajectories |
+| Summary | `emphasis$summary` | Near-black for an overall fitted line or aggregate |
+
+Use only the roles the figure needs. A focal group against all others usually needs blue and one gray; do not invent a third category. Draw context first, then comparison, then focal marks, with summaries above the observations. Keep background observations visible at placement size; do not combine pale gray with very low opacity until points disappear. Use dark text for labels, even when their points are light gray.
+
+Preserve existing named subject colors. Use `series_palette()` when groups deserve equal emphasis; use a magnitude palette when color represents a numerical quantity. Keep each emphasis role stable across related figures and explain the actual groups through direct group labels, a compact key, or the caption. The role names themselves are not publication labels.
+
+Dark blue and dark gray can become similar in grayscale. When that distinction carries the finding, add redundant shape/outline for the focal subset or linetype for trajectories; direct labels alone may not identify every point's membership. Inspect the rendered figure under the existing CVD and grayscale checks. Select individual labels using [annotations.md](annotations.md#direct-label-coverage).
+
 ## Locked subject identity
 
 When named entities recur across figures, assign each one a fixed color and redundant shape once per project. Reuse the exact mapping so the reader learns one identity system and the same subject does not drift between colors.
@@ -75,7 +95,7 @@ Draw colors from `subject_palette`; do not hand-pick arbitrary hex values. Store
 
 Existing subject mappings take precedence over new defaults. Do not recolor an established subject when switching from lines to bars or when a panel contains fewer subjects. Inspect light identity colors on white; use a darker outline or redundant shape when needed.
 
-Use fixed colors primarily for highlighted subjects. Keep non-focal series at `grey80` with `grey50` labels. When a figure highlights several subjects, choose one color from each `subject_families` group so hue, rather than a subtle saturation difference, separates them. Saturated colors are allowed for subject identity, but keep decorative and non-subject fills on the muted brand palette.
+Use fixed colors primarily for highlighted subjects. Use the emphasis hierarchy for non-focal context and select labels by relevance. When a figure highlights several subjects, choose one color from each `subject_families` group so hue, rather than a subtle saturation difference, separates them. Saturated colors are allowed for subject identity, but keep decorative and non-subject fills on the muted brand palette.
 
 ## Sequential magnitude
 

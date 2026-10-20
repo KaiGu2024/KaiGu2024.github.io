@@ -17,7 +17,7 @@ For complete runnable examples and their rendered PDFs, use the [visual gallery]
 9. [Coefficient and event-study plots](#coefficient--event-study-plot)
 10. [Time trends with model fits](#time-trend-with-overlaid-fits-raw--models--ci)
 11. [Designed event lines](#designed-event-line)
-12. [Layer-and-highlight](#layer-and-highlight--focal-series-in-crimson-all-series-labeled)
+12. [Layer-and-highlight](#layer-and-highlight)
 13. [Distribution comparisons](#distribution-comparisons-ridge-plot)
 14. [Joint quantile grid](#joint-quantile-grid)
 
@@ -400,61 +400,66 @@ Variations:
 
 The "dies before the top axis" trick is what most people miss. A full-height `geom_vline` reads as a chart axis, not as data context.
 
-## Layer-and-highlight — focal series in crimson, all series labeled
+## Layer-and-highlight
 
-Highlight changes color, not coverage — every line still gets a name at its endpoint so the reader knows what the grey cloud is. Focal line and label in `brand$accent`; non-focal lines in `grey80` and their labels in `grey50` (slightly darker than the line so the text reads against white).
+Use the [emphasis hierarchy](palettes.md#emphasis-hierarchy) and [selective-label rules](annotations.md#direct-label-coverage). Keep all observations; choose individual labels for relevance. Use a project subject color in place of `emphasis$focal` when already assigned.
+
+For many trajectories, label focal subjects and required comparators, and identify the remaining context collectively in the caption. This example assumes one focal platform; `required_comparators` is an explicit set from the figure brief, possibly empty.
 
 ```r
-focal <- c("ChatGPT")
+focal <- "ChatGPT"
+required_comparators <- character(0)
+focal_colour <- emphasis$focal  # use the existing project mapping when present
 
 endpoints <- df |>
+  filter(platform %in% c(focal, required_comparators)) |>
   group_by(platform) |>
-  slice_max(week, n = 1) |>
+  slice_max(week, n = 1, with_ties = FALSE) |>
   ungroup() |>
-  mutate(
-    is_focal     = platform %in% focal,
-    label_colour = ifelse(is_focal, brand$accent, "grey50")
-  )
+  mutate(label_colour = ifelse(platform %in% focal,
+                               focal_colour, emphasis$summary))
 
-ggplot(df, aes(x = week, y = visits, group = platform)) +
-  geom_line(data = filter(df, !platform %in% focal),
-            colour = "grey80", linewidth = 1.0) +
-  geom_line(data = filter(df,  platform %in% focal),
-            colour = brand$accent, linewidth = 2.8) +
+p <- ggplot(df, aes(week, visits, group = platform)) +
+  geom_line(data = filter(df, !platform %in% c(focal, required_comparators)),
+            colour = emphasis$context, linewidth = 0.5) +
+  geom_line(data = filter(df, platform %in% required_comparators),
+            colour = emphasis$comparison, linewidth = 0.8, linetype = "dashed") +
+  geom_line(data = filter(df, platform %in% focal),
+            colour = focal_colour, linewidth = 1.2) +
   geom_text_repel(
-    data = endpoints,
-    aes(label = platform, colour = label_colour),
+    data = endpoints, aes(label = platform, colour = label_colour),
     size = 16 / ggplot2::.pt, family = "Newsreader",
-    hjust = 0, nudge_x = 1, direction = "y",
-    segment.colour = NA
+    hjust = 0, nudge_x = 1, direction = "y", max.overlaps = Inf,
+    segment.colour = emphasis$comparison, min.segment.length = 0
   ) +
-  scale_colour_identity() +    # use the literal hex / "grey50" from the column
-  scale_x_continuous(expand = expansion(mult = c(0.02, 0.18))) +
+  scale_colour_identity() +
+  scale_x_continuous(expand = expansion(mult = c(0.02, 0.22))) +
   labs_pub(x = "Observation week", y = "Weekly platform visits (thousands)") +
   theme_pub(gutter = "right")
 ```
 
-For two focal series, give each a distinct accent (`marks$primary` and `brand$accent`) with its label matching its line; the rest stay grey80 / grey50.
-
-**If the focal subject recurs across your figures** (the same platform / source highlighted in figure after figure), don't use crimson — give that subject one fixed colour from `subject_palette` (`theme_pub.R`) and reuse that exact colour every time, so the highlight reads identically across the paper (see `palettes.md` → "Locked subject identity"). When a figure highlights two or more subjects at once, take each from a different `subject_families` group (never two blues) so they separate by hue. Crimson stays the default for a one-off highlight whose subject won't reappear.
-
-**Converging-endpoints variant — vertical labels.** When line endpoints crowd into a narrow vertical band at the right edge (5+ platforms all near the same value), horizontal labels with `direction = "y"` repel start stacking with connector lines — messy. Switch to vertical labels at each endpoint: `angle = 90, hjust = 0` makes each label hang upward from its line's endpoint (readable bottom-to-top, head tilts LEFT), and `direction = "x"` spaces them apart horizontally just past the right edge. The whole label rail stays one row tall.
+For dense scatterplots, use smaller marks and label only the selected observations. Here `df` has `x`, `y`, `subject`, an evidence-based `role` (`context`, `comparison`, or `focal`), and `show_label` chosen by the brief. Use only the roles actually present. Supply substantive axis titles and identify the actual groups in the caption or with direct group annotations.
 
 ```r
-geom_text_repel(
-  data = endpoints,
-  aes(label = platform, colour = label_colour),
-  size = 16 / ggplot2::.pt, family = "Newsreader",
-  angle  = 90, hjust = 0,           # vertical, hanging upward from endpoint
-  nudge_x = 1, direction = "x",     # repel only sideways, not vertically
-  segment.colour = NA
-) +
-coord_cartesian(clip = "off") +     # let the labels run past the panel top if needed
-scale_x_continuous(expand = expansion(mult = c(0.02, 0.20))) +
-theme_pub(gutter = "right")
+role_colours <- unlist(emphasis[c("context", "comparison", "focal")])
+plot_data <- df |>
+  mutate(role = factor(role, levels = names(role_colours))) |>
+  arrange(role)  # focal points drawn last
+
+p <- ggplot(plot_data, aes(x, y)) +
+  geom_point(aes(colour = role, shape = role), size = 2.8) +
+  geom_text_repel(
+    data = filter(plot_data, show_label), aes(label = subject),
+    colour = emphasis$summary, size = 16 / ggplot2::.pt,
+    family = "Newsreader", max.overlaps = Inf,
+    min.segment.length = 0, segment.colour = emphasis$comparison
+  ) +
+  scale_colour_manual(values = role_colours) +
+  scale_shape_manual(values = c(context = 16, comparison = 16, focal = 17)) +
+  theme_pub()
 ```
 
-If the rotated labels extend above the data region, combine the right gutter with a targeted top-margin override (`theme_pub(gutter = "right") + theme(plot.margin = margin(t = 54, r = 72, b = 12, l = 14))`) and/or expand the right side further (`mult = c(0.02, 0.25)`).
+The focal triangle preserves its distinction from gray comparison points in grayscale. If context and comparison also need to be distinguished individually, assign them different shapes too. Add a fitted line or interval only from the prepared analysis; style the overall summary with `emphasis$summary`. Inspect density, label selection, group identification, and contrast at final placement. Keep horizontal labels by default; facet when required individual identities cannot fit.
 
 ## Distribution comparisons (ridge plot)
 

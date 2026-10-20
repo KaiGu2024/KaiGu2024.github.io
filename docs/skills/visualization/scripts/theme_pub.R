@@ -153,6 +153,16 @@ brand <- list(
 # Source for these and the subsets below: https://sronpersonalpages.nl/~pault/
 marks <- list(primary = "#4477AA", secondary = "#228833")
 
+# Emphasis roles for a focal subset against a comparison and/or wider context.
+# House choices inspired by the user's slide reference, not sampled source colors.
+# Existing named subject mappings take precedence; see references/palettes.md.
+emphasis <- list(
+  focal = "#364B9B",
+  comparison = "#666B70",
+  context = "#B8BBBF",
+  summary = "#262A2D"
+)
+
 # Five non-pale members of Tol's muted scheme for 3–5 equal-weight groups.
 # Subject identities already assigned in a project take precedence.
 series_muted <- c("#332288", "#117733", "#CC6677", "#44AA99", "#AA4499")
@@ -189,7 +199,7 @@ brand_shapes <- c(21, 24, 22, 23, 25)
 
 # Subject-identification candidate pool — fixed colours for the emphasized
 # subject(s) in a layer-and-highlight figure (the focal series; everyone else
-# stays grey80). NOT a paint-everyone palette and NOT a strong/weak hierarchy —
+# uses emphasis$context). NOT a paint-everyone palette and NOT a strong/weak hierarchy —
 # it is a flat pool of 8 candidates, ordered by aesthetics. When a figure
 # colours more than one subject, pick from DIFFERENT families (see below) so the
 # subjects separate by hue, never two members of the same family in one figure.

@@ -14,11 +14,13 @@ Use this reference when a figure contains direct labels, event annotations, dens
 
 ## Direct-label coverage
 
-Replace legends with direct labels. Label every line or group the reader needs to identify, including backgrounded series in a layer-and-highlight chart. Highlight changes color, not coverage: the focal label uses the focal color; other labels use `grey50` against `grey80` lines.
+Prefer direct labels for the subjects and groups the reader needs to identify. For a few equal-weight series, label each one. For a focal subject against many background subjects, label the focal subject and necessary comparators individually; identify the rest collectively, such as "Other languages", in available white space or the caption. Use a compact key if group membership cannot be explained unambiguously with direct labels.
 
 Do not double-label horizontal bars when their y-axis ticks already name them. If all required series cannot be labeled after using `ggrepel` and an annotation gutter, facet or change the encoding instead of shrinking text.
 
-For scatterplots and other point-based figures, label clear outliers with their observation identifier, such as the country name when each dot represents a country. Apply a consistent selection criterion to all observations and document it in the plotting code and figure note; ordinary points may remain unlabeled. Keep all selected labels visible: if `ggrepel` drops labels because of crowding, use `max.overlaps = Inf` and repair the layout. Verify that each label can be matched unambiguously to its point, using leader segments where needed.
+For scatterplots and other point-based figures, select labels for focal subjects, substantive benchmarks or milestones, and unusually positioned observations whose identity helps explain the pattern. Outliers need not all be named. Apply the criterion consistently, including relevant counterexamples, and preserve all observations regardless of label selection. Record selected IDs and the reason in the plotting code or shared specification; describe the rule in publication prose only when it affects interpretation.
+
+Decide label selection before collision repair. Do not let `ggrepel` choose which subjects matter: use `max.overlaps = Inf` for the selected labels and inspect the result. If they still crowd, remove optional labels by the stated relevance criterion; facet or change layout when required labels cannot fit. Keep leader segments when needed to match a label unambiguously to its point. Never omit an inconvenient observation or required comparator to obtain a cleaner story.
 
 Keep labels in white space rather than on data marks. Use `nudge_x`, `nudge_y`, or `ggrepel`; reserve `geom_label()` for the rare case where no white space exists.
 
@@ -28,7 +30,7 @@ Use horizontal annotation prose whenever possible. When a vertical event line or
 
 Short standardized tick labels are different from prose. Dates such as `2024-12` and category strings up to about eight characters can use `angle = 30, hjust = 1` when denser breaks are valuable. For long arbitrary categories, prefer `coord_flip()` over rotation.
 
-Use at least `grey30` on white for annotations meant to be read. `grey60` is too faint for substantive text. Background-series labels may use `grey50` when the corresponding lines are `grey80`.
+Use `grey30` or darker on white for substantive annotations, or a sufficiently dark focal color. Light gray is for context marks, not text the reader must decipher.
 
 ## Annotation styling
 

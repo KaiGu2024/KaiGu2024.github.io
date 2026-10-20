@@ -31,9 +31,9 @@ For a new figure or substantial redesign, use the separate Retriever, Planner, S
 
 3. **Y-axis range.** Lower bound: start at 0 (or 100 for indexed series); deviate only if the entire range is far from zero AND within-data variation is the story — disclose explicitly. Upper bound: for unbounded metrics, let ggplot's 5% expansion handle headroom (don't pad to round numbers); for bounded metrics (percent, share, Likert), set the axis to the cap (100, 1.0, 5, 7) regardless of data range. **Signed differences and estimated effects, including event studies, are an exception:** include zero and the full confidence intervals; do not apply the outcome level's bounds to an effect axis.
 
-4. **Direct annotation, no legends.** Label every line or group the reader needs to identify, including background series; highlighting changes color, not label coverage. Horizontal-bar ticks may serve as labels. Suppress redundant guides, keep labels in white space, and facet or change encoding if required labels cannot fit. Read [annotations.md](references/annotations.md) whenever adding or positioning text.
+4. **Direct annotation by relevance.** Label the subjects and groups needed to understand the comparison. When many subjects provide context, identify that background collectively instead of labeling every member. Horizontal-bar ticks may serve as labels. Suppress redundant guides; a compact key is allowed when direct group labels would be ambiguous. Read [annotations.md](references/annotations.md) for label selection and placement.
 
-   **Label outlying observations.** In scatterplots and other point-based figures, directly label clear outliers with their observation identifier—for example, the country name when each dot represents a country. Use a consistent, documented selection criterion and position labels without overlap, using `ggrepel` where needed. Ordinary points may remain unlabeled.
+   **Select observation labels deliberately.** Label focal subjects, meaningful benchmarks, and outliers whose identity helps explain the pattern. Use a consistent selection rule, retain all plotted observations, and keep required labels visible. Outlier status alone does not require a label.
 
 5. **Vector PDF output.** Deliver vector PDFs only; do not generate companion PNG deliverables. Raster renders needed for inspection belong in `exploratory/previews/` (see §7).
 
@@ -42,6 +42,7 @@ For a new figure or substantial redesign, use the separate Retriever, Planner, S
    - Strip text (facets, if any) **18 pt** bold. For slides, increase text sizes together when needed for viewing distance and inspect in the slide layout; the larger sizes are an override, not the manuscript default.
    - Data lines `linewidth = 2.8` for **sparse** figures (few or monthly points — the default); step down to `2.4` when the series is **dense** (weekly+ points, busy path); reference / zero / vline lines 1.2–1.5; axis lines 1.1; ticks 1.0
    - Points `size = 9` for **sparse** figures (the default); `size = 7` when dense (and thin the markers — §5); ribbon `alpha = 0.18–0.22`. Keep the marker-to-line ratio near 3:1 — a 9-marker sits on a 2.8 line, a 7-marker on a 2.4 line; don't pair a fat marker with a thin line (beads-on-a-string) or vice versa.
+   - **Dense scatterplots and background ensembles override those series defaults.** Start with points around `size = 2–3.5`, background lines `linewidth = 0.4–0.7`, and summary lines `0.8–1.2`; adjust at final placement to preserve overlap patterns and readable focal marks. The marker-to-line ratio applies to connected point series, not independent scatter observations. Keep reference lines quieter than the main summary.
    - **No plot title / subtitle / caption / tag inside the image** — see rule 10.
 
 7. **Thin out dense axis ticks.** Crowded labels → drop ticks, don't shrink fonts. Use ISO dates, `scales::pretty_breaks(n = 6)`, alternate categorical labels, `guide_axis(n.dodge = 2)`, or `coord_flip()` for long categories. Rotate only short standardized ticks such as dates; see [annotations.md](references/annotations.md) and [recipes.md](references/recipes.md).
@@ -110,7 +111,7 @@ Items linked by a line read as a group even if differently colored. Use delibera
 
 ### Layer-and-highlight pattern
 
-For "this country/firm/domain vs. all others": plot all data in `grey80`, plot the focal subset on top in a saturated accent, and label every series at its endpoint — focal in the accent, others in `grey50`. When a focal subject recurs, use its fixed project color from [palettes.md](references/palettes.md#locked-subject-identity), not generic crimson. See the layer-and-highlight recipe in `references/recipes.md`.
+For "this country/firm/domain vs. all others", use the [emphasis hierarchy](references/palettes.md#emphasis-hierarchy): light gray context, dark gray comparison when needed, and dark blue focal marks. Draw context first and focal marks last; identify dense background subjects collectively. Existing subject colors take precedence. Use the [layer-and-highlight recipe](references/recipes.md#layer-and-highlight) and the selective-label rules in `references/annotations.md`.
 
 ---
 
@@ -141,7 +142,7 @@ Name what color is *for* before picking a palette.
 | **Magnitude (rank)** | Sorted bars colored by tertile | Brand sequential ramp (`brand_blues`); `subject_ramp()` if the figure is about one subject |
 | **Magnitude (precise)** | Choropleth, heatmap, density | Viridis |
 | **Signed deviation** | Coefficient vs. baseline, residual | Diverging |
-| **Emphasis** | "ChatGPT vs. all platforms" | Layer-and-highlight (gray + accent, or the focal subject's [fixed color](references/palettes.md#locked-subject-identity)) |
+| **Emphasis** | "ChatGPT vs. all platforms" | `emphasis`: blue focal marks + gray comparison/context, or the focal subject's [fixed color](references/palettes.md#locked-subject-identity) |
 
 ---
 
