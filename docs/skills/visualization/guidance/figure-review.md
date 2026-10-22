@@ -12,9 +12,9 @@ The coordinator locates the authoritative inputs and supplies enough source cont
 
 | Agent | Inputs | Required handoff |
 |---|---|---|
-| **Retriever** | User request, source overview, destination, local gallery and available project examples | A short selection of inspected references, each with a locator, matching structural feature and useful design choice; record when none is suitable |
+| **Retriever** | User request, source overview, destination, local gallery and available project examples with their generating code | A short selection of inspected references, each with render/code locators, matching structural feature, useful design choice and verified implementation settings when available; record when none is suitable |
 | **Planner** | Original evidence, request and retrieved examples | The shared figure specification: purpose, source mapping, required content, encoding, layout, placement and caption/note allocation |
-| **Stylist** | Specification, selected reference renders and applicable visual standards | Concrete choices for typography, palette roles, spacing, grouping and label placement; preserve required content and flag any proposed semantic change for the Planner |
+| **Stylist** | Specification, selected reference renders, retrieved implementation settings and applicable visual standards | Concrete choices for typography, palette roles, spacing, grouping and label placement; preserve required content and flag any proposed semantic change for the Planner |
 | **Visualizer** | Specification and style decisions, original evidence, renderer-specific rules | Editable source or runnable code, rendered artifacts, exact commands, content checks and paths identifying the candidate revision |
 | **Critic** | Original evidence, user request, specification, current source/code, actual saved renders and applicable acceptance checklist | An independent pass/fail/unverified review with located defects and actionable repairs, tied to the exact candidate reviewed |
 
@@ -51,7 +51,9 @@ The detailed preparation should produce concise publication text. Apply the [sha
 
 The Retriever starts with the [rendered gallery](gallery.md), the relevant recipe, or a suitable example the user has accepted. Match the comparison, data structure, number of series, label density, and placement size before matching the research topic. An event study is a better reference for another event study than an unrelated chart about the same industry.
 
-Inspect the example itself. Identify the useful choice, such as a label rail, grouping, or uncertainty encoding. Adapt that choice while preserving current semantic, accessibility, brand, and export requirements. Never import the example's findings, causal assumptions, or inference settings.
+Inspect the saved example visually and read its generating script when available. Follow shared themes, helper functions, export settings and host-document placement to recover exact colors, fonts, mark weights, uncertainty layers, label-selection rules and physical dimensions. Check that the code corresponds to the saved artifact; distinguish settings confirmed in code from visual estimates when the source is missing or its version is uncertain. Carry useful code locators and implementation choices into the style handoff. Visual inspection remains necessary to judge the rendered result at placement size.
+
+Identify the useful choice, such as a label rail, grouping, or uncertainty encoding. Adapt that choice while preserving current semantic, accessibility, brand, and export requirements. Never import the example's findings, causal assumptions, or inference settings.
 
 When retaining a reusable example, pair its render with the source script/data locator, purpose, intended size, useful design choice, and any limits. Mark actual user acceptance only when it occurred. Keep project examples in the project; add examples to the skill library when maintaining that library. A missing example does not block ordinary work or require a web search.
 
