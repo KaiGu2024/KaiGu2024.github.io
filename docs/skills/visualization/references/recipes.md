@@ -253,7 +253,7 @@ Past weekly cadence, drop per-point markers entirely — distinguish by color + 
 
 ## Coefficient / event-study plot
 
-**Default: fine dots and individual confidence intervals, with no connecting curve or shaded ribbon.** Event-time coefficients are estimates at discrete periods, whether their realized path looks smooth or jagged. Keep the same encoding across related outcomes and specifications. Horizontal coefficient plots use the same mark hierarchy, with intervals along x.
+**Default: fine dots and individual confidence intervals.** This is a house-style starting point; connecting estimates at discrete event times is also valid. Use consistent design criteria across related outcomes and specifications. Horizontal coefficient plots use the same mark hierarchy, with intervals along x.
 
 Follow [event-study axis wording and normalization](annotations.md#event-study-axes). The example assumes monthly event time, first treatment at 0, employment effects and interval endpoints already expressed in percentage points, and a single omitted month −1. `es` contains only estimated periods. Substitute the source's actual event, scale, and base-period scheme; do not relabel raw coefficients without converting them.
 
@@ -280,7 +280,11 @@ ggplot(es, aes(x = period, y = coef)) +
 
 **Preserve the inference.** Include zero and every interval endpoint. A normalized reference marker has no estimated interval; do not create one or assume every design uses month −1. Put the actual reference scheme, confidence level, coverage and clustering in the note. Multiple series need consistent color/shape identities and, if needed, modest horizontal offsets that preserve period identity or separate panels.
 
-A light connecting line may be added when explicitly requested or useful for following event order, while retaining the individual intervals. It does not establish continuity. A ribbon is an exception for a substantively justified continuous estimand or an explicitly requested display, not a reward for smooth-looking coefficients; never bridge missing periods or change interval coverage. Do not smooth the coefficients for appearance.
+**Connecting lines are optional.** They can help make an abrupt change, a turning point, or the separation between overlapping paths easier to read. Judge the saved figure at placement size: choose line weight to suit point spacing, series density and visual emphasis, while keeping estimates and intervals legible. Neither thin nor heavy lines are universally required. If adding connectors, apply them consistently within each comparable path rather than only to selected large jumps. Break them across missing periods or incomparable bins; join estimates without fitting a smoother.
+
+**Uncertainty is a separate choice.** A connecting line can accompany individual intervals; it does not require a ribbon. A ribbon may be used when it makes uncertainty easier to read, with its interpretation stated in the note. For discrete estimates, shading between periods is a visual connection, not additional estimates. Preserve the supplied interval endpoints and coverage: shading does not turn pointwise intervals into a simultaneous band.
+
+These choices follow the distinction between individual values and connected paths in [Wilke's time-series guidance](https://clauswilke.com/dataviz/time-series.html). Both event-study styles are supported by the [fect plotting documentation](https://yiqingxu.org/packages/fect/11-plots.html). Our dot default and mark weights express the user's preferred style, not a universal ranking of the two displays.
 
 Export at the intended placement width using `figure_spec()`; 7.2 inches is an example, not a required canvas. Do not shrink a larger PDF into a narrow column to make its marks look finer. Keep the 10% width tolerance and inspect the placed result.
 
