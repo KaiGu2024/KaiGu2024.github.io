@@ -19,7 +19,7 @@ Replace the toy data with a prepared source artifact and revise the labels and n
 
 <object data="../examples/fig_event_study.pdf" type="application/pdf" width="100%" height="440"><a href="../examples/fig_event_study.pdf">Open event-study PDF</a></object>
 
-Deep-blue dots and slim intervals establish a clear hierarchy. The open reference marker differs from estimates; the dashed event boundary stays quieter than the data. Discrete intervals avoid implying interpolated estimates across the omitted month. The short axis wording keeps space for the data.
+Fine navy dots and individual intervals show each period separately; quiet gray references and lighter axes leave attention on the estimates. This is the default event-study style, including smooth-looking paths. The hollow point marks normalization without an estimated interval. Both estimate examples use `theme_pub(style = "estimate")` at their declared 7.2-inch width.
 
 Example note: invented employment coefficients and interval endpoints, in percentage points. Month −1 is normalized to zero and has no estimated interval. The dashed line separates the last untreated and first treated month. No confidence level or clustering method is claimed for these illustrative numbers.
 

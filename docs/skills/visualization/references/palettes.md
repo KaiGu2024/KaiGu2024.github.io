@@ -38,7 +38,7 @@ subject_ramp()   # subject-anchored rank ramp for one-subject figures
 
 ## Categorical comparisons
 
-Choose by the area the color occupies. Use `marks$primary` for a single line, coefficient plot or event study, and `brand$primary` for a bar or uncertainty ribbon. Filled point symbols are small marks, despite using the `fill` aesthetic. Keep text on pale fills dark.
+Choose by the area the color occupies. Use `marks$primary` for a single descriptive line and `brand$primary` for a bar or uncertainty ribbon. Single-series coefficient plots and event studies default to deep navy `brand_blues[1]` with fine marks; follow the [estimate recipe](recipes.md#coefficient--event-study-plot). Existing subject identities take precedence. Filled point symbols are small marks, despite using the `fill` aesthetic. Keep text on pale fills dark.
 
 For two groups, `series_palette(2, "marks")` gives deeper blue/green; `series_palette(2, "areas")` gives dusty blue/sage. For three to five groups, either geometry selects `series_muted`. Use `series_palette(n, scheme = "high_contrast")` for up to three groups when grayscale separation is especially useful. The stronger categorical colors serve identification; they are not decorative fills. Keep redundant shapes or line patterns, even with these palettes.
 
@@ -48,7 +48,7 @@ The small-mark pair comes from [Paul Tol's bright scheme](https://sronpersonalpa
 geom_col(fill = brand$primary)
 geom_col(aes(fill = group), colour = NA)
 geom_line(colour = marks$primary, linewidth = 2.8)
-geom_point(colour = marks$primary, size = 9)
+geom_point(colour = marks$primary, size = 9) # connected descriptive series only
 ```
 
 The shared theme sets discrete `colour` defaults for marks and discrete `fill` defaults for areas. Override `fill` for point symbols to match their lines, as below. For recurring groups, save one named mapping in the project setup and reuse it across figures; do not regenerate assignments from each panel's subset or factor order. Past five series, facet or use layer-and-highlight.
@@ -68,7 +68,7 @@ scale_fill_manual(values = pal) +
 scale_shape_manual(values = brand_shapes)
 ```
 
-For monthly or sparser series, show every marker at `size = 9` on a `2.8` line. For weekly data, use `size = 7` on a `2.4` line and thin markers to every fourth observation plus the last point. At higher cadence, drop markers and distinguish lines with color plus linetype, or facet. See `recipes.md` for complete patterns.
+For connected descriptive series (not event-time coefficients), at monthly or sparser cadence, show every marker at `size = 9` on a `2.8` line. For weekly data, use `size = 7` on a `2.4` line and thin markers to every fourth observation plus the last point. At higher cadence, drop markers and distinguish lines with color plus linetype, or facet. See `recipes.md` for complete patterns.
 
 ## Emphasis hierarchy
 

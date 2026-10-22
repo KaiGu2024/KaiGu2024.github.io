@@ -34,8 +34,12 @@ labs_pub <- function(x = NULL, y = NULL, x_width = 32, y_width = 26) {
   )
 }
 
-theme_pub <- function(gutter = c("none", "right", "left", "top", "bottom")) {
+theme_pub <- function(gutter = c("none", "right", "left", "top", "bottom"),
+                      style = c("series", "estimate")) {
   gutter <- match.arg(gutter)
+  style <- match.arg(style)
+  # Fine axes for discrete estimates; keep the shared type and margin system.
+  fine <- style == "estimate"
   plot_margins <- switch(
     gutter,
     none   = c(t = 18, r = 22, b = 12, l = 14),
@@ -65,9 +69,11 @@ theme_pub <- function(gutter = c("none", "right", "left", "top", "bottom")) {
       plot.tag         = element_blank(),
       panel.grid       = element_blank(),   # no gridlines, ever (rule 12)
       panel.border     = element_blank(),
-      axis.line        = element_line(linewidth = 1.1, colour = "grey20"),
-      axis.ticks       = element_line(linewidth = 1.0, colour = "grey20"),
-      axis.ticks.length = unit(8, "pt"),
+      axis.line        = element_line(linewidth = if (fine) 0.65 else 1.1,
+                                      colour = if (fine) "grey35" else "grey20"),
+      axis.ticks       = element_line(linewidth = if (fine) 0.55 else 1.0,
+                                      colour = if (fine) "grey35" else "grey20"),
+      axis.ticks.length = unit(if (fine) 6 else 8, "pt"),
       strip.text       = element_text(family = "Lora", size = 18,
                                       face = "bold",
                                       margin = margin(b = 8)),

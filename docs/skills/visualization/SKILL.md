@@ -40,8 +40,9 @@ For a new figure or substantial redesign, use the separate Retriever, Planner, S
 6. **Use a readable text hierarchy at final placement size.** Author at the declared placement size (rule 13), with export and placement widths within 10%. Manuscript defaults are:
    - Axis titles **20 pt**; tick labels **16 pt**; inline / annotation labels **16–18 pt**. For text geoms, use `size = 16 / ggplot2::.pt` (or `18 / ggplot2::.pt`); their default size unit is mm, with 1 mm ≈ 2.85 pt.
    - Strip text (facets, if any) **18 pt** bold. For slides, increase text sizes together when needed for viewing distance and inspect in the slide layout; the larger sizes are an override, not the manuscript default.
-   - Data lines `linewidth = 2.8` for **sparse** figures (few or monthly points — the default); step down to `2.4` when the series is **dense** (weekly+ points, busy path); reference / zero / vline lines 1.2–1.5; axis lines 1.1; ticks 1.0
-   - Points `size = 9` for **sparse** figures (the default); `size = 7` when dense (and thin the markers — §5); ribbon `alpha = 0.18–0.22`. Keep the marker-to-line ratio near 3:1 — a 9-marker sits on a 2.8 line, a 7-marker on a 2.4 line; don't pair a fat marker with a thin line (beads-on-a-string) or vice versa.
+   - **Connected descriptive series:** data lines `linewidth = 2.8` for **sparse** figures (few or monthly points); step down to `2.4` when the series is **dense** (weekly+ points, busy path); reference / zero / vline lines 1.2–1.5; axis lines 1.1; ticks 1.0
+   - For those connected series, points `size = 9` when **sparse**; `size = 7` when dense (and thin the markers — §5); ribbon `alpha = 0.18–0.22`. Keep the marker-to-line ratio near 3:1 — a 9-marker sits on a 2.8 line, a 7-marker on a 2.4 line; don't pair a fat marker with a thin line (beads-on-a-string) or vice versa.
+   - **Event studies and coefficient plots use fine dots with individual intervals by default.** Use `theme_pub(style = "estimate")` for quieter axes and ticks; follow the [estimate recipe](references/recipes.md#coefficient--event-study-plot) for mark weights and reference lines. Retain every estimated period and its interval. Connected-series weights, marker thinning, and the marker-to-line ratio do not apply.
    - **Dense scatterplots and background ensembles override those series defaults.** Start with points around `size = 2–3.5`, background lines `linewidth = 0.4–0.7`, and summary lines `0.8–1.2`; adjust at final placement to preserve overlap patterns and readable focal marks. The marker-to-line ratio applies to connected point series, not independent scatter observations. Keep reference lines quieter than the main summary.
    - **No plot title / subtitle / caption / tag inside the image** — see rule 10.
 
@@ -59,7 +60,7 @@ For a new figure or substantial redesign, use the separate Retriever, Planner, S
 
     Follow the [standalone-panel and LaTeX assembly rules](#7-output) for multi-panel figures.
 
-11. **Show uncertainty for inferential estimates.** Use `geom_ribbon(alpha = 0.18–0.22)` for continuous, error bars for discrete. Descriptive counts and shares of the observed sample need no automatic confidence intervals; disclose the sample and denominator.
+11. **Show uncertainty for inferential estimates.** Event-time coefficients are discrete estimates: use dots with individual intervals, even when the path looks smooth. Use ribbons for supported continuous curves; choose the encoding from what is estimated, not the apparent smoothness or significance of the results. See the [estimate recipe](references/recipes.md#coefficient--event-study-plot). Descriptive counts and shares of the observed sample need no automatic confidence intervals; disclose the sample and denominator.
 
     **Describe inference in the TeX note.** State what intervals or bands represent, their confidence level and pointwise or simultaneous coverage, the method, and clustering where used. For example, when supported: "Error bars show 95% pointwise confidence intervals; standard errors are clustered by firm." Keep observation units separate from clustering units, and retain bootstrap details when applicable. Follow the shared [inference-wording guidance](../tables/SKILL.md#inference-wording-for-tables-and-figures); influence-score mechanics usually belong in methods.
 
@@ -126,7 +127,8 @@ For "this country/firm/domain vs. all others", use the [emphasis hierarchy](refe
 | Two continuous vars | Scatter, hexbin (large N) |
 | Joint distribution / concentration across two ranked variables | [Joint quantile grid](references/recipes.md#joint-quantile-grid): 3×3, 5×5, 10×10, or another supported resolution |
 | Category vs. continuous | Bar/dot (mean ± CI), strip + box |
-| Time series | Line with shaded CI |
+| Descriptive time series | Line; add uncertainty only when applicable |
+| DiD / event study | Fine dots + individual intervals; quiet zero and event references |
 | Time series + fitted models | Black raw line + linetype-distinguished fits + grey CI |
 | Correlation matrix | Heatmap |
 | Causal estimate | Coefficient plot (dot + CI) |
@@ -166,7 +168,7 @@ sysfonts::font_add_google("Lora",       "Lora")
 showtext::showtext_auto()
 ```
 
-This loads `theme_pub()` (already applied via `theme_set()`), `labs_pub()`, `figure_spec()`, `save_figure()`, palette helpers, and discrete color defaults. Use Lora for axis titles and facet strips and Newsreader for ticks and annotations.
+This loads `theme_pub()` (already applied via `theme_set()`), `labs_pub()`, `figure_spec()`, `save_figure()`, palette helpers, and discrete color defaults. Use Lora for axis titles and facet strips and Newsreader for ticks and annotations. For event studies and coefficient plots, add `theme_pub(style = "estimate")`; this retains the typography and margins while reducing axis and tick weight.
 
 ### One script per panel
 
@@ -198,7 +200,7 @@ Because each script is independent, panels can render simultaneously under any p
 - Choose color by geometry: `marks` for lines, points and intervals; `brand` for broad fills. Use `series_palette()` for grouped comparisons; see [palette selection](references/palettes.md#categorical-comparisons).
 - For 3–5 equal-weight line series, map the same variable to color and redundant shape; past five, facet or layer-and-highlight.
 - Assign recurring subjects one fixed project-level color and shape from `subject_palette`; use different hue families when highlighting several subjects.
-- Use `brand_blues` or `subject_ramp()` for rank only, viridis/cividis for precise magnitude, and a diverging scale only around a meaningful midpoint.
+- Map `brand_blues` or `subject_ramp()` as a ramp for rank only; a single swatch can serve as constant estimate ink. Use viridis/cividis for precise magnitude, and a diverging scale only around a meaningful midpoint.
 - Keep non-focal series grey. Use stronger colors for small marks and subject identity; keep broad default fills muted.
 - Check grayscale and common color-vision deficiencies before acceptance.
 

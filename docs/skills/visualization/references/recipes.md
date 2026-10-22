@@ -253,65 +253,36 @@ Past weekly cadence, drop per-point markers entirely — distinguish by color + 
 
 ## Coefficient / event-study plot
 
-Follow [event-study axis wording and normalization](annotations.md#event-study-axes). This example assumes monthly event time, first treatment at 0, and employment effects and interval endpoints already expressed in percentage points. Substitute the actual event, outcome, and scale; do not relabel raw coefficients without converting them. The y title may also be `Employment (percentage points)`; use `Effect on [DV]` or the DV name itself, never a `Differences in` prefix.
+**Default: fine dots and individual confidence intervals, with no connecting curve or shaded ribbon.** Event-time coefficients are estimates at discrete periods, whether their realized path looks smooth or jagged. Keep the same encoding across related outcomes and specifications. Horizontal coefficient plots use the same mark hierarchy, with intervals along x.
+
+Follow [event-study axis wording and normalization](annotations.md#event-study-axes). The example assumes monthly event time, first treatment at 0, employment effects and interval endpoints already expressed in percentage points, and a single omitted month −1. `es` contains only estimated periods. Substitute the source's actual event, scale, and base-period scheme; do not relabel raw coefficients without converting them.
 
 ```r
+ink <- brand_blues[1]  # deep navy; use an existing subject color when applicable
+
 ggplot(es, aes(x = period, y = coef)) +
-  geom_hline(yintercept = 0, linewidth = 1.2) +
+  geom_hline(yintercept = 0, colour = "grey65", linewidth = 0.4) +
   # Boundary between last untreated month (-1) and first treated month (0).
   geom_vline(xintercept = -0.5, linetype = "dashed",
-             colour = brand$accent, linewidth = 1.2) +
-  geom_ribbon(aes(ymin = lo, ymax = hi),
-              fill = brand$primary, alpha = 0.22) +
-  geom_line(linewidth = 2.8, colour = marks$primary) +
-  geom_point(size = 9, colour = marks$primary) +
+             colour = "grey65", linewidth = 0.4) +
+  geom_errorbar(aes(ymin = lo, ymax = hi), width = 0.18,
+                colour = ink, linewidth = 0.65) +
+  geom_point(size = 2.6, colour = ink) +
+  # Normalization only: hollow point, no estimated interval.
+  annotate("point", x = -1, y = 0, shape = 21, fill = "white",
+           colour = ink, size = 2.6, stroke = 0.65) +
   labs_pub(x = "Months relative to first treatment",
-           y = "Effect on employment (percentage points)")
+           y = "Effect on employment (percentage points)") +
+  theme_pub(style = "estimate")
 ```
 
-**Two versions — match the CI to the connection.** The code above is the **line version**: estimates connected by a line, uncertainty as a shaded ribbon. It reads as a *continuous trajectory* and is right when the coefficient path is **smooth** (a clean pre-trend and a coherent post arc). When the path is **noisy / jagged** — coefficients zig-zagging month to month — the line turns into a sawtooth that overstates structure that is mostly sampling wobble, and a shaded band implies a continuity the data doesn't support. Switch to the **non-shaded version**: drop the connecting line and draw each CI as a vertical error-bar *line*, dots only — the classic discrete coefficient plot.
+**Size at the actual placement.** These starting weights suit a full-width figure around 7.2 inches: points 2.6, intervals 0.65, references 0.4 in ggplot units. The estimate theme supplies lighter axes and ticks while preserving Lora/Newsreader at 20/16 pt. Keep reference lines gray and visually subordinate. Short caps or uncapped `geom_linerange()` are both acceptable; cap width is in time-axis units, so adapt it to period spacing. Retain all estimated points and intervals; thin axis ticks, not estimates. Narrow layouts may need smaller marks or a different aspect ratio, checked at placement size.
 
-```r
-  # non-shaded version: discrete coefficients, CI as error-bar lines, NO connecting line
-  geom_hline(yintercept = 0, colour = "grey55", linewidth = 1.0) +
-  geom_linerange(aes(ymin = lo, ymax = hi), colour = marks$primary, linewidth = 1.1) +
-  geom_point(colour = marks$primary, fill = "white", shape = 21, size = 6, stroke = 1.3) +
-  # (no geom_line, no geom_ribbon)   # use geom_errorbar(width = 0.4) if you want caps
-```
+**Preserve the inference.** Include zero and every interval endpoint. A normalized reference marker has no estimated interval; do not create one or assume every design uses month −1. Put the actual reference scheme, confidence level, coverage and clustering in the note. Multiple series need consistent color/shape identities and, if needed, modest horizontal offsets that preserve period identity or separate panels.
 
-The pairing is the rule, not a style toss-up (rule 11): **shaded ribbon ↔ connecting line** (continuous reading), **error-bar lines ↔ disconnected dots** (discrete reading). Don't cross them — a shaded band under unconnected dots asserts a smooth function you've otherwise refused to draw, and bare error bars threaded by a heavy line double-encode the path. Pick the reading first, then both elements follow.
+A light connecting line may be added when explicitly requested or useful for following event order, while retaining the individual intervals. It does not establish continuity. A ribbon is an exception for a substantively justified continuous estimand or an explicitly requested display, not a reward for smooth-looking coefficients; never bridge missing periods or change interval coverage. Do not smooth the coefficients for appearance.
 
-For a multi-outcome loop (one `make_es()`-style function over several outcomes), this is a per-figure author choice, not runtime branching on the data: carry a `shaded`/`line` flag in the spec table and let smooth outcomes take the line version, noisy ones the non-shaded version. The marker refinements below (open-circle, tangent-circle) apply to the **line** version.
-
-**Open-circle marker — sanctioned variant.** Instead of the solid blue dot, draw a blue-ringed white circle (`shape = 21`, `fill = "white"`, `colour = marks$primary`). The white interior lets the connecting line and ribbon read *through* the marker rail, so a long monthly event study (25+ periods) stays legible where solid dots would clot into a blue stripe. Use it for single-series coefficient/event-study plots; keep the solid dot when periods are few.
-
-```r
-  geom_line(colour = marks$primary, linewidth = 2.6) +
-  geom_point(colour = marks$primary, fill = "white", shape = 21,
-             size = 7, stroke = 1.6) +
-```
-
-Two things keep it inside the skill rather than fighting it:
-
-- **This is the inverse of the multi-series marker, and deliberately so.** Multi-series lines (§5) put the colour *inside* (`fill = group`) and a white *halo* outside (`colour = "white"`) so each marker names its series and stays crisp at crossings. A single-series event study has no series to name, so the marker carries no identity — invert it (white inside, brand ring outside) to make the rail recede and let the data path show through. Don't mix the two: open ring for one series, filled-with-white-halo for many.
-- **Hold the marker-to-line ratio, then size to period count.** The white fill makes an open circle read larger than a solid dot of the same radius, so it can run a touch smaller — but keep it near the 3:1 band (rule 6): `size = 7` on a `2.6` line, `stroke` 1.4–1.6 for a ring that reads at half-column. `size = 7` is the default for a shorter event study (≤ ~15 periods); past ~20 periods the markers start to kiss where the path is steepest, so drop to `size = 6`. Don't drop below `size ≈ 6` or the ring thins to a hairline — if even 6 crowds, thin the markers (every other period) rather than shrink further.
-- **Line weight `2.6` for a long monthly event study.** Rule 6 gives two discrete weights — `2.8` sparse, `2.4` dense — but a 25+-period monthly series is the in-between case: monthly cadence (sparse) yet long enough to read busy (dense). Split the difference at `linewidth = 2.6`. Use `colour = marks$primary` for the line and open-circle ring, with the softer `fill = brand$primary` for the ribbon.
-
-**Tangent-circle look — let big markers hide the line except across gaps.** A variant of the open circle that makes the figure read as a *chain of dots* rather than a line: keep the continuous line, but size the (opaque-white-filled) circles so neighbouring circles in the flat stretches sit **tangent** — just touching — so their white fill covers the line segment between them. The line then only **peeks through where two consecutive points are far apart**, i.e. exactly where the series moves fast. No threshold, no `geom_segment`, no conditional drawing — the "few connectors" are an emergent geometric effect of the markers sitting on an always-present line.
-
-```r
-  geom_ribbon(aes(ymin = lo, ymax = hi), fill = brand$primary, alpha = 0.20) +
-  geom_line(colour = marks$primary, linewidth = 2.6) +     # KEEP — continuous, underneath
-  geom_point(colour = marks$primary, fill = "white", shape = 21,
-             size = 7, stroke = 1.4) +                      # ~tangent in flat runs at this geometry
-```
-
-What keeps this coherent:
-
-- **Opaque white fill is the mechanism.** `fill = "white"` (not a transparent fill) is what hides the line under each circle. The continuous line still exists — it is simply covered wherever two circles touch.
-- **The tangency point is geometry-driven and the window is narrow.** Tangency depends on the marker diameter relative to the x-spacing in plot units, not on the line weight. For ~25 monthly periods at a 6.2 in author width, the threshold sits at **`size ≈ 7`** (`stroke ≈ 1.4`): at `size = 6` the line still beads through the flat run; at `7` the flat run closes up and the line peeks only on the climb; by `size ≈ 9–10` the climb circles also overlap and the line stops showing **anywhere** — the effect is lost. So this is the *same* sizing region as the plain open-circle bullet above, one step past where the beads disappear — not a dramatically bigger marker. Pick by intent: `6` for beads-on-a-line, `7` for the tangent dot-chain.
-- **No ratio violation.** At `size = 7` on a `2.6` line the marker-to-line ratio is ~2.7:1 — right at rule 6's 3:1, not beyond it. Keep `stroke ≈ size/5` so the ring stays a proportionate fraction of the circle, and keep the line at `2.6` so the stub that peeks across a gap reads at the ring's weight (a deliberate connector, not a hairline).
-- **It self-adapts across panels.** With constant x-spacing the only thing separating two circles is the vertical move, so once they kiss in flat runs the line shows precisely on the steep moves — and scales to each panel's own y-range across a faceted set of outcomes (flat outcomes ≈ pure dots; big-effect outcomes show stubs on the climb). No per-panel tuning. **Tune by eye in the rendered PDF, not the RStudio pane**: nudge `size` up until flat-run neighbours just touch; if the line vanishes on the climb too, you have gone one step too far.
+Export at the intended placement width using `figure_spec()`; 7.2 inches is an example, not a required canvas. Do not shrink a larger PDF into a narrow column to make its marks look finer. Keep the 10% width tolerance and inspect the placed result.
 
 ## Time trend with overlaid fits (raw + models + CI)
 

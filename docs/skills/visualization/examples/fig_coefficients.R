@@ -8,11 +8,12 @@ dat$group <- reorder(dat$group, dat$estimate)
 dat$lo <- dat$estimate - dat$half_width
 dat$hi <- dat$estimate + dat$half_width
 p <- ggplot(dat, aes(estimate, group)) +
-  geom_vline(xintercept = 0, colour = "grey55", linewidth = 1.2) +
-  geom_segment(aes(x = lo, xend = hi, yend = group), colour = marks$primary, linewidth = 1.2) +
-  geom_point(colour = marks$primary, size = 9) +
+  geom_vline(xintercept = 0, colour = "grey65", linewidth = .4) +
+  geom_segment(aes(x = lo, xend = hi, yend = group), colour = brand_blues[1], linewidth = .65) +
+  geom_point(colour = brand_blues[1], size = 2.6) +
   scale_x_continuous(limits = c(-.1,3.4), breaks = 0:3) +
   scale_y_discrete(expand = expansion(add = .65)) +
-  labs_pub(x = "Effect on employment (percentage points)", y = NULL, x_width = 26)
+  labs_pub(x = "Effect on employment (percentage points)", y = NULL, x_width = 26) +
+  theme_pub(style = "estimate")
 stopifnot(all(dat$lo <= dat$estimate), all(dat$hi >= dat$estimate))
 save_figure(p, spec)
