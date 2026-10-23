@@ -57,7 +57,13 @@ Keep sensitive unit-level records private. Use cached aggregates when sufficient
 
 Explain what diagnosed problem each change addresses and whether it changes the population, outcome, assignment contrast, assumption, estimator, or presentation. Choose specifications and thresholds for construct validity, comparison credibility, and support, rather than the desired sign, significance, or pretest result. Record prior results that informed each choice, exploratory versus confirmatory status, and any reuse of validation data for selection.
 
-Plan a limited set of changes, starting with one dimension at a time and common-sample comparisons where useful.
+Organize trials by **comparison design**, then by **measurement variant** within each design:
+
+- **Comparison design:** who supplies the counterfactual and why. Switching from never adopters to Gemini users changes the comparison design; state the resulting treatment contrast.
+- **Group measurement:** how the conceptual groups are identified in the data, such as validated usage endpoints, activity thresholds, or baseline windows. Track resulting membership and timing changes; a definition that changes the substantive comparison belongs to a different design.
+- **Outcome measurement:** how the same outcome construct is counted for both groups, such as narrower versus broader search-endpoint coverage.
+
+Propose justified alternatives at either level. Start with one dimension at a time and common-sample comparisons where useful; label each trial's design and measurement variant. Describe improvements concretely through measurement validity, overlap, pre-treatment comparability, or stability.
 
 | Direction | Appropriate use | Specify or check |
 |---|---|---|
