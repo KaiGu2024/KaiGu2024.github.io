@@ -1,6 +1,6 @@
 # Literature supporting the DiD workflow
 
-Primary sources checked October 5, 2026. This is targeted methods research, not a systematic review. Operational guidance applies these methods subject to their assumptions; no cited paper validates an application's assignment, measurement, or exclusion restrictions by itself. Publication years are distinguished from working-paper versions.
+Targeted primary-source checks conducted October 5, 2026; later additions carry their own dates. Entries give each method's contribution and relevant conditions, distinguishing publication years from working-paper versions.
 
 ## L1. Cohort-time effects and eligible comparisons
 

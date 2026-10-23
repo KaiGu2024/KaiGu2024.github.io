@@ -5,9 +5,9 @@ description: Design, diagnose, and improve difference-in-differences and event-s
 
 # DiD: design, diagnosis, and heterogeneous effects
 
-Build a credible comparison and explain what the evidence supports. A preferred sign, significant effect, or visually flat preperiod is not the success criterion. Useful outcomes include corrected measurement, a clearer target population, an informative null, effects that depend on baseline conditions, sensitivity bounds, or a documented identification limit.
+Build a credible comparison and explain the result: an average effect, an informative null, conditional responses, or a limit on what the design identifies.
 
-Adapt the work to the study's assignment process, data structure, and substantive question. There is no default population, outcome, threshold, covariate set, calendar window, software package, or treatment direction.
+Choose the population, outcome, covariates, timing, and estimator from the study's assignment process, data structure, and substantive question.
 
 Read supporting material only as needed:
 
@@ -16,7 +16,7 @@ Read supporting material only as needed:
 - [IV-DiD module](references/iv-did.md): only when a distinct encouragement or eligibility instrument is proposed.
 - [Transformations and tail handling](references/transformations-and-tail-handling.md): levels, logs, weighted logs, PPML, standardization, and tail rules; read before comparing outcome scales or mean models.
 - [Trial-record template](assets/trial-record.md): when implementing or comparing specifications; omit inapplicable fields.
-- [Optional AI-search case study](references/case-study-ai-search.md): examples and historical trials; no case-specific rule is a default for another study.
+- [Optional AI-search case study](references/case-study-ai-search.md): project-specific examples and historical trials.
 
 ## 1. Establish the design and target quantity
 
@@ -26,14 +26,14 @@ Choose the appropriate data branch before selecting an estimator:
 
 | Data or treatment structure | Consequence for the analysis |
 |---|---|
-| Unit panel, balanced or unbalanced | Audit entry, exit, attrition, and observation rules. A balanced-panel restriction can select on treatment; do not impose it automatically. |
-| Repeated cross-sections | People need not recur. Use a compatible estimator and defend sampling/composition stability or a justified correction; do not invent individual histories or require person fixed effects. Respect survey weights, strata, and sampling clusters where relevant. [L3] |
-| Aggregate units or cluster-assigned treatment | Distinguish population weights from equal-unit effects. Precision depends on independent assignment/shock variation, not just the number of lower-level observations. |
+| Unit panel, balanced or unbalanced | Audit entry, exit, attrition, and observation rules, including treatment-induced selection from a balanced-panel restriction. |
+| Repeated cross-sections | Use the repeated-cross-section estimator with observed group histories and stable sampling/composition or a justified correction. Respect survey weights, strata, and sampling clusters. [L3] |
+| Aggregate units or cluster-assigned treatment | Define population-weighted or equal-unit effects; assess independent assignment/shock variation for inference (§5). |
 | Binary absorbing adoption | Cohort-time ATT methods may apply under their comparison, anticipation, and trend assumptions. [L1–L2] |
-| Reversible, repeated, or varying-dose treatment | Define the relevant treatment path and carryover. Do not recode first exposure as permanent treatment without justification; select a method that supports the actual history. [L17] |
-| Encouragement with endogenous uptake | Separate assignment from uptake and read the IV module. An ordinary adoption-timed event study is not automatically IV. |
+| Reversible, repeated, or varying-dose treatment | Define the actual treatment path and carryover; select a method that supports reversals, repeated exposure, or dose variation. [L17] |
+| Encouragement with endogenous uptake | Separate assignment from uptake and follow the IV module's comparisons based on instrument assignment. |
 
-For existing analyses, reproduce a coefficient, standard error, sample counts, and a reported average before revising them. Use the **full covariance** for averages, not averaged standard errors. For a proposed study without estimates, mark reproduction as inapplicable.
+For existing analyses, reproduce a coefficient, standard error, sample counts, and a reported average before revising them. Compute uncertainty for averages from the **full covariance**.
 
 For a two-group contrast relative to reference period \(b\),
 
@@ -41,13 +41,13 @@ For a two-group contrast relative to reference period \(b\),
 \widehat\delta_k=(\bar Y_{T,k}-\bar Y_{C,k})-(\bar Y_{T,b}-\bar Y_{C,b}).
 \]
 
-A low reference gap can create positive leads throughout. Rebasing shifts contrasts; it does not remove the discrepancy. For staggered treatment, examine valid cohort-time comparisons and their aggregation rather than applying this illustration mechanically to pooled means.
+A low reference gap can create positive leads throughout; rebasing shifts contrasts while preserving the underlying discrepancy. For staggered treatment, examine eligible cohort-time comparisons and their aggregation.
 
 ## 2. Diagnose the discrepancy before choosing a repair
 
 - **Measurement:** check source coverage, coding changes, duplicates, aggregation, exposure denominators, zero versus missing, and whether treatment changes the ability to observe the outcome. Resolve construct validity before interpreting coefficients.
-- **Both groups:** examine levels and changes, distribution tails, zeros, component outcomes, coefficient and variance influence, and weight concentration. Different levels alone do not violate parallel trends. Large values are not automatically errors; deletions chosen for their favorable effect are diagnostics, not justified exclusions.
-- **Calendar and assignment:** map discrepancies to seasonality, earlier interventions, anticipation, concurrent policies, recording changes, and spillovers. Calendar effects remove common shocks, not every group-specific seasonal response. Do not assume a holiday caused a dip merely because the dates overlap.
+- **Both groups:** examine levels and changes, distribution tails, zeros, component outcomes, coefficient and variance influence, and weight concentration. Separate level differences from trend differences and verify whether extreme observations reflect valid activity or measurement errors.
+- **Calendar and assignment:** map discrepancies to seasonality, earlier interventions, anticipation, concurrent policies, recording changes, and spillovers. Calendar effects absorb common shocks; investigate group-specific seasonal responses with evidence beyond date coincidence.
 - **Support:** tabulate eligible treated and comparison units by cohort and event time. Late cohorts can have long prehistories but short follow-up; not-yet-treated controls eventually disappear. Separate unsupported estimates from estimated zeros.
 - **Selection and composition:** examine attrition, migration, changing survey coverage, baseline left-censoring, and restrictions based on future behavior. Distinguish a real population change from a data error. Restricting to eventual adopters changes the population and can condition on treatment-induced behavior.
 
@@ -55,75 +55,75 @@ Keep sensitive unit-level records private. Use cached aggregates when sufficient
 
 ## 3. Plan a limited set of justified adjustments
 
-Explain what diagnosed problem each change addresses and whether it changes the population, outcome, assignment contrast, identifying assumption, estimator, or presentation. State which results already informed the choices. Planning the next batch does not make earlier exploratory work preregistered.
+Explain what diagnosed problem each change addresses and whether it changes the population, outcome, assignment contrast, assumption, estimator, or presentation. Choose specifications and thresholds for construct validity, comparison credibility, and support, rather than the desired sign, significance, or pretest result. Record prior results that informed each choice, exploratory versus confirmatory status, and any reuse of validation data for selection.
 
-Start with one dimension at a time and common-sample comparisons when useful. Do not require an exhaustive factorial search.
+Plan a limited set of changes, starting with one dimension at a time and common-sample comparisons where useful.
 
-| Direction | Appropriate use | Limitation to record |
+| Direction | Appropriate use | Specify or check |
 |---|---|---|
-| Measurement and outcomes | Correct verified errors; compare validated outcome definitions, components, participation, intensity, or rates | A new scale or denominator changes the question; measurement repair does not repair assignment |
-| Transformations and tail handling | Baseline demeaning, pooled or unit-specific standardization, log(1+Y), asinh(Y), proportional means; winsorization or trimming at unit-day/week/month resolution | Fixed unit demeaning cancels in within-unit differences/linear unit FE with unchanged sample and weights. Unit-specific scaling and tail handling can change the estimand and trend assumption; logs/asinh with zeros are not automatic percentages [L9–L10]. See the transformation reference. |
+| Measurement and outcomes | Correct errors; compare validated definitions, components, participation, intensity, or rates | Outcome units, denominator, construct validity, and assignment process |
+| Transformations and tail handling | Demeaning, standardization, logs/asinh, proportional means, winsorization, or trimming | Target quantity, identifying scale, calibration, operation order, and affected mass/sample; follow the [transformation module](references/transformations-and-tail-handling.md) [L9–L10] |
 | Baseline restrictions | Common support, stable coverage, eligibility using predetermined information | Changes the target population; noisy screening creates regression-to-the-mean concerns [L7] |
 | Conditional and opposing effects | Explain a null average through substantively motivated baseline subgroups or continuous modifiers; retain the overall benchmark | Compare effects directly, reconcile aggregation, and assess identification for the claimed subgroup effect or contrast. Follow the [heterogeneity workflow](guidance/null-and-heterogeneous-effects.md). |
 | Treatment and timing definitions | Validate start dates, persistence, dose, and anticipation | Sustained-use definitions can use future observations relative to onset; document that selection |
 | Comparison groups | Never-treated, not-yet-treated, alternative eligible groups, or synthetic donors | Assess anticipation, earlier treatment, spillovers, follow-up, and actual eligibility |
-| Matching and weighting | Predetermined demographics, institutional features, outcome histories, volatility, or other justified covariates | Balance does not establish counterfactual trends; noisy matching and concentrated weights can worsen bias [L6–L7] |
+| Matching and weighting | Predetermined demographics, institutional features, outcome histories, volatility, or other justified covariates | Overlap, weight concentration, regression to the mean, and preperiod validation [L6–L7] |
 | Conditional seasonality | Baseline characteristics interacted with time, control-based outcome models, or proportional means | Requires overlap and transportable untreated responses; unrestricted treated-post terms absorb the effect |
-| Estimator changes | Levels/log-OLS, baseline-weighted log-OLS, PPML, cohort-time/DR DiD, synthetic weighting, SDID, factor or imputation methods | Different assumptions and supported estimands; a better fitted preperiod is not identification |
-| Alternative designs | Triple differences, negative controls, discontinuities, or encouragement IV | Need genuinely new identifying restrictions; an additional outcome or date is not sufficient |
-| Windows and references | Substantive horizons, common cohort support, anticipation buffers, reference sensitivity | Cropping or selecting significant lags does not repair identification |
+| Estimator changes | Levels/log-OLS, baseline-weighted log-OLS, PPML, cohort-time/DR DiD, synthetic weighting, SDID, factor or imputation methods | Estimand and identifying restrictions (§4); preperiod fit and independent validation |
+| Alternative designs | Triple differences, negative controls, discontinuities, or encouragement IV | The additional identifying restriction and evidence supporting it |
+| Windows and references | Substantive horizons, common cohort support, anticipation buffers, reference sensitivity | Separate estimation, summary, and display windows (§6) |
 
-Keep distinct operations explicit: winsorization changes \(Y\), an eligibility ceiling excludes units, and a subgroup threshold changes the target population. Justify thresholds from the construct and a stated distribution or external rule, not their favorable results. For a volume question, raw levels retain the total-volume interpretation; a capped measure can answer a separate question. Report affected outcome mass and sample shares. Avoid treatment-dependent caps.
+For transformations, distinguish changing outcome values, trimming observations, and excluding units. The linked module owns scale, cutoff, resolution, and calibration rules; retain the raw-outcome benchmark and compare common samples to separate these changes.
 
-Choose the tail-handling resolution separately from the estimation resolution: capping unit-days before weekly aggregation differs from capping unit-weeks or unit-months. Trimming observations is also different from excluding whole units using a predetermined screen. Record cutoff calibration, operation order, coverage, and selection consequences. Treat these as justified possibilities to assess, not an automatic grid to search for significance. For standardization, distinguish one pooled baseline SD from each unit's own SD; handle zero/small SD explicitly and compare identical samples. Demeaning alone is not a pretrend repair.
+Distinguish sampling/representation weights from causal-comparison weights. ATT-style control weighting retains the treated target; overlap weighting generally changes it. For combined weights, define the resulting target and variance procedure.
 
-Distinguish sampling/representation weights from causal-comparison weights. ATT-style control weighting retains the treated target; overlap weighting generally changes it. If weights are combined, define the resulting target and variance procedure rather than multiplying weights without explanation.
+Report overlap, unmatched units, covariate balance, weight extrema/concentration, and effective sample size \((\sum w)^2/\sum w^2\). Fit using predetermined information, multiple baseline observations where available, and a stated preperiod prediction/balance criterion. Separate training/tuning from later preperiod validation when time support permits.
 
-Report overlap, unmatched units, covariate balance, weight extrema/concentration, and effective sample size \((\sum w)^2/\sum w^2\). Fit with information predetermined relative to the relevant treatment date. Where time support permits, separate training/tuning from later preperiod validation; disclose if validation also selected the specification. Multiple baseline observations reduce reliance on one noisy period but do not eliminate regression to the mean.
-
-Tune using a stated preperiod prediction/balance criterion and support constraints, not the desired post-treatment sign. Include uncertainty from fitted weights and nuisance models using a procedure appropriate to the estimator; ordinary bootstrap is not valid for every matching method. Contemporaneous covariates, denominators, or offsets may be affected by treatment and need separate justification.
+Use inference appropriate to the estimator for fitted weights and nuisance models, including its resampling method. Check whether contemporaneous covariates, denominators, or offsets respond to treatment before including them.
 
 ## 4. Match the estimator to the design
+
+Match the method's identifying restrictions and data requirements to §1. Retain those assumptions when interpreting changes in fit or precision.
 
 | Method | What it requires or changes | Check before interpreting |
 |---|---|---|
 | Cohort-time / CSDiD | ATT(g,t), eligible untreated comparisons, conditional parallel trends and no anticipation [L1] | Risk sets, covariate timing, base-period convention, aggregation and cohort support |
-| Heterogeneity-robust event study | Avoids inappropriate already-treated comparisons [L2] | Conventional TWFE leads can be contaminated; do not read them as clean placebos automatically |
+| Heterogeneity-robust event study | Avoids inappropriate already-treated comparisons [L2] | Check conventional TWFE leads for contamination from heterogeneous treatment effects |
 | Stacked event study | Cohort-specific eligible comparison sets, event windows, and stack-specific unit/time effects [L18] | Reused controls and unequal cohort support change implicit weights; define aggregation and cluster on original units |
-| Doubly robust DiD | Under identifying assumptions, consistency if either specified propensity or outcome model is correct [L3] | Use the panel or repeated-cross-section version as appropriate; DR does not cure false parallel trends |
+| Doubly robust DiD | Conditional parallel trends; consistency if either specified propensity or outcome model is correct [L3] | Use the panel or repeated-cross-section version appropriate to the data |
 | Synthetic control / weighting | Donor representability and stable untreated outcome structure | Training versus validation fit, donor support/concentration, unaffected donors and inference |
-| Synthetic DiD | Published estimator combines unit and time weights [L4] | Arbitrary synthetic donor weights plus a difference are not automatically canonical SDID |
-| FE / interactive FE / matrix completion | Untreated-outcome imputation under additive/factor/low-rank restrictions [L5] | Holdouts, tuning, convergence, treatment feedback, and software version; fitted residuals are not independent placebo evidence |
-| Non-absorbing or varying-dose DiD | Appropriate treatment histories and dynamic estimands [L17] | Carryover, eligible unchanged paths, supported contrasts; not a routine absorbing-adoption specification |
-| Time discontinuity | Smooth counterfactual evolution and no competing discontinuity [L12] | Seasonality, bandwidth, serial dependence, placebo dates; calendar time is not randomized assignment |
-| Proxy / negative control | Explicit proxy exclusion and relevance restrictions [L14] | An auxiliary variable is not automatically unaffected by treatment |
+| Synthetic DiD | Published estimator combines unit and time weights [L4] | Implement its weighting procedure; label custom synthetic contrasts separately |
+| FE / interactive FE / matrix completion | Untreated-outcome imputation under additive/factor/low-rank restrictions [L5] | Holdouts, tuning, convergence, treatment feedback, and software version |
+| Non-absorbing or varying-dose DiD | Appropriate treatment histories and dynamic estimands [L17] | Carryover, eligible unchanged paths, and supported contrasts |
+| Time discontinuity | Smooth counterfactual evolution and no competing discontinuity [L12] | Seasonality, bandwidth, serial dependence, and placebo dates |
+| Proxy / negative control | Explicit proxy exclusion and relevance restrictions [L14] | Evidence that the auxiliary variable meets the proposed exclusion restriction |
 
-Name custom approximations honestly and check their numerical implementation against a trusted method when feasible. Do not demean paths or fitted residuals merely to remove a discrepancy. A changed normalization, model, or reference is a new specification requiring explanation.
+Label custom approximations and verify their numerical implementation against a trusted method where feasible. Record changes to normalization, model, or reference as distinct specifications.
 
-For one common treatment date, first check whether Sun–Abraham interactions, binary switcher contrasts, and a single-stack event study reduce to the same weighted DiD. Matching estimates then verify implementation; they are not independent evidence against confounding. Creating additional stacks from arbitrary dates would change the design. With genuine staggered timing, this equivalence generally does not hold.
+For one common treatment date, check whether Sun–Abraham interactions, binary switcher contrasts, and a single-stack event study reduce to the same weighted DiD. Agreement then verifies implementation rather than providing independent evidence against confounding. Genuine staggered timing requires cohort-specific comparisons and aggregation.
 
-For counterfactual imputation, distinguish additive FEct from interactive FE and matrix completion. Record which untreated periods determine unit effects: an all-preperiod baseline differs from a single-reference-week contrast. Distinguish weights in the fitting objective from weights used only to average estimated effects, and check support in the installed software version. Preserve numerical-tolerance checks and withheld-period predictions; do not count fitted preperiod residuals as out-of-sample validation.
+For counterfactual imputation, record the additive/factor/low-rank model, untreated periods used to fit unit effects, fitting weights versus aggregation weights, and software support. Preserve numerical-tolerance checks and validate predictions on withheld periods rather than fitted residuals.
 
 ## 5. Separate identification, magnitude, and precision
 
-Parallel trends concerns how treated and comparison outcomes would change without treatment; it does not require their raw outcome paths to be flat. Flat pre-treatment contrasts are useful evidence, not the assumption itself. Nonrejection of pretrends is not proof of parallel trends. One significant lead is a reason to investigate, not an automatic diagnosis; joint tests can reject when individual intervals include zero. Report magnitudes, uncertainty, power or substantive equivalence tolerances where useful, and whether intervals are pointwise or simultaneous. Selecting specifications to pass pretests can distort inference. [L8]
+Parallel trends concerns untreated changes between groups; their raw outcome paths need not be flat. Assess pre-treatment contrasts through magnitudes, uncertainty, joint tests, and power or substantive equivalence tolerances. A nonrejection does not establish parallel trends; an isolated significant lead warrants investigation. Distinguish pointwise from simultaneous intervals and account for pretest-based selection, which can distort inference. [L8]
 
-Where the estimand and available covariance permit, use sensitivity analysis such as HonestDiD with justified restrictions, ranges, breakdown values, and numerical limits. It measures dependence on trend assumptions; it does not flatten data. A bound on changes in untreated gaps is not a bound on accumulated bias. [L11]
+For material trend discrepancies, assess a defensible comparison or conditional-trend model, sensitivity bounds, or an exploratory interpretation. State a trend model's extrapolation assumption. Use sensitivity analysis such as HonestDiD with compatible estimates/covariance and justified restrictions, ranges, breakdown values, and numerical limits. Distinguish bounds on changes in untreated gaps from bounds on accumulated bias. [L11]
 
-Preserve serial dependence and reflect assignment and common shocks in inference. Thousands of observations within a few policy jurisdictions do not create thousands of independent assignments. With few clusters or treated units, select and justify an appropriate inferential approach; neither ordinary cluster-robust errors nor a generic bootstrap is an automatic remedy. Account for survey sampling where applicable. [L15]
+Distinguish a near-zero estimate with a narrow interval from an imprecise result that permits large effects. Claim negligible effects relative to a justified substantive equivalence range. Assess sign, precision, and causal interpretation separately.
 
-Disclose outcome-informed selection. Adjustment for one grid does not cover an entire adaptive search. More trials can reveal fragility without strengthening identification; a reused validation period is not untouched confirmation. Use the [heterogeneity workflow](guidance/null-and-heterogeneous-effects.md) for subgroup contrasts, their trend assumptions, and multiplicity.
+Preserve serial dependence and reflect assignment, common shocks, and survey sampling in inference. Base precision on independent assignments; choose a procedure that accommodates the available clusters or treated units, including few-cluster settings. [L15] Define the tested family across explored outcomes and specifications; use suitable multiplicity adjustment or independent confirmation for confirmatory claims after a broad search.
 
 ## 6. Present the supported conclusion and preserve the audit trail
 
-Choose the main specification for construct validity, comparison credibility, support, and transparent estimation; disclose selection after seeing results. Retain nulls, positive and negative effects, overlap failures, nonconvergence, and undefined estimates.
+Retain the full trial record, including nulls, positive and negative effects, overlap failures, nonconvergence, and undefined estimates.
 
-Choose figures for the question being communicated. Event-study figures are optional, including for subgroup analyses: a table or coefficient plot may communicate average effects more clearly. Assess pre-treatment evidence where the data permit and report material discrepancies and their implications in the text, with detailed estimates and diagnostics in a table or appendix; a joint-test p-value alone is insufficient. Omitting a figure does not resolve a trend discrepancy.
+Choose figures for the question. Event-study figures are optional, including for subgroup analyses; tables or coefficient plots can communicate average effects. Report material diagnostic findings and their implications in the text, with detailed estimates and uncertainty in a table or appendix.
 
-When showing event studies, separate estimation, summary, and display windows. A readable subset needs the full path and relevant diagnostics available. Do not selectively omit rejecting leads or late reversals. Label the event clock, outcome units, aggregation, reference, and interval type; distinguish normalized reference values from estimated zeros and do not connect unsupported points. Use an available visualization skill if helpful; the workflow does not depend on one.
+When showing event studies, separate estimation, summary, and display windows. Keep the full path, including leads and late reversals, available alongside any display subset. Label the event clock, outcome units, aggregation, reference, and interval type; distinguish normalized references from estimated zeros and break paths across unsupported points. Use the visualization skill for figure production.
 
-Write in this order: question and target quantity; data and groups; method and most threatened assumption; effect with units and uncertainty; interpretation and limitation. A negative estimate, an interval excluding zero, and credible causal evidence are different statements. An insignificant estimate is not proof of no effect.
+Write the question and target quantity, data and groups, method, effect with units and uncertainty, and interpretation. Following [paper-writing's scope guidance](../paper-writing/references/main-text.md#state-the-answer-directly), explain a consequential assumption or limitation where it affects the claim; carry that context forward rather than appending the same caution to each result.
 
 For implementation, retain a diagnosis, justified batch plan, trial record, reusable estimates/covariance and reproduction commands, and a comparison table explaining population/scale changes. Save appropriate input/configuration hashes and software versions. Validate membership, observation rules, timing, support, coefficients, covariance, and figure/table agreement. Figure-only revisions should reuse saved estimates. For advice alone, provide a plan and mark estimation as not run.
 
-Stop specification search when unsupported assignment, missing measurements, absent comparisons, or irreducible instability is the binding obstacle. State what new evidence would change the conclusion. Completing the task can mean documenting that the requested causal claim remains unsupported.
+Stop specification search when progress depends on new assignment variation, measurements, or comparisons, or when instability persists across justified specifications. State the supported conclusion and what additional evidence would resolve the remaining issue.

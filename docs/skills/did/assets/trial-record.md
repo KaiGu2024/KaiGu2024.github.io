@@ -1,6 +1,6 @@
 # Trial record
 
-Keep one CSV/JSON row per specification, linked to a readable batch note. Adapt fields to the design; this is not a demand to fit every combination. Mark inapplicable fields rather than inventing data or instruments.
+Keep one CSV/JSON row per specification, linked to a readable batch note. Use fields relevant to the design and mark the rest inapplicable.
 
 | Field | Content |
 |---|---|
@@ -23,6 +23,6 @@ Keep one CSV/JSON row per specification, linked to a readable batch note. Adapt 
 | Presentation | Main/supporting reason, full/display paths, outcome-informed selection/cropping |
 | Conclusion | What changed, remaining threat, evidence needed next |
 
-Keep unit-level membership/influence private. Do not overwrite failed trials under the same ID. Use explicit reasons for unavailable estimates: zero is not a missing-data code.
+Keep unit-level membership/influence private. Preserve failed trials under their original IDs and record reasons for unavailable estimates separately from estimated zeros.
 
 Reader-facing columns: `specification | population/scale change | N and ESS | lead discrepancy | post effect [CI] | interpretation`. For an IV design, add first-stage, strength, and IV confidence-set columns.
