@@ -1,6 +1,6 @@
 {
-  "skill_name": "did-adjustment",
-  "purpose": "Cross-domain forward checks; prompts supplied alone to runners, without expected outputs or assertions. Historical project scenarios retained under iteration-1.",
+  "skill_name": "did",
+  "purpose": "Cross-domain scenarios for document walkthroughs or independent runs. Supply only prompts and the assigned skill to independent runners, without assertions. Bundled audits distinguish instruction-coverage reviews from executed benchmarks; earlier external runs are not included in this portable bundle.",
   "evals": [
     {
       "id": 4,
@@ -42,6 +42,42 @@
         "Recognizes current employment/income can be treatment-induced mediators or selection variables and avoids routine adjustment without additional assumptions.",
         "Addresses district assignment dependence together with survey strata/PSUs or a justified compatible variance approach; does not treat respondents as independent policy assignments.",
         "Gives a feasible plan and uncertainty-aware interpretation without importing household browsing histories, fixed activity caps, or invented estimates."
+      ]
+    },
+    {
+      "id": 7,
+      "name": "null-average-significance-labels",
+      "prompt": "A district policy DiD has a nonsignificant pooled estimate and flat-looking pooled pre-trends. Baseline low-capacity districts have an effect of 1.0 percentage point with a 95% interval [0.2, 1.8]; high-capacity districts have 0.4 [-0.5, 1.3]. The direct difference is 0.6 [-0.6, 1.8], using joint district-clustered covariance. Can we say the policy works only under low capacity, and should we keep searching capacity cutoffs until the interaction is significant? We have not checked pre-trends within capacity groups. Give a concrete next step and an appropriate interpretation. No raw data are supplied: do not estimate additional numbers, browse, or inspect other project files. You may read the assigned skill and its bundled guidance and methodological references. Answer in at most 450 words.",
+      "assertions": [
+        "Treats conditional effects as a legitimate research direction despite the pooled null, while retaining the pooled benchmark.",
+        "Uses the supplied direct difference and interval to explain that the data do not establish a difference or an effect exclusive to low-capacity districts.",
+        "Does not interpret the high-capacity interval as proof of a zero effect.",
+        "Checks subgroup trend evidence instead of treating flat pooled pre-trends as sufficient.",
+        "Replaces significance-driven cutoff searches with substantively motivated baseline modifiers, recording exploratory choices and the search family."
+      ]
+    },
+    {
+      "id": 8,
+      "name": "opposing-effects-with-subgroup-pretrends",
+      "prompt": "Our main DiD estimate is near zero and its pooled preperiod path looks flat. With a split based on pre-policy industry exposure, subgroup A has a significantly positive estimate and subgroup B a significantly negative estimate. Their treated-control gaps already moved in opposite directions before the policy. We want to present a subgroup-effect table and no event-study figures. Can this still be a useful direction, and how should we support and write it? Please do not require a separate event-study plot for every subgroup. No raw data are supplied: do not estimate numbers, browse, or inspect other project files. You may read the assigned skill and its bundled guidance and methodological references. Answer in at most 450 words.",
+      "assertions": [
+        "Recognizes offsetting subgroup responses as a useful hypothesis and asks whether the subgroup targets and weights reconcile with the pooled average.",
+        "Explains that opposite subgroup pre-trends can cancel in the pooled path and may confound the apparent sign reversal.",
+        "Calls for a direct subgroup contrast with joint uncertainty and assessment of each causal claim's identifying assumptions.",
+        "Offers a justified comparison or trend model, sensitivity analysis, or exploratory interpretation instead of automatically abandoning the investigation or declaring causal signs.",
+        "Allows omission of event-study figures while retaining and reporting material trend discrepancies and adequate numerical diagnostics in text, a table, or an appendix.",
+        "Does not claim opposite trend biases cancel in a triple difference or use the pooled null to excuse subgroup identification problems."
+      ]
+    },
+    {
+      "id": 9,
+      "name": "relative-effect-with-common-trend-bias",
+      "prompt": "We have a common-date policy design with treated and comparison regions, each containing two predetermined subgroups. Both subgroups' treated-control gaps have similar nonzero pre-trends. We target only the difference in policy effects between subgroups, and our institutional argument is that untreated shocks change both subgroup gaps equally. The preperiod differential contrast is small and precisely estimated; placebo and sensitivity results support the stated range of departures. A fully interacted triple-difference model gives a positive effect difference with a joint region-clustered interval excluding zero. Our table includes that contrast and detailed numerical preperiod diagnostics in an appendix, and our text reports the common subgroup pre-trends. We do not claim either subgroup is unaffected or claim opposite causal signs. Is this presentation adequate, or must we make both subgroup pre-trends flat and add event-study figures? No raw data are supplied: do not estimate numbers, browse, or inspect other project files. You may read the assigned skill and its bundled guidance and methodological references. Answer in at most 400 words.",
+      "assertions": [
+        "Explains that the stated common-bias restriction can identify the effect difference despite nonzero component pre-trends, conditional on the design's other assumptions.",
+        "Does not require separate subgroup parallel trends or a zero comparison-subgroup treatment effect for this relative-effect interpretation.",
+        "Does not promote the identified contrast into separately identified subgroup effects or opposite causal signs.",
+        "Accepts the described table-and-appendix presentation without mandatory event-study figures or unnecessary specification search, while not independently certifying unseen empirical results."
       ]
     }
   ]

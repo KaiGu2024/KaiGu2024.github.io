@@ -1,4 +1,4 @@
-# Literature supporting the adjustment workflow
+# Literature supporting the DiD workflow
 
 Primary sources checked October 5, 2026. This is targeted methods research, not a systematic review. Operational guidance applies these methods subject to their assumptions; no cited paper validates an application's assignment, measurement, or exclusion restrictions by itself. Publication years are distinguished from working-paper versions.
 
@@ -124,3 +124,15 @@ Construct cohort-specific subexperiments with eligible controls and common event
 [Official fixest sunab documentation](https://lrberge.github.io/fixest/reference/sunab.html) defines cohort-by-relative-period interactions and their aggregation. In the Figure 3 trial, fixest 0.11.1's internal sunab function is used with reference -1 and never-assigned controls; household cluster corrections are disabled to compare its CR0 covariance with the existing influence covariance.
 
 [Official fect imputation manual](https://yiqingxu.org/packages/fect/02-fect.html) and [IFE/MC manual](https://yiqingxu.org/packages/fect/04-ife-mc.html) describe untreated-outcome fitting and current weighting options. Do not transfer current-version weight support to fect 1.0.0. The Figure 3 additive FEct trial uses weighted untreated-cell least squares, independently verified by closed-form contrasts. Its IFE/MC trials retain the previously validated 1.0.0 unweighted fitting objective with ACS-weighted target aggregation, clearly labeled as a remaining specification difference.
+
+## L19. Compare subgroup effects directly
+
+Gelman, Andrew, and Hal Stern (2006), **The Difference Between “Significant” and “Not Significant” Is Not Itself Statistically Significant**, *The American Statistician* 60(4), 328–331. [Author-hosted published paper](https://sites.stat.columbia.edu/gelman/research/published/signif4.pdf), [DOI](https://doi.org/10.1198/000313006X152649). Paper checked October 23, 2026.
+
+Differences in significance labels do not establish differences in effects. Estimate the contrast and its uncertainty. For subgroup DiDs using shared controls or assignment clusters, retain their joint dependence rather than assuming independent estimates.
+
+## L20. Identify a subgroup contrast under a triple-difference restriction
+
+Olden, Andreas, and Jarle Møen (2022), **The triple difference estimator**, *The Econometrics Journal* 25(3), 531–553. [Published article](https://academic.oup.com/ectj/article/25/3/531/6545797), [DOI](https://doi.org/10.1093/ectj/utac010). Summary and §5 checked October 23, 2026.
+
+A triple difference requires a trend restriction on the differential comparison. Equal untreated trend biases in its two DiD components can cancel even when either component is biased. In a heterogeneity application where both subgroups can respond, distinguish identifying their effect difference from identifying each effect separately; a zero effect for the comparison subgroup needs additional justification. This routing does not validate an arbitrary three-way interaction or a staggered implementation.

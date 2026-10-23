@@ -1,17 +1,18 @@
 ---
-name: did-adjustment
-description: Diagnose and improve difference-in-differences and event-study designs when pretrends differ, estimates are unstable, or comparison groups are questionable. Assess measurement, sample selection, weighting, outcome scales, estimator choice, and sensitivity while making estimands and any changes explicit and retaining a complete trial record. Covers panel and repeated cross-sectional studies, with optional IV-DiD guidance. Use for substantive design or analysis revisions, not merely cosmetic figure edits.
+name: did
+description: Design, diagnose, and improve difference-in-differences and event-study analyses, including null average effects with conditional or opposing subgroup effects, differing pretrends, unstable estimates, and questionable comparisons. Assess measurement, selection, weighting, outcome scales, estimators, heterogeneity, and sensitivity with explicit estimands and a complete trial record. Covers panels, repeated cross-sections, and optional IV-DiD. Use for substantive design, analysis, or interpretation, not merely cosmetic figure edits.
 ---
 
-# DiD adjustment: diagnose before changing the design
+# DiD: design, diagnosis, and heterogeneous effects
 
-Build a credible comparison and explain what the evidence supports. A preferred sign, significant effect, or visually flat preperiod is not the success criterion. Useful outcomes include corrected measurement, a clearer target population, an informative null, sensitivity bounds, or a documented identification limit.
+Build a credible comparison and explain what the evidence supports. A preferred sign, significant effect, or visually flat preperiod is not the success criterion. Useful outcomes include corrected measurement, a clearer target population, an informative null, effects that depend on baseline conditions, sensitivity bounds, or a documented identification limit.
 
 Adapt the work to the study's assignment process, data structure, and substantive question. There is no default population, outcome, threshold, covariate set, calendar window, software package, or treatment direction.
 
 Read supporting material only as needed:
 
-- [Literature guide](references/literature.md): sources L1–L18 for methodological choices and limits.
+- [Literature guide](references/literature.md): sources L1–L20 for methodological choices and limits.
+- [Null averages and subgroup effects](guidance/null-and-heterogeneous-effects.md): when an overall effect is near zero or imprecise but may differ across conditions; includes subgroup identification and figure-optional reporting.
 - [IV-DiD module](references/iv-did.md): only when a distinct encouragement or eligibility instrument is proposed.
 - [Transformations and tail handling](references/transformations-and-tail-handling.md): levels, logs, weighted logs, PPML, standardization, and tail rules; read before comparing outcome scales or mean models.
 - [Trial-record template](assets/trial-record.md): when implementing or comparing specifications; omit inapplicable fields.
@@ -62,7 +63,8 @@ Start with one dimension at a time and common-sample comparisons when useful. Do
 |---|---|---|
 | Measurement and outcomes | Correct verified errors; compare validated outcome definitions, components, participation, intensity, or rates | A new scale or denominator changes the question; measurement repair does not repair assignment |
 | Transformations and tail handling | Baseline demeaning, pooled or unit-specific standardization, log(1+Y), asinh(Y), proportional means; winsorization or trimming at unit-day/week/month resolution | Fixed unit demeaning cancels in within-unit differences/linear unit FE with unchanged sample and weights. Unit-specific scaling and tail handling can change the estimand and trend assumption; logs/asinh with zeros are not automatic percentages [L9–L10]. See the transformation reference. |
-| Baseline restrictions and heterogeneity | Common support, stable coverage, substantively relevant subgroups using predetermined information | Changes the target population; noisy screening creates regression-to-the-mean concerns [L7] |
+| Baseline restrictions | Common support, stable coverage, eligibility using predetermined information | Changes the target population; noisy screening creates regression-to-the-mean concerns [L7] |
+| Conditional and opposing effects | Explain a null average through substantively motivated baseline subgroups or continuous modifiers; retain the overall benchmark | Compare effects directly, reconcile aggregation, and assess identification for the claimed subgroup effect or contrast. Follow the [heterogeneity workflow](guidance/null-and-heterogeneous-effects.md). |
 | Treatment and timing definitions | Validate start dates, persistence, dose, and anticipation | Sustained-use definitions can use future observations relative to onset; document that selection |
 | Comparison groups | Never-treated, not-yet-treated, alternative eligible groups, or synthetic donors | Assess anticipation, earlier treatment, spillovers, follow-up, and actual eligibility |
 | Matching and weighting | Predetermined demographics, institutional features, outcome histories, volatility, or other justified covariates | Balance does not establish counterfactual trends; noisy matching and concentrated weights can worsen bias [L6–L7] |
@@ -104,19 +106,21 @@ For counterfactual imputation, distinguish additive FEct from interactive FE and
 
 ## 5. Separate identification, magnitude, and precision
 
-Nonrejection of pretrends is not proof of parallel trends. One significant lead is a reason to investigate, not an automatic diagnosis; joint tests can reject when individual intervals include zero. Report magnitudes, uncertainty, power or substantive equivalence tolerances where useful, and whether intervals are pointwise or simultaneous. Selecting specifications to pass pretests can distort inference. [L8]
+Parallel trends concerns how treated and comparison outcomes would change without treatment; it does not require their raw outcome paths to be flat. Flat pre-treatment contrasts are useful evidence, not the assumption itself. Nonrejection of pretrends is not proof of parallel trends. One significant lead is a reason to investigate, not an automatic diagnosis; joint tests can reject when individual intervals include zero. Report magnitudes, uncertainty, power or substantive equivalence tolerances where useful, and whether intervals are pointwise or simultaneous. Selecting specifications to pass pretests can distort inference. [L8]
 
 Where the estimand and available covariance permit, use sensitivity analysis such as HonestDiD with justified restrictions, ranges, breakdown values, and numerical limits. It measures dependence on trend assumptions; it does not flatten data. A bound on changes in untreated gaps is not a bound on accumulated bias. [L11]
 
 Preserve serial dependence and reflect assignment and common shocks in inference. Thousands of observations within a few policy jurisdictions do not create thousands of independent assignments. With few clusters or treated units, select and justify an appropriate inferential approach; neither ordinary cluster-robust errors nor a generic bootstrap is an automatic remedy. Account for survey sampling where applicable. [L15]
 
-Disclose outcome-informed selection. Adjustment for one grid does not cover an entire adaptive search. More trials can reveal fragility without strengthening identification; a reused validation period is not untouched confirmation. Compare subgroup effects directly rather than comparing their significance labels.
+Disclose outcome-informed selection. Adjustment for one grid does not cover an entire adaptive search. More trials can reveal fragility without strengthening identification; a reused validation period is not untouched confirmation. Use the [heterogeneity workflow](guidance/null-and-heterogeneous-effects.md) for subgroup contrasts, their trend assumptions, and multiplicity.
 
 ## 6. Present the supported conclusion and preserve the audit trail
 
 Choose the main specification for construct validity, comparison credibility, support, and transparent estimation; disclose selection after seeing results. Retain nulls, positive and negative effects, overlap failures, nonconvergence, and undefined estimates.
 
-Separate estimation, summary, and display windows. A readable subset needs the full curve and relevant diagnostics available. Do not hide rejecting leads or late reversals. Label the event clock, outcome units, aggregation, reference, and interval type; distinguish normalized reference values from estimated zeros and do not connect unsupported points. Use an available visualization skill if helpful; the workflow does not depend on one.
+Choose figures for the question being communicated. Event-study figures are optional, including for subgroup analyses: a table or coefficient plot may communicate average effects more clearly. Assess pre-treatment evidence where the data permit and report material discrepancies and their implications in the text, with detailed estimates and diagnostics in a table or appendix; a joint-test p-value alone is insufficient. Omitting a figure does not resolve a trend discrepancy.
+
+When showing event studies, separate estimation, summary, and display windows. A readable subset needs the full path and relevant diagnostics available. Do not selectively omit rejecting leads or late reversals. Label the event clock, outcome units, aggregation, reference, and interval type; distinguish normalized reference values from estimated zeros and do not connect unsupported points. Use an available visualization skill if helpful; the workflow does not depend on one.
 
 Write in this order: question and target quantity; data and groups; method and most threatened assumption; effect with units and uncertainty; interpretation and limitation. A negative estimate, an interval excluding zero, and credible causal evidence are different statements. An insignificant estimate is not proof of no effect.
 
