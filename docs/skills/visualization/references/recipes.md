@@ -272,7 +272,7 @@ ggplot(es, aes(x = period, y = coef)) +
   annotate("point", x = -1, y = 0, shape = 21, fill = "white",
            colour = ink, size = 2.6, stroke = 0.65) +
   labs_pub(x = "Months relative to first treatment",
-           y = "Employment (percentage points)") +
+           y = "Employment") +
   theme_pub(style = "estimate")
 ```
 
