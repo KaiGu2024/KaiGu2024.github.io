@@ -17,7 +17,7 @@ p <- ggplot(dat, aes(month, estimate)) +
   annotate("point", x = -1, y = 0, shape = 1, size = 2.6, colour = "grey35", stroke = .65) +
   scale_x_continuous(breaks = -4:4, expand = expansion(mult = .05)) +
   scale_y_continuous(breaks = -1:3, expand = expansion(mult = .08)) +
-  labs_pub(x = "Months relative to policy adoption", y = "Effect on employment (percentage points)") +
+  labs_pub(x = "Months relative to policy adoption", y = "Employment (percentage points)") +
   theme_pub(style = "estimate")
 stopifnot(nrow(dat) == 8L, !any(dat$month == -1), all(dat$lo < dat$estimate), all(dat$hi > dat$estimate))
 save_figure(p, spec)

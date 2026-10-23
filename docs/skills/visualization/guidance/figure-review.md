@@ -43,7 +43,7 @@ The Planner's specification should explain the question, comparison or relations
 
 For example, with a source that supports firm-clustered inference:
 
-> Purpose: show employment estimates across event time, including pre-event diagnostics. Evidence: the saved coefficient and interval table, its omitted period, and source inference settings. Encoding: event time on x; coefficients and supplied intervals on y; zero reference line. Y title: “Effect on employment (percentage points)” or “Employment (percentage points).” Put the omitted period, interval coverage, and firm clustering in the TeX note. Declare placement with `figure_spec()`.
+> Purpose: show employment estimates across event time, including pre-event diagnostics. Evidence: the saved coefficient and interval table, its omitted period, and source inference settings. Encoding: event time on x; coefficients and supplied intervals on y; zero reference line. Y title: “Employment (percentage points).” Put the omitted period, interval coverage, and firm clustering in the TeX note. Declare placement with `figure_spec()`.
 
 The detailed preparation should produce concise publication text. Apply the [shared notes guidance](../../tables/SKILL.md#concise-notes-without-defensive-prose); do not turn verification records into caveats in the caption.
 

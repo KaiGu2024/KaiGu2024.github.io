@@ -45,10 +45,10 @@ For ordinary endpoint labels, use `geom_text_repel(direction = "y")`. When endpo
 Treat axis titles and ticks as the figure's structural text. Follow these rules:
 
 - Use sentence case.
-- Spell out the quantity; avoid cryptic abbreviations.
-- Name what is actually plotted: a level, mean, share, difference, or estimated effect. Include aggregation or the denominator when it distinguishes quantities: `Mean distinct foundation models per language`, not `Distinct foundation models`. Avoid bare `Value`, `Outcome`, or `Coefficient`.
+- Name the quantity in familiar language rather than copying a variable name; avoid cryptic abbreviations. Preserve distinctions such as visits versus users or counts versus shares.
+- Identify the metric and include aggregation or the denominator when it distinguishes quantities: `Mean distinct foundation models per language`, not `Distinct foundation models`. For event-study estimates, use the outcome-name convention below. Avoid bare `Value`, `Outcome`, or `Coefficient`.
 - Put the unit in parentheses at the end: `Referral share (%)`, `Response time (ms)`.
-- Aim for roughly three to six words; this is a brevity target, not a limit that justifies dropping the outcome or unit. Use `labs_pub()` to wrap at 32 characters for x titles and 26 for y titles by default. Prefer at most two lines when possible.
+- Use the shortest clear title; one or two words may suffice. Retain units or scales needed to read the values. Use `labs_pub()` to wrap at 32 characters for x titles and 26 for y titles by default. Prefer at most two lines when possible.
 - Use `y = NULL` only when y-axis ticks already name every item, as in sorted horizontal bars.
 - Format ticks with `scales::label_*`; avoid raw long numbers and scientific notation. Aim for about six characters per tick label. Keep dates in ISO `%Y-%m`.
 
@@ -56,10 +56,11 @@ When a title is too long, shorten or wrap it before increasing margins. Do not r
 
 ## Event-study axes
 
-For DiD, dynamic treatment-effect, or regression event studies, use the outcome name and the plotted coefficient scale. Derive wording from the estimation code and plotted transformations; a short DV-only title is allowed, with the caption or note identifying the estimates and reference period.
+For DiD, dynamic treatment-effect, or regression event studies, default to a short, plain-language outcome name. Derive the name and scale from the estimation code and plotted transformations; identify the estimates, comparison, and reference period in the caption or note.
 
 - **X: time unit + event.** Use `Months relative to policy adoption`, `Years relative to first treatment`, or `Days relative to announcement`. Avoid generic `Time` or `Periods` when the unit is known. Define zero in the figure note (for example, first treated month); distinguish announcement from implementation. Use integer event-time ticks, including zero and the reference period where applicable. Label pooled tails explicitly, such as `≤ −12` and `≥ 12`.
-- **Y: `Effect on [DV]` or the DV itself, plus scale.** Use `Effect on employment (percentage points)` or `Employment (percentage points)`; likewise `Effect on earnings (log points)` or `Earnings (log points)`, and `Effect on test scores (SD)` or `Test scores (SD)`. Use the DV-only form when a causal interpretation is not supported or a shorter title is preferred. Do not prefix event-study y-axis titles with `Differences in`, `Difference in`, or `Estimated difference in`. `Estimated effect` alone leaves the outcome and scale unidentified. Explain the estimated contrast and reference period concisely in the caption or note; a DV-only title does not mean the plotted coefficients are outcome levels. Pre-treatment coefficients are diagnostics; describe their interpretation in the note where needed rather than calling them pre-treatment causal effects.
+- **Y: outcome name, plus meaningful units or scale.** Prefer `Search visits`, `Employment (percentage points)`, `Earnings (log points)`, or `Test scores (SD)`. Omit routine prefixes such as `Weekly effect on`, `Estimated effect on`, and `Effect on`; use `Effect on [DV]` only when explicitly requested or needed to clarify the display and supported by the design. Do not use `Differences in`, `Difference in`, or `Estimated difference in`. A familiar outcome name is preferable to a technical DV label, provided it names the same measure.
+- **Put routine timing and aggregation in the caption or note.** For example, `Weekly effect on search visits` becomes `Search visits`, with the note defining visits per user per week. Event-time ticks describe timing relative to the event; they do not by themselves define the outcome's aggregation window. Retain a qualifier on the axis when it distinguishes measures, such as `Cumulative search visits` versus `Search visits`, or daily versus weekly outcomes shown together. Explain that the plotted values are coefficients, including pre-event diagnostics, in the caption or note.
 - **Match the numerical transformation.** A coefficient for a 0–1 outcome becomes percentage points only after multiplying the estimate and interval endpoints by 100. Raw coefficients for a natural-log outcome are log points; do not simply relabel them `%`. If reporting `100 × (exp(coef) − 1)`, transform the interval endpoints too and explain the transformation and its model-specific interpretation. For SD units, state the standardization population in the note.
 - **Keep normalization in the note.** Name the reference period or base-period scheme, comparison group, estimator, interval level and whether intervals are pointwise or simultaneous, and clustering where used. Do not assume every estimator omits period −1: some use varying pre-treatment base periods. A zero added only for normalization has no estimated confidence interval; identify it as the reference. See [Callaway on universal versus varying base periods](https://bcallaway11.github.io/posts/event-study-universal-v-varying-base-period).
 - **Show the relevant zero.** Include a horizontal zero-effect reference and the full confidence intervals; signed effects are an exception to the zero-lower-bound rule. An event line at 0 marks event time; a line at −0.5 separates the last untreated and first treated discrete periods when 0 is the first treated period. Choose and explain the convention consistently.
@@ -70,7 +71,7 @@ Across outcome panels, keep the x title and time convention consistent, but give
 
 Use three complementary layers:
 
-1. **Axis label:** state the metric and aggregation, such as `Median parameters per foundation model`.
+1. **Axis label:** state the metric and meaningful units or scale; include aggregation when needed to distinguish quantities, such as `Median parameters per foundation model`. Routine aggregation can go in the note, as in the event-study examples above.
 2. **LaTeX caption or panel subtitle:** identify the population or analytical object, such as `Foundations adopted for low-market languages`. For a single-panel figure, the caption performs this role.
 3. **Figure note:** state what one observation represents, the universe, denominator, sample size or missing-data coverage, and exclusions, such as `Unit: one registry-recognized foundation model; 25 of 27 adopted foundations have measured parameter counts.`
 
