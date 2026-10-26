@@ -80,6 +80,8 @@ Inspect the rebuilt report PDF. Generate every report panel as its own script an
 
 ## Sorting categorical axes
 
+Keep each category name on one line. For long names, use the horizontal layout below and allocate enough label space at the final placement size. Increase width or change the layout before wrapping; shorten names only when unambiguous. Preserve all labels needed to identify the bars, with no truncation or font shrinking. See the [axis-text guidance](annotations.md#axis-titles-and-tick-labels) for the fixed-placement fallback.
+
 ```r
 # Bar plot sorted by value, horizontal layout for long labels
 df |>
@@ -124,13 +126,9 @@ scale_x_date(date_breaks = "3 months", date_labels = "%Y-%m",
              expand = expansion(mult = c(0.02, 0.05)))
 scale_x_date(date_breaks = "5 years", date_labels = "%Y")
 scale_x_continuous(breaks = scales::pretty_breaks(n = 6))
-
-# Categorical — label every other level
-lv <- levels(df$category)
-scale_x_discrete(breaks = lv[c(TRUE, FALSE)])
 ```
 
-If labels still overlap after thinning, flip to horizontal before rotating axis text.
+Thin numeric/date ticks, while retaining categorical labels needed to identify each bar or point. Use a horizontal layout and enough label width for one line per category, following [sorting categorical axes](#sorting-categorical-axes). Increase height if category rows crowd.
 
 ## Date axes — format and cadence
 

@@ -50,7 +50,8 @@ Treat axis titles and ticks as the figure's structural text. Follow these rules:
 - For descriptive charts, put the unit in parentheses at the end: `Referral share (%)`, `Response time (ms)`. Event-study y titles use the outcome alone, with units and scale in the caption or note.
 - Use the shortest clear title; one or two words may suffice. Use `labs_pub()` to wrap at 32 characters for x titles and 26 for y titles by default. Prefer at most two lines when possible.
 - Use `y = NULL` only when y-axis ticks already name every item, as in sorted horizontal bars.
-- Format ticks with `scales::label_*`; avoid raw long numbers and scientific notation. Aim for about six characters per tick label. Keep dates in ISO `%Y-%m`.
+- **Keep each categorical tick label on one line by default**, especially text labels on the y-axis of horizontal bars or dot plots. First allocate enough horizontal label space at the declared placement size; use a wider or horizontal layout when needed. Then shorten names only when identity and meaning remain unambiguous. Preserve full names when shortening would confuse categories. Keep required labels visible at the default font size; do not truncate, omit, or shrink them to obtain a one-line fit. Wrap only as a last resort when fixed placement constraints prevent these repairs from working, and recheck readability and row spacing.
+- Format numeric ticks with `scales::label_*`; avoid raw long numbers and scientific notation. Aim for about six characters per numeric tick label. Keep dates in ISO `%Y-%m`.
 
 When a title is too long, shorten or wrap it before increasing margins. Do not replace a precise axis title with an in-figure title or subtitle.
 
@@ -83,15 +84,17 @@ Apply the shared [concise-note guidance](../../tables/SKILL.md#concise-notes-wit
 
 ## Collision and clipping
 
-Apply repairs in the order specified by the acceptance gate:
+For categorical tick labels, use the [single-line fitting order](#axis-titles-and-tick-labels): allocate horizontal space or change layout, then shorten only unambiguously. Increase figure height when neighboring category rows crowd. Keep export and placement widths within the skill's 10% tolerance; enlarging the export and then shrinking it does not solve label fit.
 
-1. Shorten or wrap text.
-2. Thin breaks, use `guide_axis(n.dodge = 2)`, or flip long categorical axes.
+For axis titles, annotations, and numeric/date ticks, apply the other repairs from the acceptance gate:
+
+1. Shorten or wrap axis titles and annotations.
+2. Thin numeric/date breaks.
 3. Create a data-scale annotation gutter with `expand`.
 4. Use `ggrepel`.
 5. Select a `theme_pub(gutter = ...)` profile or increase the relevant device dimension.
 6. Change the layout or encoding.
 
-Right-side direct labels require both scale expansion and `theme_pub(gutter = "right")`. Off-panel annotations require `coord_cartesian(clip = "off")`, matching scale expansion, and the relevant margin profile. Wrap long category labels with `scales::label_wrap()` or `stringr::str_wrap()` before enlarging the left gutter.
+Right-side direct labels require both scale expansion and `theme_pub(gutter = "right")`. Off-panel annotations require `coord_cartesian(clip = "off")`, matching scale expansion, and the relevant margin profile. For categorical ticks, reserve enough label space while keeping the data region readable; use `scales::label_wrap()` or `stringr::str_wrap()` only for the fixed-placement fallback above.
 
 Keep the default sizes in `../SKILL.md` rule 6 during collision repairs. If the venue or user requires different sizes, check them at final placement. Open and inspect the saved artifact at placement size after every repair.
