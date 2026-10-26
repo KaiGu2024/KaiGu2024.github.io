@@ -17,6 +17,6 @@ p <- ggplot(dat, aes(month, count, colour = group, group = group)) +
   scale_x_continuous(limits = c(.6,8.2), breaks = 1:6, expand = expansion(mult = 0)) +
   scale_y_continuous(limits = c(0,42), breaks = seq(0,40,10), expand = expansion(mult = 0)) +
   labs_pub(x = "Calendar month", y = "Mean orders per firm") +
-  theme_pub(gutter = "right")
+  theme_pub(gutter = "right", base_size = example_base_size)
 stopifnot(nrow(ends) == 2L, !anyDuplicated(dat[c("month", "group")]))
 save_figure(p, spec)

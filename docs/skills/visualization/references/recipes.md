@@ -1,6 +1,6 @@
 # Recipes
 
-Copy-pasteable code for common figures. Assumes the shared `theme_pub.R` helpers and `brand` palette from SKILL.md §4 are loaded. Text sizes follow SKILL.md §1.6: 20 pt axis titles, 16 pt ticks, 16–18 pt direct labels, and 18 pt facet strips at manuscript placement size.
+Copy-pasteable code for common figures. Assumes the [shared setup](../SKILL.md#4-setup) is loaded, including `theme_pub.R`, the `brand` palette, and the chosen `label_pt` in points. Text follows [rule 6](../SKILL.md#1-standards); mark weights below are starting values for compact manuscript panels unless stated otherwise. Adjust them together for larger placements.
 
 For complete runnable examples and their rendered PDFs, use the [visual gallery](../guidance/gallery.md). This file supplies reusable fragments and additional patterns; the gallery scripts own the complete teaching examples.
 
@@ -44,7 +44,7 @@ spec <- figure_spec(
 )
 
 p <- ggplot(df, aes(x = source, y = share)) +
-  geom_col(fill = brand$primary) +
+  geom_col(width = 0.75, fill = brand$primary) +
   labs_pub(x = "Referral source category",
            y = "Average referral share (%)")
 
@@ -60,10 +60,10 @@ paths <- save_figure(p, spec)
 ```r
 p +
   scale_x_continuous(expand = expansion(mult = c(0.02, 0.18))) +
-  theme_pub(gutter = "right")
+  theme_pub(gutter = "right", base_size = label_pt)
 ```
 
-The scale expansion creates a data-space label rail; the gutter profile adds device-edge clearance. Neither replaces opening and inspecting the saved artifact.
+The scale expansion creates a data-space label rail; the gutter profile adds device-edge clearance. Tune both to the actual labels, reducing unused space. Neither replaces opening and inspecting the saved artifact.
 
 For a single-panel TeX figure, place the PDF at the declared physical width:
 
@@ -80,20 +80,31 @@ Inspect the rebuilt report PDF. Generate every report panel as its own script an
 
 ## Sorting categorical axes
 
-Keep each category name on one line. For long names, use the horizontal layout below and allocate enough label space at the final placement size. Increase width or change the layout before wrapping; shorten names only when unambiguous. Preserve all labels needed to identify the bars, with no truncation or font shrinking. See the [axis-text guidance](annotations.md#axis-titles-and-tick-labels) for the fixed-placement fallback.
+Keep category names on one line using the [axis-text fitting guidance](annotations.md#axis-titles-and-tick-labels). For horizontal bars and dots, choose height from category count and the space needed by row annotations. Aim for comparable physical row spacing across related panels, allowing different heights for different counts. Start with bars occupying 70–80% of each row; extra height should serve crowded content, not stretch a short list. Reposition or locally accommodate an isolated multiline annotation instead of expanding every row.
 
 ```r
-# Bar plot sorted by value, horizontal layout for long labels
-df |>
+# Illustrative geometry for 9 pt labels; tune after inspecting at placement size.
+row_height <- 0.22                         # inches per category
+axis_space <- 0.7                          # titles, ticks, and outer padding
+spec <- figure_spec(
+  "figures/fig_category_share", width = 3.25,
+  height = axis_space + n_distinct(df$domain) * row_height,
+  placement_width = 3.25
+)
+
+p <- df |>
   mutate(domain = fct_reorder(domain, share)) |>
   ggplot(aes(x = share, y = domain)) +
-  geom_col(fill = brand$primary) +
+  geom_col(width = 0.75, fill = brand$primary) +
   scale_x_continuous(labels = label_percent(accuracy = 1),
                      expand = expansion(mult = c(0, 0.05))) +
+  scale_y_discrete(expand = expansion(add = 0.5)) +
   labs(x = "Referral share", y = NULL)
+
+save_figure(p, spec)
 ```
 
-For "one bar plot per platform," export each platform panel independently. Combine them in LaTeX only if the platform panels jointly establish one comparison using compatible units, populations, and denominators; otherwise use separate figure floats. Use `facet_wrap()` only when the facets constitute one small-multiple encoding over a shared variable rather than separately authored report panels.
+For example, six and eleven categories should retain comparable row spacing rather than equal total height. This formula is an initial estimate: title wrapping, facet strips, and annotations change the required space. Align quantitative axes and plot widths in the assembled figure, using common value limits for direct magnitude comparisons. Use `facet_wrap()` only when the facets constitute one small-multiple encoding over a shared variable; otherwise follow the [standalone-panel assembly rules](../SKILL.md#7-output).
 
 ## Subject-anchored rank ramp
 
@@ -106,7 +117,7 @@ df |>
   mutate(domain = fct_reorder(domain, share),
          bin    = cut(share, breaks = 3, labels = c("low", "mid", "high"))) |>
   ggplot(aes(x = share, y = domain, fill = bin)) +
-  geom_col(colour = NA) +
+  geom_col(width = 0.75, colour = NA) +
   scale_fill_manual(values = rev(subject_ramp(subject_hex, 3))) +  # high bin = darkest
   scale_x_continuous(labels = label_percent(accuracy = 1),
                      expand = expansion(mult = c(0, 0.05))) +
@@ -128,7 +139,7 @@ scale_x_date(date_breaks = "5 years", date_labels = "%Y")
 scale_x_continuous(breaks = scales::pretty_breaks(n = 6))
 ```
 
-Thin numeric/date ticks, while retaining categorical labels needed to identify each bar or point. Use a horizontal layout and enough label width for one line per category, following [sorting categorical axes](#sorting-categorical-axes). Increase height if category rows crowd.
+Thin numeric/date ticks while retaining categorical labels needed to identify each bar or point. Fit those labels and size their rows using [sorting categorical axes](#sorting-categorical-axes).
 
 ## Date axes — format and cadence
 
@@ -224,16 +235,16 @@ scale_y_continuous(labels = label_comma())                          # 1500000 ->
 labels <- df |> group_by(group) |> slice_max(year, n = 1) |> ungroup()
 
 ggplot(df, aes(x = year, y = outcome, colour = group)) +
-  geom_line(linewidth = 2.8) +
+  geom_line(linewidth = 0.8) +
   geom_text_repel(
     data = labels, aes(label = group),
     hjust = 0, nudge_x = 0.2, direction = "y",
-    segment.colour = NA, size = 16 / ggplot2::.pt, family = "Newsreader"
+    segment.colour = NA, size = label_pt / ggplot2::.pt, family = "Newsreader"
   ) +
   scale_y_continuous(labels = label_percent(accuracy = 1)) +
   scale_x_continuous(expand = expansion(mult = c(0.02, 0.15))) +
   labs_pub(x = "Calendar year", y = "Average outcome value (%)") +
-  theme_pub(gutter = "right")
+  theme_pub(gutter = "right", base_size = label_pt)
 ```
 
 ## Multi-series lines — redundant shape per series
@@ -246,24 +257,24 @@ pal <- setNames(series_palette(3), c("A", "B", "C"))
 labels <- df |> group_by(group) |> slice_max(month, n = 1) |> ungroup()
 
 ggplot(df, aes(x = month, y = value, colour = group)) +
-  geom_line(linewidth = 2.8) +                             # monthly = sparse
+  geom_line(linewidth = 0.8) +                             # sparse series
   geom_point(aes(fill = group, shape = group),
-             size = 9, stroke = 1.0, colour = "white") +   # white halo
+             size = 2.5, stroke = 0.4, colour = "white") + # white halo
   geom_text_repel(data = labels, aes(label = group),
                   hjust = 0, nudge_x = 0.2, direction = "y",
-                  segment.colour = NA, size = 16 / ggplot2::.pt,
+                  segment.colour = NA, size = label_pt / ggplot2::.pt,
                   family = "Newsreader") +
   scale_colour_manual(values = pal) +
   scale_fill_manual(values   = pal) +
   scale_shape_manual(values  = brand_shapes) +
   scale_x_continuous(expand = expansion(mult = c(0.02, 0.15))) +
   labs_pub(x = "Calendar month", y = "Average outcome value (units)") +
-  theme_pub(gutter = "right")
+  theme_pub(gutter = "right", base_size = label_pt)
 ```
 
 The white `colour` on `geom_point` haloes each filled marker so it stays crisp sitting on its own line and at crossings. Endpoint labels (rule 4) still name every series — the shape is a redundant aid, not a substitute for the label.
 
-**Weekly (or denser) data — thin the markers and lighten the weight.** A marker on every monthly point reads fine; on weekly data it beads the line. Drop from the sparse default to the lighter dense weight (`size = 7`, `linewidth = 2.4`), keep `geom_line` on the full series, and feed `geom_point` every 4th week plus each series' last point:
+**Dense data — thin the markers and lighten the weight.** Judge density at the actual placement; cadence alone does not determine crowding. Start with `size = 2`, `linewidth = 0.6` for a compact panel. Keep `geom_line` on the full series; this example feeds `geom_point` every fourth observation plus each series' last point:
 
 ```r
 mk <- df |>
@@ -272,12 +283,12 @@ mk <- df |>
   filter(row_number() %% 4 == 1 | row_number() == n()) |>
   ungroup()
 
-  geom_line(data = df, linewidth = 2.4) +                  # full line, lighter (dense)
+  geom_line(data = df, linewidth = 0.6) +                 # full line, lighter (dense)
   geom_point(data = mk, aes(fill = group, shape = group),
-             size = 7, stroke = 1.0, colour = "white") +   # thinned markers
+             size = 2, stroke = 0.4, colour = "white") +   # thinned markers
 ```
 
-Past weekly cadence, drop per-point markers entirely — distinguish by color + linetype (see "Time trend with overlaid fits"), or facet.
+If thinned markers still crowd, omit them and distinguish series by color plus linetype (see "Time trend with overlaid fits"), or facet.
 
 ## Coefficient / event-study plot
 
@@ -301,10 +312,10 @@ ggplot(es, aes(x = period, y = coef)) +
            colour = ink, size = 2.6, stroke = 0.65) +
   labs_pub(x = "Months relative to first treatment",
            y = "Employment") +
-  theme_pub(style = "estimate")
+  theme_pub(style = "estimate", base_size = label_pt)
 ```
 
-**Size at the actual placement.** These starting weights suit a full-width figure around 7.2 inches: points 2.6, intervals 0.65, references 0.4 in ggplot units. The estimate theme supplies lighter axes and ticks while preserving Lora/Newsreader at 20/16 pt. Keep reference lines gray and visually subordinate. Short caps or uncapped `geom_linerange()` are both acceptable; cap width is in time-axis units, so adapt it to period spacing. Retain all estimated points and intervals; thin axis ticks, not estimates. Narrow layouts may need smaller marks or a different aspect ratio, checked at placement size.
+**Size at the actual placement.** These starting weights suit a full-width figure around 7.2 inches: points 2.6, intervals 0.65, references 0.4 in ggplot units. For compact panels, start nearer 2, 0.4, and 0.25 respectively. The estimate theme supplies quieter axes at the chosen text size. Keep reference lines gray and subordinate. Short caps or uncapped `geom_linerange()` are both acceptable; cap width is in time-axis units, so adapt it to period spacing. Retain all estimated points and intervals; thin axis ticks, not estimates. Inspect the saved result at placement size.
 
 **Preserve the inference.** Include zero and every interval endpoint. A normalized reference marker has no estimated interval; do not create one or assume every design uses month −1. Put the actual reference scheme, confidence level, coverage and clustering in the note. Multiple series need consistent color/shape identities and, if needed, modest horizontal offsets that preserve period identity or separate panels.
 
@@ -318,7 +329,7 @@ Export at the intended placement width using `figure_spec()`; 7.2 inches is an e
 
 ## Time trend with overlaid fits (raw + models + CI)
 
-Three weights: raw series in `brand$dark` at `linewidth = 1.0` (reference); fitted lines distinguished primarily by **linetype** (so the figure reads in grayscale), secondary by hue, at `linewidth = 2.8` (the sparse default — smooth fits carry no markers); one CI ribbon for the primary fit (`fill = "grey70", alpha = 0.25`).
+Three weights: raw series in `brand$dark` at `linewidth = 0.4` (reference); fitted lines distinguished primarily by **linetype** (so the figure reads in grayscale), secondary by hue, at `linewidth = 0.8` (smooth fits carry no markers); one CI ribbon for the primary fit (`fill = "grey70", alpha = 0.25`).
 
 ```r
 ggplot(df, aes(x = year, y = value)) +
@@ -326,10 +337,10 @@ ggplot(df, aes(x = year, y = value)) +
               aes(ymin = lo, ymax = hi),
               fill = "grey70", alpha = 0.25, colour = NA) +
   geom_line(data = filter(df, series == "raw"),
-            colour = brand$dark, linewidth = 1.0) +
+            colour = brand$dark, linewidth = 0.4) +
   geom_line(data = filter(df, series != "raw"),
             aes(linetype = series, colour = series),
-            linewidth = 2.8) +
+            linewidth = 0.8) +
   scale_linetype_manual(values = c(linear = "dashed",
                                    loess  = "solid",
                                    poly   = "dotted")) +
@@ -339,11 +350,11 @@ ggplot(df, aes(x = year, y = value)) +
              group_by(series) |> slice_max(year, n = 1),
     aes(label = series, colour = series),
     hjust = 0, nudge_x = 1, direction = "y",
-    segment.colour = NA, size = 16 / ggplot2::.pt, family = "Newsreader"
+    segment.colour = NA, size = label_pt / ggplot2::.pt, family = "Newsreader"
   ) +
   scale_x_continuous(expand = expansion(mult = c(0.02, 0.15))) +
   labs_pub(x = "Calendar year", y = "Average outcome value (units)") +
-  theme_pub(gutter = "right")
+  theme_pub(gutter = "right", base_size = label_pt)
 ```
 
 ## Designed event line
@@ -368,14 +379,14 @@ ggplot(df, aes(x = date, y = y)) +
   # 2. Short dashed segment, dies before the top axis
   annotate("segment",
            x = ev, xend = ev, y = y_min, yend = y_top,
-           colour = brand$accent, linewidth = 1.3,
+           colour = brand$accent, linewidth = 0.4,
            linetype = "dashed") +
 
   # 3. Drop-pin at the top of the segment
   annotate("point",
            x = ev, y = y_top,
-           shape = 21, size = 5,
-           fill = brand$accent, colour = "white", stroke = 0.9) +
+           shape = 21, size = 2,
+           fill = brand$accent, colour = "white", stroke = 0.4) +
 
   # 4. Rotated label hanging off the pin.
   # angle = 90 (NOT -90 or 270) — text reads bottom-to-top, head tilts LEFT.
@@ -385,11 +396,11 @@ ggplot(df, aes(x = date, y = y)) +
            x = ev, y = y_label,
            label = "Policy enacted, 2024-03",
            angle = 90, hjust = 1, vjust = -0.4,
-           size = 16 / ggplot2::.pt, family = "Newsreader",
+           size = label_pt / ggplot2::.pt, family = "Newsreader",
            colour = "grey30") +
 
   # Data on top of all of the above
-  geom_line(linewidth = 2.8, colour = marks$primary) +
+  geom_line(linewidth = 0.8, colour = marks$primary) +
 
   labs(x = "Date", y = "Outcome")
 ```
@@ -431,14 +442,14 @@ p <- ggplot(df, aes(week, visits, group = platform)) +
             colour = focal_colour, linewidth = 1.2) +
   geom_text_repel(
     data = endpoints, aes(label = platform, colour = label_colour),
-    size = 16 / ggplot2::.pt, family = "Newsreader",
+    size = label_pt / ggplot2::.pt, family = "Newsreader",
     hjust = 0, nudge_x = 1, direction = "y", max.overlaps = Inf,
     segment.colour = emphasis$comparison, min.segment.length = 0
   ) +
   scale_colour_identity() +
   scale_x_continuous(expand = expansion(mult = c(0.02, 0.22))) +
   labs_pub(x = "Observation week", y = "Weekly platform visits (thousands)") +
-  theme_pub(gutter = "right")
+  theme_pub(gutter = "right", base_size = label_pt)
 ```
 
 For dense scatterplots, use smaller marks and label only the selected observations. Here `df` has `x`, `y`, `subject`, an evidence-based `role` (`context`, `comparison`, or `focal`), and `show_label` chosen by the brief. Use only the roles actually present. Supply substantive axis titles and identify the actual groups in the caption or with direct group annotations.
@@ -453,13 +464,13 @@ p <- ggplot(plot_data, aes(x, y)) +
   geom_point(aes(colour = role, shape = role), size = 2.8) +
   geom_text_repel(
     data = filter(plot_data, show_label), aes(label = subject),
-    colour = emphasis$summary, size = 16 / ggplot2::.pt,
+    colour = emphasis$summary, size = label_pt / ggplot2::.pt,
     family = "Newsreader", max.overlaps = Inf,
     min.segment.length = 0, segment.colour = emphasis$comparison
   ) +
   scale_colour_manual(values = role_colours) +
   scale_shape_manual(values = c(context = 16, comparison = 16, focal = 17)) +
-  theme_pub()
+  theme_pub(base_size = label_pt)
 ```
 
 The focal triangle preserves its distinction from gray comparison points in grayscale. If context and comparison also need to be distinguished individually, assign them different shapes too. Add a fitted line or interval only from the prepared analysis; style the overall summary with `emphasis$summary`. Inspect density, label selection, group identification, and contrast at final placement. Keep horizontal labels by default; facet when required individual identities cannot fit.

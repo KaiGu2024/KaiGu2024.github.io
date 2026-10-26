@@ -16,7 +16,7 @@ Use this reference when a figure contains direct labels, event annotations, dens
 
 Prefer direct labels for the subjects and groups the reader needs to identify. For a few equal-weight series, label each one. For a focal subject against many background subjects, label the focal subject and necessary comparators individually; identify the rest collectively, such as "Other languages", in available white space or the caption. Use a compact key if group membership cannot be explained unambiguously with direct labels.
 
-Do not double-label horizontal bars when their y-axis ticks already name them. If all required series cannot be labeled after using `ggrepel` and an annotation gutter, facet or change the encoding instead of shrinking text.
+Do not double-label horizontal bars when their y-axis ticks already name them. If all required series cannot be labeled at a readable size after the [collision repairs](#collision-and-clipping), facet or change the encoding.
 
 For scatterplots and other point-based figures, select labels for focal subjects, substantive benchmarks or milestones, and unusually positioned observations whose identity helps explain the pattern. Outliers need not all be named. Apply the criterion consistently, including relevant counterexamples, and preserve all observations regardless of label selection. Record selected IDs and the reason in the plotting code or shared specification; describe the rule in publication prose only when it affects interpretation.
 
@@ -34,7 +34,7 @@ Use `grey30` or darker on white for substantive annotations, or a sufficiently d
 
 ## Annotation styling
 
-Use **16–18 pt** for direct line and point labels; start at 16 pt to match tick labels. Use `size = 16 / ggplot2::.pt` in `geom_text()` or `geom_text_repel()`, and set `family = "Newsreader"` explicitly: theme text settings do not set the font family of text geoms. `geom_text()` also supports `size = 16, size.unit = "pt"`; see the [ggplot2 text-unit documentation](https://ggplot2.tidyverse.org/articles/ggplot2-specs.html). Keep Lora for the 20 pt axis titles and 18 pt facet strips.
+Match direct-label sizes to the tick text chosen for the placement under [rule 6](../SKILL.md#1-standards). The [shared setup](../SKILL.md#4-setup) defines `label_pt`; use `size = label_pt / ggplot2::.pt` and `family = "Newsreader"` in `geom_text()` or `geom_text_repel()`. Theme settings do not set text-geom sizes or families. Lora remains the title and facet-strip family.
 
 Write concise names or plain nouns, usually one to three words: `ChatGPT`, `Google`, `Treatment`, `Germany`. Preserve the full observation identifier when needed for unambiguous identification. Country names are required when identifying country-level outliers; omit country details only when they are extra context for another identifier. Do not append parentheses, qualifiers, units, sample sizes, periods, or model specifications. Allocate units and context using the [three disclosure layers](#unit-disclosure-across-the-figure-and-tex).
 
@@ -50,7 +50,7 @@ Treat axis titles and ticks as the figure's structural text. Follow these rules:
 - For descriptive charts, put the unit in parentheses at the end: `Referral share (%)`, `Response time (ms)`. Event-study y titles use the outcome alone, with units and scale in the caption or note.
 - Use the shortest clear title; one or two words may suffice. Use `labs_pub()` to wrap at 32 characters for x titles and 26 for y titles by default. Prefer at most two lines when possible.
 - Use `y = NULL` only when y-axis ticks already name every item, as in sorted horizontal bars.
-- **Keep each categorical tick label on one line by default**, especially text labels on the y-axis of horizontal bars or dot plots. First allocate enough horizontal label space at the declared placement size; use a wider or horizontal layout when needed. Then shorten names only when identity and meaning remain unambiguous. Preserve full names when shortening would confuse categories. Keep required labels visible at the default font size; do not truncate, omit, or shrink them to obtain a one-line fit. Wrap only as a last resort when fixed placement constraints prevent these repairs from working, and recheck readability and row spacing.
+- **Keep each categorical tick label on one line by default**, especially on the y-axis of horizontal bars or dot plots. Choose readable typography for the placement, shorten names only when identity and meaning remain unambiguous, and allocate horizontal label space without squeezing the data. Use a wider or horizontal layout when needed. Preserve full names when shortening would confuse categories; do not truncate, omit, or make required labels unreadably small. Wrap only as a last resort under fixed placement constraints, then recheck readability and row spacing.
 - Format numeric ticks with `scales::label_*`; avoid raw long numbers and scientific notation. Aim for about six characters per numeric tick label. Keep dates in ISO `%Y-%m`.
 
 When a title is too long, shorten or wrap it before increasing margins. Do not replace a precise axis title with an in-figure title or subtitle.
@@ -84,17 +84,16 @@ Apply the shared [concise-note guidance](../../tables/SKILL.md#concise-notes-wit
 
 ## Collision and clipping
 
-For categorical tick labels, use the [single-line fitting order](#axis-titles-and-tick-labels): allocate horizontal space or change layout, then shorten only unambiguously. Increase figure height when neighboring category rows crowd. Keep export and placement widths within the skill's 10% tolerance; enlarging the export and then shrinking it does not solve label fit.
+For categorical ticks, use the [single-line fitting guidance](#axis-titles-and-tick-labels). Set row spacing and height from the [category geometry recipe](recipes.md#sorting-categorical-axes); do not stretch a short category list to match a longer panel. Keep export and placement widths within the skill's 10% tolerance; enlarging the export and then shrinking it does not solve label fit.
 
-For axis titles, annotations, and numeric/date ticks, apply the other repairs from the acceptance gate:
+For other text, work through these repairs while preserving the data area:
 
-1. Shorten or wrap axis titles and annotations.
-2. Thin numeric/date breaks.
-3. Create a data-scale annotation gutter with `expand`.
-4. Use `ggrepel`.
-5. Select a `theme_pub(gutter = ...)` profile or increase the relevant device dimension.
-6. Change the layout or encoding.
+1. Shorten without changing meaning and adjust typography within rule 6's readable starting ranges, checking the surrounding document.
+2. Wrap axis titles and annotations selectively. Reposition an isolated two-line annotation or give its row local space; do not expand every row because of one long annotation.
+3. Thin numeric/date breaks, or use `ggrepel` for selected direct labels.
+4. Reserve only the necessary annotation space with scale expansion and device margins; the `theme_pub(gutter = ..., base_size = label_pt)` profiles are starting points, not minimum gutters.
+5. Change dimensions, layout, or encoding when the required text still cannot fit alongside a useful data display.
 
-Right-side direct labels require both scale expansion and `theme_pub(gutter = "right")`. Off-panel annotations require `coord_cartesian(clip = "off")`, matching scale expansion, and the relevant margin profile. For categorical ticks, reserve enough label space while keeping the data region readable; use `scales::label_wrap()` or `stringr::str_wrap()` only for the fixed-placement fallback above.
+Right-side direct labels need a data-space label rail and sufficient device-edge clearance; start with scale expansion and `theme_pub(gutter = "right", base_size = label_pt)`, then reduce any unused space. Off-panel annotations require `coord_cartesian(clip = "off")` and adequate margins, with scale expansion where needed. For categorical ticks, use `scales::label_wrap()` or `stringr::str_wrap()` only for the fixed-placement fallback above.
 
-Keep the default sizes in `../SKILL.md` rule 6 during collision repairs. If the venue or user requires different sizes, check them at final placement. Open and inspect the saved artifact at placement size after every repair.
+Reinspect the saved artifact at placement size and in the assembled document after repairs. Apply rule 13's balance check as well as its collision checks; a narrow data strip surrounded by labels and whitespace does not pass merely because nothing overlaps.

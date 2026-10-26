@@ -11,6 +11,8 @@ Six original teaching examples, with invented data and relationships. These are 
 
 Run `Rscript path/to/examples/fig_event_study.R` (or another `fig_*.R`) from any directory. Each script writes one PDF beside itself and checks its illustrative data. Install `ggplot2`, `sysfonts`, `showtext`, `curl`, and `jsonlite`; rendering requires internet access to retrieve Lora and Newsreader through Google Fonts. The shared [_setup.R](../examples/_setup.R) loads the canonical [theme_pub.R](../scripts/theme_pub.R); do not copy its theme into each script. On Windows, use a valid UTF-8 locale if your shell supplies an unsupported locale and the project path contains non-ASCII characters.
 
+These 7.2-inch exhibits explicitly use larger typography. For compact manuscript panels, adapt text size and category-row spacing under [rules 6 and 13](../SKILL.md#1-standards); do not copy the gallery canvas dimensions automatically.
+
 Replace the toy data with a prepared source artifact and revise the labels and note to match it. Keep each plot's declared export width (7.2 inches here) equal to its intended placement width; adapt geometry for a narrower destination. The embedded PDFs may be scaled by your browser: open them at actual size for inspection. Figure notes below explain the examples and belong outside the artwork.
 
 ## Event study: make timing and uncertainty easy to read

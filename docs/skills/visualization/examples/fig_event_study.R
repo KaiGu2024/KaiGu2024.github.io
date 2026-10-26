@@ -18,6 +18,6 @@ p <- ggplot(dat, aes(month, estimate)) +
   scale_x_continuous(breaks = -4:4, expand = expansion(mult = .05)) +
   scale_y_continuous(breaks = -1:3, expand = expansion(mult = .08)) +
   labs_pub(x = "Months relative to policy adoption", y = "Employment") +
-  theme_pub(style = "estimate")
+  theme_pub(style = "estimate", base_size = example_base_size)
 stopifnot(nrow(dat) == 8L, !any(dat$month == -1), all(dat$lo < dat$estimate), all(dat$hi > dat$estimate))
 save_figure(p, spec)

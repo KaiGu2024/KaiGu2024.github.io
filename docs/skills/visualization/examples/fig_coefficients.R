@@ -14,6 +14,6 @@ p <- ggplot(dat, aes(estimate, group)) +
   scale_x_continuous(limits = c(-.1,3.4), breaks = 0:3) +
   scale_y_discrete(expand = expansion(add = .65)) +
   labs_pub(x = "Effect on employment (percentage points)", y = NULL, x_width = 26) +
-  theme_pub(style = "estimate")
+  theme_pub(style = "estimate", base_size = example_base_size)
 stopifnot(all(dat$lo <= dat$estimate), all(dat$hi >= dat$estimate))
 save_figure(p, spec)

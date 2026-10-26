@@ -34,10 +34,18 @@ labs_pub <- function(x = NULL, y = NULL, x_width = 32, y_width = 26) {
   )
 }
 
+# base_size is tick text in points. Start at 8–10 for compact manuscript panels;
+# use a larger base for slides/large exhibits and inspect the actual placement.
+# Data marks and text geoms must be sized separately in the plotting code.
 theme_pub <- function(gutter = c("none", "right", "left", "top", "bottom"),
-                      style = c("series", "estimate")) {
+                      style = c("series", "estimate"), base_size = 9) {
   gutter <- match.arg(gutter)
   style <- match.arg(style)
+  if (length(base_size) != 1L || !is.numeric(base_size) ||
+      !is.finite(base_size) || base_size <= 0) {
+    stop("`base_size` must be one positive finite number in points.", call. = FALSE)
+  }
+  text_scale <- base_size / 16
   # Fine axes for discrete estimates; keep the shared type and margin system.
   fine <- style == "estimate"
   plot_margins <- switch(
@@ -47,20 +55,23 @@ theme_pub <- function(gutter = c("none", "right", "left", "top", "bottom"),
     left   = c(t = 18, r = 22, b = 12, l = 54),
     top    = c(t = 54, r = 22, b = 12, l = 14),
     bottom = c(t = 18, r = 22, b = 48, l = 14)
-  )
+  ) * text_scale
 
-  theme_minimal(base_family = "Newsreader") +
+  # Scale inherited spacing from the original 11 pt ggplot base; using the
+  # tick size here directly would also change child-axis margins and mark defaults.
+  theme_minimal(base_size = 11 * text_scale, base_family = "Newsreader") +
     theme(
+      text             = element_text(size = base_size),
       # Axis titles in Lora (display weight); explicit margins keep them off
       # the tick labels (SKILL.md rule 13 repair order).
-      axis.title.x     = element_text(family = "Lora", size = 20,
+      axis.title.x     = element_text(family = "Lora", size = 1.25 * base_size,
                                       lineheight = 0.95,
-                                      margin = margin(t = 12)),
-      axis.title.y     = element_text(family = "Lora", size = 20,
+                                      margin = margin(t = 12 * text_scale)),
+      axis.title.y     = element_text(family = "Lora", size = 1.25 * base_size,
                                       lineheight = 0.95,
-                                      margin = margin(r = 12)),
-      axis.text.x      = element_text(size = 16, margin = margin(t = 4)),
-      axis.text.y      = element_text(size = 16, margin = margin(r = 4)),
+                                      margin = margin(r = 12 * text_scale)),
+      axis.text.x      = element_text(size = base_size, margin = margin(t = 4 * text_scale)),
+      axis.text.y      = element_text(size = base_size, margin = margin(r = 4 * text_scale)),
       # In-figure title / subtitle / caption / tag are intentionally
       # suppressed — that text belongs in LaTeX (rule 10).
       plot.title       = element_blank(),
@@ -69,14 +80,14 @@ theme_pub <- function(gutter = c("none", "right", "left", "top", "bottom"),
       plot.tag         = element_blank(),
       panel.grid       = element_blank(),   # no gridlines, ever (rule 12)
       panel.border     = element_blank(),
-      axis.line        = element_line(linewidth = if (fine) 0.65 else 1.1,
+      axis.line        = element_line(linewidth = (if (fine) 0.65 else 1.1) * text_scale,
                                       colour = if (fine) "grey35" else "grey20"),
-      axis.ticks       = element_line(linewidth = if (fine) 0.55 else 1.0,
+      axis.ticks       = element_line(linewidth = (if (fine) 0.55 else 1.0) * text_scale,
                                       colour = if (fine) "grey35" else "grey20"),
-      axis.ticks.length = unit(if (fine) 6 else 8, "pt"),
-      strip.text       = element_text(family = "Lora", size = 18,
+      axis.ticks.length = unit((if (fine) 6 else 8) * text_scale, "pt"),
+      strip.text       = element_text(family = "Lora", size = 1.125 * base_size,
                                       face = "bold",
-                                      margin = margin(b = 8)),
+                                      margin = margin(b = 8 * text_scale)),
       # Outer padding profiles keep axis chrome and off-panel annotations away
       # from the device boundary (rule 13 acceptance gate).
       plot.margin      = margin(
