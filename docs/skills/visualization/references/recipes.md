@@ -193,7 +193,19 @@ scale_y_continuous(
 )
 ```
 
-Here the chosen limit already supplies headroom. Adapt it to the actual maximum, including uncertainty; 40% is an example, not a default cap. For percentages stored on a 0–100 scale, use limits `c(0, 40)`, breaks `seq(0, 40, by = 10)`, and `label_percent(scale = 1, accuracy = 1)`. For ordinary values from 20 to 30, use the same 0–40 limits and breaks with number labels. Use `scale_x_continuous()` when the value axis is horizontal. If values or interval endpoints are negative, extend the lower limit to include them; estimated effects also include zero.
+Here the chosen limit already supplies headroom. Adapt it to the actual maximum, including uncertainty; 40% is an example, not a default cap. For percentages stored on a 0–100 scale, use limits `c(0, 40)`, breaks `seq(0, 40, by = 10)`, and `label_percent(scale = 1, accuracy = 1)`. For ordinary values from 20 to 30, use the same 0–40 limits and breaks with number labels. Use `scale_x_continuous()` when the value axis is horizontal.
+
+When the plotted range includes negative values or interval endpoints, allow modest headroom below the minimum as well as above the maximum. For values ranging from −20 to 30, limits of −30 and 40 with ticks every 10 are appropriate:
+
+```r
+scale_y_continuous(
+  limits = c(-30, 40),
+  breaks = seq(-30, 40, by = 10),
+  expand = expansion(mult = c(0, 0))
+)
+```
+
+Limits need not be symmetric around zero. Choose them from the full plotted range, including uncertainty; estimated effects also include zero. If interval endpoints extend beyond the example range, adjust the limits to retain them with headroom.
 
 ## Axis text — number formatting
 
