@@ -11,15 +11,16 @@ For complete runnable examples and their rendered PDFs, use the [visual gallery]
 3. [Subject-anchored rank ramp](#subject-anchored-rank-ramp)
 4. [Thinning dense axes](#thinning-dense-axes)
 5. [Date axes](#date-axes--format-and-cadence)
-6. [Axis number formatting](#axis-text--number-formatting)
-7. [Direct line annotation](#direct-line-annotation)
-8. [Multi-series lines](#multi-series-lines--redundant-shape-per-series)
-9. [Coefficient and event-study plots](#coefficient--event-study-plot)
-10. [Time trends with model fits](#time-trend-with-overlaid-fits-raw--models--ci)
-11. [Designed event lines](#designed-event-line)
-12. [Layer-and-highlight](#layer-and-highlight)
-13. [Distribution comparisons](#distribution-comparisons-ridge-plot)
-14. [Joint quantile grid](#joint-quantile-grid)
+6. [Value-axis limits](#value-axis-limits)
+7. [Axis number formatting](#axis-text--number-formatting)
+8. [Direct line annotation](#direct-line-annotation)
+9. [Multi-series lines](#multi-series-lines--redundant-shape-per-series)
+10. [Coefficient and event-study plots](#coefficient--event-study-plot)
+11. [Time trends with model fits](#time-trend-with-overlaid-fits-raw--models--ci)
+12. [Designed event lines](#designed-event-line)
+13. [Layer-and-highlight](#layer-and-highlight)
+14. [Distribution comparisons](#distribution-comparisons-ridge-plot)
+15. [Joint quantile grid](#joint-quantile-grid)
 
 ## Joint quantile grid
 
@@ -176,6 +177,23 @@ scale_x_date(date_breaks = "2 months", date_labels = "%Y-%m",
 `hjust = 1` right-anchors the label so its end sits under the tick mark; `margin(t = 6)` adds breathing room between the rotated text and the axis line. If labels still feel crowded after tilting, escalate to two-row labels rather than going steeper than 30°.
 
 For numeric-year axes (`2018, 2019, …`), use `scales::pretty_breaks(n = 6)` and let ggplot pick.
+
+## Value-axis limits
+
+Follow [rule 3](../SKILL.md#1-standards): start nonnegative value axes at zero and choose the upper limit from the plotted values, with modest headroom and readable ticks. Inspect interval endpoints and annotation positions before fixing limits so nothing is clipped or dropped. Round the upper limit when it improves readability; a fixed padding percentage is not required. Full theoretical ranges can leave excessive empty space, so bounded measures use the same flexible approach.
+
+For percentages stored as proportions between 0.20 and 0.30, an appropriate example is a 0–40% axis:
+
+```r
+scale_y_continuous(
+  limits = c(0, 0.40),
+  breaks = seq(0, 0.40, by = 0.10),
+  labels = label_percent(accuracy = 1),
+  expand = expansion(mult = c(0, 0))
+)
+```
+
+Here the chosen limit already supplies headroom. Adapt it to the actual maximum, including uncertainty; 40% is an example, not a default cap. For percentages stored on a 0–100 scale, use limits `c(0, 40)`, breaks `seq(0, 40, by = 10)`, and `label_percent(scale = 1, accuracy = 1)`. For ordinary values from 20 to 30, use the same 0–40 limits and breaks with number labels. Use `scale_x_continuous()` when the value axis is horizontal. If values or interval endpoints are negative, extend the lower limit to include them; estimated effects also include zero.
 
 ## Axis text — number formatting
 
