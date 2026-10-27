@@ -43,7 +43,7 @@ A table is read, not glanced at: it exists to let the reader find an exact numbe
 - **Align for scanning.** Right-align (or decimal-align) numbers, left-align text, header alignment matches its column. Sentence case — never Title Case or ALL CAPS.
 - **Declutter.** booktabs rules only (`\toprule` / `\midrule` / `\bottomrule`), thin and light; **no vertical rules, ever**; group rows with indented stubs and trimmed `\cmidrule(lr)`, not lines; white space over shading.
 - **One job per row block.** SEs in parentheses directly under their coefficient; demote controls to a labeled panel or an auxiliary table rather than burying the headline rows.
-- **Title above; notes are a typed, bottom-anchored block.** Caption above the table, neutral. The notes below are ordered by note *type*, with two fixed anchors at the foot — the significance legend on the very last line and the SE/clustering ("…in parentheses") key just above it. Additions slot in by type; they never append past those anchors. See [The Notes block](#the-notes-block) below.
+- **Title above; notes form one paragraph.** Caption above the table, neutral. Order the notes by type within a single continuous paragraph, ending with the SE/clustering ("…in parentheses") key followed by the significance legend, when applicable. Additions slot in by type before that ending. See [The Notes block](#the-notes-block) below.
 
 ---
 
@@ -60,19 +60,19 @@ A table is read, not glanced at: it exists to let the reader find an exact numbe
 
 ## The Notes block
 
-A table's notes are a **typed, ordered block, not a running log** — so the question "where does this new note go?" has a deterministic answer, and it is almost never "at the end." The foot of the block is reserved for two anchors readers expect to find there:
+A table's notes display as **one continuous paragraph**, beginning with *Notes:* once. Use sentences to organize the content by type. Allow automatic line wrapping to the table width, but do not insert paragraph breaks, forced line breaks, bullets, or separate note items. In LaTeX, use one `\item` inside `tablenotes`; in HTML, use one `<p>`. The paragraph ends with the following information when applicable:
 
-- **Last line — the significance legend.** `*** p<0.01, ** p<0.05, * p<0.1` (per the journal's cutoffs above). It is a fixed reading key; it always sits on the very bottom line, alone.
-- **Second-to-last — the parenthetical key.** What the parentheses hold and the dispersion details: *what's in parentheses* (SE, t-stat, or CI), the *SE type* (robust / clustered / bootstrap, with reps), the *clustering level*, and the *number of clusters*. E.g. *"Robust standard errors clustered at the firm level (142 clusters) in parentheses."* It precedes the legend because the stars are computed from these SEs — the reader has to know what the parentheses contain before the stars decode to anything.
+- **Final content — the significance legend.** `*** p<0.01, ** p<0.05, * p<0.1` (per the journal's cutoffs above). Keep it inline at the end of the paragraph when the table uses significance stars.
+- **Immediately before the legend — the parenthetical key.** What the parentheses hold and the dispersion details: *what's in parentheses* (SE, t-stat, or CI), the *SE type* (robust / clustered / bootstrap, with reps), the *clustering level*, and the *number of clusters*. E.g. *"Robust standard errors clustered at the firm level (142 clusters) in parentheses."* It precedes the legend so readers learn what the parentheses contain before interpreting the stars. If there are no stars, this key ends the paragraph; omit it when there are no parenthetical statistics to explain.
 
-Everything else is inserted *above* those two anchors, grouped by type. Use this menu to select what readers need to interpret the display; it is not a checklist to reproduce in every note. Avoid repeating information already clear in the caption, labels, or table body:
+Place the remaining content earlier in the same paragraph, in the order below. These categories organize sentences; they are not separate displayed paragraphs or headings. Use this menu to select what readers need to interpret the display; it is not a checklist to reproduce in every note. Avoid repeating information already clear in the caption, labels, or table body:
 
 1. **Scope** — what the table reports and over what: estimator/method (OLS, 2SLS, logit, marginal effects), sample and population, time period, unit of observation, N (and any exclusions), and the dependent variable if it isn't in the caption.
 2. **Specification** — fixed-effect and control sets included, weighting (sample weights, IPW), coefficient scale/transform (logs, standardized, percentage points), winsorizing/trimming, and the baseline or DV mean that *sizes* the coefficients.
 3. **Definitions** — expand abbreviations and constructed measures; say what any reference line, cutoff, or shaded region means (ask the user; never guess — non-negotiable rule 3).
 4. **Provenance & cross-refs** — `Source: …`; "See Table 3 / column (2)"; data vintage or replication pointer.
 
-So "add a note that the sample drops 2020" slots into **Scope/Specification near the top** — not after the legend. "We now cluster at the state level" **replaces the existing parenthetical key** in the second-to-last slot rather than adding a line. And a new abbreviation joins the **Definitions** group, not the bottom. When editing an existing notes block, find the anchor lines first, then insert relative to the typed groups above them — appending blindly is the common error this rule exists to prevent.
+So "add a note that the sample drops 2020" slots into **Scope/Specification near the beginning**. "We now cluster at the state level" **replaces the existing parenthetical key** before the legend. A new abbreviation joins the **Definitions** sentences. When editing an existing notes block, insert content by type and retain a single paragraph, with the applicable inference key and legend at the end.
 
 **Figures use the same note, written in the TeX caption/note.** The visualization skill keeps text *out* of the image, so a figure's "note" lives in the LaTeX float, not the PNG. Same menu as above, plus figure-specific items: what error bars or bands represent (95% CI, ±1 SE, bootstrap reps) and the SE type behind them; binning / bandwidth / kernel / smoother; what each series, color, or reference line is when not directly annotated; N and number of clusters; axis units or scale when non-obvious. See [`../visualization/SKILL.md`](../visualization/SKILL.md).
 
@@ -134,14 +134,17 @@ Two layers, in order:
 - Decimal count consistent within each column; no value silently re-rounded beyond the requested display precision
 - Inference notes match the source method and clustering dimensions; observation units and influence-score mechanics do not substitute for an explicit clustering statement
 - Notes retain information needed to interpret the display and omit redundant qualifications, generic disclaimers, and internal verification commentary
+- Notes render as one paragraph with one "Notes:" label, no forced line breaks or separate items, and the applicable parenthetical key followed by the significance legend inline at the end
 
 If a check fails, repair the formatting from the source and repeat the affected checks. If the source cannot resolve the discrepancy, report it outside the publication note and leave the output unverified. Do not emit a table as final until the checks pass; a more attractive layout cannot compensate for an incorrect association.
 
 ### Step 5 — Emit (compile-ready snippet)
 
 ```latex
+% Requires booktabs and threeparttable. Keep only applicable note content.
 \begin{table}[ht]
 \centering
+\begin{threeparttable}
 \caption{<from user>}
 \label{tab:<from user>}
 \begin{tabular}{lcc}
@@ -156,10 +159,9 @@ $R^2$    & ... & ... \\
 \end{tabular}
 \begin{tablenotes}[flushleft]
 \small
-\item \textit{Notes:} <scope, specification, definitions, source — in reading order, from source/user>
-\item Standard errors clustered at the <level> in parentheses.        % parenthetical key — second-to-last
-\item ${}^{*}\,p<0.1$, ${}^{**}\,p<0.05$, ${}^{***}\,p<0.01$          % significance legend — ALWAYS the last line
+\item \textit{Notes:} <scope, specification, definitions, source — in reading order, from source/user>. Standard errors clustered at the <level> are in parentheses. ${}^{*}\,p<0.1$, ${}^{**}\,p<0.05$, ${}^{***}\,p<0.01$.
 \end{tablenotes}
+\end{threeparttable}
 \end{table}
 ```
 
