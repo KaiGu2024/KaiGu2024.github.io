@@ -1,7 +1,7 @@
 ---
 name: paper-writing
 description: >-
-  Draft or polish main-text sections of empirical economics, management, information systems, and marketing papers: abstracts, introductions, conceptual frameworks, data and methods, results, discussions, and conclusions. Use for section drafting, argument revision, or a requested journal-voice pass. Supports AER, QJE, Econometrica, JPE, Management Science, and Marketing Science with venue-bounded, move-based abstracts that compress the substantive argument; contribution-oriented introductions with flexible conceptual openings; results organized around findings and decisive evidence; and conclusions that state what changes in interpretation or decision making. For titles alone use paper-titles; for appendices or supplementary materials use appendix.
+  Draft or polish main-text sections of empirical economics, management, information systems, and marketing papers: abstracts, introductions, conceptual frameworks, data and methods, results, discussions, and conclusions. Use for section drafting, section and subsection naming, argument revision, or a requested journal-voice pass. Supports AER, QJE, Econometrica, JPE, Management Science, and Marketing Science with venue-bounded, move-based abstracts that compress the substantive argument; contribution-oriented introductions with flexible conceptual openings; results organized around findings and decisive evidence; and conclusions that state what changes in interpretation or decision making. For manuscript titles alone use paper-titles; for appendices or supplementary materials use appendix.
 allowed-tools: Read, Edit, Write
 user-invocable: true
 invocation: auto
@@ -11,7 +11,7 @@ invocation: auto
 
 Turn grounded research into a paper's main text. Read these two shared guides when using the skill:
 
-- [Main text](references/main-text.md): argument development, construct consistency, substantive compression, and a map to six section guides. It links optional checks for source or terminology problems.
+- [Main text](references/main-text.md): argument development, section and subsection titles, construct consistency, substantive compression, and a map to six section guides. It links optional checks for source or terminology problems.
 - [Academic voice](references/academic-voice.md): precise words, sentence emphasis and variety, paragraph development, pacing, and evidence-preserving revision.
 
 Then load only the section guidance needed for the task:

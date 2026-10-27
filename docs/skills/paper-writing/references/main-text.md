@@ -19,6 +19,14 @@ Identify the passage's central claim and arrange the reasoning so each step prep
 
 Work from the supplied manuscript, literature, analysis outputs, or research notes. If an essential input is missing, identify it briefly and continue with the available material; use placeholders in unfinished drafts.
 
+## Section and subsection titles
+
+Organize sections and subsections around the substantive questions they address. Use simple, informative titles that identify the subject of inquiry, letting the prose establish the findings, interpretation, and limits. Short descriptive phrases are a useful default; a question can guide the organization without appearing as a literal question in the heading. In Results, an outcome, group, relationship, or process can name the inquiry when it fits. One question may connect several outcomes.
+
+Use technique names in Methods or when an unusual or distinctive method is itself the subject of the section. Familiar major-section labels can provide clear navigation, with more specific titles beneath them. Keep sibling headings reasonably parallel in grammar and level of detail, and add subsections only when they mark distinct questions. Follow the manuscript's established formatting and the target venue's requirements for capitalization, numbering, and heading levels.
+
+Read the headings together to check that they convey a coherent progression. See [real-paper heading examples](evidence/section-title-examples.md) for optional comparisons, and [Discussion](sections/discussion.md#choose-the-sections-work-and-shape) for its continuous-section structure.
+
 ## Keep constructs consistent
 
 Use central terms consistently, distinguishing a construct from its empirical manifestation and measure. When related terms are easily confused, clarify their meanings and shorthand before revising the prose.

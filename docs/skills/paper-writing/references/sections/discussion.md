@@ -6,6 +6,8 @@ Explain what the empirical answer changes in understanding or decision making. R
 
 A combined discussion and conclusion can move from the answer to its implications and boundaries. Separate sections work when interpretation needs sustained development: Discussion develops that reasoning and Conclusion consolidates its significance. If Results already develops the interpretation, a compact conclusion may suffice.
 
+Keep Discussion as one continuous section without subsection headings. Organize its internal progression through paragraphs and transitions. The headings in this guide identify drafting functions, not subsections to reproduce in the manuscript.
+
 Results explains the evidence and nearby interpretations. Discussion connects that answer to broader questions, literature, or decisions. Give each reasoning passage one main home and carry forward what the next step needs. Supporting context or a modest calculation can clarify an implication here; substantial new analyses belong with their methods and results.
 
 ## Synthesize the answer and develop its meaning
@@ -20,7 +22,7 @@ Develop an explanation by showing how it accounts for the joint findings and rel
 
 ## Derive implications for decisions
 
-Connect the finding to a decision maker's objective and an action or evaluation criterion. Explain why the result changes that choice. Separate audiences into paragraphs or subsections when their decisions or incentives differ.
+Connect the finding to a decision maker's objective and an action or evaluation criterion. Explain why the result changes that choice. Separate audiences into paragraphs when their decisions or incentives differ.
 
 A finding can inform a choice without settling the optimal action. Develop the practical lesson and the trade-off that matters most. Measurement accuracy and decision quality, for example, may lead to different evaluations. Discuss costs, competing objectives, or longer-run responses when they change the implication.
 
@@ -32,7 +34,7 @@ Focus on limitations that change the interpretation or use of the answer. Explai
 
 For generalization, explain which features could change the answer and why: institutional rules, participants, market structure, intervention intensity, or behavioral adjustment. Develop a reasoned account of where the insight may travel. Scale-up and longer time horizons may introduce responses absent from the original setting.
 
-Integrate a limitation with the implication it affects, or collect several connected issues in a subsection. Let established scope carry forward without repeating it throughout the discussion.
+Integrate a limitation with the implication it affects, or bring connected issues together in a paragraph. Let established scope carry forward without repeating it throughout the discussion.
 
 Develop future research from the remaining uncertainty: what observation, comparison, follow-up period, or design would distinguish accounts or change a decision? An agenda can compare alternative paths and their feasibility or trade-offs.
 
