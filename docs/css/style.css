@@ -252,8 +252,8 @@ h2 {
 
 .about-photo img,
 .photo-placeholder {
-  width: 180px;
-  height: 180px;
+  width: 220px;
+  height: 220px;
   border-radius: 50%;
   object-fit: cover;
   display: block;
@@ -285,7 +285,7 @@ h1 {
 .intro-header { margin-bottom: 1.6rem; }
 
 .intro-header h1 {
-  font-size: clamp(2rem, 3.5vw, 2.5rem);
+  font-size: clamp(1.8rem, 3vw, 2.2rem);
   margin-bottom: 0.45rem;
   line-height: 1.2;
 }
@@ -301,12 +301,12 @@ h1 {
   font-family: KaiTi, STKaiti, "Kaiti SC", "BiauKai", 'Zhi Mang Xing', cursive;
   font-weight: 700;
   color: var(--navy);
-  font-size: 1.38rem;
+  font-size: 1.25rem;
   line-height: 1;
 }
 
 .name-phonetic {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--muted);
   font-family: 'Lora', serif;
   font-style: italic;
@@ -643,8 +643,8 @@ footer {
 
   .photo-placeholder,
   .about-photo img {
-    width: 110px;
-    height: 110px;
+    width: 130px;
+    height: 130px;
   }
 
   .nav-links { display: none; }
