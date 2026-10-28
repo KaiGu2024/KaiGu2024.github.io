@@ -198,6 +198,10 @@ section:first-child { padding-top: 3.5rem; }
   margin-bottom: 1.2rem;
 }
 
+.page-header h1.working-papers-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
 .page-header > p:last-child {
   font-family: var(--font-body);
   font-size: 1.3rem;
@@ -648,6 +652,7 @@ footer {
   .page-content { padding: 3rem 0 3.5rem; }
   .page-header { margin-bottom: 2.75rem; }
   .page-header h1 { font-size: 2.25rem; }
+  .page-header h1.working-papers-title { font-size: 2rem; }
   .page-header > p:last-child { font-size: 1.12rem; }
   .page-content > section { margin-bottom: 3rem; }
   .cv-page .page-header > p:last-child { font-size: 1rem; }
