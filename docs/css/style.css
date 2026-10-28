@@ -285,7 +285,7 @@ h1 {
 .intro-header { margin-bottom: 1.6rem; }
 
 .intro-header h1 {
-  font-size: clamp(1.8rem, 3vw, 2.2rem);
+  font-size: clamp(1.6rem, 2.5vw, 1.8rem);
   margin-bottom: 0.45rem;
   line-height: 1.2;
 }
@@ -301,12 +301,12 @@ h1 {
   font-family: KaiTi, STKaiti, "Kaiti SC", "BiauKai", 'Zhi Mang Xing', cursive;
   font-weight: 700;
   color: var(--navy);
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   line-height: 1;
 }
 
 .name-phonetic {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--muted);
   font-family: 'Lora', serif;
   font-style: italic;
