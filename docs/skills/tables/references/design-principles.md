@@ -21,7 +21,9 @@ Ad spending
 
 The reader scanning the table sees words; the reader cross-checking the model finds the symbol. You lose nothing.
 
-**You have the room.** A regression table is typically 4–8 columns of specifications against a stub column of regressors. The stub is the one wide column — spend the width on legible labels.
+**Name the substantive outcome in the header.** A heading should tell readers what is measured. `ChatGPT sessions` identifies what is counted; `Recorded sessions` describes measurement while leaving the platform unclear. Put the fuller qualification, such as `recorded ChatGPT conversation sessions`, in the notes when supported by the source. Keep units and distinctions needed to interpret the numbers in the header; do not shorten away the outcome's identity.
+
+**Budget label width alongside numeric width.** Give the stub enough room for legible labels while reserving space for complete estimates and intervals. Wrap long labels where necessary; the number of columns alone does not establish that the table will fit (see §4).
 
 **Sentence case, not Title Case.** `Ad spending`, not `Ad Spending` and never `AD SPENDING`. Sentence case reads at prose speed; Title Case and caps slow the eye and waste vertical rhythm (Schwabish; CSE).
 
@@ -31,9 +33,11 @@ The reader scanning the table sees words; the reader cross-checking the model fi
 
 ## 2. Layering & ordering — rows and columns
 
-**Comparisons go down columns, not across rows.** This is the load-bearing rule of table layout (Schwabish; Ehrenberg). The eye compares a vertical stack of numbers far more accurately than a horizontal run, because aligned digits line up place-by-place. So: **arrange the table so the contrast you want the reader to make runs down a column.** If the story is "the coefficient is stable across specifications," the coefficient should appear once per column with the columns side by side — the reader's eye travels along one row to see stability, but reads each number down its column.
+**Design around the comparison readers need to make.** Start with the outcomes, groups, or specifications readers need to compare. Comparing down aligned numeric columns is a useful preference, not a rigid rule. Choose the orientation that keeps the relevant values easy to compare with the least repeated labeling and scanning.
 
-**Columns are alternative specifications.** The standard economics/marketing layout: stub = regressors, each column = one model (adds a control, changes the sample, swaps the estimator). 4–8 columns is the comfortable range; beyond that, split into two tables or a panel.
+**Use grouped columns when outcomes and statistics are shared.** For example, if two groups report the same outcomes with an estimate and interval for each, list each outcome once and give each group a column block with matching statistic headers. This places the group comparison side by side and eliminates repeated outcome rows. Use stacked panels with consistent row order and statistic columns when the grouped layout would be too wide at a readable font size.
+
+**Columns can be alternative specifications.** The standard economics/marketing layout uses a regressor stub and one model per column (adds a control, changes the sample, swaps the estimator). Use it when comparing specifications is the task. Judge how many columns fit by their actual content and the intended display width; split into tables or stacked panels when needed.
 
 **Time runs across columns.** For descriptive or time-series tables, let years/periods span the columns left-to-right — that is the direction readers expect time to flow, and it keeps each *variable* in a single readable row.
 
@@ -49,7 +53,7 @@ The reader scanning the table sees words; the reader cross-checking the model fi
 
 **Let the column order carry the argument.** When the specification columns form a natural sequence — looser to stricter sample, shorter to longer horizon, fewer to more controls — order them along it so the reader reads the result as a gradient. A coefficient that climbs monotonically across an ordered column run (e.g. `~0` at the loosest sample to `0.056` at the strictest) is a dose-response finding the layout makes visible *for free*; a scrambled column order throws that signal away. Sequence the columns deliberately — don't inherit the printout's order.
 
-**If the comparison must run across a row, emphasize — don't restructure.** The down-a-column rule has a legitimate exception: a single coefficient of interest, read across columns that are themselves the comparison (alternative samples, subgroups, horizons). You can't move that comparison into a column. Compensate by anchoring the eye — **bold** the significant coefficients, or lightly shade the column that carries the headline — so the reader lands on the result even while scanning horizontally.
+**Horizontal comparisons need clear structure.** When a coefficient is compared across samples, subgroups, or horizons, consistent statistic order, informative spanner headings, and deliberate spacing help readers track it. Choose the layout on those grounds; horizontal comparison alone does not call for bolding significant coefficients or shading cells.
 
 ---
 
@@ -66,6 +70,8 @@ The reader scanning the table sees words; the reader cross-checking the model fi
 ---
 
 ## 4. Alignment & decluttering
+
+**Allocate width before wrapping numbers or shrinking type.** Size numeric columns for their longest complete entry, including signs, significance markers, and interval endpoints. First shorten or wrap row labels and headers while preserving meaning, then adjust cell padding or intercolumn spacing. Keep each estimate and each interval intact; placing an SE or interval below its estimate is a deliberate layout choice, not a reason to split the number or interval itself. If the table still exceeds the available width, revisit orientation or use stacked panels. Preserve readable font sizes and inspect the result at its intended placement size rather than relying on automatic scaling to fit.
 
 **Right-align (or decimal-align) numbers.** Numbers are compared right-to-left — ones, then tens, then hundreds — so right alignment puts the digits that matter in register. When a column mixes decimal counts (it shouldn't, per §3, but in mixed-unit descriptive tables it happens), decimal-align instead. Left-align or center only when entries have genuinely different units and there is nothing to compare.
 

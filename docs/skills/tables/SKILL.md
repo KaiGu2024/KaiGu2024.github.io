@@ -8,7 +8,7 @@ Format a regression or descriptive table — the figure's sibling artifact — f
 
 For figures, see [../visualization/SKILL.md](../visualization/SKILL.md). For the validity audit that should run before any table is drafted, see [report](../report/SKILL.md) → Pre-report Validity Check.
 
-For the design rationale behind the "Design principles" checklist below — why labels beat symbols, why comparisons go down columns, the two-digit rule, alignment, and decluttering — see [references/design-principles.md](references/design-principles.md). It collects the standard sources (Schwabish, Gelman, Ehrenberg, Keith Head, booktabs).
+For the design rationale behind the "Design principles" checklist below — outcome labels, comparison-driven orientation, width allocation, the two-digit rule, alignment, and decluttering — see [references/design-principles.md](references/design-principles.md). It collects the standard sources (Schwabish, Gelman, Ehrenberg, Keith Head, booktabs).
 
 ---
 
@@ -36,8 +36,10 @@ Do **not** use this when the underlying numbers are still moving — format last
 
 A table is read, not glanced at: it exists to let the reader find an exact number and compare it to its neighbor. Every rule below serves one of those two jobs. Full rationale and sources in [references/design-principles.md](references/design-principles.md).
 
-- **Label, don't symbolize.** Self-explanatory word labels (`Ad spending`, not `ADSPND` or `β₁`); put the model symbol in parentheses *below* the label when notation must be preserved. With 4–8 columns there is room for words.
-- **Put the comparison down a column.** Readers compare numbers vertically far better than across a row — arrange the table so the contrast you want them to see runs down a column. Columns are alternative specifications; time runs across columns. When the specs form a natural sequence (looser→stricter sample, short→long horizon), order the columns along it so the result reads as a gradient. If the headline comparison is forced across a row (single coefficient over sample/subgroup columns), don't restructure — bold or shade the cells that carry the result.
+- **Label, don't symbolize.** Self-explanatory word labels (`Ad spending`, not `ADSPND` or `β₁`); put the model symbol in parentheses *below* the label when notation must be preserved.
+- **Name the substantive outcome in the header.** Use headings that identify what is measured, including the platform or object when needed: `ChatGPT sessions` rather than `Recorded sessions`. Put measurement qualifications, such as `recorded ChatGPT conversation sessions`, in the notes when supported by the source. Retain units and distinctions needed to interpret the values in the header.
+- **Choose orientation around the intended comparison.** Comparing down aligned columns is a preference, not a rigid rule. When groups share outcomes and statistics, grouped columns can put groups side by side and eliminate repeated rows. Use stacked panels when width would compromise readability. Alternative specifications or time periods can run across columns; preserve meaningful sequences (looser→stricter sample, short→long horizon).
+- **Allocate width before wrapping numbers or shrinking type.** Reserve enough room for complete estimates and intervals. First shorten or wrap row labels and headers without losing meaning, then adjust padding. If the table still does not fit, reconsider orientation or use stacked panels; preserve readable font sizes.
 - **Give the reader a denominator.** Report a baseline — mean of the DV (overall or by group), or the control-group level — usually as a foot block, so a coefficient can be *sized*, not just signed: `0.056` against a `0.077` mean is a ~70% shift.
 - **Two effective digits.** Choose units so coefficients carry 2–3 meaningful digits (avoid `0.000032` and `75432.8`); keep the decimal count *constant within a column*.
 - **Align for scanning.** Right-align (or decimal-align) numbers, left-align text, header alignment matches its column. Sentence case — never Title Case or ALL CAPS.
@@ -122,7 +124,7 @@ Two layers, in order:
 
 **Journal rules (mechanical):** header rows (`\toprule`, column titles, `\midrule`); coefficient rows with SE in parentheses (or below, per journal); significance stars per the journal's convention; summary rows (`\midrule`, then N, R²); `\bottomrule`; notes line (`\multicolumn{...}{l}{\textit{Notes:} ...}`).
 
-**Design pass (presentation):** relabel cryptic variable names to readable labels (ask the user when a name is ambiguous — never guess what an abbreviation means); set a consistent decimal count per column; order rows so the intended comparison runs down a column; demote controls to a panel if the headline rows are crowded. The design pass changes labels, ordering, and decimal display — never the underlying values (see Non-negotiable rule 1).
+**Design pass (presentation):** identify the comparison readers need to make, then choose row/column orientation or stacked panels to support it. Relabel cryptic variable names (ask the user when a name is ambiguous — never guess what an abbreviation means); name the substantive outcome in the header and move measurement qualifications into the notes. Set a consistent decimal count per column; allocate width for complete estimates and intervals, wrapping labels and headers before adjusting padding; demote controls to a panel if the headline rows are crowded. The design pass changes labels, layout, and decimal display — never the underlying values (see Non-negotiable rule 1).
 
 ### Step 4 — Validate
 
@@ -132,6 +134,8 @@ Two layers, in order:
 - Column count is consistent across all rows (no `&` mismatches)
 - N preserved exactly
 - Decimal count consistent within each column; no value silently re-rounded beyond the requested display precision
+- Headers identify the substantive outcomes and necessary units; measurement qualifications in notes remain grounded in the source
+- At the intended display size, the chosen orientation supports the main comparison, estimates and intervals fit intact, and type remains readable
 - Inference notes match the source method and clustering dimensions; observation units and influence-score mechanics do not substitute for an explicit clustering statement
 - Notes retain information needed to interpret the display and omit redundant qualifications, generic disclaimers, and internal verification commentary
 - Notes render as one paragraph with one "Notes:" label, no forced line breaks or separate items, and the applicable parenthetical key followed by the significance legend inline at the end
