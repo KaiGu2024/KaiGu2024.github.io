@@ -417,9 +417,22 @@ h1 {
 }
 .paper:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 
+.paper-details {
+  display: grid;
+  gap: 1rem;
+  align-items: start;
+}
+
 .paper-figure {
-  width: min(100%, 480px);
-  margin: 1rem 0 0;
+  width: min(100%, 384px);
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .paper-details {
+    grid-template-columns: minmax(0, 1fr) 384px minmax(0, 1fr);
+    column-gap: 1.5rem;
+  }
 }
 
 .paper-figure a {
