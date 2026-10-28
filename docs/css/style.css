@@ -224,7 +224,7 @@ section:first-child { padding-top: 3.5rem; }
 }
 
 .page-header h1.working-papers-title {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
 }
 
 .research-page .page-header { margin-bottom: 1.5rem; }
@@ -417,53 +417,9 @@ h1 {
 }
 .paper:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 
-.paper-details {
-  display: grid;
-  gap: 1rem;
-  align-items: start;
-}
-
-.paper-figure {
-  width: min(100%, 384px);
-  margin: 0 auto;
-}
-
-@media (min-width: 900px) {
-  .paper-details {
-    grid-template-columns: minmax(0, 1fr) 384px minmax(0, 1fr);
-    column-gap: 1.5rem;
-  }
-}
-
-.paper-figure a {
-  display: block;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: #fff;
-  box-shadow: var(--shadow-xs);
-  line-height: 0;
-  text-decoration: none;
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
-}
-
-.paper-figure a:hover {
-  border-color: var(--accent);
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-1px);
-}
-
-.paper-figure img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.paper-copy { min-width: 0; }
-
 .paper-title {
   font-family: 'Lora', serif;
-  font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+  font-size: clamp(1.05rem, 2.2vw, 1.2rem);
   font-weight: 700;
   font-style: normal;
   color: var(--navy);
@@ -692,7 +648,7 @@ footer {
   .page-content { padding: 3rem 0 3.5rem; }
   .page-header { margin-bottom: 2.75rem; }
   .page-header h1 { font-size: 2.25rem; }
-  .page-header h1.working-papers-title { font-size: 2rem; }
+  .page-header h1.working-papers-title { font-size: 1.8rem; }
   .page-header > p:last-child { font-size: 1.12rem; }
   .page-content > section { margin-bottom: 3rem; }
   .cv-page .page-header > p:last-child { font-size: 1rem; }
