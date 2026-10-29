@@ -20,7 +20,7 @@ Often begin with the relevant actor, established topic, or condition, then advan
 
 Use parallel grammar for comparable groups, methods, or conditions. Coordination gives claims comparable weight; subordination marks a condition, concession, or explanation. Check which claim receives the main-clause emphasis and keep the scope of negation and restrictive words clear.
 
-**Prefer simple, fairly short sentences.** This is the author's personal default. Use a longer sentence when it makes a condition, contrast, or explanation easier to follow. Split when distinct emphases compete or the reader must retain too many unresolved dependencies. Combine when separate sentences repeat their setup or conceal a close relationship. Preserve necessary qualifications and connections; avoid choppy prose or rigid word limits.
+**Prefer simple, fairly short sentences.** This is the author's personal default. Split when distinct emphases compete or the reader must retain too many unresolved dependencies. Combine when separate sentences repeat their setup or conceal a close relationship. Preserve necessary qualifications and connections; avoid choppy prose or rigid word limits.
 
 Let punctuation reveal hierarchy. A colon can unpack a statement; a semicolon can connect related independent clauses; parentheses can hold secondary material. Keep the main reasoning outside nested asides.
 
