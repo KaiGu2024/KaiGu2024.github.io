@@ -230,7 +230,16 @@ section:first-child { padding-top: 3.5rem; }
 .research-page .page-content { padding-top: 2rem; }
 .research-page .page-header { margin-bottom: 1.5rem; }
 .research-page .working-papers-title { margin-bottom: 0; }
-.research-page #research { padding-top: 0; margin-bottom: 2.5rem; }
+.research-page #research { padding-top: 0; margin-bottom: 1.5rem; }
+.research-page #research .paper {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.research-page #research .paper:not(:last-child) { margin-bottom: 2rem; }
+.research-page #work-in-progress {
+  border-top: 1px solid var(--border);
+  padding-top: 1.5rem;
+}
 .research-page .research-section-title {
   font-size: 1.25rem;
   line-height: 1.12;
