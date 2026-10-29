@@ -224,7 +224,7 @@ section:first-child { padding-top: 3.5rem; }
 }
 
 .page-header h1.working-papers-title {
-  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-size: 1.25rem;
 }
 
 .research-page .page-header { margin-bottom: 1.5rem; }
@@ -419,8 +419,8 @@ h1 {
 
 .paper-title {
   font-family: 'Lora', serif;
-  font-size: clamp(1.05rem, 2.2vw, 1.2rem);
-  font-weight: 700;
+  font-size: 0.9rem;
+  font-weight: 600;
   font-style: normal;
   color: var(--navy);
   margin-bottom: 0.4rem;
@@ -648,7 +648,6 @@ footer {
   .page-content { padding: 3rem 0 3.5rem; }
   .page-header { margin-bottom: 2.75rem; }
   .page-header h1 { font-size: 2.25rem; }
-  .page-header h1.working-papers-title { font-size: 1.8rem; }
   .page-header > p:last-child { font-size: 1.12rem; }
   .page-content > section { margin-bottom: 3rem; }
   .cv-page .page-header > p:last-child { font-size: 1rem; }
