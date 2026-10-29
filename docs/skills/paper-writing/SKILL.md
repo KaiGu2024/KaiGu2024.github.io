@@ -14,6 +14,8 @@ Turn grounded research into a paper's main text. Read these two shared guides wh
 - [Main text](references/main-text.md): argument development, section and subsection titles, construct consistency, substantive compression, and a map to six section guides. It links optional checks for source or terminology problems.
 - [Academic voice](references/academic-voice.md): precise words, sentence emphasis and variety, paragraph development, pacing, and evidence-preserving revision.
 
+**Personal style default:** prefer simple, fairly short sentences and compact paragraphs with relatively few sentences. Keep the reasoning connected and complete. See [academic voice](references/academic-voice.md) for how to apply this preference without rigid length limits.
+
 Then load only the section guidance needed for the task:
 
 | Requested section | Guidance |

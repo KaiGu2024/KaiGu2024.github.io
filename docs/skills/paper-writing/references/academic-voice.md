@@ -20,7 +20,7 @@ Often begin with the relevant actor, established topic, or condition, then advan
 
 Use parallel grammar for comparable groups, methods, or conditions. Coordination gives claims comparable weight; subordination marks a condition, concession, or explanation. Check which claim receives the main-clause emphasis and keep the scope of negation and restrictive words clear.
 
-**Long sentences integrate; short sentences focus.** A longer sentence can connect a result to its condition, contrast, or explanation. A shorter sentence can introduce a question, mark a turn, or crystallize an implication. Split when distinct emphases compete or the reader must retain too many unresolved dependencies. Combine when separate sentences repeat their setup or conceal a close relationship. Sentence length follows this purpose rather than mechanical alternation.
+**Prefer simple, fairly short sentences.** This is the author's personal default. Use a longer sentence when it makes a condition, contrast, or explanation easier to follow. Split when distinct emphases compete or the reader must retain too many unresolved dependencies. Combine when separate sentences repeat their setup or conceal a close relationship. Preserve necessary qualifications and connections; avoid choppy prose or rigid word limits.
 
 Let punctuation reveal hierarchy. A colon can unpack a statement; a semicolon can connect related independent clauses; parentheses can hold secondary material. Keep the main reasoning outside nested asides.
 
@@ -28,7 +28,7 @@ Choose tense according to what the sentence describes: a completed research acti
 
 ## Develop paragraphs and control pacing
 
-Give each paragraph a governing message. One message may require several related claims or pieces of evidence, and one finding may need several paragraphs.
+Give each paragraph a governing message. The author prefers compact paragraphs with relatively few sentences and modest overall length. Avoid both long runs of sentences and paragraphs made of only a few overlong sentences. Develop the message fully, then stop; use another paragraph when the next step needs its own explanation. One finding may need several paragraphs. Treat brevity as a preference, without a fixed sentence count or loss of necessary evidence.
 
 Orient readers early to the paragraph's point and connection to the argument. Develop the evidence or explanation it needs. End where readers gain the intended understanding: a resolved comparison, an implication, or a question prepared by the reasoning. A summary sentence earns its place when it brings the preceding material together.
 
