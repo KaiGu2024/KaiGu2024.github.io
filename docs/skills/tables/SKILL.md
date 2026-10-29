@@ -43,6 +43,7 @@ A table is read, not glanced at: it exists to let the reader find an exact numbe
 - **Give the reader a denominator.** Report a baseline — mean of the DV (overall or by group), or the control-group level — usually as a foot block, so a coefficient can be *sized*, not just signed: `0.056` against a `0.077` mean is a ~70% shift.
 - **Two effective digits.** Choose units so coefficients carry 2–3 meaningful digits (avoid `0.000032` and `75432.8`); keep the decimal count *constant within a column*.
 - **Align for scanning.** Right-align (or decimal-align) numbers, left-align text, header alignment matches its column. Sentence case — never Title Case or ALL CAPS.
+- **Vertically center peer column headings.** When single-line and multiline headings share a header row, center them vertically within that row while preserving their horizontal alignment. Keep higher-level group headings in a separate row.
 - **Declutter.** booktabs rules only (`\toprule` / `\midrule` / `\bottomrule`), thin and light; **no vertical rules, ever**; group rows with indented stubs and trimmed `\cmidrule(lr)`, not lines; white space over shading.
 - **One job per row block.** SEs in parentheses directly under their coefficient; demote controls to a labeled panel or an auxiliary table rather than burying the headline rows.
 - **Title above; notes form one paragraph.** Caption above the table, neutral. Order the notes by type within a single continuous paragraph, ending with the SE/clustering ("…in parentheses") key followed by the significance legend, when applicable. Additions slot in by type before that ending. See [The Notes block](#the-notes-block) below.
@@ -135,6 +136,7 @@ Two layers, in order:
 - N preserved exactly
 - Decimal count consistent within each column; no value silently re-rounded beyond the requested display precision
 - Headers identify the substantive outcomes and necessary units; measurement qualifications in notes remain grounded in the source
+- In the rendered table, peer column headings with different line counts are vertically centered within their shared row, preserve their horizontal alignment, and sit below any separate higher-level group-heading row
 - At the intended display size, the chosen orientation supports the main comparison, estimates and intervals fit intact, and type remains readable
 - Inference notes match the source method and clustering dimensions; observation units and influence-score mechanics do not substitute for an explicit clustering statement
 - Notes retain information needed to interpret the display and omit redundant qualifications, generic disclaimers, and internal verification commentary

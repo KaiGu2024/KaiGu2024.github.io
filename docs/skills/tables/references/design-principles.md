@@ -77,6 +77,8 @@ The reader scanning the table sees words; the reader cross-checking the model fi
 
 **Left-align text; match the header to its column.** Stub labels and text cells left-align. A column header takes the alignment of the column it sits over — a header above a right-aligned number column right-aligns too.
 
+**Vertically center peer column headings.** When single-line and multiline headings share a header row, center them vertically within that row while preserving their horizontal alignment. This keeps headings at the same level visually aligned despite different line counts. Keep higher-level group headings in a separate row so the hierarchy remains clear. Check the rendered result after wrapping headers or changing column widths.
+
 **booktabs rules only — and few of them.** Use `\toprule`, `\midrule`, `\bottomrule`; nothing else by default. booktabs sets these thicker top/bottom, thinner in the middle, with breathing room around each so superscripts don't collide with the rule above. Add an interior rule only where it does structural work: under the column-number row, under a spanner head (`\cmidrule(lr)`), above a totals row.
 
 **No vertical rules. Ever.** This is not a preference — vertical lines in tables are essentially forbidden in professional typesetting (Chicago Manual; booktabs manual). Column separation is the job of white space, not ink. If columns feel too close, add space (`\addlinespace`, wider column specs), don't add a line.
