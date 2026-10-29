@@ -54,7 +54,7 @@ For a new figure or substantial redesign, use the separate Retriever, Planner, S
 
     **Keep notes concise and self-contained.** Follow the shared [concise-note guidance](../tables/SKILL.md#concise-notes-without-defensive-prose), adapted from paper-writing: retain qualifications that change interpretation, credibility, or use; remove generic disclaimers, repeated caveats, and internal verification commentary. Use the caption, labels, and note together to explain the display. Put fuller methodological justification in methods and unresolved author questions outside the publication prose.
 
-    Follow the [standalone-panel and LaTeX assembly rules](#7-output) for multi-panel figures.
+    For coefficient and heterogeneity plots, name the outcome and comparison dimension; avoid bare `Change`. Follow the [coefficient-label guidance](references/annotations.md#coefficient-and-heterogeneity-plots), preserving the outcome-only event-study axes above. Use the [exhibit-title and TeX-panel guidance](references/annotations.md#exhibit-titles-and-latex-panels) to divide wording across the shared title, panel subtitles, axes, and note, and the [standalone-panel and LaTeX assembly rules](#7-output) for multi-panel figures.
 
 11. **Show uncertainty for inferential estimates.** For event studies, default to dots with individual intervals. Connecting lines are optional; choose their weight for readability at final placement. Select the uncertainty display separately from whether estimates are connected, preserving its statistical coverage. See the [estimate recipe](references/recipes.md#coefficient--event-study-plot). Descriptive counts and shares of the observed sample need no automatic confidence intervals; disclose the sample and denominator.
 

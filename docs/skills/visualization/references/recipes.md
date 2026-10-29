@@ -71,10 +71,12 @@ For a single-panel TeX figure, place the PDF at the declared physical width:
 \begin{figure}[t]
   \centering
   \includegraphics[width=4.5in]{fig_referral_share.pdf}
-  \caption{Headline finding. Source, sample, and model details live here.}
+  \caption{Average referral share by source category}
   \label{fig:referral-share}
 \end{figure}
 ```
+
+Add a figure note in the document's existing style defining the averaging unit, referral-share denominator, sample, and source from the actual analysis. The title names the display; the note supplies what is needed to interpret it. Follow the [title and panel hierarchy](annotations.md#exhibit-titles-and-latex-panels) for combined figures.
 
 Inspect the rebuilt report PDF. Generate every report panel as its own script and PDF. Combine panels in LaTeX under one figure number only when they jointly establish one argument and use compatible units, populations, and denominators; otherwise place them in separate floats. Keep panel subtitles, letters, and the shared caption in LaTeX rather than baking them into the image files.
 
@@ -293,6 +295,8 @@ If thinned markers still crowd, omit them and distinguish series by color plus l
 ## Coefficient / event-study plot
 
 **Default: fine dots and individual confidence intervals.** This is a house-style starting point; connecting estimates at discrete event times is also valid. Use consistent design criteria across related outcomes and specifications. Horizontal coefficient plots use the same mark hierarchy, with intervals along x.
+
+For horizontal forests, follow the [coefficient and heterogeneity wording](annotations.md#coefficient-and-heterogeneity-plots): identify the outcome, effect scale, and row-comparison dimension. Do not copy the event-study axis convention indiscriminately into other coefficient plots.
 
 Follow [event-study axis wording and normalization](annotations.md#event-study-axes). The example assumes monthly event time, first treatment at 0, employment effects and interval endpoints already expressed in percentage points, and a single omitted month −1. `es` contains only estimated periods. Substitute the source's actual event, scale, and base-period scheme; do not relabel raw coefficients without converting them.
 

@@ -27,6 +27,8 @@ Use technique names in Methods or when an unusual or distinctive method is itsel
 
 Read the headings together to check that they convey a coherent progression. See [real-paper heading examples](evidence/section-title-examples.md) for optional comparisons, and [Discussion](sections/discussion.md#choose-the-sections-work-and-shape) for its continuous-section structure.
 
+For figure titles, captions, and panel subtitles, use [Results: exhibit titles](sections/results.md#exhibit-titles-and-panel-subtitles). Exhibit wording should identify the displayed quantity and comparison without making a stronger claim than the evidence supports.
+
 ## Keep constructs consistent
 
 Use central terms consistently, distinguishing a construct from its empirical manifestation and measure. When related terms are easily confused, clarify their meanings and shorthand before revising the prose.

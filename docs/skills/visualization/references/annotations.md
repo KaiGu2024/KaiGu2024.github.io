@@ -8,9 +8,11 @@ Use this reference when a figure contains direct labels, event annotations, dens
 2. [Orientation and contrast](#orientation-and-contrast)
 3. [Annotation styling](#annotation-styling)
 4. [Axis titles and tick labels](#axis-titles-and-tick-labels)
-5. [Event-study axes](#event-study-axes)
-6. [Unit disclosure across the figure and TeX](#unit-disclosure-across-the-figure-and-tex)
-7. [Collision and clipping](#collision-and-clipping)
+5. [Coefficient and heterogeneity plots](#coefficient-and-heterogeneity-plots)
+6. [Event-study axes](#event-study-axes)
+7. [Unit disclosure across the figure and TeX](#unit-disclosure-across-the-figure-and-tex)
+8. [Exhibit titles and LaTeX panels](#exhibit-titles-and-latex-panels)
+9. [Collision and clipping](#collision-and-clipping)
 
 ## Direct-label coverage
 
@@ -55,6 +57,14 @@ Treat axis titles and ticks as the figure's structural text. Follow these rules:
 
 When a title is too long, shorten or wrap it before increasing margins. Do not replace a precise axis title with an in-figure title or subtitle.
 
+## Coefficient and heterogeneity plots
+
+Name the outcome and comparison dimension across the axes, category labels, and TeX title. Avoid bare `Change`, `Effect`, or `Coefficient`: they do not identify what is measured. For a horizontal subgroup forest, use a value-axis title such as `Effect on employment (percentage points)` and rows naming the groups; identify the dimension as `Baseline age` on the categorical axis or in the TeX panel subtitle. A redundant categorical-axis title may be omitted when the row labels and caption make the dimension clear. Keep the [outcome-only event-study convention](#event-study-axes) below.
+
+Match the wording to the plotted estimand. Group-specific treatment effects, interaction coefficients relative to a reference group, and direct differences between group effects are different quantities. Name the reference and direction for a contrast; for example, `Difference in employment effects (percentage points)` with a note specifying older minus younger. For regressions without a causal interpretation, use `Coefficient for employment (percentage points)` or an appropriate association label rather than automatically calling coefficients effects. When rows compare specifications or predictors rather than subgroups, name that dimension accurately.
+
+Use `Effects on [outcome] by [dimension]` as a descriptive TeX-title default when the design supports effect language. `Heterogeneity` is optional. Neither unequal point estimates nor significance in one group alone supports a title asserting that effects differ. Report a suitable contrast or interaction test before making that claim; do not infer the test from separate confidence intervals. The [paper-writing guidance](../../paper-writing/references/sections/results.md#exhibit-titles-and-panel-subtitles) owns the interpretation of exhibit titles.
+
 ## Event-study axes
 
 For DiD, dynamic treatment-effect, or regression event studies, default to a short, plain-language outcome name. Derive the name and scale from the estimation code and plotted transformations; identify the estimates, scale, comparison, and reference period in the caption or note.
@@ -81,6 +91,27 @@ Make the layers complement rather than repeat one another. Before acceptance, co
 Apply the shared [concise-note guidance](../../tables/SKILL.md#concise-notes-without-defensive-prose): include what makes this display interpretable on its own, and qualify only where interpretation, credibility, or use changes. Keep internal checks and unresolved author questions outside the publication prose; avoid generic disclaimers and repeated caveats.
 
 **Disclose inference units separately.** The observation or plotted aggregation unit does not establish the clustering level. For uncertainty notes, follow the shared [inference-wording guidance](../../tables/SKILL.md#inference-wording-for-tables-and-figures): identify interval coverage, method, and actual clustering dimensions from the source. "Firm influence scores" does not replace "standard errors clustered at the firm level"; include score construction only when needed and verified.
+
+## Exhibit titles and LaTeX panels
+
+Plan the wording with the figure specification, even though the title is typeset outside the image. Use a short descriptive title that identifies the quantity or analytical object and the comparison that matters. These are adaptable examples, not required formulas:
+
+| Display | Possible TeX title | Labels that complete the meaning |
+|---|---|---|
+| Subgroup estimates | `Effects on employment by baseline age` | Effect scale on the value axis; age groups on rows; treatment contrast and intervals in the note. |
+| Event study | `Employment around policy adoption` | Outcome-only y axis; event-time x axis; coefficient interpretation and normalization in the note. |
+| Descriptive time series | `Monthly sales by region` | Calendar time, sales units, and region names; do not imply a treatment effect. |
+| Distribution | `Distribution of earnings by contract type` | Earnings scale and density, count, or share as actually plotted; contract categories. |
+| Scatter or binned relationship | `Advertising expenditure and sales` | Both measured variables and units; identify fitted or binned values in the note. |
+| Joint distribution or heatmap | `Share of songs by streaming and creation deciles` | Both binning dimensions and the cell statistic, including its denominator. |
+| Method comparison or sensitivity | `Employment estimates across specifications` | Specifications, outcome scale, and benchmark; distinguish estimation methods from populations. |
+| Counterfactual | `Predicted sales under alternative pricing policies` | Policy scenarios and sales units; identify the baseline and model dependence in the note. |
+
+The [focused exemplar audit](../../paper-writing/references/evidence/figure-title-examples.md) records source observations and their limits. The templates above are editorial adaptations, including extensions beyond the audited types; they are not universal journal conventions.
+
+For combined figures, give the shared `\caption{}` the common subject and let short, parallel panel subtitles identify what changes. For example, `Effects on employment by baseline characteristics` can have `(a) Age` and `(b) Education`; if outcomes vary instead, use outcome names as panel subtitles. Retain enough local axis wording to decode each panel. Do not repeat the entire shared title in every panel or use generic subtitles such as `Results` or `Change`.
+
+Keep the title, panel letters/subtitles, and notes in TeX. Use the manuscript's existing subfigure mechanism and let it number panels; do not also bake letters into the PDFs or type a second letter into an automatically numbered subtitle. Place each `\label{fig:...}` after its corresponding `\caption{}` (including subcaptions); these are stable cross-reference identifiers, not visible titles. Put common definitions in one shared note and identify panel-specific scales, samples, reference groups, or models explicitly by panel letter. Follow the document's caption placement and capitalization conventions. Check the title, panel references, and note against the actual panel order in the compiled document.
 
 ## Collision and clipping
 

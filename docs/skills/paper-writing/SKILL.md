@@ -25,6 +25,7 @@ Then load only the section guidance needed for the task:
 | Conceptual framework or theoretical development | [Conceptual Framework](references/sections/conceptual-framework.md) |
 | Setting, data, measurement, design, or estimation | [Data and Methods](references/sections/data-and-methods.md) |
 | Findings, mechanisms, or heterogeneity | [Results](references/sections/results.md) |
+| Figure/exhibit titles, captions, or panel subtitles | [Exhibit titles](references/sections/results.md#exhibit-titles-and-panel-subtitles) |
 | Discussion or conclusion | [Discussion](references/sections/discussion.md) |
 
 Background records under `references/evidence/` and `audits/` document sources and completed comparisons. Consult them for provenance or exemplar comparisons; the current guides govern drafting. [Main-text](references/main-text.md#supporting-evidence) maps these records.
