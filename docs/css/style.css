@@ -227,6 +227,7 @@ section:first-child { padding-top: 3.5rem; }
   font-size: 1.25rem;
 }
 
+.research-page .page-content { padding-top: 2rem; }
 .research-page .page-header { margin-bottom: 1.5rem; }
 .research-page .working-papers-title { margin-bottom: 0; }
 .research-page #research { padding-top: 0; }
@@ -497,30 +498,17 @@ h1 {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
-  margin-top: 0.7rem;
+  margin-top: 0.25rem;
 }
 .paper-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-family: 'Lora', Georgia, serif;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  padding: 0.28rem 0.75rem;
-  border: 1px solid var(--border);
-  border-radius: 3px;
-  color: var(--navy);
-  background: var(--card);
-  text-decoration: none;
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
-}
-.paper-link:hover {
-  border-color: var(--accent);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 400;
+  line-height: 1.5;
   color: var(--accent);
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-color: currentColor;
 }
-.paper-link i { font-size: 0.9em; opacity: 0.85; }
 
 .paper-tags {
   display: flex;
