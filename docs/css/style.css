@@ -230,7 +230,15 @@ section:first-child { padding-top: 3.5rem; }
 .research-page .page-content { padding-top: 2rem; }
 .research-page .page-header { margin-bottom: 1.5rem; }
 .research-page .working-papers-title { margin-bottom: 0; }
-.research-page #research { padding-top: 0; }
+.research-page #research { padding-top: 0; margin-bottom: 2.5rem; }
+.research-page .research-section-title {
+  font-size: 1.25rem;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0;
+  border-bottom: none;
+}
 
 .page-header > p:last-child {
   font-family: var(--font-body);
