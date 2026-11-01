@@ -17,6 +17,7 @@ Keep one CSV/JSON row per specification, linked to a readable batch note. Use fi
 | Adjustment | Representation versus balance weights, features/dates, tuning, estimated components |
 | Diagnostics | Group paths, influence, balance, ESS, maximum weights, support, lead RMS/joint test/equivalence |
 | Outcome result | Estimate/SE/CI/level, units, covariance path, stated benchmark |
+| Efficiency (if applicable) | Source of wide CI; same-target versus changed-target comparison; added assumptions/information; preperiod/comparison moments; covariance conditioning/regularization; nuisance folds/tuning; benchmark and candidate SE/CI with interval type; clusters/ESS; bias/coverage evidence and selection history |
 | Heterogeneity (if applicable) | Modifier and baseline definition, hypothesis/cutoff timing, subgroup targets/support/shares, estimates and direct contrasts with joint covariance, aggregation reconciliation, subgroup/contrast trend evidence, sensitivity and search family |
 | IV result (only if applicable) | Instruments, first stage, reduced form, matched contrast, strength, ratio, confidence-set type/bounds |
 | Inference | Assignment/dependence, clustering/resampling, survey design if applicable, few-cluster limits, nuisance/tuning uncertainty, multiplicity |

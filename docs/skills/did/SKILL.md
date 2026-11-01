@@ -1,6 +1,6 @@
 ---
 name: did
-description: Design, diagnose, and improve difference-in-differences and event-study analyses, including null average effects with conditional or opposing subgroup effects, differing pretrends, unstable estimates, and questionable comparisons. Assess measurement, selection, weighting, outcome scales, estimators, heterogeneity, and sensitivity with explicit estimands and a complete trial record. Covers panels, repeated cross-sections, and optional IV-DiD. Use for substantive design, analysis, or interpretation, not merely cosmetic figure edits.
+description: Design, diagnose, and improve difference-in-differences and event-study analyses, including wide confidence intervals, estimation efficiency, null average effects with conditional or opposing subgroup effects, differing pretrends, unstable estimates, and questionable comparisons. Assess measurement, selection, weighting, outcome scales, estimators, heterogeneity, precision, and sensitivity with explicit estimands and a complete trial record. Covers panels, repeated cross-sections, and optional IV-DiD. Use for substantive design, analysis, or interpretation, not merely cosmetic figure edits.
 ---
 
 # DiD: design, diagnosis, and heterogeneous effects
@@ -11,8 +11,9 @@ Choose the population, outcome, covariates, timing, and estimator from the study
 
 Read supporting material only as needed:
 
-- [Literature guide](references/literature.md): sources L1–L20 for methodological choices and limits.
+- [Literature guide](references/literature.md): sources L1–L27 for methodological choices and limits.
 - [Null averages and subgroup effects](guidance/null-and-heterogeneous-effects.md): when an overall effect is near zero or imprecise but may differ across conditions; includes subgroup identification and figure-optional reporting.
+- [Wide confidence intervals and estimation efficiency](guidance/estimation-efficiency.md): diagnose limited precision, compare methods for the same target, and assess recent efficiency results and their assumptions.
 - [IV-DiD module](references/iv-did.md): only when a distinct encouragement or eligibility instrument is proposed.
 - [Transformations and tail handling](references/transformations-and-tail-handling.md): levels, logs, weighted logs, PPML, standardization, and tail rules; read before comparing outcome scales or mean models.
 - [Trial-record template](assets/trial-record.md): when implementing or comparing specifications; omit inapplicable fields.
@@ -119,6 +120,14 @@ For material trend discrepancies, assess a defensible comparison or conditional-
 Distinguish a near-zero estimate with a narrow interval from an imprecise result that permits large effects. Claim negligible effects relative to a justified substantive equivalence range. Assess sign, precision, and causal interpretation separately.
 
 Preserve serial dependence and reflect assignment, common shocks, and survey sampling in inference. Base precision on independent assignments; choose a procedure that accommodates the available clusters or treated units, including few-cluster settings. [L15] Define the tested family across explored outcomes and specifications; use suitable multiplicity adjustment or independent confirmation for confirmatory claims after a broad search.
+
+### 5.1. Improve estimation efficiency when confidence intervals are too wide
+
+First locate the source of uncertainty: few independent assignments, sparse cohort/horizon support, noisy outcomes, concentrated weights, inefficient use of valid observations, or a larger critical value for simultaneous or small-sample inference. Record the target, confidence level, interval type, clustering, estimate, SE, and CI before changing the estimator.
+
+Follow the [efficiency workflow](guidance/estimation-efficiency.md). It covers efficient use of preperiods and comparison groups (Chen, Sant'Anna, and Xie, 2025), imputation, persistent-error designs, repeated cross-sections, and incomplete outcomes, drawing on 2024–2026 publications or revisions. [L21–L27] Check whether a proposed improvement preserves the estimand and assumptions, strengthens restrictions, changes the target, or adds information. A smaller reported SE alone does not establish better estimation or coverage.
+
+Preserve the original benchmark and a limited, justified comparison set. Keep outcome units, target weights, horizons, and inference comparable; document unavoidable differences. Do not narrow CIs by ignoring dependence, discarding inconvenient observations, changing confidence levels, or selecting the smallest interval after searching. If the design remains uninformative, report the effects still compatible with the data and the additional information needed.
 
 ## 6. Present the supported conclusion and preserve the audit trail
 

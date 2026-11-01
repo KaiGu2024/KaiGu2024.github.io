@@ -136,3 +136,53 @@ Differences in significance labels do not establish differences in effects. Esti
 Olden, Andreas, and Jarle Møen (2022), **The triple difference estimator**, *The Econometrics Journal* 25(3), 531–553. [Published article](https://academic.oup.com/ectj/article/25/3/531/6545797), [DOI](https://doi.org/10.1093/ectj/utac010). Summary and §5 checked October 23, 2026.
 
 A triple difference requires a trend restriction on the differential comparison. Equal untreated trend biases in its two DiD components can cancel even when either component is biased. In a heterogeneity application where both subgroups can respond, distinguish identifying their effect difference from identifying each effect separately; a zero effect for the comparison subgroup needs additional justification. This routing does not validate an arbitrary three-way interaction or a staggered implementation.
+
+## L21. Efficient use of preperiods and comparison groups
+
+Chen, Xiaohong, Pedro H. C. Sant'Anna, and Haitian Xie (2025), **Efficient Difference-in-Differences and Event Study Estimators**, working paper. [Author manuscript, June 21, 2025](https://psantanna.com/files/Efficient_DiD.pdf), [arXiv version record](https://arxiv.org/abs/2506.17729v1), [Cowles Discussion Paper 2470](https://cowles.yale.edu/sites/default/files/2025-10/d2470.pdf).
+
+Read §§2.2–4, especially the PT-Post/PT-All distinction and Corollary 3.1. Apply through the [efficiency workflow](../guidance/estimation-efficiency.md); optimal use of additional moments requires that those moments be valid.
+
+## L22. Robust imputation and its efficiency benchmark
+
+Borusyak, Kirill, Xavier Jaravel, and Jann Spiess (2024), **Revisiting Event-Study Designs: Robust and Efficient Estimation**, *Review of Economic Studies* 91(6), 3253–3285. [Published DOI](https://doi.org/10.1093/restud/rdae007), [author-hosted published paper](https://www.xavierjaravel.com/_files/ugd/bacd2d_2fc3a11df79c4904a71ad83cf654c312.pdf).
+
+Read §§2 and 4, especially Assumption 4 and Theorems 1–2. Separate the untreated-outcome model, target weights, and spherical-error efficiency benchmark from the conditions for unbiasedness and robust inference. Imputation under unrestricted effect heterogeneity uses untreated observations to fit counterfactuals.
+
+## L23. Efficiency with persistent errors
+
+Harmon, Nikolaj A. (2024 revision), **Difference-in-Differences and Efficient Estimation of Treatment Effects**, working paper, December 2024; first version November 2022. [Author manuscript](https://web.econ.ku.dk/nharmon/docs/harmon2022difference.pdf), [online appendix](https://web.econ.ku.dk/nharmon/docs/harmon2024onlineappendix.pdf), [author research page](https://web.econ.ku.dk/nharmon/Research.htm).
+
+The strong-persistence benchmark explains why conventional modern DiD can already be efficient with common timing, while stepwise DiD can improve later-effect estimation with staggered timing. Use as a covariance-dependent alternative, not an unconditional ranking. Abstract and appendix overview support this routing; inspect the full assumptions before implementation.
+
+## L24. Composition and efficiency in repeated cross-sections
+
+Sant'Anna, Pedro H. C., and Qi Xu (2026), **Difference-in-Differences with compositional changes**, *Journal of Econometrics* 253, 106147. [Published DOI](https://doi.org/10.1016/j.jeconom.2025.106147), [author-hosted published paper](https://psantanna.com/files/DiD_CC.pdf), [preprint history, first posted April 2023](https://arxiv.org/abs/2304.13925).
+
+Read §§2–4 on identification, efficient estimation, and the bias/efficiency trade-off from ruling out composition changes. The publication year is 2026 despite `2025` appearing in the DOI. Cross-fitting extensions do not remove conditional-trend, support, or sampling requirements.
+
+## L25. Flexible regression for repeated cross-sections
+
+Deb, Partha, Edward C. Norton, Jeffrey M. Wooldridge, and Jeffrey E. Zabel (2024; revised April 2026), **A Flexible, Heterogeneous Treatment Effects Difference-in-Differences Estimator for Repeated Cross-Sections**, NBER Working Paper 33026. [NBER record](https://www.nber.org/papers/w33026), [DOI](https://doi.org/10.3386/w33026), [manuscript](https://www.nber.org/system/files/working_papers/w33026/w33026.pdf).
+
+FLEX permits group-, time-, and covariate-varying effects through a structured regression with an imputation interpretation. Its efficiency statement uses homoskedasticity assumptions. The NBER abstract and revision metadata support method routing here; the full implementation was not audited.
+
+## L26. Efficient estimation with incomplete outcomes
+
+Testa, Lorenzo, Edward H. Kennedy, and Matthew Reimherr (2025; revised January 24, 2026), **Efficient Difference-in-Differences Estimation when Outcomes are Missing at Random**, working paper, arXiv:2509.25009v2. [Version record](https://arxiv.org/abs/2509.25009v2), [full text](https://arxiv.org/html/2509.25009v2).
+
+Read §§1.1–3 for the two-group, two-period setup, missingness conditions, efficient influence functions, and multiply robust estimation; Appendix D treats missing post-treatment outcomes. This is a route for incomplete observations under specified assumptions, not a general solution to informative attrition.
+
+## L27. Better-calibrated inference is not necessarily narrower inference
+
+Hansen, Bruce E. (2025), **Standard Errors for Difference-in-Difference Regression**, *Journal of Applied Econometrics* 40(3), 291–309. [Published article and DOI](https://doi.org/10.1002/jae.3110).
+
+The paper studies jackknife variance and confidence procedures for DiD regressions. Consult its applicability and degrees-of-freedom treatment before use. It supports checking inference quality, not choosing a variance estimator for the smallest reported interval or assuming applicability to every modern DiD estimator.
+
+### Search and verification scope for L21–L27
+
+Checked **November 1, 2026**, targeting **2024–2026** publications or substantive working-paper revisions on DiD efficiency, precision, imputation, persistent errors, covariates, repeated cross-sections, and missing outcomes. Earlier first drafts are identified above. The set contains six estimation options and one complementary inference reference; it is not a systematic review or software benchmark.
+
+Crossref DOI records verified titles, author lists, and publication years for L22, L24, L25, and L27. L21 and L26 were verified against author/arXiv records; L23 against the author manuscript's indexed title page and research-page abstract. Unrelated Crossref title-search hits were discarded. Initial API rate limits were resolved with direct DOI lookups for the indexed papers; a missing working-paper Crossref match was not treated as evidence that the paper does not exist.
+
+Method details were checked in the author PDFs/full text for L21, L22, L24, and L26 and the publisher text for L27. NBER access restrictions and timeouts at Harmon's host limited L25 and L23 to primary-source records/abstracts and indexed excerpts; their entries explicitly stop at routing. ArXiv HTML rendering dates can differ from submission dates: citation years and revision labels above follow PDF title pages and version records. No empirical efficiency gains or package compatibility were tested.
