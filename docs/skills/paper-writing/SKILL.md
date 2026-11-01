@@ -16,6 +16,8 @@ Turn grounded research into a paper's main text. Read these two shared guides wh
 
 **Personal style default:** prefer simple, fairly short sentences and compact paragraphs with relatively few sentences. Keep the reasoning connected and complete. See [academic voice](references/academic-voice.md) for how to apply this preference without rigid length limits.
 
+**Section-opening default:** open each substantive section and subsection by establishing its question or purpose and why it matters to the paper's argument, before introducing techniques or reporting findings. Keep this local motivation brief and specific. In Results, carry the unresolved question forward from the preceding evidence. See [section openings](references/main-text.md#motivate-section-and-subsection-openings) and the [Results guide](references/sections/results.md#open-with-the-question-and-its-stakes).
+
 Then load only the section guidance needed for the task:
 
 | Requested section | Guidance |

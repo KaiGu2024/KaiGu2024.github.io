@@ -10,9 +10,19 @@ Give central answers priority while retaining evidence that materially qualifies
 
 Select evidence by its [role in the argument](abstract.md#select-evidence-by-its-job). Place mechanisms, heterogeneity, robustness, and prior-estimate comparisons where they explain or change the answer. Flag a promised answer that the analysis leaves unresolved.
 
+## Open with the question and its stakes
+
+Begin the Results section and each substantive subsection by establishing the question being answered and why it matters, before describing an empirical technique or giving the finding. A useful progression is **local question and stakes → approach or comparison → decisive evidence → interpretation**. These are argumentative functions, not four mandatory sentences or paragraphs. A familiar approach may need only a brief reference to Methods.
+
+Use what readers already know to motivate what they need to learn next. For a main effect, connect the outcome to the paper's central uncertainty. For heterogeneity, explain why the contrast changes the theory, scope, or decision. For a mechanism, identify the unresolved explanation and what the proposed comparison can distinguish. For robustness, name the threat and why it could change the conclusion before introducing the alternative specification. A roadmap listing analyses does not by itself supply these reasons.
+
+For example, an illustrative mechanism opening could read: "The productivity gains leave open whether workers acquire skills that persist without assistance. This distinction matters for the durability of the gains. We therefore examine performance during interruptions to assistance." This is original teaching prose, not a quotation or a claim about the user's study. Use it only as an illustration of the sequence; the actual rationale and design must come from the supplied evidence.
+
+Keep the motivation local and economical. A short purpose clause can lead directly into the result when the comparison is already understood. Carry forward a question and rationale supplied by the preceding transition rather than repeating them. See the [shared opening rule](../main-text.md#motivate-section-and-subsection-openings) and [verified source examples](../evidence/section-opening-examples.md).
+
 ## Develop findings and interpretation together
 
-A passage ordinarily needs a substantive point, enough orientation to understand the comparison, decisive evidence with a table or figure locator, and an explanation of what follows. These functions can span several paragraphs. Introduce unfamiliar comparisons or local methods before interpreting them; otherwise bring the finding forward and avoid restarting the methods section.
+A passage ordinarily needs a substantive point, enough orientation to understand the comparison, decisive evidence with a table or figure locator, and an explanation of what follows. These functions can span several paragraphs. After establishing the local question and its stakes, introduce unfamiliar comparisons or local methods before interpreting them; otherwise move directly to the finding and avoid restarting the methods section. Later paragraphs developing the same answer can lead with their substantive point without repeating the opening motivation.
 
 Report magnitudes in meaningful units with an intelligible comparison base. Explain the few estimates that carry the argument. Tables and figures can carry uncertainty estimates; discuss precision in prose when it changes the substantive answer.
 

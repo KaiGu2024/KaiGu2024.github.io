@@ -19,6 +19,16 @@ Identify the passage's central claim and arrange the reasoning so each step prep
 
 Work from the supplied manuscript, literature, analysis outputs, or research notes. If an essential input is missing, identify it briefly and continue with the available material; use placeholders in unfinished drafts.
 
+## Motivate section and subsection openings
+
+At the start of every substantive section and subsection, establish what the reader is about to learn and why that matters to the paper's argument. Give this local motivation before empirical techniques, table references, or findings. It can identify an unresolved question, a distinction that changes interpretation, a theoretical prediction, a practical decision, or a concern about the preceding evidence. In a data or methods section, explain what must be observed or distinguished to answer the question before describing the data or estimator. In Discussion, reconnect to the question whose implications now need interpretation.
+
+Keep the setup proportional: often one or two sentences, or a short purpose clause, are enough. If the preceding transition already establishes both the question and its stakes, carry it forward without repeating it. An umbrella section that immediately introduces subsections need not duplicate their motivation. This is a reader-orientation rule, not a requirement for a new introduction under every heading; abstracts retain their own compressed structure.
+
+Make the reason specific. Announcing that the section presents results or uses a technique does not explain why the analysis is needed. Explain what answering the question will clarify, without inventing theoretical predictions or retrospectively presenting exploratory work as planned. Once the purpose is clear, move promptly to the approach, evidence, and interpretation. See [Results](sections/results.md#open-with-the-question-and-its-stakes) for the empirical sequence and [source examples](evidence/section-opening-examples.md) for published illustrations.
+
+During revision, read each opening with its preceding transition: can a reader identify both the local question and why its answer matters before encountering the procedure or result? If not, repair that connection; if so, avoid adding generic motivation.
+
 ## Section and subsection titles
 
 Organize sections and subsections around the substantive questions they address. Use simple, informative titles that identify the subject of inquiry, letting the prose establish the findings, interpretation, and limits. Short descriptive phrases are a useful default; a question can guide the organization without appearing as a literal question in the heading. In Results, an outcome, group, relationship, or process can name the inquiry when it fits. One question may connect several outcomes.
@@ -55,6 +65,7 @@ Consult these records when checking the basis for guidance or comparing exemplar
 - [Conceptual-framework audit](../audits/conceptual-framework-three-paper-audit.md): how the three papers develop conceptual reasoning across sections, and what transfers to section-writing guidance.
 - [Data-and-methods audit](../audits/data-and-methods-three-paper-audit.md): how the three papers connect setting, sample construction, measurement, comparisons, and estimation, with limits on transferring their practices.
 - [Results audit](../audits/results-three-paper-audit.md): how the three papers connect findings, benchmarks, interpretation, and sensitivity into an empirical answer.
+- [Section-opening audit](../audits/section-opening-audit.md): verified examples and limits behind the local-motivation default, especially in Results.
 - [Discussion audit](../audits/discussion-three-paper-audit.md): how the three papers develop interpretation, practical implications, boundaries, and research agendas through different closing structures.
 - [Introduction audit](evidence/introduction-three-paper-audit.md): three empirical papers and their paragraph structures.
 - [Academic-voice audit](evidence/academic-voice-three-paper-audit.md): prose observations, paragraph/sentence counts, and counterexamples.
