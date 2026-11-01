@@ -80,7 +80,7 @@ a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
 .nav-links a {
   font-family: 'Lora', Georgia, serif;
-  font-size: 0.78rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--muted);
   text-decoration: none;
@@ -113,7 +113,7 @@ a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
 .nav-mobile a {
   font-family: 'Newsreader', Georgia, 'Iowan Old Style', serif;
-  font-size: 0.88rem;
+  font-size: 1rem;
   font-weight: 500;
   color: var(--navy);
   padding: 0.45rem 0;
