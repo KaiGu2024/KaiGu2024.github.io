@@ -125,9 +125,9 @@ Preserve serial dependence and reflect assignment, common shocks, and survey sam
 
 First locate the source of uncertainty: few independent assignments, sparse cohort/horizon support, noisy outcomes, concentrated weights, inefficient use of valid observations, or a larger critical value for simultaneous or small-sample inference. Record the target, confidence level, interval type, clustering, estimate, SE, and CI before changing the estimator.
 
-Follow the [efficiency workflow](guidance/estimation-efficiency.md). It covers efficient use of preperiods and comparison groups (Chen, Sant'Anna, and Xie, 2025), imputation, persistent-error designs, repeated cross-sections, and incomplete outcomes, drawing on 2024–2026 publications or revisions. [L21–L27] Check whether a proposed improvement preserves the estimand and assumptions, strengthens restrictions, changes the target, or adds information. A smaller reported SE alone does not establish better estimation or coverage.
+Follow the [efficiency workflow](guidance/estimation-efficiency.md). It covers efficient use of preperiods and comparison groups (Chen, Sant'Anna, and Xie, 2025), imputation, persistent-error designs, repeated cross-sections, and incomplete outcomes, drawing on 2024–2026 publications or revisions. [L21–L27] Identify whether each improvement preserves the estimand and assumptions, strengthens restrictions, changes the target, or adds information.
 
-Preserve the original benchmark and a limited, justified comparison set. Keep outcome units, target weights, horizons, and inference comparable; document unavoidable differences. Do not narrow CIs by ignoring dependence, discarding inconvenient observations, changing confidence levels, or selecting the smallest interval after searching. If the design remains uninformative, report the effects still compatible with the data and the additional information needed.
+Compare alternatives with the original benchmark using consistent outcome units, target weights, horizons, and inference. Report precision gains, changes in assumptions, and any additional information needed.
 
 ## 6. Present the supported conclusion and preserve the audit trail
 
