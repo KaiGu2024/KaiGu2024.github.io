@@ -35,6 +35,8 @@ Keep AGENTS.md as concise, current operational guidance and README as human orie
 
 Read [documentation layers](references/docs-layers.md) when scaffolding or auditing project structure, analysis naming, or a notes wiki. The reference defines the directory roles and supporting documentation; the template below carries the operational rules into the project.
 
+For new research projects, keep authoritative executable code in `code/`, datasets and computational caches in `data/`, editable publication sources in `writing/`, and deliverables in `output/`. Assemble `replication/` from the required source files and inputs as an independently runnable release. Create directories only as needed; preserve established project layouts unless migration is requested.
+
 ### Maintaining guidance as work advances
 
 Use this skill during ordinary project work when an explicit user decision, a verified project change, or a recurring lesson establishes durable guidance or supersedes an existing instruction. For maintenance, inspect the affected instructions and their supporting evidence, then edit them directly; the full generation workflow below is for creating or substantially restructuring a configuration.
@@ -110,6 +112,7 @@ a convention the project does not actually use>
 - Random seeds: <set in code; if absent, flag>
 - Environment: <requirements.txt / renv.lock / etc.>
 - Pipeline entrypoint: <Makefile target / Quarto file / driver script>
+- Replication release, when applicable: <assembly command, declared starting data and reproduction scope, manifest, and independent verification command/status>
 
 ## Citation Policy
 - Every cited paper must have a verified DOI in `references.bib`.
@@ -128,7 +131,8 @@ a convention the project does not actually use>
 **Operational rules** (concrete, apply every time):
 
 - **Advance the core task.** Do not spend effort defending against hypothetical objections, hypothetical use cases, or irrelevant failure modes unless doing so materially improves the current task or advances the analysis. In writing and coding, tie each caveat, check, or abstraction to a concrete consequence for interpretation, correctness, or use. Keep material uncertainty and safeguards for credible risks.
-- When writing new analysis: use one stable folder per substantive result family, keeping alternative designs together and distinguishing metrics and variants in filenames. Keep run dates and manifests in provenance records; use Git for revision history, without duplicate dated or version-suffixed result folders. Put preprocessing/crawling in `code/`, result-generating reproducibility scripts in `output/code/`, and their smaller processed inputs or caches in `output/data/`; produce both the code and the output it generates.
+- When writing new analysis: keep substantive result-family names consistent across `code/analysis/` and the relevant `output/figures/` or `output/tables/` subfolders, keeping alternative designs together and distinguishing metrics and variants in filenames. Keep run dates and manifests in provenance records; use Git for revision history, without duplicate dated or version-suffixed result folders. Keep all executable analysis and presentation code in `code/`, processed inputs and computational caches in `data/`, editable publication sources in `writing/`, and deliverables in `output/`; produce both the code and its outputs. Apply these defaults within the project's established layout unless migration is requested.
+- When assembling `replication/`: export the complete code and input dependencies for its declared scope from authoritative sources; fix originals and rebuild rather than edit exported copies. Include execution instructions, dependency versions, data provenance/access details, and a manifest tying the release to source and input versions. Distinguish fast reproduction from analysis-ready data from full reconstruction; verify the exported package outside the working repository before claiming it is independently runnable.
 - For established estimation or prediction methods (for example, DID, CS-DID, FECT, and DML): default to an existing, maintained R package with documented methodology and a pinned version rather than hand-coding the estimator in Python. Implement a custom estimator only when the user explicitly requests it or no suitable package supports the required specification; document the reason and verify it by matching an established implementation on benchmark data or recovering known simulation truth.
 - When proposing a method change: state which result(s) it would change before editing.
 - When uncertain about a number or citation: flag with `[TODO]` rather than guess.
@@ -158,7 +162,7 @@ a convention the project does not actually use>
 
 ### Generating a replication-package README (handoff to public)
 
-For a public replication-package README with runnable commands, pinned versions, and outputs keyed to paper figures/tables, use the `replication-readme` skill when available.
+Read [replication releases](references/docs-layers.md#replication-releases) when defining or assembling the package. For a public replication-package README with runnable commands, pinned versions, and outputs keyed to paper figures/tables, use the `replication-readme` skill when available.
 
 ## Task Decomposition and Subagent Delegation
 

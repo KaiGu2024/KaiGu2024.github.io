@@ -8,10 +8,10 @@ Read this reference when configuring a research project's protected paths, build
 
 Protect authoritative sources and retained artifacts by default:
 
-- Manuscripts, including `output/paper/ms/` when present.
+- Manuscript and other authored publication sources in `writing/`, including legacy `output/paper/ms/` when present.
 - `.tex`, `.bib`, `.bbl`, `.sty`, and `.cls` files; required images, data, and PDFs.
-- Preprocessing and result-generating scripts, including `output/code/`.
-- Raw data, retained processed data, replication inputs/caches, and final outputs.
+- Preprocessing and result-generating scripts in `code/`, exported copies in `replication/code/`, and legacy `output/code/` when present.
+- Raw data, retained processed data and computational caches in `data/`, retained replication releases, and final outputs. Preserve legacy data locations as well.
 - Uncommitted and untracked work, and files whose purpose is unknown.
 
 An extension, modification time, Git ignore rule, or directory name such as `output`, `temp`, or `build` does not prove a file is disposable. In particular, `.bbl` remains protected even though some builds regenerate it. An explicit, separate request is needed to remove a protected artifact; a build cleanup manifest must not silently reclassify it.
