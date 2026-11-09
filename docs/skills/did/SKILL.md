@@ -14,7 +14,7 @@ Read supporting material only as needed:
 - [Literature guide](references/literature.md): sources L1–L27 for methodological choices and limits.
 - [Null averages and subgroup effects](guidance/null-and-heterogeneous-effects.md): when an overall effect is near zero or imprecise but may differ across conditions; includes subgroup identification and figure-optional reporting.
 - [Wide confidence intervals and estimation efficiency](guidance/estimation-efficiency.md): diagnose limited precision, compare methods for the same target, and assess recent efficiency results and their assumptions.
-- [R packages and estimation observations](guidance/r-packages-and-sample-counts.md): use package implementations and extract verified sample counts for estimation tables; read before implementing or exporting results.
+- [R packages and estimation observations](guidance/r-packages-and-sample-counts.md): package routes and retained-sample counts for `did`, `fect`, and the limited third-party `edid` implementation of Chen–Sant'Anna–Xie; read before implementing or exporting results.
 - [IV-DiD module](references/iv-did.md): only when a distinct encouragement or eligibility instrument is proposed.
 - [Transformations and tail handling](references/transformations-and-tail-handling.md): levels, logs, weighted logs, PPML, standardization, and tail rules; read before comparing outcome scales or mean models.
 - [Trial-record template](assets/trial-record.md): when implementing or comparing specifications; omit inapplicable fields.

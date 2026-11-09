@@ -50,6 +50,8 @@ Choose among these methods using the data structure, identifying assumptions, an
 
 For L21, read §§2.2–4 and Corollary 3.1 to select additional moments. Check covariance conditioning and weight concentration, and document regularization.
 
+For implementation of L21, consult the [R package and sample-count guidance](r-packages-and-sample-counts.md). The located `edid` R package is a third-party implementation limited to no covariates, balanced panels, and a common number of pre-treatment periods across cohorts. Confirm that scope before using it; a generic GMM package or another efficient staggered-adoption estimator is not an implementation of L21.
+
 ### Covariate adjustment and nuisance estimation
 
 Use predetermined predictors of **untreated outcome changes** within a conditional-DiD model. Doubly robust estimation supports consistency when either nuisance model is correct; efficiency requires both models and the relevant regularity conditions. [L3] Assess predictive value, overlap, and overfitting when choosing covariates. State the conditional parallel-trends assumption and apply the main skill's regression-to-the-mean checks when using outcome histories.

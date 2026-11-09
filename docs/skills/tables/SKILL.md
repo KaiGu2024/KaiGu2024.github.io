@@ -68,7 +68,7 @@ Use the row label **`Observations`**, meaning estimation observations, with a co
 For panel DiD, distinguish only these two cases:
 
 - **Canonical panel DiD:** use the number of unit-period records actually used by the fitted regression, after its exclusions.
-- **Staggered DiD:** for CSDiD, GMM, `fect`, or another estimator, verify what its sample-size field counts. Report distinct observed unit-period records in the package-retained estimation sample after preprocessing and exclusions. Count reused records once across comparisons or stages. An untreated-only fitting count, a unique-unit count, and the full estimation-observation count are different quantities; do not silently substitute one for another. Routine CSDiD reporting does not require reconstructing the exact union of records contributing to a particular aggregate ATT.
+- **Staggered DiD:** for CSDiD, Chen–Sant'Anna–Xie efficient DiD, `fect`, or another estimator, verify what its sample-size field counts. Report distinct observed unit-period records in the package-retained estimation sample after preprocessing and exclusions. Count reused records once across comparisons or stages. An untreated-only fitting count, a unique-unit count, and the full estimation-observation count are different quantities; do not silently substitute one for another. Routine CSDiD reporting does not require reconstructing the exact union of records contributing to a particular aggregate ATT.
 
 Estimation observations need not equal the number of units multiplied by the number of weeks, including in staggered DiD. That equality holds only when the counted sample is the complete retained unit-by-week panel; staggered adoption alone does not imply inequality.
 
