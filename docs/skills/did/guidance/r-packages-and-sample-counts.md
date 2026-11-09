@@ -6,6 +6,8 @@ Record `packageVersion()` and relevant options with the fitted object. Preparati
 
 ## What Observations means
 
+**Standalone GMM reporting:** use `Units` for distinct retained estimation units and omit `Observations` by default, including for Chen–Sant'Anna–Xie efficient DiD. This is the user's presentation preference, not a claim that GMM observation counts are intrinsically meaningless. The panel-observation definitions below still apply when that count is needed for a comparison table or sample audit. Never place units under an `Observations` label.
+
 The [tables skill](../../tables/SKILL.md#estimation-observations-and-specification-rows) uses the label `Observations`, without a unit-period suffix, for estimation observations. For panel data, report distinct observed unit-period records in the package-retained estimation sample after preprocessing and exclusions. This overall sample count is separate from the support of an individual group-time comparison or aggregate effect; do not require reconstructing the exact union of contributing records for routine CSDiD reporting. Define the observation unit in the publication notes when needed. Keep unique units, clusters, weighted effective sample size, moment conditions, and bootstrap repetitions separate.
 
 **Estimation observations need not equal units × weeks.** Missing records, excluded units/cohorts, balancing, and estimator-specific windows can change the counted sample. Equality holds when that sample is the complete retained unit-by-week panel. Staggered timing by itself does not break the equality.
@@ -79,6 +81,8 @@ sample_counts <- c(
 
 Here `num_t_pre = 3` is illustrative; use the chosen specification's actual setting and pass its anticipation and clustering options consistently. `prep_data()` selects the analysis time window, removes missing/nonfinite outcomes, balances the panel, and returns one row per retained unit with one `y<time>` column per retained period. Thus the observed outcome-cell count equals retained units times retained periods in this supported balanced-panel case. Confirm the prepared column schema and save this object alongside the estimates and package commit. The count describes the overall prepared analysis sample, not every individual comparison's support.
 
+For a standalone GMM table, export only `Units = nrow(prepared)` as the sample-size row; the observation count above is available for sample audits or comparisons and need not appear in that table.
+
 ### Generic GMM fits: `gmm::gmm()`
 
 For an existing fit or a verified method implementation using `gmm::gmm()`, extract the moment-row count with:
@@ -88,15 +92,15 @@ stopifnot(!is.null(fit$gt))
 n_moment_rows <- NROW(fit$gt)
 ```
 
-The package uses this row count as its sample size for GMM calculations. Its meaning comes from the supplied moment function: one row per retained unit-period counts panel observations; one row per unit combining several periods counts units; one row per cluster counts clusters. The columns represent moment conditions. Label `n_moment_rows` as `Observations` only after verifying that each row corresponds to one distinct retained unit-period record, without duplication or padding. Otherwise keep it separate and report panel observations from the verified retained-sample metadata. For example, 500 unit-level moment vectors can represent a complete panel of 5,000 observations over 10 periods.
+The package uses this row count as its sample size for GMM calculations. Its meaning comes from the supplied moment function: one row per retained unit-period counts panel observations; one row per unit combining several periods counts units; one row per cluster counts clusters. The columns represent moment conditions. For standalone GMM reporting, export `Units = n_moment_rows` only after verifying exactly one row per distinct retained unit, without duplication or padding. Otherwise extract the unique-unit count from the package's saved estimation sample or inclusion metadata; do not relabel period or cluster counts as units. Omit `Observations` by default. For example, 500 unit-level moment vectors from a complete 10-period panel should be reported as `Units: 500` in a standalone GMM table.
 
-Calling `gmm::gmm()` uses library-based GMM estimation, but the supplied `moment_function` still defines the estimator-specific moments. A call alone does not establish that it implements Chen–Sant'Anna–Xie: verify the moments, nuisance estimation, weighting, aggregation, and inference against the intended method. Use an existing verified package or author implementation that supplies these components; the generic interface does not authorize hand-coding a substitute under this skill's R-library rule. Record the moment-row unit, moment-function source, package version, and retained panel count with the results.
+Calling `gmm::gmm()` uses library-based GMM estimation, but the supplied `moment_function` still defines the estimator-specific moments. A call alone does not establish that it implements Chen–Sant'Anna–Xie: verify the moments, nuisance estimation, weighting, aggregation, and inference against the intended method. Use an existing verified package or author implementation that supplies these components; the generic interface does not authorize hand-coding a substitute under this skill's R-library rule. Record the moment-row unit, moment-function source, package version, and verified retained-unit count with the results. A standalone GMM table does not require constructing an additional panel-observation count.
 
 ### Other packages and reporting handoff
 
 For packages without a matching scalar, use a minimal extraction step with standard R functions on the package's saved, verified sample records or inclusion indicators. This summarizes the package's decisions; it must not rebuild cohort risk sets, eligibility, or estimation from scratch. Verify the metadata's sample definition and stage coverage, count reused records once, and save the definition with the count. If the package does not expose enough information, mark the count unavailable for export rather than manufacture it from raw dimensions or sum comparison-specific counts.
 
-An overall sample count need not describe support for every event-time effect. Retain package-provided cohort/horizon support separately. Pass the verified observation count and definition to the tables skill; formatting must not perform this extraction itself.
+An overall sample count need not describe support for every event-time effect. Retain package-provided cohort/horizon support separately. Pass the verified sample count and definition to the tables skill (`Units` for standalone GMM, otherwise `Observations` where available); formatting must not perform this extraction itself.
 
 ## Package references
 

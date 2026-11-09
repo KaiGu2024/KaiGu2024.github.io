@@ -63,7 +63,7 @@ A table is read, not glanced at: it exists to let the reader find an exact numbe
 
 ## Estimation observations and specification rows
 
-Use the row label **`Observations`**, meaning estimation observations, with a count for each specification. Do not label it `N` or append `(unit-periods)`. Define the observation unit in the notes when needed, for example, "Observations are firm-months."
+Use the row label **`Observations`**, meaning estimation observations, with a count for each specification, except for standalone GMM reporting below. Do not label it `N` or append `(unit-periods)`. Define the observation unit in the notes when needed, for example, "Observations are firm-months."
 
 For panel DiD, distinguish only these two cases:
 
@@ -74,7 +74,7 @@ Estimation observations need not equal the number of units multiplied by the num
 
 Obtain counts from the R estimator's verified accessor or saved sample metadata, following the [DiD package guidance](../did/guidance/r-packages-and-sample-counts.md). For panel `did::att_gt()` results, the analysis should supply `nrow(res$DIDparams$data)` as `Observations` and `res$n` as the optional unit count. The current `did` package's `nobs()` returns units, whereas `fixest` returns estimation rows. Do not automatically relabel either as the other's quantity. Any retained-sample audit belongs to the analysis workflow and must use package-produced records or inclusion indicators after the estimator's exclusions; do not reconstruct eligibility from the raw data. Do not sum counts across reused comparisons. An overall count does not imply every event-time effect uses every record. Under this formatting skill, flag a missing or ambiguous count rather than rerunning estimation or constructing a new count.
 
-For `gmm::gmm()` results, `NROW(fit$gt)` counts rows of the fitted moment matrix. Use it as `Observations` only when each row represents one distinct retained unit-period record. If moments are formed per unit or cluster, this is a unit or cluster count; obtain the panel-observation count separately from the analysis metadata. Moment-condition counts are not observation counts.
+**Standalone GMM tables:** when reporting GMM results alone, including Chen–Sant'Anna–Xie efficient DiD, use **`Units`** as the sample-size row and omit `Observations` by default. This is the user's reporting convention. Report distinct retained estimation units from verified package metadata. For `gmm::gmm()`, `NROW(fit$gt)` supplies that count only when there is exactly one moment-matrix row per retained unit; otherwise obtain the unique-unit count from the saved estimation sample. Moment rows, clusters, and moment conditions are not automatically units. In a table comparing GMM with other estimators, keep `Units` and `Observations` distinct; never put a unit count in an `Observations` row or force an unavailable panel count.
 
 Report actual fixed-effect dimensions with labels such as `Firm FE` and `Calendar-month FE`, rather than numbers of firms or periods. Include these rows only when they describe the estimator used; do not impose a TWFE specification on staggered DiD. Separate unit and period counts are optional when they materially clarify sample support. Fixed-effect labels do not replace the observation definition or count.
 
@@ -142,7 +142,7 @@ Keep each estimate attached to its source outcome, specification, sample, uncert
 
 Two layers, in order:
 
-**Journal rules (mechanical):** header rows (`\toprule`, column titles, `\midrule`); coefficient rows with SE in parentheses (or below, per journal); significance stars per the journal's convention; summary rows (`\midrule`, then `Observations`, R² when applicable); `\bottomrule`; notes line (`\multicolumn{...}{l}{\textit{Notes:} ...}`).
+**Journal rules (mechanical):** header rows (`\toprule`, column titles, `\midrule`); coefficient rows with SE in parentheses (or below, per journal); significance stars per the journal's convention; summary rows (`\midrule`, then `Observations`, or `Units` for standalone GMM, R² when applicable); `\bottomrule`; notes line (`\multicolumn{...}{l}{\textit{Notes:} ...}`).
 
 **Design pass (presentation):** identify the comparison readers need to make, then choose row/column orientation or stacked panels to support it. Relabel cryptic variable names (ask the user when a name is ambiguous — never guess what an abbreviation means); name the substantive outcome in the header and move measurement qualifications into the notes. Set a consistent decimal count per column; allocate width for complete estimates and intervals, wrapping labels and headers before adjusting padding; demote controls to a panel if the headline rows are crowded. The design pass changes labels, layout, and decimal display — never the underlying values (see Non-negotiable rule 1).
 
@@ -152,7 +152,7 @@ Two layers, in order:
 - Every estimate remains paired with the correct outcome, specification, sample, uncertainty, and note after reordering or relabeling; an unchanged collection of numbers is insufficient
 - Every star matches its p-value per the journal's convention
 - Column count is consistent across all rows (no `&` mismatches)
-- Sample counts preserved exactly, with `Observations` verified to mean estimation observations for each column; necessary observation definitions and applicable clustering appear in notes, and FE rows describe the actual specification
+- Sample counts preserved exactly, with `Observations` verified to mean estimation observations, or `Units` verified to count retained units for standalone GMM; necessary sample definitions and applicable clustering appear in notes, and FE rows describe the actual specification
 - Decimal count consistent within each column; no value silently re-rounded beyond the requested display precision
 - Headers identify the substantive outcomes and necessary units; measurement qualifications in notes remain grounded in the source
 - In the rendered table, peer column headings with different line counts are vertically centered within their shared row, preserve their horizontal alignment, and sit below any separate higher-level group-heading row
