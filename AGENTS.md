@@ -5,7 +5,7 @@
 Personal academic website for Kai Gu (PhD student in Marketing, Bocconi University), hosted on GitHub Pages at `kaigu.github.io`. The repo has three concerns, in order of weight:
 
 1. **The website itself** — `docs/` is the Jekyll publishing root. Bio, papers, CV, reading group, skill library, learning materials.
-2. **A published agent skill library** — `docs/skills/` doubles as on-site documentation and the user's own active skills. Skills are synced manually to `~/.claude/skills/` and `~/.codex/skills/` where installed.
+2. **A published agent skill library** — `docs/skills/` doubles as on-site documentation and the user's own active skills. Skill updates automatically trigger explicit file-copy syncs to `~/.claude/skills/` and `~/.codex/skills/` and a Git push at task completion.
 3. **Reading-group Reveal.js decks** — `docs/reading_group/<session>/` produced via the `slide` skill, brand-aligned (blue-white academic), with embedded base64 figures and the press-N speaker-notes overlay.
 
 This is NOT a research replication package; the research-specific Data Provenance / Citation Policy / AI Disclosure sections are intentionally omitted.
@@ -92,7 +92,7 @@ Two visual brands live in this repo. They are *cousins* (both quiet, both reject
 
 The skill files in `docs/skills/` are simultaneously (a) documentation rendered by Jekyll on the site and (b) the user's active agent skills. They are kept in sync by explicit file copies, not symlinks. For skills installed in both Claude Code and Codex, sync the entrypoint and supporting references to both locations and verify matching content.
 
-**Sync workflow.** After editing any `docs/skills/<name>.md` (or `docs/skills/<name>/SKILL.md` for folder-skills):
+**Automatic sync workflow.** After editing any skill entrypoint or supporting resource under `docs/skills/`, sync the updated skill to both Claude Code and Codex without waiting for a separate request:
 
 ```bash
 # Single-file skill
@@ -107,7 +107,7 @@ cp docs/skills/<name>/SKILL.md ~/.claude/skills/<name>/SKILL.md
 cp docs/skills/<name>/references/*.md ~/.claude/skills/<name>/references/
 ```
 
-The same layout applies under `~/.codex/skills/`. Copy explicit files without deleting destination directories or unrelated resources. When the user requests sync, perform it and verify the copies; otherwise offer the copy commands at end-of-edit. Never assume the user has Jekyll preview running; they read changes on the actual site after push.
+The same layout applies under `~/.codex/skills/`. Copy the entrypoint and supporting resources (including references, guidance, assets, and scripts when present) as explicit files without deleting destination directories or unrelated resources. Verify matching content in both installed copies. At task completion, automatically commit and push the skill changes to the established remote branch using the revision-history workflow below; sync and push are part of completing a skill update, not optional follow-up offers. Honor explicit instructions to defer syncing, committing, or pushing. Never assume the user has Jekyll preview running; they read changes on the actual site after push.
 
 **Folder-skills** (`SKILL.md` with optional supporting resources):
 - `paper-reading/` — Markdown reading notes from a research article; adapts the slide report-mode content map, with source locators and critical discussion. No supporting files required.
