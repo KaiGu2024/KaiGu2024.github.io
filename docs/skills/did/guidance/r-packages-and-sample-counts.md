@@ -79,6 +79,19 @@ sample_counts <- c(
 
 Here `num_t_pre = 3` is illustrative; use the chosen specification's actual setting and pass its anticipation and clustering options consistently. `prep_data()` selects the analysis time window, removes missing/nonfinite outcomes, balances the panel, and returns one row per retained unit with one `y<time>` column per retained period. Thus the observed outcome-cell count equals retained units times retained periods in this supported balanced-panel case. Confirm the prepared column schema and save this object alongside the estimates and package commit. The count describes the overall prepared analysis sample, not every individual comparison's support.
 
+### Generic GMM fits: `gmm::gmm()`
+
+For an existing fit or a verified method implementation using `gmm::gmm()`, extract the moment-row count with:
+
+```r
+stopifnot(!is.null(fit$gt))
+n_moment_rows <- NROW(fit$gt)
+```
+
+The package uses this row count as its sample size for GMM calculations. Its meaning comes from the supplied moment function: one row per retained unit-period counts panel observations; one row per unit combining several periods counts units; one row per cluster counts clusters. The columns represent moment conditions. Label `n_moment_rows` as `Observations` only after verifying that each row corresponds to one distinct retained unit-period record, without duplication or padding. Otherwise keep it separate and report panel observations from the verified retained-sample metadata. For example, 500 unit-level moment vectors can represent a complete panel of 5,000 observations over 10 periods.
+
+Calling `gmm::gmm()` uses library-based GMM estimation, but the supplied `moment_function` still defines the estimator-specific moments. A call alone does not establish that it implements Chen–Sant'Anna–Xie: verify the moments, nuisance estimation, weighting, aggregation, and inference against the intended method. Use an existing verified package or author implementation that supplies these components; the generic interface does not authorize hand-coding a substitute under this skill's R-library rule. Record the moment-row unit, moment-function source, package version, and retained panel count with the results.
+
 ### Other packages and reporting handoff
 
 For packages without a matching scalar, use a minimal extraction step with standard R functions on the package's saved, verified sample records or inclusion indicators. This summarizes the package's decisions; it must not rebuild cohort risk sets, eligibility, or estimation from scratch. Verify the metadata's sample definition and stage coverage, count reused records once, and save the definition with the count. If the package does not expose enough information, mark the count unavailable for export rather than manufacture it from raw dimensions or sum comparison-specific counts.
@@ -93,3 +106,4 @@ An overall sample count need not describe support for every event-time effect. R
 - [`fect` imputation manual](https://yiqingxu.org/packages/fect/02-fect), [returned-object implementation](https://github.com/xuyiqing/fect/blob/master/R/default.R), and [namespace](https://github.com/xuyiqing/fect/blob/master/NAMESPACE): fitting versus effect construction and available methods.
 - [`fect` 2.4.5 CRAN source mirror](https://github.com/cran/fect/blob/master/R/default.R): construction and return of `sample`, `I.dat`, and `obs.missing`.
 - [`edid` package overview](https://github.com/david-loeb/edid), [pinned preprocessing source](https://github.com/david-loeb/edid/blob/f55a4a4aba14f0826f59ad7aa4af3bafaeba529b/R/prep_data.R), and [pinned wrapper](https://github.com/david-loeb/edid/blob/f55a4a4aba14f0826f59ad7aa4af3bafaeba529b/R/edid.R): supported design, retained wide data, and returned results. [Sant'Anna's research page](https://psantanna.com/research/) identifies the paper separately from his other software.
+- [`gmm::gmm()` documentation](https://search.r-project.org/CRAN/refmans/gmm/html/gmm.html) and [result finalization source](https://github.com/cran/gmm/blob/master/R/FinRes.R): the supplied moment function returns an n-by-q matrix, and the package uses its row count as n; this does not determine whether a row is a panel observation, unit, or cluster.
