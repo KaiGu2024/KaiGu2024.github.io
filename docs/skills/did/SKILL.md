@@ -14,6 +14,7 @@ Read supporting material only as needed:
 - [Literature guide](references/literature.md): sources L1–L27 for methodological choices and limits.
 - [Null averages and subgroup effects](guidance/null-and-heterogeneous-effects.md): when an overall effect is near zero or imprecise but may differ across conditions; includes subgroup identification and figure-optional reporting.
 - [Wide confidence intervals and estimation efficiency](guidance/estimation-efficiency.md): diagnose limited precision, compare methods for the same target, and assess recent efficiency results and their assumptions.
+- [R packages and estimation observations](guidance/r-packages-and-sample-counts.md): use package implementations and extract verified sample counts for estimation tables; read before implementing or exporting results.
 - [IV-DiD module](references/iv-did.md): only when a distinct encouragement or eligibility instrument is proposed.
 - [Transformations and tail handling](references/transformations-and-tail-handling.md): levels, logs, weighted logs, PPML, standardization, and tail rules; read before comparing outcome scales or mean models.
 - [Trial-record template](assets/trial-record.md): when implementing or comparing specifications; omit inapplicable fields.
@@ -105,7 +106,7 @@ Match the method's identifying restrictions and data requirements to §1. Retain
 | Time discontinuity | Smooth counterfactual evolution and no competing discontinuity [L12] | Seasonality, bandwidth, serial dependence, and placebo dates |
 | Proxy / negative control | Explicit proxy exclusion and relevance restrictions [L14] | Evidence that the auxiliary variable meets the proposed exclusion restriction |
 
-Label custom approximations and verify their numerical implementation against a trusted method where feasible. Record changes to normalization, model, or reference as distinct specifications.
+Use established R libraries for estimation, aggregation, and inference; do not hand-code substitutes for their estimators, weighting procedures, covariance calculations, or bootstrap routines. Use the method authors' R implementation when appropriate. If the required design is unsupported, report the software limitation rather than silently substituting a custom approximation. When reviewing existing custom code, identify it as such and check it against the appropriate package. Record changes to normalization, model, or reference as distinct specifications. Follow the [package and sample-count guidance](guidance/r-packages-and-sample-counts.md) when saving estimation observations.
 
 For one common treatment date, check whether Sun–Abraham interactions, binary switcher contrasts, and a single-stack event study reduce to the same weighted DiD. Agreement then verifies implementation rather than providing independent evidence against confounding. Genuine staggered timing requires cohort-specific comparisons and aggregation.
 

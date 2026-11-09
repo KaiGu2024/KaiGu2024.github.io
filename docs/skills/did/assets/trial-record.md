@@ -8,6 +8,7 @@ Keep one CSV/JSON row per specification, linked to a readable batch note. Use fi
 | Motivation | Diagnosed problem, rationale, prior results inspected, exploratory/confirmatory status |
 | Estimand | Population, scale/units, treatment/encouragement, horizon/aggregation, assumptions |
 | Sample | Panel/repeated cross-section/aggregate frame, observation and assignment units, eligibility/dates, N by group/period, exclusions, attrition/composition, overlap |
+| Estimation observations | Verified count for the table's `Observations` row; package/version, accessor or saved sample indicator, what it counts, exclusions, and whether it covers the full estimator or a particular stage/horizon; keep unique-unit counts separate |
 | Group measurement | Operational definitions of treated/comparison membership, sources/endpoints, thresholds and baseline windows; membership/timing changes relative to the benchmark |
 | Outcome measurement | Construct/source, coverage/coding changes, aggregation/denominator, zero/missing rules, transformation/cap and cutoff source |
 | Transformation/tail rule (if applicable) | Center/SD definition and baseline dates; pooled versus unit-specific SD, zero/small-SD handling; unit-day/week/month resolution; winsorization versus observation trimming versus whole-unit exclusion; cutoff population/weights/zeros, operation order, affected mass and sample shares; common-sample benchmark |
