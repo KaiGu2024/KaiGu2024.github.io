@@ -6,7 +6,7 @@ Record `packageVersion()` and relevant options with the fitted object. Preparati
 
 ## What Observations means
 
-The [tables skill](../../tables/SKILL.md#estimation-observations-and-specification-rows) uses the label `Observations`, without a unit-period suffix, for estimation observations. For panel data, these are distinct observed unit-period records contributing to fitting or constructing the reported effects. Define the observation unit in the publication notes when needed. Keep unique units, clusters, weighted effective sample size, moment conditions, and bootstrap repetitions separate.
+The [tables skill](../../tables/SKILL.md#estimation-observations-and-specification-rows) uses the label `Observations`, without a unit-period suffix, for estimation observations. For panel data, report distinct observed unit-period records in the package-retained estimation sample after preprocessing and exclusions. This overall sample count is separate from the support of an individual group-time comparison or aggregate effect; do not require reconstructing the exact union of contributing records for routine CSDiD reporting. Define the observation unit in the publication notes when needed. Keep unique units, clusters, weighted effective sample size, moment conditions, and bootstrap repetitions separate.
 
 **Estimation observations need not equal units × weeks.** Missing records, excluded units/cohorts, balancing, and estimator-specific windows can change the counted sample. Equality holds when that sample is the complete retained unit-by-week panel. Staggered timing by itself does not break the equality.
 
@@ -21,11 +21,22 @@ Prefer a documented accessor or directly reported count whose meaning matches th
 
 Concrete package distinctions, checked against upstream documentation/source on 2026-11-09; recheck the installed release:
 
-- **`did`:** for panel `MP` results, `fit$n` represents unique cross-sectional units. The current upstream `nobs.MP()` returns that field, and `glance.MP()` labels the same field `nobs`. Do not pass it through to `Observations` as though it counted unit-period rows. Aggregated results also need their count definition checked. A table exporter cannot resolve this semantic difference by renaming the field.
+- **`did`:** for panel `MP` results from `att_gt()`, use `nrow(res$DIDparams$data)` for `Observations`: the saved data contain the retained panel records after package preprocessing and sample exclusions. Use `res$n` for unique units. The current upstream `nobs.MP()` returns that unit count, and `glance.MP()` labels it `nobs`; neither is the panel-row count. Extract the overall sample count from the originating `att_gt()` object when reporting `aggte()` results, and describe any additional aggregation restrictions separately.
 - **`fect`:** distinguishes untreated observations used to fit counterfactuals from treated observations used to form effects. Its observation indicators and sample metadata are the basis for checking retained cells; matrix dimensions alone include unavailable cells in an unbalanced panel. The current upstream namespace does not register a `nobs.fect()` method. Do not invent one or treat the untreated fitting count as the full count.
 - **Other staggered estimators, including GMM implementations:** inspect the selected package's returned object and documentation. A generic extractor or a field named `N` does not establish what was counted.
 
-If no matching scalar is available, use a minimal extraction step with standard R functions on the package's saved, verified sample records or inclusion indicators. This summarizes the package's decisions; it must not rebuild cohort risk sets, eligibility, or estimation from scratch. Verify that the metadata cover the relevant stages and reported target, count reused records once, and save the definition with the count. If the package does not expose enough information, mark the count unavailable for export rather than manufacture it from raw dimensions or sum comparison-specific counts.
+For a panel `did::att_gt()` result:
+
+```r
+sample_counts <- c(
+  Observations = nrow(res$DIDparams$data),
+  Units = res$n
+)
+```
+
+This is extraction from the fitted package object, not a reconstruction of sample eligibility. The default `panel = TRUE, allow_unbalanced_panel = FALSE` drops incomplete units to form a balanced retained panel, so its observation count equals retained units times retained periods. With `allow_unbalanced_panel = TRUE`, that equality need not hold. Use the saved data, not `nrow(df)` or raw units times weeks. Record the installed package version and confirm that the saved field is present and contains the processed long data; do not substitute another count if it is absent.
+
+For packages without a matching scalar, use a minimal extraction step with standard R functions on the package's saved, verified sample records or inclusion indicators. This summarizes the package's decisions; it must not rebuild cohort risk sets, eligibility, or estimation from scratch. Verify the metadata's sample definition and stage coverage, count reused records once, and save the definition with the count. If the package does not expose enough information, mark the count unavailable for export rather than manufacture it from raw dimensions or sum comparison-specific counts.
 
 An overall sample count need not describe support for every event-time effect. Retain package-provided cohort/horizon support separately. Pass the verified observation count and definition to the tables skill; formatting must not perform this extraction itself.
 
@@ -33,4 +44,5 @@ An overall sample count need not describe support for every event-time effect. R
 
 - [`fixest::nobs()`](https://lrberge.github.io/fixest/reference/nobs.fixest.html) and [`fixest::obs()`](https://lrberge.github.io/fixest/reference/obs.html): count and identify estimation rows.
 - [`did` MP object](https://bcallaway11.github.io/did/reference/MP.html) and [extractor implementation](https://github.com/bcallaway11/did/blob/master/R/tidy.R): unit-count semantics of `n`, `nobs()`, and `glance()`.
+- [`did::att_gt()`](https://bcallaway11.github.io/did/reference/att_gt.html), [standard preprocessing](https://github.com/bcallaway11/did/blob/master/R/pre_process_did.R), and [fast preprocessing](https://github.com/bcallaway11/did/blob/master/R/pre_process_did2.R): sample exclusions, balancing defaults, and retained data stored in `DIDparams$data`.
 - [`fect` imputation manual](https://yiqingxu.org/packages/fect/02-fect), [returned-object implementation](https://github.com/xuyiqing/fect/blob/master/R/default.R), and [namespace](https://github.com/xuyiqing/fect/blob/master/NAMESPACE): fitting versus effect construction and available methods.
