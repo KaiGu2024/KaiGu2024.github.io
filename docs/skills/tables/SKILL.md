@@ -61,6 +61,21 @@ A table is read, not glanced at: it exists to let the reader find an exact numbe
 
 ---
 
+## Estimation observations and specification rows
+
+Use the row label **`Observations`**, meaning estimation observations, with a count for each specification. Do not label it `N` or append `(unit-periods)`. Define the observation unit in the notes when needed, for example, "Observations are firm-months."
+
+For panel DiD, distinguish only these two cases:
+
+- **Canonical panel DiD:** use the number of unit-period records actually used by the fitted regression, after its exclusions.
+- **Staggered DiD:** for CSDiD, GMM, `fect`, or another estimator, verify what its sample-size field counts. Use the distinct observed unit-period records contributing to fitting the estimator or constructing the reported treatment effects, after estimator-specific exclusions. Count reused records once across comparisons or stages. An untreated-only fitting count, a unique-unit count, and the full estimation-observation count are different quantities; do not silently substitute one for another.
+
+Obtain counts from verified output or a documented retained-sample audit in the analysis code. The audit counts distinct `(unit, time)` pairs after missing-data, balancing, cohort, and time-window restrictions actually applied by the estimator. Do not multiply units by periods unless that retained sample is balanced, or sum comparison-specific sample sizes. An overall count describes the full estimation sample; it does not imply every event-time effect uses every record. Under this formatting skill, flag missing or ambiguous counts for the analysis workflow rather than rerunning estimation or constructing a new count.
+
+Report actual fixed-effect dimensions with labels such as `Firm FE` and `Calendar-month FE`, rather than numbers of firms or periods. Include these rows only when they describe the estimator used; do not impose a TWFE specification on staggered DiD. Separate unit and period counts are optional when they materially clarify sample support. Fixed-effect labels do not replace the observation definition or count.
+
+Put clustering level and any supplied cluster count in the notes by default, not separate table rows. Identify column-specific differences in the notes; use rows only when those differences are clearer to compare there.
+
 ## The Notes block
 
 A table's notes display as **one continuous paragraph**, beginning with *Notes:* once. Use sentences to organize the content by type. Allow automatic line wrapping to the table width, but do not insert paragraph breaks, forced line breaks, bullets, or separate note items. In LaTeX, use one `\item` inside `tablenotes`; in HTML, use one `<p>`. The paragraph ends with the following information when applicable:
@@ -70,7 +85,7 @@ A table's notes display as **one continuous paragraph**, beginning with *Notes:*
 
 Place the remaining content earlier in the same paragraph, in the order below. These categories organize sentences; they are not separate displayed paragraphs or headings. Use this menu to select what readers need to interpret the display; it is not a checklist to reproduce in every note. Avoid repeating information already clear in the caption, labels, or table body:
 
-1. **Scope** — what the table reports and over what: estimator/method (OLS, 2SLS, logit, marginal effects), sample and population, time period, unit of observation, N (and any exclusions), and the dependent variable if it isn't in the caption.
+1. **Scope** — what the table reports and over what: estimator/method (OLS, 2SLS, logit, marginal effects), sample and population, time period, unit of observation, the meaning of `Observations` and relevant exclusions, and the dependent variable if it isn't in the caption. Do not repeat the observation count already shown in the table.
 2. **Specification** — fixed-effect and control sets included, weighting (sample weights, IPW), coefficient scale/transform (logs, standardized, percentage points), winsorizing/trimming, and the baseline or DV mean that *sizes* the coefficients.
 3. **Definitions** — expand abbreviations and constructed measures; say what any reference line, cutoff, or shaded region means (ask the user; never guess — non-negotiable rule 3).
 4. **Provenance & cross-refs** — `Source: …`; "See Table 3 / column (2)"; data vintage or replication pointer.
@@ -115,7 +130,7 @@ Source formats commonly seen:
 
 ### Step 2 — Parse
 
-Extract: variable names, coefficients, standard errors (or t-stats), N, R², F-stat, dependent variable label.
+Extract: variable names, coefficients, standard errors (or t-stats), estimation-observation counts and their definitions, R², F-stat, dependent variable label. Verify the meaning of a source field named `N` before labeling it `Observations`.
 
 Keep each estimate attached to its source outcome, specification, sample, uncertainty, and applicable note. Use row/column identifiers in the working representation so reordering and relabeling preserve these associations.
 
@@ -123,7 +138,7 @@ Keep each estimate attached to its source outcome, specification, sample, uncert
 
 Two layers, in order:
 
-**Journal rules (mechanical):** header rows (`\toprule`, column titles, `\midrule`); coefficient rows with SE in parentheses (or below, per journal); significance stars per the journal's convention; summary rows (`\midrule`, then N, R²); `\bottomrule`; notes line (`\multicolumn{...}{l}{\textit{Notes:} ...}`).
+**Journal rules (mechanical):** header rows (`\toprule`, column titles, `\midrule`); coefficient rows with SE in parentheses (or below, per journal); significance stars per the journal's convention; summary rows (`\midrule`, then `Observations`, R² when applicable); `\bottomrule`; notes line (`\multicolumn{...}{l}{\textit{Notes:} ...}`).
 
 **Design pass (presentation):** identify the comparison readers need to make, then choose row/column orientation or stacked panels to support it. Relabel cryptic variable names (ask the user when a name is ambiguous — never guess what an abbreviation means); name the substantive outcome in the header and move measurement qualifications into the notes. Set a consistent decimal count per column; allocate width for complete estimates and intervals, wrapping labels and headers before adjusting padding; demote controls to a panel if the headline rows are crowded. The design pass changes labels, layout, and decimal display — never the underlying values (see Non-negotiable rule 1).
 
@@ -133,7 +148,7 @@ Two layers, in order:
 - Every estimate remains paired with the correct outcome, specification, sample, uncertainty, and note after reordering or relabeling; an unchanged collection of numbers is insufficient
 - Every star matches its p-value per the journal's convention
 - Column count is consistent across all rows (no `&` mismatches)
-- N preserved exactly
+- Sample counts preserved exactly, with `Observations` verified to mean estimation observations for each column; necessary observation definitions and applicable clustering appear in notes, and FE rows describe the actual specification
 - Decimal count consistent within each column; no value silently re-rounded beyond the requested display precision
 - Headers identify the substantive outcomes and necessary units; measurement qualifications in notes remain grounded in the source
 - In the rendered table, peer column headings with different line counts are vertically centered within their shared row, preserve their horizontal alignment, and sit below any separate higher-level group-heading row
@@ -159,7 +174,7 @@ If a check fails, repair the formatting from the source and repeat the affected 
 \midrule
 ... & ... & ... \\
 \midrule
-N        & ... & ... \\
+Observations & ... & ... \\
 $R^2$    & ... & ... \\
 \bottomrule
 \end{tabular}
