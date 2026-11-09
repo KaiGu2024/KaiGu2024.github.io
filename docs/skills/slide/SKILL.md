@@ -58,7 +58,16 @@ For each substantive slide, connect its one claim to the evidence the audience n
 - State causal claims no more strongly than the design permits.
 - Use one claim per slide and keep visual text large enough for projection.
 - Put a small section label above each content-slide title to orient the audience. Repeat the section's short name and, when numbered in the talk map, its number across all slides in that section. Omit it on the opening title slide; use an explicit Backup label for appendix slides. Keep it visually subordinate to the title and avoid repeating the section name in the title itself. Follow the selected mode's implementation.
-- Attribute every external asset visibly on the slide.
+
+## Keep audience-facing annotations selective
+
+Do not add a footer to every slide by default. Include an annotation only when it helps the audience interpret the content or provides necessary attribution.
+
+- Omit navigation instructions, repeated reading identifiers, and administrative or verification commentary from visible slides.
+- Keep detailed provenance, page locators, and background qualifications in speaker notes or preparation notes.
+- Use concise visible citations for reproduced figures, tables, specific results, or model formulations when attribution or lookup is useful.
+- Keep qualifications visible when omitting them would materially change the interpretation of a claim.
+- Do not repeat information already clear from the slide or deck context.
 
 ## Deliverables and inspection previews
 
@@ -74,7 +83,7 @@ Apply the mode-specific checklist, then confirm:
 
 1. Every planned block appears once and in the required order.
 2. Every result number and visual traces to the paper or a verified project artifact. After simplifying or restyling, confirm that the claim still has its supporting comparison, units, sample, uncertainty, and material qualification. A crop must not remove the reference category or interval needed to interpret a result. Move supporting explanation into visible labels or speaker notes as appropriate; keep essential visual reading keys on the slide.
-3. Figures, tables, equations, notes, and source lines render without clipping or overlap. Section labels match the talk map, sit above content titles consistently, and leave enough room for the slide body.
+3. Figures, tables, equations, notes, and any necessary source lines render without clipping or overlap. Review visible annotations against the selective-annotation rule above; remove routine footers and redundant small text while retaining useful attribution and material qualifications. Section labels match the talk map, sit above content titles consistently, and leave enough room for the slide body.
 4. The title, densest content slide, each distinct results layout, and conclusion have been visually inspected.
    Inspect representative rendered notes too: paragraph gaps must be visible, bold stress words easy to find, and text readable without clipping. Apply the [adjacent-slide continuity review](references/talk-delivery.md#continuity-between-slides), checking each ending and following opening together before reading the notes continuously. Read the narration aloud when rehearsing, honoring the pauses and emphasis; distinguish a text review from an actual timed rehearsal.
 5. Temporary extraction, conversion, edit, and build artifacts have been removed from the delivery folder; retain source inputs needed for reproducibility and intended deliverables. Any retained inspection previews are confined to the ignored `exploratory/previews/slides/<slug>/` directory.

@@ -27,6 +27,7 @@ Use this as the single authoritative reference for an `own` deck. It governs bot
 - Do not add Author Bios or Outline slides unless the user explicitly asks for them.
 - Put a substantive `\note{...}` in every frame. There are no own-mode skip exceptions.
 - Present as the author making and defending a claim, not as a discussant appraising someone else's work.
+- Follow the [selective-annotation rule](../SKILL.md#keep-audience-facing-annotations-selective). Leave the default footline empty; use `\source{...}` only where concise visible attribution or lookup is useful.
 
 ## Required narrative spine
 
@@ -229,12 +230,10 @@ Start from this minimal system and adapt content, not the delivery format. Keep 
   {\usebeamerfont{date}\insertdate\par}}
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{itemize item}{\color{DeckBlue}\small$\blacksquare$}
-\setbeamertemplate{footline}{%
-  \hfill\usebeamerfont{page number in head/foot}%
-  \color{DeckMuted}\insertframenumber\hspace{0.8em}\vspace{0.5em}}
+\setbeamertemplate{footline}{}
 
 \newcommand{\source}[1]{%
-  \vfill{\tiny\color{DeckMuted}\raggedright #1\par}}
+  \vfill{\footnotesize\color{DeckMuted}\raggedright #1\par}}
 
 % Main PDF hides notes. Define \shownotes at compile time to create a notes PDF.
 \ifdefined\shownotes

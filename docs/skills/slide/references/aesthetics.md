@@ -35,6 +35,7 @@ When in doubt, the test: would this slide look at home on a NeurIPS or Marketing
 - **The same icon vocabulary.** Flat geometric icons sitting inside little colored circles — the same five icons across every deck. An icon that doesn't carry information is decoration pretending to be structure.
 - **Symmetric three-column layouts.** Three equal cards, then three more. Visual symmetry standing in for actual hierarchy; the eye is given nothing to land on because everything is weighted equally.
 - **Decorative bars and accent lines.** Thin colored stripes under every title, full-width bars at the top. Polish without purpose.
+- **Routine small-text footers.** Repeated paper identifiers, navigation hints, provenance trails, and verification commentary compete with the slide's message. Apply the [selective-annotation rule](../SKILL.md#keep-audience-facing-annotations-selective); keep only useful attribution and annotations that affect interpretation, at a readable size.
 - **The "perfect template" look.** Everything aligns, nothing surprises, nothing argues. A deck that looks designed and reads as undifferentiated.
 
 **Self-implicating note.** Our own `.col-3` / `.col-4` card grids and any icon-in-circle motif *are* these tells when over-used. Reach for a card grid only when the content is genuinely parallel (three mechanisms, four authors); don't default every concept slide to cards + icon circles, and never use an icon where a word is clearer.
@@ -319,9 +320,9 @@ Named column grids — wrap slide content in the appropriate div:
   margin-top: var(--sp-3); max-width: 22ch; margin-inline: auto;
 }
 
-/* Source caption — attribution line under a web-sourced external asset
-   (own-work motivation slides). Small, muted, non-competing. Attribution is
-   required on every web-sourced figure/stat; see references/own-work.md. */
+/* Optional source caption — concise attribution beside the relevant content.
+   Use only when attribution or lookup is useful, not as a recurring footer.
+   Keep detailed provenance in notes; see SKILL.md's selective-annotation rule. */
 .source-caption {
   font-family: var(--font-body); font-size: var(--fs-small);
   color: var(--c-ink-mute); font-style: italic;

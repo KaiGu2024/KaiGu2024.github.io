@@ -18,6 +18,7 @@ Use this mode for a reading group, class, discussant slot, or any presentation o
 - Read `aesthetics.md` before writing the inline `<style>` block and `speaker-notes.md` before populating notes.
 - Use the paper's own tables and figures. Do not web-source or generate substantive assets. Author photos are the only web-sourced exception.
 - Produce `notes/<slug>.md` before the deck, after reading the full paper.
+- Follow the [selective-annotation rule](../SKILL.md#keep-audience-facing-annotations-selective). Keep detailed provenance in `notes/<slug>.md`; do not repeat the paper identifier or keyboard instructions in slide footers.
 - Keep the HTML self-contained: embed all content assets; allow CDN links only for Reveal.js, MathJax, and fonts.
 
 ## Build order
@@ -133,7 +134,7 @@ Reveal.initialize({
   width: 1280,
   height: 720,
   hash: true,
-  slideNumber: 'c/t',
+  slideNumber: false,
   plugins: [RevealMath.MathJax3],
   math: { mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js' },
   keyboard: { 78: () => document.body.classList.toggle('show-notes') }
