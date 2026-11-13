@@ -6,6 +6,8 @@ Treat the abstract as the paper's intellectual argument in miniature, not one se
 
 Use the author's word budget. For submission-ready work, check the journal's official limit and format. Otherwise draft to the space needed for a concise, self-contained argument.
 
+Within that budget, give each sentence one main message. Select fewer supporting details when space is tight, keeping the words that explain how the retained ideas connect. A single-paragraph abstract can develop one governing answer through several connected moves.
+
 Develop the functions below across the available space, combining or reordering them as needed; end with a significance sentence. Allocate detail to the contribution: a measurement comparison may need method and benchmark detail, while a substantive tension may need only a brief design description.
 
 1. **Problem and tension.** Establish the question, puzzle, or decision. Name the central construct—the abstraction represented by the empirical objects—and its relationship to the paper's other subject when readers need that framing. Explain what remains unresolved and why it matters. Open with the paper's specific problem; a literature shortage or a technology's growing importance rarely establishes it by itself.

@@ -17,6 +17,8 @@ Use this file for substantive development and [academic voice](academic-voice.md
 
 Identify the passage's central claim and arrange the reasoning so each step prepares the next. Include a detail when it helps answer the question, explains the reasoning, makes a comparison interpretable, or changes an implication. Select findings by their [role in the argument](sections/abstract.md#select-evidence-by-its-job). A working draft can help develop the argument before analysis is complete.
 
+Compress by selecting the details that advance the argument and removing repetition. Give retained ideas enough room for their reasoning to be understood. Preserve the connecting words and intermediate steps that make a comparison or inference clear. The [paragraph guidance](academic-voice.md#develop-paragraphs-and-control-pacing) explains how to carry the argument forward between headings.
+
 Work from the supplied manuscript, literature, analysis outputs, or research notes. If an essential input is missing, identify it briefly and continue with the available material; use placeholders in unfinished drafts.
 
 ## Motivate section and subsection openings
@@ -47,9 +49,13 @@ Use established terminology when it fits, and define deliberate extensions or ne
 
 ## State the answer directly
 
-State what the analysis establishes. Combine corroborating evidence with the finding it supports and remove procedural narration that adds no understanding.
+State what the analysis establishes and give the evidence or consequence the reader needs. Keep corroborating evidence close to the finding it supports and remove procedural narration that adds no understanding.
 
-Establish scope and assumptions where readers first need them, then let later statements use that context. Add or repeat a qualification when omitting it would change the answer, its credibility, or its use. A precise noun, comparison, or verb can carry the distinction without an extra caveat sentence. Avoid attaching a list of limitations to every finding or implication; methods and discussion can carry the fuller account.
+Remove wording whose sole purpose is to defend against a misreading nobody has raised. Common forms are an unprompted "A is X, not Y," repeated disclaimers about what evidence cannot establish, and qualifications added for unspecified objections. State the affirmative claim first. If the excluded alternative contributes a necessary definition or comparison, explain it directly in its own right. Retain a negative statement when the contrast is the finding or the boundary is needed to interpret the evidence.
+
+Establish scope and assumptions where readers first need them, then let later statements use that context. Add or repeat a qualification when omitting it would change the answer, its credibility, or its use. For example, "The measure records the policies firms publicly declare" can establish the measure's scope directly. If the distinction from actual behavior matters, explain that boundary where the measure is introduced. Methods and discussion can carry the fuller account of limitations.
+
+Keep defined terms and scope words such as "associated with," "declared," or "consistent with" when they determine the claim's meaning. Revise the surrounding prose freely. A substantive change to a term or claim needs separate consideration across the document.
 
 Compression should retain the claim's meaning: association, an estimated effect, and a modeled outcome are different answers. Keep numerical comparisons interpretable and distinguish findings from proposed explanations. [Results](sections/results.md) covers estimates and uncertainty; [academic voice](academic-voice.md#preserve-the-evidence) covers meaning during prose revision.
 
