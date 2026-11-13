@@ -22,7 +22,7 @@ Figure 2 (p. 6): source-minus-English agreement gaps under missing knowledge are
 
 The English-query conflict agreement is roughly 20% for GPT-5.5 by visual reading of Figure 2, not uniformly 20% across models. It is recovery of the source-supported fact despite conflicting English evidence. A pooled rate cannot separate stochastic variation within items from stable heterogeneity across items. Do not label this a measured 20% random-answer probability. The locality explanation is a hypothesis; cite what has already been tested.
 
-Mechanisms and mitigation: QPHA selects and ablates attention heads using gradient-activation attribution; QLoRA promotes original English answers and optionally contrasts conflicting answers. Three open-weight models only; selected conflict cases exhibiting preference; revision-level train/development/test separation. QLoRA reduces the agreement gap by up to 61.5% (abstract); this does not establish welfare gains or an optimal policy for genuinely unresolved conflicts. Retain only a short mitigation bridge in the final discussion, given the user's requested deck scope.
+Mechanisms and mitigation: QPHA selects and ablates attention heads using gradient-activation attribution; QLoRA promotes original English answers and optionally contrasts conflicting answers. Three open-weight models only; selected conflict cases exhibiting preference; revision-level train/development/test separation. QLoRA reduces the agreement gap by up to 61.5% (abstract); this does not establish welfare gains or an optimal policy for genuinely unresolved conflicts. Mitigation remains preparation background; the final discussion follows the user’s four questions.
 
 ## Existing checks that change the discussion
 
@@ -39,19 +39,14 @@ Mechanisms and mitigation: QPHA selects and ablates attention heads using gradie
 3. Authors, affiliations, and concise verified backgrounds.
 4. Original Figure 1: naturally missing fact versus injected conflict; fixed-document comparison.
 5. Original Figure 2: complete figure plus an interpretation view on the same slide. Explain agreement, OpenAI descriptive differences, roughly 20% following the other-language account, and the question characteristics distinguishing this group from the other 80%; retain the sample caveat. Preserve figure colors, intervals, axes, and legends. A magnification dialog allows either original row to fill the screen.
-6. Reverse direction: does the result generalize to naturally English-origin information?
-7. Interpretive knowledge: what changes when the task is explaining why?
-8. Contested knowledge: what counts as a good answer to genuinely unresolved evidence?
-9. Live search: how does source selection before generation change the result?
-10. Locality: what distinguishes the roughly 20% of English-query questions that follow the other-language account from the other 80%? Compare local versus international topics and ask the same question in reverse, without assuming symmetric rates.
-11. Consequences: niche cross-border shopping/recall context; separate language spillover from language preference and measure behavioral outcomes.
-12. Sampling: distinguish within-item randomness from between-item selection.
-13. Model comparison: evaluate shared items before calling the figure a generation trend.
-14. Objective: consistency, accuracy, and calibrated acknowledgement of conflict can diverge.
+6. Discussion 1 — English → other languages. Start with non-English-origin facts missing from English (§3.1; Figure 1) and acknowledge the swapped conflict roles (Table 2). Then ask whether naturally English-origin knowledge travels similarly in reverse; symmetry is not assumed.
+7. Discussion 2 — Beyond recent factual updates. Start with revision sourcing, post-cutoff event selection, and injected factual conflicts (§3.1–3.2; Table 8). Then ask about interpretive and contested knowledge together, distinguishing explanations and competing perspectives from discrete fact retrieval.
+8. Discussion 3 — Documents versus AI search. Start with the two supplied documents and the retrieval check retaining them (§4.1; Appendix B.1, Table 9). Then question whether supplying the documents gives them too much weight compared with sources selected by a real search system.
+9. Discussion 4 — Where do both effects matter? Start with fixed multilingual context and varied query language (§4.1; Figure 2). Distinguish language spillover (Chinese query grounded in English, an illustrative reverse-direction example) from query-language preference under conflict. End with the open question of a niche context where both have important consequences; do not prescribe a particular application.
 
-One main discussion question per slide. Proposed applications and tests are explicitly hypothetical, not findings from this paper. No new research diagrams are drawn; placing original figures does not trigger the figure-agent workflow.
+Exactly four discussion slides, one per user-proposed topic, in that order. Each starts with the relevant design and source before the question. Interpretive and contested knowledge share one slide. The Figure 2 interpretation retains the earlier 20% versus 80% locality question; it is not repeated in the discussion. No additional discussion questions, closing framework, or research proposal slides. No new research diagrams are drawn.
 
-Working slot assumption: 30 minutes including discussion. Opening/example/authors 2 min; design 2 min; results 3 min; nine question introductions about 6 min combined; discussion 14 min; interruptions 3 min. Optional shorter route: slides 1–5, 6, 9–11, 14. Notes provide roughly 30–60 seconds of natural narration per slide, following project AGENTS.md over the skill's default brief-cue convention. Figure 2 can be held longer for discussion. No timed oral rehearsal is claimed.
+Working slot assumption: 30 minutes including discussion. Opening/example/authors 2 min; design 2 min; results 3 min; four discussion introductions 3 min; open discussion 17 min; interruptions 3 min. Notes provide roughly 30–60 seconds of narration per slide, following project AGENTS.md over the skill's default brief-cue convention. No timed oral rehearsal is claimed.
 
 ## Asset provenance
 
@@ -66,7 +61,7 @@ Working slot assumption: 30 minutes including discussion. Opening/example/author
 
 All author sites accessed 12 November 2026. Links are included with the relevant author entries. Paper affiliations and current roles are kept distinct where relevant.
 
-## Validation record
+## Initial-deck validation record (before discussion redesign)
 
 Rendered all 14 slides in headless Chrome at 1600×900, using Reveal's 1280×720 canvas. Final checks show no slide overflow or out-of-slide content, all embedded images loaded, Plus Jakarta Sans loaded, and no browser JavaScript errors. Visually inspected the title, example, authors, both source figures, interpretation view, discussion layouts, closing slide, and contact sheets. Figure 1 and both Figure 2 rows support keyboard/click enlargement without cropping source content. Figure 2's two view buttons work. N toggles only the current slide's notes; representative notes on slides 1, 5, 10, and 14 fit without scrolling, with visible paragraph spacing and bold emphasis. Every slide has 75–93 words of narration. Reviewed adjacent-slide boundaries and read the narration continuously as text; no timed aloud rehearsal was performed.
 
@@ -77,3 +72,9 @@ Author portraits were available for Ki, White, and Gao. Zhang's current personal
 The discussion centers on heterogeneity across questions: when both English and Chinese documents are supplied, which questions lead an English query to follow the Chinese account, and are they more local or international than the other questions? Chinese is illustrative: Figure 2’s roughly 20% GPT-5.5 rate pools source languages and does not establish a Chinese-specific rate or an equal reverse-direction rate. The remaining 80% means answers not matching the original fact; it need not consist entirely of answers endorsing the English account. Repeatability remains a separate follow-up question rather than the lead explanation. Updated the interpretation view, locality discussion, and connected speaker notes.
 
 Revision validation: re-rendered slides 5, 10, and 12 and their N-key notes at 1600×900. All slide scroll heights equal the 720px canvas; notes fit without scrolling. Visually checked the interpretation view, locality question, and interpretation notes.
+
+## Four-question discussion redesign
+
+Replaced the nine former discussion slides with exactly the four user-proposed questions. The resulting deck has nine slides; slides 1–5 are unchanged. Each new discussion slide places the relevant paper design and source before the question. Removed separate locality, repeatability, model-generation, optimization, and application-proposal slides. The 20% interpretation remains on slide 5. Narration follows the design-to-question order and keeps reverse-direction spillover illustrative rather than claiming an unreported result.
+
+Redesign validation: nine slides total, exactly four discussion sections in order, first five sections byte-equivalent after parsing to the previous commit. Rendered all four new slides and notes at 1600×900; no slide overflow, out-of-bounds text, note scrolling, or JavaScript errors. Visually inspected all four slides and representative notes. Reviewed the narration and transitions as text; no timed oral rehearsal.
