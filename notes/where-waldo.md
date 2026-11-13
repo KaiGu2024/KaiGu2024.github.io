@@ -115,6 +115,12 @@ Validation: rendered Discussion 3 and all four examples at 1600×900. All five s
 
 Made the Wikipedia setting explicit and described its cross-language information differences as a close parallel to AI. Facts and Narratives now sit beside a third column, AI extension, asking how query language could affect the presentation of territorial-sovereignty claims. Removed the detailed proposed-extension paragraph and its corresponding narration. All other slide sections remain unchanged.
 
+## PDF export
+
+Exported docs/reading_group/20261113_where_waldo/where-waldo.pdf from the HTML at commit 343d1ea using Decktape's Reveal plugin and Chrome, with a 1280×720 viewport, 3-second initial load pause, and 500ms per-slide pause. The PDF has 12 landscape pages (960×540 points): the HTML's Figure 2 and Interpretation tabs become consecutive pages. The other 10 HTML slides each produce one page. Speaker-note overlays and tab buttons are excluded. Original typography and embedded figures are preserved; the interactive HTML is unchanged.
+
+Validation: all export sections fit without scrolling or out-of-bounds elements; embedded images and Plus Jakarta Sans loaded; no JavaScript errors. Checked the PDF page count, dimensions, selectable text, inclusion of the Interpretation view and expanded MRC name, and absence of the removed drug-safety example. Inspected a contact sheet of all pages and full-size renders of the title, design figure, both results layouts, and final page. PDF size approximately 3.5 MB. Temporary export HTML and scripts removed; inspection previews remain ignored.
+
 ## Remove drug-safety example
 
 Removed Example 3 (Drug safety updates) at the user’s request and renumbered Mekong water disputes to Example 3. Updated the Discussion 3 narration to introduce the three remaining settings. The current deck contains 11 slides; earlier revision records describe prior versions.
