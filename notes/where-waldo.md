@@ -44,7 +44,7 @@ Mechanisms and mitigation: QPHA selects and ablates attention heads using gradie
 8. Discussion 3 — Where do both phenomena matter? Introduce language spillover and language preference bias, then ask where their consequences matter. The historical example now has its own following slide.
 
 
-9. Discussion 3, Example 1 — History and sovereignty. Move the full Converging “Truths”? reference here. Separate numerical factual disagreement from embedding-based narrative distance. Ask how query language affects territorial-sovereignty framing, distinguishing current control, sovereignty claims, and recognition. Sovereignty is a proposed extension, not an outcome established in the example paper.
+9. Discussion 3, Example 1 — History and sovereignty. Move the full Converging “Truths”? reference here. Separate numerical factual disagreement from embedding-based narrative distance. Place territorial sovereignty alongside Facts and Narratives as a proposed AI extension: could query language change how AI presents competing claims? Explicitly identify Wikipedia as the example paper’s setting and the cross-language parallel as an analogy. Sovereignty is a proposed extension, not an outcome established in the example paper.
 10. Discussion 3, Example 2 — Asylum information. First idea in idea.md: Italian, Arabic, and English queries about the same Italian asylum procedure. Translation frequency, coverage, and update delays across government, immigration-agency, and NGO sources may create mismatches. Verify actual conflicts; cross language, date, and authority; assess accuracy and omitted remedies with expert validation.
 11. Discussion 3, Example 3 — Drug safety updates. Second idea: EMA's documented possibility of English-first publication motivates studying translation windows. Separate publication, retrieval, and generation. Compare before an update, during a verified lag, and after translation; historical timestamps are required. No invented drug or lag duration.
 12. Discussion 3, Example 4 — Mekong water disputes. Third idea: Chinese, Thai, and English accounts of the same low-water event; assess whether query language shifts causal attribution. Citation diversity and explanatory influence are separate outcomes. Establish actual competing accounts without assuming positions from language or nationality.
@@ -111,3 +111,7 @@ Sources checked 13 November 2026:
 Slide notes distinguish verified institutional features from proposed mechanisms and tests. No legal or medical advice is presented.
 
 Validation: rendered Discussion 3 and all four examples at 1600×900. All five slides fit the 720px canvas, all notes fit without scrolling, and no browser JavaScript errors occurred. Visually inspected every changed slide and representative notes. The first seven slide sections are unchanged. Reviewed narration and transitions as text; no timed oral rehearsal.
+
+## Example 1 clarification
+
+Made the Wikipedia setting explicit and described its cross-language information differences as a close parallel to AI. Facts and Narratives now sit beside a third column, AI extension, asking how query language could affect the presentation of territorial-sovereignty claims. Removed the detailed proposed-extension paragraph and its corresponding narration. All other slide sections remain unchanged.
