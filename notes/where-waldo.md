@@ -38,12 +38,12 @@ Mechanisms and mitigation: QPHA selects and ablates attention heads using gradie
 2. “What’s Where’s Waldo?” using the supplied image, with its existing circle intact; visual search as the metaphor.
 3. Authors, affiliations, and concise verified backgrounds.
 4. Original Figure 1: naturally missing fact versus injected conflict; fixed-document comparison.
-5. Original Figure 2: complete figure plus an interpretation view on the same slide. Explain agreement, OpenAI descriptive differences, roughly 20% residual recovery, sample caveat. Preserve figure colors, intervals, axes, and legends. A magnification dialog allows either original row to fill the screen.
+5. Original Figure 2: complete figure plus an interpretation view on the same slide. Explain agreement, OpenAI descriptive differences, roughly 20% following the other-language account, and the question characteristics distinguishing this group from the other 80%; retain the sample caveat. Preserve figure colors, intervals, axes, and legends. A magnification dialog allows either original row to fill the screen.
 6. Reverse direction: does the result generalize to naturally English-origin information?
 7. Interpretive knowledge: what changes when the task is explaining why?
 8. Contested knowledge: what counts as a good answer to genuinely unresolved evidence?
 9. Live search: how does source selection before generation change the result?
-10. Locality: does locality predict which source is used, beyond the existing difference-in-differences-style metric?
+10. Locality: what distinguishes the roughly 20% of English-query questions that follow the other-language account from the other 80%? Compare local versus international topics and ask the same question in reverse, without assuming symmetric rates.
 11. Consequences: niche cross-border shopping/recall context; separate language spillover from language preference and measure behavioral outcomes.
 12. Sampling: distinguish within-item randomness from between-item selection.
 13. Model comparison: evaluate shared items before calling the figure a generation trend.
@@ -71,3 +71,9 @@ All author sites accessed 12 November 2026. Links are included with the relevant
 Rendered all 14 slides in headless Chrome at 1600×900, using Reveal's 1280×720 canvas. Final checks show no slide overflow or out-of-slide content, all embedded images loaded, Plus Jakarta Sans loaded, and no browser JavaScript errors. Visually inspected the title, example, authors, both source figures, interpretation view, discussion layouts, closing slide, and contact sheets. Figure 1 and both Figure 2 rows support keyboard/click enlargement without cropping source content. Figure 2's two view buttons work. N toggles only the current slide's notes; representative notes on slides 1, 5, 10, and 14 fit without scrolling, with visible paragraph spacing and bold emphasis. Every slide has 75–93 words of narration. Reviewed adjacent-slide boundaries and read the narration continuously as text; no timed aloud rehearsal was performed.
 
 Author portraits were available for Ki, White, and Gao. Zhang's current personal site has no photo; Cucerzan's institutional profile redirects. Their names and affiliations remain on the author slide without invented portraits or unverified current job titles. The source PDF and supplied image remain in the session directory; they were pre-existing user inputs and are not included as separate new publication files because the HTML embeds the required assets.
+
+## Interpretation wording revision
+
+The discussion centers on heterogeneity across questions: when both English and Chinese documents are supplied, which questions lead an English query to follow the Chinese account, and are they more local or international than the other questions? Chinese is illustrative: Figure 2’s roughly 20% GPT-5.5 rate pools source languages and does not establish a Chinese-specific rate or an equal reverse-direction rate. The remaining 80% means answers not matching the original fact; it need not consist entirely of answers endorsing the English account. Repeatability remains a separate follow-up question rather than the lead explanation. Updated the interpretation view, locality discussion, and connected speaker notes.
+
+Revision validation: re-rendered slides 5, 10, and 12 and their N-key notes at 1600×900. All slide scroll heights equal the 720px canvas; notes fit without scrolling. Visually checked the interpretation view, locality question, and interpretation notes.
