@@ -455,6 +455,9 @@ dialog.figure-dialog::backdrop {background:rgba(10,20,34,.72);}
 .reveal .discussion-redesign .study-context .source-line {margin-top:0;}
 .reveal .discussion-redesign .big-question {margin:26px 0 28px;}
 .reveal .discussion-redesign .closing-question {margin-top:32px;color:var(--c-primary);}
+.reveal .discussion-example {margin:24px 0 0;}
+.reveal .discussion-example p {margin-bottom:10px;}
+.reveal .discussion-example>p:first-child {font-size:26px;}
 </style></head><body><div class="reveal"><div class="slides"><section class="slide-title"><div class="title-card">
 <h2>Where’s Waldo?<br>Query-language Preference under<br>Cross-lingual Knowledge Disparities</h2>
 <p class="title-authors">Dayeon Ki · Ruochen Zhang · Silviu Cucerzan<br>Ryen W. White · Ning Gao</p>
@@ -498,11 +501,13 @@ dialog.figure-dialog::backdrop {background:rgba(10,20,34,.72);}
 <p>In real search, the system must first decide what to retrieve<br>and which sources to include.</p>
 <p class="proposal">The supplied pair may not be the evidence a user’s query would naturally surface.</p>
 <aside class="notes"><p>The main experiment gives the model <strong>both Wikipedia documents</strong>. Even the retrieval extension keeps that pair and adds four web documents. This is useful for studying how a model uses evidence once the evidence is available.</p><p>My concern is that putting the pair directly into the prompt may give those documents <strong>more weight than they would receive in real-life AI search</strong>. A search system first retrieves and selects sources; either document might never appear. I would like to see whether the same language pattern survives when the system chooses its own evidence.</p></aside></section>
-<section class="discussion discussion-redesign"><p class="section-label">Discussion · 3</p><h2>Where do both effects matter?</h2>
-<div class="study-context"><p><strong>In this paper:</strong> query language varies while the multilingual evidence stays fixed. Knowledge gaps test access; conflicts test which account the model follows.</p><p class="source-line">§4.1; Figure 2 · the Chinese-query example below illustrates the broader phenomenon.</p></div>
+<section class="discussion discussion-redesign"><p class="section-label">Discussion · 3</p><h2>Where do both phenomena matter?</h2>
 <div class="discussion-pair"><div><h3>Language spillover</h3><p>Ask in Chinese; receive an answer<br>grounded in English sources.</p></div><div><h3>Language preference bias</h3><p>Query language affects which<br>conflicting account is favored.</p></div></div>
+<div class="discussion-example"><p><strong>Example: historical narratives across languages</strong></p>
+<p class="small"><a href="https://digitaleconomy.stanford.edu/publication/converging-truths-the-role-of-digital-knowledge-platforms-for-information-flows-across-language-barriers-and-history/" target="_blank" rel="noopener">Converging “Truths”? The Role of Digital Knowledge Platforms for Information Flows across Language Barriers and History</a></p>
+<p class="small">The study tracks convergence in Wikipedia accounts of historical battles across languages.</p></div>
 <p class="big-question closing-question">In what niche context would these two phenomena have especially important consequences?</p>
-<aside class="notes"><p>The design holds multilingual evidence fixed and changes the query language. That helps separate <strong>access to information across languages</strong> from a preference for evidence matching the query language.</p><p>Think about asking in Chinese and receiving an answer grounded in English sources. That is language spillover. Separately, when sources conflict, query language may affect which account the model favors. My question is about a <strong>niche context where these two effects really matter</strong>. Where could access to another language’s information and a preference between conflicting accounts substantially change what a user believes or decides?</p></aside></section></div></div>
+<aside class="notes"><p>Think about asking in Chinese and receiving an answer grounded in English sources. That is <strong>language spillover</strong>. When sources conflict, query language can also affect which account the model favors. That is <strong>language preference bias</strong>.</p><p>The example paper, Converging Truths, studies how Wikipedia accounts of historical battles converge across languages. This suggests a context where both phenomena could matter: <strong>historical narratives and collective memory</strong>. Could AI help readers encounter another language community’s account, while still favoring the account matching their query language? That is our discussion question, rather than a finding of the example paper.</p></aside></section></div></div>
 <dialog class="figure-dialog" aria-label="Enlarged original figure"><button type="button">Close figure</button><img alt=""></dialog>
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
