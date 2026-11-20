@@ -1,6 +1,6 @@
 ---
 name: did
-description: Design, diagnose, and improve difference-in-differences and event-study analyses, including wide confidence intervals, estimation efficiency, null average effects with conditional or opposing subgroup effects, differing pretrends, unstable estimates, and questionable comparisons. Assess measurement, selection, weighting, outcome scales, estimators, heterogeneity, precision, and sensitivity with explicit estimands and a complete trial record. Covers panels, repeated cross-sections, and optional IV-DiD. Use for substantive design, analysis, or interpretation, not merely cosmetic figure edits.
+description: Design, diagnose, and improve difference-in-differences and event-study analyses. Use for wide confidence intervals, estimation efficiency, differing pretrends, unstable estimates, questionable comparisons, null averages, subgroup effects, and continuous moderators (effect curves, interflex, and Johnson–Neyman regions). Specify the estimand and assess measurement, selection, weighting, outcome scale, identification, and inference. Covers panels, repeated cross-sections, and optional IV-DiD.
 ---
 
 # DiD: design, diagnosis, and heterogeneous effects
@@ -11,8 +11,9 @@ Choose the population, outcome, covariates, timing, and estimator from the study
 
 Read supporting material only as needed:
 
-- [Literature guide](references/literature.md): sources L1–L27 for methodological choices and limits.
-- [Null averages and subgroup effects](guidance/null-and-heterogeneous-effects.md): when an overall effect is near zero or imprecise but may differ across conditions; includes subgroup identification and figure-optional reporting.
+- [Literature guide](references/literature.md) covers methodological choices and limits.
+- [Null averages and subgroup effects](guidance/null-and-heterogeneous-effects.md) covers subgroup identification, direct contrasts, and aggregation.
+- [Continuous moderators](guidance/continuous-moderators.md) covers conditional DiD effect curves, `interflex`, GAM Johnson–Neyman (JN2), and inference over supported moderator ranges.
 - [Wide confidence intervals and estimation efficiency](guidance/estimation-efficiency.md): diagnose limited precision, compare methods for the same target, and assess recent efficiency results and their assumptions.
 - [R packages and estimation observations](guidance/r-packages-and-sample-counts.md): package routes and retained-sample counts for `did`, `fect`, and the limited third-party `edid` implementation of Chen–Sant'Anna–Xie; read before implementing or exporting results.
 - [IV-DiD module](references/iv-did.md): only when a distinct encouragement or eligibility instrument is proposed.
@@ -72,7 +73,7 @@ Propose justified alternatives at either level. Start with one dimension at a ti
 | Measurement and outcomes | Correct errors; compare validated definitions, components, participation, intensity, or rates | Outcome units, denominator, construct validity, and assignment process |
 | Transformations and tail handling | Demeaning, standardization, logs/asinh, proportional means, winsorization, or trimming | Target quantity, identifying scale, calibration, operation order, and affected mass/sample; follow the [transformation module](references/transformations-and-tail-handling.md) [L9–L10] |
 | Baseline restrictions | Common support, stable coverage, eligibility using predetermined information | Changes the target population; noisy screening creates regression-to-the-mean concerns [L7] |
-| Conditional and opposing effects | Explain a null average through substantively motivated baseline subgroups or continuous modifiers; retain the overall benchmark | Compare effects directly, reconcile aggregation, and assess identification for the claimed subgroup effect or contrast. Follow the [heterogeneity workflow](guidance/null-and-heterogeneous-effects.md). |
+| Conditional and opposing effects | Study substantively motivated baseline subgroups or continuous modifiers alongside the overall benchmark | Compare effects directly and reconcile aggregation. Keep continuous modifiers on their original scale by default and use simultaneous bands for claims over ranges. See [subgroup effects](guidance/null-and-heterogeneous-effects.md) and [continuous moderators](guidance/continuous-moderators.md). |
 | Treatment and timing definitions | Validate start dates, persistence, dose, and anticipation | Sustained-use definitions can use future observations relative to onset; document that selection |
 | Comparison groups | Never-treated, not-yet-treated, alternative eligible groups, or synthetic donors | Assess anticipation, earlier treatment, spillovers, follow-up, and actual eligibility |
 | Matching and weighting | Predetermined demographics, institutional features, outcome histories, volatility, or other justified covariates | Overlap, weight concentration, regression to the mean, and preperiod validation [L6–L7] |
@@ -96,6 +97,7 @@ Match the method's identifying restrictions and data requirements to §1. Retain
 | Method | What it requires or changes | Check before interpreting |
 |---|---|---|
 | Cohort-time / CSDiD | ATT(g,t), eligible untreated comparisons, conditional parallel trends and no anticipation [L1] | Risk sets, covariate timing, base-period convention, aggregation and cohort support |
+| Conditional cohort-time DiD | CATT(g,t,z) for a continuous baseline moderator in a balanced panel with absorbing treatment [L30] | Overlap at each moderator value, cohort composition, and whether the inference supports the assignment dependence |
 | Heterogeneity-robust event study | Avoids inappropriate already-treated comparisons [L2] | Check conventional TWFE leads for contamination from heterogeneous treatment effects |
 | Stacked event study | Cohort-specific eligible comparison sets, event windows, and stack-specific unit/time effects [L18] | Reused controls and unequal cohort support change implicit weights; define aggregation and cluster on original units |
 | Doubly robust DiD | Conditional parallel trends; consistency if either specified propensity or outcome model is correct [L3] | Use the panel or repeated-cross-section version appropriate to the data |

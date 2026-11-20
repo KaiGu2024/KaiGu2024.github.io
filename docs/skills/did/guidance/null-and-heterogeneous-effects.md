@@ -4,7 +4,7 @@ A null average can reflect an effect concentrated in one subgroup or positive an
 
 ## Define the claim and conditions
 
-Choose a small set of baseline modifiers from mechanisms, institutions, or prior evidence, retaining continuous measures where useful. Grouping by treatment-induced behavior instead targets selection or mediation. Record hypotheses and explored cutoffs using [§3's planning rules](../SKILL.md#3-plan-a-limited-set-of-justified-adjustments); apply [§5's interpretation and multiplicity rules](../SKILL.md#5-separate-identification-magnitude-and-precision) to the subgroup claims.
+Choose a small set of baseline modifiers from mechanisms, institutions, or prior evidence. Use the subgroup workflow below for categories and substantively defined threshold groups. For a continuous modifier, start with a smooth conditional effect curve and use a simultaneous band to locate ranges where the effect differs from zero. Follow the [continuous moderator workflow](continuous-moderators.md). Grouping by treatment-induced behavior targets selection or mediation. Record hypotheses and explored cutoffs under [§3's planning rules](../SKILL.md#3-plan-a-limited-set-of-justified-adjustments) and apply [§5's interpretation and multiplicity rules](../SKILL.md#5-separate-identification-magnitude-and-precision).
 
 ## Estimate and compare effects
 

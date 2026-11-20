@@ -186,3 +186,23 @@ Checked **November 1, 2026**: six estimation options and one inference reference
 Titles, authors, and dates were checked against Crossref for L22, L24, L25, and L27; author/arXiv records for L21 and L26; and the author's indexed manuscript and research page for L23.
 
 Method details were checked in full text for L21, L22, L24, L26, and L27. L23 and L25 rely on primary-source abstracts and indexed excerpts because full-manuscript access failed. Dates follow PDF title pages and version records.
+
+## L28. Flexible conditional effects and common support
+
+Hainmueller, Jens, Jonathan Mummolo, and Yiqing Xu (2019), **How Much Should We Trust Estimates from Multiplicative Interaction Models? Simple Tools to Improve Empirical Practice**, *Political Analysis* 27(2), 163–192. [Published article](https://doi.org/10.1017/pan.2018.46), [interflex manual for kernel estimation and confidence bands](https://yiqingxu.org/packages/interflex/02_classic.html#kernel-estimator).
+
+Use the kernel estimator for a smooth conditional contrast and the binning estimator to diagnose the linear interaction assumption. Inspect common support before interpreting either. The software manual documents pointwise and uniform intervals over the evaluation grid and the kernel bootstrap's cluster option.
+
+## L29. GAM Johnson–Neyman probing
+
+Simonsohn, Uri (2024), **Interacting With Curves: How to Validly Test and Probe Interactions in the Real (Nonlinear) World**, *Advances in Methods and Practices in Psychological Science* 7(1). [Published article](https://doi.org/10.1177/25152459231207787).
+
+Montealegre, Andres, and Uri Simonsohn (2026 revision), **Johnson-Neyman 2.0: Probing Interactions Without Assuming Linearity, Four Demonstrations and One Tutorial**, working paper. [Authors' July 2026 draft](https://urisohn.com/sohn_files/papers/46.pdf), [statuser interprobe vignette](https://cran.r-project.org/web/packages/statuser/vignettes/interprobe.html).
+
+Read the tutorial's binary focal predictor case for a GAM prediction difference across a continuous moderator. The tool probes a fitted interaction. In a DiD application the analyst supplies the design-compatible outcome contrast, target, and inference.
+
+## L30. Continuous conditional ATT in staggered DiD
+
+Imai, Shunsuke, Lei Qin, and Takahide Yanagi (2026), **Doubly Robust Uniform Confidence Bands for Group-Time Conditional Average Treatment Effects in Difference-in-Differences**, *Journal of Business & Economic Statistics* 44(2), 511–523. [Published article](https://doi.org/10.1080/07350015.2025.2541719), [author preprint](https://arxiv.org/html/2305.02185v4), [didhetero R vignette](https://tkhdyanagi.github.io/didhetero/articles/didhetero.html).
+
+Read §§2, 4, and 5 for identification, uniform inference, and aggregation. The published setup uses absorbing treatment, a balanced panel of independent units, and a scalar pre-treatment moderator. The R package supplies uniform bands for cohort-time effects and several aggregates.
