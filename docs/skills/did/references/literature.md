@@ -199,7 +199,7 @@ Simonsohn, Uri (2024), **Interacting With Curves: How to Validly Test and Probe 
 
 Montealegre, Andres, and Uri Simonsohn (2026 revision), **Johnson-Neyman 2.0: Probing Interactions Without Assuming Linearity, Four Demonstrations and One Tutorial**, working paper. [Authors' July 2026 draft](https://urisohn.com/sohn_files/papers/46.pdf), [statuser interprobe vignette](https://cran.r-project.org/web/packages/statuser/vignettes/interprobe.html).
 
-Read the tutorial's binary focal predictor case for a GAM prediction difference across a continuous moderator. The tool probes a fitted interaction. In a DiD application the analyst supplies the design-compatible outcome contrast, target, and inference.
+Read the tutorial's binary focal predictor case for the GAM prediction difference across a continuous moderator. For the outcome-change application in DiD, see the [continuous moderator guide](../guidance/continuous-moderators.md).
 
 ## L30. Continuous conditional ATT in staggered DiD
 
