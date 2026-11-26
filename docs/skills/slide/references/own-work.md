@@ -26,7 +26,7 @@ Use this as the single authoritative reference for an `own` deck. It governs bot
 - Give **Literature Positioning** exactly one slide, immediately before **Research Question + Preview of Findings**. Combine the question and preview on one slide when they fit comfortably; use two consecutive slides, question first, when the findings need more space or explanation.
 - Do not add Author Bios or Outline slides unless the user explicitly asks for them.
 - Put a substantive `\note{...}` in every frame. There are no own-mode skip exceptions.
-- Present as the author making and defending a claim, not as a discussant appraising someone else's work.
+- Present as the author explaining the question, evidence, and scope of the findings.
 - Follow the [selective-annotation rule](../SKILL.md#keep-audience-facing-annotations-selective). Leave the default footline empty; use `\source{...}` only where concise visible attribution or lookup is useful.
 
 ## Required narrative spine
@@ -36,7 +36,7 @@ The number of slides inside a block may vary, but do not reorder or silently omi
 | Block | Typical length | Job |
 |---|---:|---|
 | **Opening** | 1 slide | Greet and thank the audience, introduce the presenter and affiliation, say the project title, and credit coauthors. Save the substantive hook and explanation for Motivation. |
-| **Motivation** | 1–3 slides | Establish that the phenomenon is real and consequential. Move from a concrete instance to scale or stakes. One idea and one dominant visual per slide. |
+| **Motivation** | 1–3 slides | Assume the audience is encountering the paper for the first time. Start with a visible broad question or concrete instance, then explain the stakes. One idea and one dominant visual per slide. |
 | **Literature Positioning** | exactly 1 slide | Connect the closest research streams to what is known, what remains unresolved, and the paper's specific contribution. End with the unresolved issue that motivates the question. |
 | **Research Question + Preview of Findings** | 1–2 slides | Combine a concise question and answer on one slide, or put the question first and the findings preview on the next slide when findings are longer or more complex. Lead with the headline magnitude and uncertainty, then at most two supporting findings or mechanisms. |
 | **Context** | 1–3 slides | Explain only the institutional, market, or theoretical details needed to understand the design and interpret the effect. End with the variation or comparison that makes the study possible. |
@@ -103,17 +103,17 @@ Apply [talk-delivery.md](talk-delivery.md) when choosing what to say and budgeti
 For content slides in the planned talk, write a connected explanation; the title slide follows the personal opening below:
 
 1. Connect to what the audience has just heard, using a direct continuation when the relationship is already clear.
-2. Add the interpretation, emphasis, or defense that is not already visible on the slide.
+2. Explain the evidence on the slide, directing attention to each substantive element and making its role clear. Anchor planned claims, examples, and material qualifications in the visible content.
 3. Make the reason for the next idea clear where a bridge is needed. Place the bridge at this slide's end or the next slide's opening, without repeating it in both places. The conclusion closes the argument; standalone backup notes answer the question that prompts them and need no bridge to adjacent backup slides.
 
 Follow the paper-writing discipline:
 
-- Use active voice and first-person plural where natural: “We estimate,” “We compare,” “We cannot rule out.”
+- Use active voice and first-person plural where natural, as in “We estimate” and “We compare.”
 - Give concrete numbers with units, a benchmark, and uncertainty. Repeat the headline magnitude verbatim in the findings preview, main result, and conclusion.
 - Calibrate verbs to evidence. Prefer “shows,” “suggests,” or “is consistent with” over “proves” or “establishes” unless the design warrants the stronger claim.
 - Let one sentence do one job. Remove throat-clearing, generic importance claims, canned contrasts, and decorative em dashes.
-- Anticipate the most credible objection and answer it with the relevant diagnostic, robustness result, or scope condition. Do not sound defensive.
-- Do not narrate every object on the slide. Say what the audience should notice and why it changes the argument.
+- Explain what each diagnostic tests and which scope conditions affect interpretation. State those conditions directly.
+- Guide the audience through figures and tables using the [shared walkthrough](talk-delivery.md#explaining-the-design-and-results).
 
 Follow the [continuity procedure](talk-delivery.md#continuity-between-slides): draft adjacent notes together, express the substantive relationship, and check each boundary for repetition, missing reasoning, and unclear references. “That pattern gives us the comparison we need” works only when the preceding explanation makes the pattern and comparison clear. A direct continuation can be sufficient; do not force a transition sentence or rhetorical question onto every slide.
 
@@ -123,7 +123,7 @@ For Kai Gu's own-work talks, begin with a brief, warm personal introduction. Use
 
 > Good morning, everyone. Thank you for being here.
 >
-> I'm **Kai Gu** from **Bocconi University**. I'm very honored to present this project, titled **[project title]**.
+> I'm **Kai Gu** from **Bocconi University**. Today I'm presenting **[project title]**.
 >
 > This is joint work with **[coauthor names]**.
 
@@ -141,8 +141,8 @@ Keep the paragraph gaps as brief pauses, and use bold to mark natural emphasis o
 | **Research Question + Preview of Findings** | State the question, pause or advance to the immediately following preview slide, then give the answer and interpret its size. Preview how the rest of the talk supports it. Match notes to the chosen one- or two-slide layout. |
 | **Context** | Explain only the rule, institution, or mechanism needed for the audience to understand the comparison. |
 | **Data & Research Design** | Make the unit and variation intuitive. State the identifying assumption in plain language, then explain which diagnostic addresses the most plausible violation. |
-| **Results** | Say the headline number, direct attention to the relevant visual region, interpret the magnitude, and handle one serious objection or scope condition. |
-| **Conclusion** | Repeat the headline magnitude verbatim, distinguish finding from implication, own the main limit, and finish on the broader idea the evidence supports. |
+| **Results** | Orient the audience to the evidence, say the headline number, explain its magnitude, and state any scope condition that affects its interpretation. |
+| **Conclusion** | Repeat the headline magnitude verbatim, state its scope, and finish on the implication the evidence supports. |
 
 ## Files and assets
 

@@ -24,7 +24,7 @@ Use this mode for a reading group, class, discussant slot, or any presentation o
 ## Build order
 
 1. Read `notes/<slug>.md` and the full paper source or extraction.
-2. Map the paper to the seven-block skeleton below; add an Analytical Model slide only when the paper has a formal model.
+2. Map the paper to the blocks below. Use the optional framing blocks only when they serve the talk. Add an Analytical Model slide only when the paper has a formal model.
 3. Reproduce the paper's evidence with exact numbers, uncertainty, labels, and captions.
 4. Build one self-contained Reveal.js file using the aesthetic and notes references.
 5. Render representative slides and inspect them. Reveal.js does not report clipping or overflow.
@@ -32,21 +32,22 @@ Use this mode for a reading group, class, discussant slot, or any presentation o
 
 ## Deck structure
 
-Target roughly 12–16 slides by expanding Results, not by inventing extra framing slides.
+Start with the audience's first encounter with the paper. Size the deck to the available speaking time and the evidence that needs a walkthrough.
 
 | Block | Purpose |
 |---|---|
-| **Title** | Full title, authors, affiliations, venue and year or “Working Paper.” Optionally preview the analysis structure or one headline finding. |
-| **Author Bios** | Use a compact author grid: photo, position, institution, PhD, and three to five research interests. |
-| **Outline** | List substantive analyses only. Omit motivation, data, identification, and the closing discussion. |
+| **Title** | Full title, authors, affiliations, venue and year or “Working Paper.” Introduce the paper and credit the authors. |
+| **Motivation** | Put the broad question or a concrete example on screen. Explain the phenomenon and its stakes in language a first-time listener can follow. |
+| **Author Bios** (optional) | Include biographical context when it helps the audience understand the work. Place detailed bios in backup. |
+| **Outline** (optional) | List the substantive analyses when a roadmap helps the audience follow a longer talk. |
 | **Data & Setting** | Show the setting, sample-construction pipeline with N and percentages, measurement, and any annotation or classification process. |
 | **Identification** | Explain challenge → strategy → assumptions and diagnostics. |
-| **Results** | Use one or more slides per substantive analysis. Reproduce the relevant figure or table and pair it with Description + Analysis. |
+| **Results** | Use one or more slides per substantive analysis. Reproduce the relevant figure or table, with a short takeaway and the labels needed to read it. |
 | **Takeaways & Discussion** | Give three takeaways and up to five questions that can sustain discussion. |
 
 Insert **Analytical Model** immediately before Results when needed. Explain the intuition and distinctive prediction, not every derivation.
 
-**Use one map.** Let the Outline name each substantive analysis with a short label and one sentence. Do not add another roadmap, “three levers,” or framing slide that repeats the same items.
+If an Outline helps, use one roadmap. Name each substantive analysis with a short label and keep that wording consistent in section labels.
 
 ## Content rules
 
@@ -54,7 +55,7 @@ Insert **Analytical Model** immediately before Results when needed. Explain the 
 
 - Keep each content-slide `<h2>` to one row, normally no more than about 33 characters.
 - Put `<p class="section-label">2 Is the remedy catching up?</p>` immediately above the content-slide `<h2>` (illustrative wording). Use the actual section name and any number from the talk map; for analyses listed in the Outline, match its labels and numbering. Keep the label unchanged within a section, omit it on the opening title slide, and label backup slides explicitly. The `<h2>` names the slide's topic without repeating a `Section:` prefix.
-- Name the analytical role and object, not the punchline. Put the estimate or conclusion in a result callout.
+- Use a concise title. State the result once, in the title or a callout where the audience can locate it quickly.
 - Avoid em-dash compound titles. Use a subtitle only when it adds information; let either the title or subtitle carry the underline, never both.
 - Add `class="dense"` only to text-heavy Outline, Identification, or closing slides. Do not shrink figure or results slides by hand.
 
@@ -80,10 +81,9 @@ Add a no-spillovers caveat for DiD and RCT when units are spatially or socially 
 ### Results
 
 - Show one finding per slide and reproduce the paper's figure or table.
-- Keep Description factual: pattern, point estimate, uncertainty, units, and sample.
-- Keep Analysis interpretive: economic magnitude, benchmark, mechanism, limitation, or identification consequence.
-- Never cite a number from a different table or figure as though it appeared on the current slide.
-- Put the headline number with units and benchmark in `.callout-result`; make the corresponding speaker note say that number aloud.
+- Use the figure or table and a short takeaway as the default. Add a Description or Analysis block only if it carries a necessary reading key or interpretation that needs more space.
+- Keep the headline estimate, units, benchmark, uncertainty, and material scope conditions visible through the evidence or a short label. Use `.callout-result` when the estimate needs a separate callout.
+- Cue the visual walkthrough in the notes. Move a secondary panel, metric, or table to backup if the speaker will skip it.
 - Split crowded multi-panel figures across slides instead of shrinking labels below projection size.
 
 ## Figures, tables, and author photos

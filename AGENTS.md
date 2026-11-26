@@ -139,7 +139,7 @@ Each session lives in its own directory; the index at `docs/reading_group/index.
 
 - **Editing base64-laden HTML** — never `Read` or `Edit` a slide HTML after multiple figures are embedded (a single full-resolution PNG data URI is 30–80k tokens, which trips Read's 25k-token cap). Instead, drop a one-shot Python patch in `.tmp_edit/` and run it. The `.tmp_edit/` directory is scratch — write, run, delete.
 - **Inspecting structure without choking** — `Grep` on text content works; raw `print` of the file does not. Use the line-skip pattern documented in `docs/skills/slide/SKILL.md` → "Agent process notes".
-- **Press-N speaker notes** — every section should carry `<aside class="notes">` with a 30–60s script (the script, not a recap of what's already on the slide). The init script in the template rebinds key 78 to toggle `body.show-notes`. CSS for the overlay is in `aesthetics.md` §7; per-slide content guide in `references/speaker-notes.md`.
+- **Press-N speaker notes** — use `<aside class="notes">` for brief speaking cues. Explain each substantive visible element and anchor planned claims in the slide. Orient listeners to axes or table headings before interpreting results. The template rebinds key 78 to toggle `body.show-notes`; see the overlay CSS in `aesthetics.md` §7 and the [report-mode notes guide](docs/skills/slide/references/speaker-notes.md).
 - **No Hokusai wave on slides** — that signature belongs to the personal-site brand only. Slides use a single electric-blue underline on the title-slide h2 as their accent moment.
 
 ---

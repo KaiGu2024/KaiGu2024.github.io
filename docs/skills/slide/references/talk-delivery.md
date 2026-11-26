@@ -22,7 +22,7 @@ Use the language of a clear explanation to a colleague. Prefer short clauses, co
 
 - Give one main thought per sentence. Split nested clauses, long lists, and parenthetical asides into sentences the listener can follow on first hearing.
 - Define an unfamiliar term before relying on it; say what a symbol measures rather than reading an equation character by character. Write numbers and units as they will be spoken, such as “3.2 percentage points,” not just “+3.2 pp.” Preserve exact estimates and qualifications.
-- Orient the audience before interpreting a visual: “Look at the estimates on the right” should identify an actual feature of that slide. Then explain what it means. Allow time for the audience to look.
+- Point to the feature you want the audience to find and give them time to look. Use the walkthrough below when introducing a figure or table.
 - Use a specific question or transition when the argument needs one: “How much of that information is new?” can connect coverage to novelty. Avoid a repetitive “Now let's move on to…” on every slide.
 - Let a key term recur when listeners need the reminder. Avoid ornamental synonyms, stock enthusiasm, invented audience reactions, and filler added merely to sound conversational.
 - Keep optional Q&A answers and stage directions distinguishable from words to say. Use paragraph spacing for ordinary pauses; reserve a short bracketed cue such as `[point to the right-hand estimate]` for an action that prose alone would not make clear.
@@ -53,9 +53,9 @@ The title follows its mode-specific opening. A conclusion closes the argument an
 
 ## Opening and motivation
 
-In `own` mode, use the title slide for the personal opening in [own-work.md](own-work.md#title-slide-opening): greet and thank the audience, introduce the presenter and affiliation, say the project title, and acknowledge coauthors. Start the substantive explanation on the first Motivation slide. In `report` mode, retain the brief title-slide hook specified in [speaker-notes.md](speaker-notes.md); do not describe someone else's paper as the presenter's joint work.
+In `own` mode, use the title slide for the personal opening in [own-work.md](own-work.md#title-slide-opening). In `report` mode, introduce the paper and credit the authors. Begin the substantive explanation on the first Motivation slide in both modes.
 
-Use the opening motivation to make the audience curious. Begin that substantive explanation with one verified, concrete object: a number, an institutional fact, a quotation, or a pattern in a graph. Explain the tension it creates and the question it raises. Keep this early enough to engage the audience within roughly the first ninety seconds, including the personal introduction in `own` mode. Avoid a list of methods or a spoken table of contents before the audience understands why the question matters.
+Assume the audience is hearing about the paper for the first time. Put a broad question or a verified concrete example on the first substantive slide. Explain who or what is affected, what is puzzling, and why the answer matters. Define paper-specific terms as they become necessary. Aim to establish this context within the opening ninety seconds, including the personal introduction in `own` mode.
 
 In motivation, explain why the question matters, why it is hard, and what the data or setting make possible, in that order. Name the tempting naive comparison and explain its specific failure in plain language. In `own` mode, follow Motivation with Literature Positioning, then present the formal research question and findings preview on one combined slide or two consecutive slides, depending on the length and complexity of the findings. Use sourced examples from the paper or permitted motivation evidence; illustrative numbers in a writing guide are not evidence for the deck.
 
@@ -63,11 +63,17 @@ In motivation, explain why the question matters, why it is hard, and what the da
 
 Describe what changed in the world before naming the estimator. Make the institutional rule, treatment variation, unit of observation, and comparison intuitive. Say what the data omit and why that matters. Explain an equation's purpose before asking the audience to parse its symbols.
 
-For each result, say the headline number aloud with units, the comparison or baseline, and available uncertainty. Direct attention to the relevant point, interval, or pattern in the visual, then explain what it means for the question. Do not read every coefficient or visible bullet. Distinguish evidence for a mechanism from evidence that rules out an alternative; describe null or imprecise heterogeneity with its uncertainty rather than treating it as proof of uniform effects.
+Walk the audience through the evidence before interpreting it:
+
+- For a figure, name the x-axis and y-axis with units, then explain the relevant groups, marks, reference lines, and uncertainty. Flag any change in scale across panels. For a diagram, explain what the main elements and arrows represent.
+- For a table, name what the rows and columns represent, identify the units and comparison group, and point to the cell or contrast that answers the question. Explain how the table shows uncertainty when it is reported.
+- Pause while the audience finds the relevant evidence. Say the headline number aloud with its units, comparison or baseline, and available uncertainty. Explain what the evidence means for the question. When the same visual conventions recur, give a brief reminder and explain anything that changed.
+
+Give each substantive panel, bullet, or comparison a purpose in the narration. Cover a related set of points or cells as a pattern. Move secondary evidence to backup, and give substantive claims and qualifications a visible anchor. State limitations directly and explain their consequence for interpretation. For example, “Each model was evaluated on a different sample, so the cross-model comparison is descriptive.” For an imprecise estimate, say which effects remain compatible with the interval.
 
 ## Anticipating objections and interruptions
 
-Identify the two or three most credible objections during preparation. For each, connect the concern to a sourced diagnostic, robustness result, or acknowledged limitation. Put the decisive evidence in the main talk and additional defenses in numbered backup slides. Where useful, include a short answer and a backup-slide reference in the relevant note; keep optional Q&A material separate from the planned narration so it does not inflate the speaking-time estimate.
+Identify two or three questions the evidence is likely to raise. Connect each to a sourced diagnostic, robustness result, or scope condition. Put the decisive evidence in the main talk and additional evidence in numbered backup slides. Keep optional Q&A answers and backup-slide references in the preparation notes.
 
 - Answer clarification questions in one sentence where possible.
 - Give an objection a short direct answer, then show the relevant evidence if needed and return to the interrupted argument. Aim for about thirty seconds initially; a necessary evidence detour can take longer.
@@ -89,4 +95,6 @@ Record the available time, whether Q&A is included, and a block-level time budge
 
 These are planning examples, not fixed durations. A short talk needs fewer claims and less supporting detail; speeding up the same long deck is not a substitute. Mark optional slides and a route to the conclusion in the preparation map. Adjust note lengths to the actual slide budget: a central result may need several minutes, while a title slide may need only a few sentences.
 
-Rehearse a coherent five-minute account of the question, comparison, finding, and implication. Then time the full talk aloud, honoring paragraph pauses, bold stress words, and time to read figures. Rewrite any sentence that needs an awkward breath, any bold phrase that sounds overplayed, and any transition that sounds scripted. Revise notes and slide count to fit; do not recover time by removing all pauses or accelerating through the main finding. A word count alone does not establish delivery time. Check that the talk can still reach its conclusion after a substantial interruption.
+Rehearse a five-minute account of the question, comparison, finding, and implication aloud. Use the opening and the hardest figure for three short delivery passes: very excited, sad, and upset. Keep the claims fixed and notice how your pace, pauses, and emphasis change. Carry the clearest choices into your natural delivery.
+
+Then time the full talk aloud with the actual slides. Look up at paragraph breaks, give the audience time to find the evidence, and practice pointing as you speak. Rewrite awkward sentences and cut secondary material to fit the slot. Check the route to the conclusion after a substantial interruption. Label a text review or estimated timing as such.

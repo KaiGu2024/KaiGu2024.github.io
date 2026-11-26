@@ -10,11 +10,11 @@ The styling for the overlay lives in `aesthetics.md` §7. The CSS scopes the vis
 
 ## The rule
 
-Notes are **brief speaking cues**, not a script or a recap of the slide. Read what's on the slide; *write what you'd add*. Use mainly keywords and short sentences. Each row should convey one distinct layer of the slide's message, so the presenter can scan the notes quickly.
+Use **brief speaking cues**. Cue what to point to, what it means, and when to pause. Use keywords and short sentences the presenter can scan quickly. Cover each substantive element on screen, and anchor each planned claim or example in a visible label, mark, or short phrase.
 
 Apply [talk-delivery.md](talk-delivery.md) for the opening, spoken interpretation, objections, closing, and time budget. Phrase claims as an appraisal of the authors' evidence. Keep detailed pacing plans and optional Q&A answers in `notes/<slug>.md`; only short reminders belong in the overlay.
 
-Use 3–5 rows when possible, and never more than fits the panel without scrolling (≤38vh). Typical layers are: **Hook / context**, **question or claim**, **evidence**, **interpretation / implication**, **caveat or transition**. Do not force every layer onto every slide. If the slide already has bullets, don't restate them; add framing, emphasis, interpretation, or pushback.
+Use 3–5 rows when possible, within the panel's height (≤38vh). Choose the cues the slide needs, such as context, a reading key, a finding, or its scope. Use prose to explain what a visible bullet means.
 
 ---
 
@@ -24,14 +24,15 @@ The table below is for a discussant appraising someone else's paper.
 
 | Slide | Note content |
 |---|---|
-| **Title** | (1) the 1-sentence hook — a concrete example or stat that lands the motivation in the first 20 seconds; (2) why *this* paper / why *this* audience cares; (3) where the talk is going (preview the punchline). |
+| **Title** | Introduce the paper and credit its authors. |
+| **Motivation** | Point to the broad question or example. Explain the stakes in plain language before introducing names for paper-specific concepts. |
 | **Author Bios** | One line per author *only if* there's something the audience should weight — known prior work, lab affiliation, methodological background. Skip names and titles; the slide already shows those. Often the right answer is no notes at all. |
 | **Outline** | A one-sentence trip plan: *"We'll spend most of the time on §3 and §5; §2 is fast."* Cue the audience on pacing so they know where the load is. |
-| **Data & Setting** | (1) the *real* reason for the dataset (often opportunistic, not principled — say it); (2) the single biggest sample-design concern *you* would push back on if you were the discussant; (3) which filtering step is most consequential — usually the one that drops the most informative units, not the largest one. |
-| **Identification** | Plain-English restatement of the identifying assumption — no jargon. Then: the most plausible *story* that would violate it, and whether the diagnostic the authors run actually addresses *that* story (often it addresses a different, easier one). |
+| **Data & Setting** | Explain why the authors used the dataset, how the sample was selected, and how the main restriction affects interpretation. |
+| **Identification** | Explain the identifying assumption in plain language. Describe the condition the diagnostic tests and what it establishes about the design. |
 | **Analytical Model** | The intuition behind the key comparative static, not the algebra. What does the model *predict* that a non-model account doesn't? |
-| **Results (each)** | (1) the headline number to read aloud, with units and benchmark — *"a 3.2 percentage-point increase, off a 12 pp base — about a 27% lift"*; (2) what to physically point at on the figure; (3) one sentence of interpretation; (4) the most likely audience pushback and how the paper handles it (or doesn't). |
-| **Mechanism / Heterogeneity** | The "so what" — what this slide *rules out*, not just what it shows. Mechanisms are credible when they kill alternatives, not when they're consistent with the headline. |
+| **Results (each)** | Say what the axes or table headings represent, point to one comparison, and pause while the audience finds it. Then say the headline number with units and uncertainty and explain its meaning and scope. |
+| **Mechanism / Heterogeneity** | Explain what the comparison reveals about the proposed mechanism or the groups studied. State remaining ambiguity directly. |
 | **Takeaways & Discussion** | The 30-second elevator version of the paper, then a bridge sentence into the discussion: which question you most want the room to take up first. |
 
 ---
@@ -42,19 +43,17 @@ Markup-light HTML — use one `<p>` per speaking unit, with a visible gap that c
 
 ```html
 <section>
-  <h2>Treatment raised purchases by 3.2 pp</h2>
-  <img src="{{data_uri}}" class="fig-full" alt="Event study, ±8 weeks">
-  <h3>Description</h3>
-  <ul><li><strong>Magnitude</strong>: +3.2 pp, 95% CI [2.1, 4.3]</li></ul>
+  <h2>Purchases rose by 3.2 percentage points</h2>
+  <img src="{{data_uri}}" class="fig-full" alt="Event study of purchase-rate differences by weeks since treatment, with confidence intervals">
+  <p>Week 0 · 95% CI [2.1, 4.3] percentage points</p>
   <aside class="notes">
-    <p><strong>3.2 percentage points</strong> above a 12-point baseline; about a <strong>27 percent increase</strong>.</p>
-    <p>Point to <strong>week zero</strong>: the estimates rise after a flat pre-period.</p>
-    <p><strong>Less precise after week four</strong> as the sample shrinks. If asked: balanced-panel check in Table A5.</p>
+    <p>Weeks since treatment on the horizontal axis. Estimated difference in purchase rates between treatment and control in percentage points on the vertical axis. Bars show 95% confidence intervals.</p>
+    <p>[Point to week zero and pause.] The difference is <strong>3.2 percentage points</strong>. The interval runs from 2.1 to 4.3 percentage points.</p>
   </aside>
 </section>
 ```
 
-The findings and table reference above are illustrative; replace them with verified evidence. Inspect both the N overlay and S speaker view when used: paragraph gaps and bold stress words must remain visible, with no clipping or scrolling needed for the planned cues. Keep optional Q&A reminders out of the timed narration.
+Use verified evidence in place of the illustrative finding. Inspect both the N overlay and S speaker view when used. Check that paragraph gaps and bold stress words are visible and that the cues fit without scrolling.
 
 ---
 
@@ -63,7 +62,6 @@ The findings and table reference above are illustrative; replace them with verif
 A few slide types are fine without an `<aside class="notes">`:
 
 - Author Bios where there's nothing notable beyond name + institution.
-- Pure-figure recap slides shown briefly in transition (rare).
 - The Outline slide, if pacing is obvious from the section sizes.
 
 In all other cases, ship the deck with notes populated — even one line is better than none. An empty `<aside class="notes">` is a code smell that the slide hasn't been rehearsed.

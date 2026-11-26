@@ -46,6 +46,8 @@ Before generating the deck, write `notes/<slug>.md` from the full source.
 
 Record figure and table provenance in the notes: source file or PDF page, caption, panel, and any conversion or crop. For external motivation evidence allowed in `own`, record the publisher, year, URL, and retrieval date.
 
+Assume the audience knows the field and is encountering the paper for the first time. Put the broad question or the concrete example that raises it on the first substantive slide. Explain why it matters before introducing paper-specific terms, data, or methods.
+
 For each substantive slide, connect its one claim to the evidence the audience needs to understand it. When choosing a layout example, match the communicative task—explaining identification, comparing estimates, showing a mechanism, or locating a contribution—and the amount of content. Preserve the selected mode's brand. Use the [shared figure-agent workflow](../visualization/guidance/figure-review.md) for newly drawn figures or substantial figure redesigns; the content map supplies the brief. Placing an existing verified figure or changing slide prose does not trigger five figure agents. Small figure edits use the guide's relevant-role path.
 
 ## Shared evidence rules
@@ -57,6 +59,7 @@ For each substantive slide, connect its one claim to the evidence the audience n
 - Define nontrivial symbols next to every displayed equation; omit familiar specifications when the identifying assumption and diagnostic are more useful to the audience.
 - State causal claims no more strongly than the design permits.
 - Use one claim per slide and keep visual text large enough for projection.
+- Keep slide text to the question or takeaway and the labels and qualifiers needed to read the evidence. Give secondary results their own slide or move them to backup.
 - Put a small section label above each content-slide title to orient the audience. Repeat the section's short name and, when numbered in the talk map, its number across all slides in that section. Omit it on the opening title slide; use an explicit Backup label for appendix slides. Keep it visually subordinate to the title and avoid repeating the section name in the title itself. Follow the selected mode's implementation.
 
 ## Keep audience-facing annotations selective
@@ -86,7 +89,8 @@ Apply the mode-specific checklist, then confirm:
 3. Figures, tables, equations, notes, and any necessary source lines render without clipping or overlap. Review visible annotations against the selective-annotation rule above; remove routine footers and redundant small text while retaining useful attribution and material qualifications. Section labels match the talk map, sit above content titles consistently, and leave enough room for the slide body.
 4. The title, densest content slide, each distinct results layout, and conclusion have been visually inspected.
    Inspect representative rendered notes too: paragraph gaps must be visible, bold stress words easy to find, and text readable without clipping. Apply the [adjacent-slide continuity review](references/talk-delivery.md#continuity-between-slides), checking each ending and following opening together before reading the notes continuously. Read the narration aloud when rehearsing, honoring the pauses and emphasis; distinguish a text review from an actual timed rehearsal.
-5. Temporary extraction, conversion, edit, and build artifacts have been removed from the delivery folder; retain source inputs needed for reproducibility and intended deliverables. Any retained inspection previews are confined to the ignored `exploratory/previews/slides/<slug>/` directory.
+5. Review each slide with its notes in both directions. Cue every substantive element the audience sees, and give every planned claim, example, result, and material qualification a visible anchor on that slide. A label, plotted point, or table entry can serve as the anchor. Greetings, transitions, thanks, and impromptu questions are part of delivery. Check that visual walkthroughs orient the audience before interpreting the evidence.
+6. Temporary extraction, conversion, edit, and build artifacts have been removed from the delivery folder; retain source inputs needed for reproducibility and intended deliverables. Any retained inspection previews are confined to the ignored `exploratory/previews/slides/<slug>/` directory.
 
 For figure revisions, use the shared [targeted repair procedure](../visualization/guidance/figure-review.md#repair-a-specific-defect). For slide text or layout repairs, re-render and recheck affected slides with the checklist above; these repairs do not launch the figure-agent workflow.
 
